@@ -1,0 +1,110 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: CloudinaryAssetMgmt
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
+    hoistGlobalSecurity: true
+  sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
+  tests:
+    generateTests: false
+    generateNewTests: true
+    skipResponseBodyAssertions: false
+mcp-typescript:
+  version: 0.6.0
+  additionalDependencies:
+    dependencies: {}
+    devDependencies: {}
+    peerDependencies: {}
+  additionalPackageJSON: {}
+  author: Cloudinary
+  authors:
+    - Cloudinary
+    - Speakeasy
+  baseErrorName: CloudinaryAssetMgmtError
+  clientServerStatusCodesAsErrors: true
+  cloudflareEnabled: false
+  constFieldsAlwaysOptional: true
+  defaultErrorName: CloudinaryAssetMgmtDefaultError
+  enableCustomCodeRegions: false
+  enableMCPServer: true
+  enableReactQuery: false
+  enumFormat: union
+  envVarPrefix: CLOUDINARY
+  flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
+  generateExamples: false
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inputModelSuffix: input
+  jsonpath: legacy
+  maxMethodParams: 100
+  mcpbManifestOverlay:
+    author:
+      name: Cloudinary
+      url: https://cloudinary.com
+    description: Cloudinary Asset Management MCP Server
+    display_name: Cloudinary Asset Management
+    icon: icon.png
+    keywords:
+      - cloudinary
+      - asset-management
+      - images
+      - videos
+      - media
+      - cdn
+      - transformation
+    long_description: A comprehensive MCP server for managing your Cloudinary assets. Upload, organize, search, and transform images, videos, and files with AI-powered tools.
+    user_config:
+      api_key:
+        description: Your Cloudinary API key. Found in Dashboard → Settings → Access Keys.
+        required: true
+        title: API Key
+        type: string
+      api_secret:
+        description: Your Cloudinary API secret. Found in Dashboard → Settings → Access Keys.
+        required: true
+        sensitive: true
+        title: API Secret
+        type: string
+      cloud_name:
+        description: Your Cloudinary cloud name (required). Find it in your Cloudinary Dashboard.
+        required: true
+        title: Cloud Name
+        type: string
+      region:
+        default: api
+        description: 'Regional endpoint for optimal performance. Options: api (US), api-eu (Europe), api-ap (Asia-Pacific).'
+        required: false
+        title: Region
+        type: string
+  methodArguments: require-security-and-request
+  moduleFormat: dual
+  outputModelSuffix: output
+  packageName: '@cloudinary/asset-management-mcp'
+  responseFormat: envelope
+  sseFlatResponse: true
+  templateVersion: v2
+  usageSDKInitImports: []
+  useIndexModules: true
