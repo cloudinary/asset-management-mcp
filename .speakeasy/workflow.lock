@@ -1,0 +1,51 @@
+speakeasyVersion: 1.658.2
+sources:
+    CloudinaryAssetMgmt-MCP-OAS:
+        sourceNamespace: cloudinary-asset-mgmt-mcp-oas
+        sourceRevisionDigest: sha256:69b2a04f9c771f0229f7ad118adafa8b327c61e13c114af4f9aa2db08d0ba9fe
+        sourceBlobDigest: sha256:f082f0266a9c0f594f93acf23669075cdefa3fa497b409cc15a877fff1e3e01f
+        tags:
+            - latest
+            - 0.3.4
+    CloudinaryAssetMgmt-OAS:
+        sourceNamespace: cloudinary-asset-mgmt-oas
+        sourceRevisionDigest: sha256:69b2a04f9c771f0229f7ad118adafa8b327c61e13c114af4f9aa2db08d0ba9fe
+        sourceBlobDigest: sha256:f082f0266a9c0f594f93acf23669075cdefa3fa497b409cc15a877fff1e3e01f
+        tags:
+            - latest
+            - 0.3.4
+targets:
+    cloudinary-asset-mgmt:
+        source: CloudinaryAssetMgmt-OAS
+        sourceNamespace: cloudinary-asset-mgmt-oas
+        sourceRevisionDigest: sha256:69b2a04f9c771f0229f7ad118adafa8b327c61e13c114af4f9aa2db08d0ba9fe
+        sourceBlobDigest: sha256:f082f0266a9c0f594f93acf23669075cdefa3fa497b409cc15a877fff1e3e01f
+    cloudinary-asset-mgmt-mcp:
+        source: CloudinaryAssetMgmt-MCP-OAS
+        sourceNamespace: cloudinary-asset-mgmt-mcp-oas
+        sourceRevisionDigest: sha256:69b2a04f9c771f0229f7ad118adafa8b327c61e13c114af4f9aa2db08d0ba9fe
+        sourceBlobDigest: sha256:f082f0266a9c0f594f93acf23669075cdefa3fa497b409cc15a877fff1e3e01f
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        CloudinaryAssetMgmt-MCP-OAS:
+            inputs:
+                - location: /Users/constantine/dev/cloudinary/server/config/open_api_3/build/public/asset-management/schema.yml
+            overlays:
+                - location: https://cloudinary.github.io/api-schemas/overlays/security-scheme-cloud-overlay.yaml
+                - location: https://cloudinary.github.io/api-schemas/overlays/cloud-name-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/mcp-disabled.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/remove-mcp-description.yml
+                - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/create-only-archive-mode-overlay.yml
+            registry:
+                location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-asset-mgmt-mcp-oas
+    targets:
+        cloudinary-asset-mgmt-mcp:
+            target: mcp-typescript
+            source: CloudinaryAssetMgmt-MCP-OAS
+            publish:
+                npm:
+                    token: $npm_token
