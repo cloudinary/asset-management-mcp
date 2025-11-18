@@ -1,9 +1,13 @@
 {
   "name": "@cloudinary/asset-management-mcp",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Cloudinary",
   "type": "module",
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudinary/asset-management-mcp.git"
+  },
   "bin": {
     "@cloudinary/asset-management-mcp": "bin/mcp-server.js",
     "mcp": "bin/mcp-server.js"

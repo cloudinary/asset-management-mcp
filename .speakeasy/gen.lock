@@ -5,8 +5,9 @@ management:
   docVersion: 0.3.5
   speakeasyVersion: 1.658.2
   generationVersion: 2.755.9
-  releaseVersion: 0.6.0
-  configChecksum: d1c3184bd178d0dfe6e43b535621c32f
+  releaseVersion: 0.6.1
+  configChecksum: 452a1698311d5aebae17c26fee92606d
+  repoURL: https://github.com/cloudinary/asset-management-mcp.git
   published: true
 features:
   mcp-typescript:
