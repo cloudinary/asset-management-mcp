@@ -27,22 +27,13 @@ export const GetUsageRequest$zodSchema: z.ZodType<
   date: z.string().date().optional(),
 });
 
-export type GetUsageResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  usage_response?: UsageResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type GetUsageResponse = ApiError | UsageResponse;
 
 export const GetUsageResponse$zodSchema: z.ZodType<
   GetUsageResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  usage_response: UsageResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  UsageResponse$zodSchema,
+]);

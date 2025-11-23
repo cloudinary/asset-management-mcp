@@ -68,22 +68,13 @@ export const UpdateFolderResponseBody$zodSchema: z.ZodType<
   to: z.lazy(() => To$zodSchema),
 }).describe("Folder renamed successfully");
 
-export type UpdateFolderResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: UpdateFolderResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type UpdateFolderResponse = UpdateFolderResponseBody | ApiError;
 
 export const UpdateFolderResponse$zodSchema: z.ZodType<
   UpdateFolderResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => UpdateFolderResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  z.lazy(() => UpdateFolderResponseBody$zodSchema),
+  ApiError$zodSchema,
+]);

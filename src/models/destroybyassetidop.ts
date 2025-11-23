@@ -20,22 +20,13 @@ export const DestroyByAssetIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DestroyByAssetIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  destroy_response?: DestroyResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DestroyByAssetIdResponse = DestroyResponse | ApiError;
 
 export const DestroyByAssetIdResponse$zodSchema: z.ZodType<
   DestroyByAssetIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  destroy_response: DestroyResponse$zodSchema.optional(),
-});
+> = z.union([
+  DestroyResponse$zodSchema,
+  ApiError$zodSchema,
+]);

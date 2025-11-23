@@ -60,22 +60,13 @@ export const ListRawFilesRequest$zodSchema: z.ZodType<
   type: ListStorageType$zodSchema.optional(),
 });
 
-export type ListRawFilesResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  list_response?: ListResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ListRawFilesResponse = ApiError | ListResponse;
 
 export const ListRawFilesResponse$zodSchema: z.ZodType<
   ListRawFilesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  list_response: ListResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  ListResponse$zodSchema,
+]);

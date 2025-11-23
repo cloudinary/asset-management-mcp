@@ -75,22 +75,13 @@ export const GetResourceByAssetIdRequest$zodSchema: z.ZodType<
   ),
 });
 
-export type GetResourceByAssetIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  info?: Info | undefined;
-  api_error?: ApiError | undefined;
-};
+export type GetResourceByAssetIdResponse = ApiError | Info;
 
 export const GetResourceByAssetIdResponse$zodSchema: z.ZodType<
   GetResourceByAssetIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  info: Info$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  Info$zodSchema,
+]);

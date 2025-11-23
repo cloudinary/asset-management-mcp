@@ -206,22 +206,13 @@ export const TextResponseBody$zodSchema: z.ZodType<
   width: z.number().int(),
 }).describe("Text image created successfully");
 
-export type TextResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: TextResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type TextResponse = TextResponseBody | ApiError;
 
 export const TextResponse$zodSchema: z.ZodType<
   TextResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => TextResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  z.lazy(() => TextResponseBody$zodSchema),
+  ApiError$zodSchema,
+]);

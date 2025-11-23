@@ -67,32 +67,22 @@ export const DownloadAssetRequest$zodSchema: z.ZodType<
   type: StorageType$zodSchema.optional(),
 });
 
-export type DownloadAssetResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  twoHundredImageWildcardBytes?: Uint8Array | string | undefined;
-  twoHundredVideoWildcardBytes?: Uint8Array | string | undefined;
-  twoHundredApplicationOctetStreamBytes?: Uint8Array | string | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DownloadAssetResponse =
+  | ApiError
+  | Uint8Array
+  | string
+  | Uint8Array
+  | string
+  | Uint8Array
+  | string;
 
 export const DownloadAssetResponse$zodSchema: z.ZodType<
   DownloadAssetResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  twoHundredApplicationOctetStreamBytes: z.string().base64().describe(
-    "Asset downloaded successfully",
-  ).optional(),
-  twoHundredImageWildcardBytes: z.string().base64().describe(
-    "Asset downloaded successfully",
-  ).optional(),
-  twoHundredVideoWildcardBytes: z.string().base64().describe(
-    "Asset downloaded successfully",
-  ).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.string().base64().describe("Asset downloaded successfully"),
+  z.string().base64().describe("Asset downloaded successfully"),
+  z.string().base64().describe("Asset downloaded successfully"),
+]);

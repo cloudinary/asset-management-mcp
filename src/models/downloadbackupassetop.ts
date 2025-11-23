@@ -130,52 +130,29 @@ export const DownloadBackupAssetBadRequestResponseBody$zodSchema: z.ZodType<
   error: z.lazy(() => BadRequestError$zodSchema).optional(),
 }).describe("Bad request");
 
-export type DownloadBackupAssetResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  twoHundredApplicationOctetStreamBytes?: Uint8Array | string | undefined;
-  twoHundredImageWildcardBytes?: Uint8Array | string | undefined;
-  twoHundredVideoWildcardBytes?: Uint8Array | string | undefined;
-  twoHundredTextPlainBytes?: Uint8Array | string | undefined;
-  fourHundredApplicationJsonObject?:
-    | DownloadBackupAssetBadRequestResponseBody
-    | undefined;
-  fourHundredAndOneApplicationJsonObject?:
-    | DownloadBackupAssetUnauthorizedResponseBody
-    | undefined;
-  fourHundredAndFourApplicationJsonObject?:
-    | DownloadBackupAssetNotFoundResponseBody
-    | undefined;
-};
+export type DownloadBackupAssetResponse =
+  | Uint8Array
+  | string
+  | Uint8Array
+  | string
+  | Uint8Array
+  | string
+  | Uint8Array
+  | string
+  | DownloadBackupAssetBadRequestResponseBody
+  | DownloadBackupAssetUnauthorizedResponseBody
+  | DownloadBackupAssetNotFoundResponseBody;
 
 export const DownloadBackupAssetResponse$zodSchema: z.ZodType<
   DownloadBackupAssetResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  fourHundredAndFourApplicationJsonObject: z.lazy(() =>
-    DownloadBackupAssetNotFoundResponseBody$zodSchema
-  ).optional(),
-  fourHundredAndOneApplicationJsonObject: z.lazy(() =>
-    DownloadBackupAssetUnauthorizedResponseBody$zodSchema
-  ).optional(),
-  fourHundredApplicationJsonObject: z.lazy(() =>
-    DownloadBackupAssetBadRequestResponseBody$zodSchema
-  ).optional(),
-  twoHundredApplicationOctetStreamBytes: z.string().base64().describe(
-    "Asset backup downloaded successfully",
-  ).optional(),
-  twoHundredImageWildcardBytes: z.string().base64().describe(
-    "Asset backup downloaded successfully",
-  ).optional(),
-  twoHundredTextPlainBytes: z.string().base64().describe(
-    "Asset backup downloaded successfully",
-  ).optional(),
-  twoHundredVideoWildcardBytes: z.string().base64().describe(
-    "Asset backup downloaded successfully",
-  ).optional(),
-});
+> = z.union([
+  z.string().base64().describe("Asset backup downloaded successfully"),
+  z.string().base64().describe("Asset backup downloaded successfully"),
+  z.string().base64().describe("Asset backup downloaded successfully"),
+  z.string().base64().describe("Asset backup downloaded successfully"),
+  z.lazy(() => DownloadBackupAssetBadRequestResponseBody$zodSchema),
+  z.lazy(() => DownloadBackupAssetUnauthorizedResponseBody$zodSchema),
+  z.lazy(() => DownloadBackupAssetNotFoundResponseBody$zodSchema),
+]);

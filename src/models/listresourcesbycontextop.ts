@@ -46,22 +46,13 @@ export const ListResourcesByContextRequest$zodSchema: z.ZodType<
   value: z.string().describe("Context value to filter by.").optional(),
 });
 
-export type ListResourcesByContextResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  list_response?: ListResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ListResourcesByContextResponse = ApiError | ListResponse;
 
 export const ListResourcesByContextResponse$zodSchema: z.ZodType<
   ListResourcesByContextResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  list_response: ListResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  ListResponse$zodSchema,
+]);

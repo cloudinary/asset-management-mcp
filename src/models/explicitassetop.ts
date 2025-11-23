@@ -244,22 +244,13 @@ export const ExplicitAssetRequest$zodSchema: z.ZodType<
   resource_type: ResourceType$zodSchema,
 });
 
-export type ExplicitAssetResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  upload_response?: UploadResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ExplicitAssetResponse = ApiError | UploadResponse;
 
 export const ExplicitAssetResponse$zodSchema: z.ZodType<
   ExplicitAssetResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  upload_response: UploadResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  UploadResponse$zodSchema,
+]);

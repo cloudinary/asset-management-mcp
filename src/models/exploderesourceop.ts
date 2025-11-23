@@ -96,22 +96,13 @@ export const ExplodeResourceResponseBody$zodSchema: z.ZodType<
   status: ExplodeResourceStatus$zodSchema.optional(),
 }).describe("Explode operation started successfully");
 
-export type ExplodeResourceResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: ExplodeResourceResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ExplodeResourceResponse = ApiError | ExplodeResourceResponseBody;
 
 export const ExplodeResourceResponse$zodSchema: z.ZodType<
   ExplodeResourceResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => ExplodeResourceResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.lazy(() => ExplodeResourceResponseBody$zodSchema),
+]);

@@ -38,22 +38,13 @@ export const SearchFoldersPostRequest$zodSchema: z.ZodType<
   sort_by: z.array(z.string()).optional(),
 });
 
-export type SearchFoldersPostResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  folders_search_response?: FoldersSearchResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type SearchFoldersPostResponse = FoldersSearchResponse | ApiError;
 
 export const SearchFoldersPostResponse$zodSchema: z.ZodType<
   SearchFoldersPostResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  folders_search_response: FoldersSearchResponse$zodSchema.optional(),
-});
+> = z.union([
+  FoldersSearchResponse$zodSchema,
+  ApiError$zodSchema,
+]);

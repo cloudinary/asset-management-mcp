@@ -59,23 +59,15 @@ export const DeleteAssetRelationsByPublicIdRequest$zodSchema: z.ZodType<
   type: StorageTypeParameter$zodSchema.default("upload"),
 });
 
-export type DeleteAssetRelationsByPublicIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  asset_relations_delete_response?: AssetRelationsDeleteResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DeleteAssetRelationsByPublicIdResponse =
+  | ApiError
+  | AssetRelationsDeleteResponse;
 
 export const DeleteAssetRelationsByPublicIdResponse$zodSchema: z.ZodType<
   DeleteAssetRelationsByPublicIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  asset_relations_delete_response: AssetRelationsDeleteResponse$zodSchema
-    .optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  AssetRelationsDeleteResponse$zodSchema,
+]);

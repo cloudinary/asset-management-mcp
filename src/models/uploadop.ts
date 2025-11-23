@@ -54,29 +54,23 @@ export const UploadResponseBody$zodSchema: z.ZodType<
   UploadResponse$zodSchema,
 ]).describe("Successful upload");
 
-export type UploadResponseResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  oneOf?: AsyncUploadResponse | UploadResponse | undefined;
-  html_redirect?: string | undefined;
-  api_error?: ApiError | undefined;
-};
+export type UploadResponseResponse =
+  | ApiError
+  | AsyncUploadResponse
+  | UploadResponse
+  | string;
 
 export const UploadResponseResponse$zodSchema: z.ZodType<
   UploadResponseResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  html_redirect: z.string().describe(
-    "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
-  ).optional(),
-  oneOf: z.union([
+> = z.union([
+  ApiError$zodSchema,
+  z.union([
     AsyncUploadResponse$zodSchema,
     UploadResponse$zodSchema,
-  ]).optional(),
-});
+  ]),
+  z.string().describe(
+    "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
+  ),
+]);

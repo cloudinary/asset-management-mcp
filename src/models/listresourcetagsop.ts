@@ -56,22 +56,13 @@ export const ListResourceTagsResponseBody$zodSchema: z.ZodType<
   tags: z.array(z.string()).optional(),
 }).describe("List of tags retrieved");
 
-export type ListResourceTagsResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: ListResourceTagsResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ListResourceTagsResponse = ApiError | ListResourceTagsResponseBody;
 
 export const ListResourceTagsResponse$zodSchema: z.ZodType<
   ListResourceTagsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => ListResourceTagsResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.lazy(() => ListResourceTagsResponseBody$zodSchema),
+]);
