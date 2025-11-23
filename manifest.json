@@ -30,18 +30,10 @@
         "args": [
           "${__dirname}/bin/mcp-server.js",
           "start",
-          "--server-index",
-          "${user_config.server_index}",
-          "--region",
-          "${user_config.region}",
-          "--api-host",
-          "${user_config.api_host}",
           "--api-key",
           "${user_config.api_key}",
           "--api-secret",
           "${user_config.api_secret}",
-          "--oauth2",
-          "${user_config.oauth2}",
           "--cloud-name",
           "${user_config.cloud_name}"
         ]
@@ -131,15 +123,22 @@
       {
         "name": "visual-search-assets",
         "description": "Finds images in your asset library based on visual similarity or content\n\nReturns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:\n- Provide a URL of an image\n- Specify the public ID or asset ID of an existing image\n- Provide a textual description\n"
+      },
+      {
+        "name": "get-tx-reference",
+        "description": "Get Cloudinary transformation rules documentation from official docs."
+      },
+      {
+        "name": "transform-asset",
+        "description": "Generate derived transformations for existing assets using Cloudinary's explicit API with eager transformations."
       }
     ],
   "user_config": {
-      "api_host": {
-        "type": "string",
-        "title": "host",
-        "description": "API host domain. Templated in https://{host}.",
-        "required": false,
-        "default": "api.cloudinary.com"
+      "cloud_name": {
+        "description": "Your Cloudinary cloud name (required). Find it in your Cloudinary Dashboard.",
+        "required": true,
+        "title": "Cloud Name",
+        "type": "string"
       },
       "api_key": {
         "description": "Your Cloudinary API key. Found in Dashboard → Settings → Access Keys.",
@@ -154,34 +153,6 @@
         "sensitive": true,
         "title": "API Secret",
         "type": "string"
-      },
-      "cloud_name": {
-        "description": "Your Cloudinary cloud name (required). Find it in your Cloudinary Dashboard.",
-        "required": true,
-        "title": "Cloud Name",
-        "type": "string"
-      },
-      "oauth2": {
-        "type": "string",
-        "title": "oauth2",
-        "description": "The oauth2 to use for the request",
-        "required": false,
-        "sensitive": true
-      },
-      "region": {
-        "default": "api",
-        "description": "Regional endpoint for optimal performance. Options: api (US), api-eu (Europe), api-ap (Asia-Pacific).",
-        "required": false,
-        "title": "Region",
-        "type": "string"
-      },
-      "server_index": {
-        "type": "number",
-        "title": "Server Index",
-        "description": "Available servers: [https://{region}.cloudinary.com, https://{host}]",
-        "required": false,
-        "default": "0",
-        "max": 1
       }
     },
   "version": "0.6.2"
