@@ -103,7 +103,7 @@ mcp-typescript:
   moduleFormat: dual
   outputModelSuffix: output
   packageName: '@cloudinary/asset-management-mcp'
-  responseFormat: envelope
+  responseFormat: flat
   sseFlatResponse: true
   templateVersion: v2
   usageSDKInitImports: []
