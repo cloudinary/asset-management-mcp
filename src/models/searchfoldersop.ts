@@ -71,22 +71,13 @@ export const SearchFoldersRequest$zodSchema: z.ZodType<
   ).optional(),
 });
 
-export type SearchFoldersResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  folders_search_response?: FoldersSearchResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type SearchFoldersResponse = FoldersSearchResponse | ApiError;
 
 export const SearchFoldersResponse$zodSchema: z.ZodType<
   SearchFoldersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  folders_search_response: FoldersSearchResponse$zodSchema.optional(),
-});
+> = z.union([
+  FoldersSearchResponse$zodSchema,
+  ApiError$zodSchema,
+]);

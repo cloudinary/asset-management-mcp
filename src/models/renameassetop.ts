@@ -67,22 +67,13 @@ export const RenameAssetRequest$zodSchema: z.ZodType<
   resource_type: ResourceType$zodSchema,
 });
 
-export type RenameAssetResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  upload_response?: UploadResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type RenameAssetResponse = ApiError | UploadResponse;
 
 export const RenameAssetResponse$zodSchema: z.ZodType<
   RenameAssetResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  upload_response: UploadResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  UploadResponse$zodSchema,
+]);

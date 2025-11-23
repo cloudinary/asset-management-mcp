@@ -20,22 +20,13 @@ export const DerivedDestroyGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DerivedDestroyResponseResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  DerivedDestroyResponse?: DerivedDestroyResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DerivedDestroyResponseResponse = ApiError | DerivedDestroyResponse;
 
 export const DerivedDestroyResponseResponse$zodSchema: z.ZodType<
   DerivedDestroyResponseResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  DerivedDestroyResponse: DerivedDestroyResponse$zodSchema.optional(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  DerivedDestroyResponse$zodSchema,
+]);

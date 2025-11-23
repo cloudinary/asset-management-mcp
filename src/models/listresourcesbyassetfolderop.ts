@@ -46,22 +46,13 @@ export const ListResourcesByAssetFolderRequest$zodSchema: z.ZodType<
   resource_type: ResourceType$zodSchema.optional(),
 });
 
-export type ListResourcesByAssetFolderResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  list_response?: ListResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ListResourcesByAssetFolderResponse = ApiError | ListResponse;
 
 export const ListResourcesByAssetFolderResponse$zodSchema: z.ZodType<
   ListResourcesByAssetFolderResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  list_response: ListResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  ListResponse$zodSchema,
+]);

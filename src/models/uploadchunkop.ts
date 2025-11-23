@@ -72,34 +72,25 @@ export const UploadChunkResponseBody$zodSchema: z.ZodType<
   "Chunk upload successful. For all but the final chunk, this returns upload status. For the final chunk, it returns the complete upload response.",
 );
 
-export type UploadChunkResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  oneOf?:
-    | AsyncUploadResponse
-    | NonFinalChunkUploadResponse
-    | UploadResponse
-    | undefined;
-  html_redirect?: string | undefined;
-  api_error?: ApiError | undefined;
-};
+export type UploadChunkResponse =
+  | ApiError
+  | AsyncUploadResponse
+  | NonFinalChunkUploadResponse
+  | UploadResponse
+  | string;
 
 export const UploadChunkResponse$zodSchema: z.ZodType<
   UploadChunkResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  html_redirect: z.string().describe(
-    "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
-  ).optional(),
-  oneOf: z.union([
+> = z.union([
+  ApiError$zodSchema,
+  z.union([
     AsyncUploadResponse$zodSchema,
     NonFinalChunkUploadResponse$zodSchema,
     UploadResponse$zodSchema,
-  ]).optional(),
-});
+  ]),
+  z.string().describe(
+    "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
+  ),
+]);

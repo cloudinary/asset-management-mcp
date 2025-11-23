@@ -28,22 +28,13 @@ export const ListRootFoldersRequest$zodSchema: z.ZodType<
   unknown
 > = z.object({});
 
-export type ListRootFoldersResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  folders_list_response?: FoldersListResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type ListRootFoldersResponse = FoldersListResponse | ApiError;
 
 export const ListRootFoldersResponse$zodSchema: z.ZodType<
   ListRootFoldersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  folders_list_response: FoldersListResponse$zodSchema.optional(),
-});
+> = z.union([
+  FoldersListResponse$zodSchema,
+  ApiError$zodSchema,
+]);

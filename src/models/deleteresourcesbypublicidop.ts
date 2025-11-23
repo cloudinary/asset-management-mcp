@@ -55,23 +55,15 @@ export const DeleteResourcesByPublicIdResponseBody$zodSchema: z.ZodType<
   unknown
 > = z.object({}).describe("Resource successfully deleted");
 
-export type DeleteResourcesByPublicIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: DeleteResourcesByPublicIdResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DeleteResourcesByPublicIdResponse =
+  | ApiError
+  | DeleteResourcesByPublicIdResponseBody;
 
 export const DeleteResourcesByPublicIdResponse$zodSchema: z.ZodType<
   DeleteResourcesByPublicIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => DeleteResourcesByPublicIdResponseBody$zodSchema)
-    .optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.lazy(() => DeleteResourcesByPublicIdResponseBody$zodSchema),
+]);

@@ -46,22 +46,13 @@ export const UpdateResourceByPublicIdRequest$zodSchema: z.ZodType<
   type: ExtendedStorageType$zodSchema,
 });
 
-export type UpdateResourceByPublicIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  info?: Info | undefined;
-  api_error?: ApiError | undefined;
-};
+export type UpdateResourceByPublicIdResponse = ApiError | Info;
 
 export const UpdateResourceByPublicIdResponse$zodSchema: z.ZodType<
   UpdateResourceByPublicIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  info: Info$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  Info$zodSchema,
+]);

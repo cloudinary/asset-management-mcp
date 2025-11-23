@@ -38,24 +38,17 @@ export const RestoreResourcesByAssetIDsRequest$zodSchema: z.ZodType<
   versions: z.array(z.string()).optional(),
 });
 
-export type RestoreResourcesByAssetIDsResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  restore_response?: { [k: string]: RestoreResponseUnion } | undefined;
-  api_error?: ApiError | undefined;
+export type RestoreResourcesByAssetIDsResponse = ApiError | {
+  [k: string]: RestoreResponseUnion;
 };
 
 export const RestoreResourcesByAssetIDsResponse$zodSchema: z.ZodType<
   RestoreResourcesByAssetIDsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  restore_response: z.record(RestoreResponseUnion$zodSchema).describe(
+> = z.union([
+  ApiError$zodSchema,
+  z.record(RestoreResponseUnion$zodSchema).describe(
     "Resources restored successfully",
-  ).optional(),
-});
+  ),
+]);

@@ -45,22 +45,13 @@ export const CreateFolderResponseBody$zodSchema: z.ZodType<
   success: z.boolean().optional(),
 }).describe("Folder created successfully");
 
-export type CreateFolderResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: CreateFolderResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type CreateFolderResponse = ApiError | CreateFolderResponseBody;
 
 export const CreateFolderResponse$zodSchema: z.ZodType<
   CreateFolderResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => CreateFolderResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.lazy(() => CreateFolderResponseBody$zodSchema),
+]);

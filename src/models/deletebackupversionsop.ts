@@ -89,32 +89,17 @@ export const DeleteBackupVersionsResponseBody1$zodSchema: z.ZodType<
   deleted_version_ids: z.array(z.string()),
 }).describe("Backup versions successfully deleted");
 
-export type DeleteBackupVersionsResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  twoHundredApplicationJsonObject?:
-    | DeleteBackupVersionsResponseBody1
-    | undefined;
-  twoHundredAndSevenApplicationJsonObject?:
-    | DeleteBackupVersionsResponseBody2
-    | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DeleteBackupVersionsResponse =
+  | DeleteBackupVersionsResponseBody1
+  | DeleteBackupVersionsResponseBody2
+  | ApiError;
 
 export const DeleteBackupVersionsResponse$zodSchema: z.ZodType<
   DeleteBackupVersionsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  twoHundredAndSevenApplicationJsonObject: z.lazy(() =>
-    DeleteBackupVersionsResponseBody2$zodSchema
-  ).optional(),
-  twoHundredApplicationJsonObject: z.lazy(() =>
-    DeleteBackupVersionsResponseBody1$zodSchema
-  ).optional(),
-});
+> = z.union([
+  z.lazy(() => DeleteBackupVersionsResponseBody1$zodSchema),
+  z.lazy(() => DeleteBackupVersionsResponseBody2$zodSchema),
+  ApiError$zodSchema,
+]);

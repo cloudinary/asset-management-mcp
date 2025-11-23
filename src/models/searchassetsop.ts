@@ -17,22 +17,13 @@ export const SearchAssetsGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type SearchAssetsResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  search_response?: SearchResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type SearchAssetsResponse = ApiError | SearchResponse;
 
 export const SearchAssetsResponse$zodSchema: z.ZodType<
   SearchAssetsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  search_response: SearchResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  SearchResponse$zodSchema,
+]);

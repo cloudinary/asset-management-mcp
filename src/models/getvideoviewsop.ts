@@ -99,22 +99,13 @@ export const GetVideoViewsResponseBody$zodSchema: z.ZodType<
   request_id: z.string().optional(),
 }).describe("List of video views retrieved");
 
-export type GetVideoViewsResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: GetVideoViewsResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type GetVideoViewsResponse = ApiError | GetVideoViewsResponseBody;
 
 export const GetVideoViewsResponse$zodSchema: z.ZodType<
   GetVideoViewsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => GetVideoViewsResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.lazy(() => GetVideoViewsResponseBody$zodSchema),
+]);

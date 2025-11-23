@@ -59,22 +59,15 @@ export const CreateAssetRelationsByPublicIdRequest$zodSchema: z.ZodType<
   type: StorageTypeParameter$zodSchema.default("upload"),
 });
 
-export type CreateAssetRelationsByPublicIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  asset_relations_response?: AssetRelationsResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type CreateAssetRelationsByPublicIdResponse =
+  | ApiError
+  | AssetRelationsResponse;
 
 export const CreateAssetRelationsByPublicIdResponse$zodSchema: z.ZodType<
   CreateAssetRelationsByPublicIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  asset_relations_response: AssetRelationsResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  AssetRelationsResponse$zodSchema,
+]);

@@ -50,22 +50,15 @@ export const CreateAssetRelationsByAssetIdRequest$zodSchema: z.ZodType<
   ),
 });
 
-export type CreateAssetRelationsByAssetIdResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  asset_relations_response?: AssetRelationsResponse | undefined;
-  api_error?: ApiError | undefined;
-};
+export type CreateAssetRelationsByAssetIdResponse =
+  | ApiError
+  | AssetRelationsResponse;
 
 export const CreateAssetRelationsByAssetIdResponse$zodSchema: z.ZodType<
   CreateAssetRelationsByAssetIdResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  asset_relations_response: AssetRelationsResponse$zodSchema.optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  AssetRelationsResponse$zodSchema,
+]);

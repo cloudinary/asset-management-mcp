@@ -169,26 +169,18 @@ export const GenerateArchiveResponseBody$zodSchema: z.ZodType<
   version_id: z.string().optional(),
 }).describe("Archive successfully generated or downloaded");
 
-export type GenerateArchiveResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  bytes?: Uint8Array | string | undefined;
-  object?: GenerateArchiveResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type GenerateArchiveResponse =
+  | ApiError
+  | Uint8Array
+  | string
+  | GenerateArchiveResponseBody;
 
 export const GenerateArchiveResponse$zodSchema: z.ZodType<
   GenerateArchiveResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  bytes: z.string().base64().describe(
-    "Archive successfully generated or downloaded",
-  ).optional(),
-  object: z.lazy(() => GenerateArchiveResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.string().base64().describe("Archive successfully generated or downloaded"),
+  z.lazy(() => GenerateArchiveResponseBody$zodSchema),
+]);

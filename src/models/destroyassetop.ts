@@ -59,22 +59,13 @@ export const DestroyAssetResponseBody$zodSchema: z.ZodType<
   result: DestroyAssetResult$zodSchema.optional(),
 }).describe("Asset/resource destroyed successfully");
 
-export type DestroyAssetResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: DestroyAssetResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DestroyAssetResponse = ApiError | DestroyAssetResponseBody;
 
 export const DestroyAssetResponse$zodSchema: z.ZodType<
   DestroyAssetResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => DestroyAssetResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  ApiError$zodSchema,
+  z.lazy(() => DestroyAssetResponseBody$zodSchema),
+]);

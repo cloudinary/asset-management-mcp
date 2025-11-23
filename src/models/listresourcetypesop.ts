@@ -73,28 +73,15 @@ export const ListResourceTypesResponseBody$zodSchema: z.ZodType<
   resource_types: z.array(ListResourceTypesResourceType$zodSchema).optional(),
 }).describe("The list of resource types.");
 
-export type ListResourceTypesResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  twoHundredApplicationJsonObject?: ListResourceTypesResponseBody | undefined;
-  fourHundredAndOneApplicationJsonObject?:
-    | ListResourceTypesUnauthorizedResponseBody
-    | undefined;
-};
+export type ListResourceTypesResponse =
+  | ListResourceTypesUnauthorizedResponseBody
+  | ListResourceTypesResponseBody;
 
 export const ListResourceTypesResponse$zodSchema: z.ZodType<
   ListResourceTypesResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  fourHundredAndOneApplicationJsonObject: z.lazy(() =>
-    ListResourceTypesUnauthorizedResponseBody$zodSchema
-  ).optional(),
-  twoHundredApplicationJsonObject: z.lazy(() =>
-    ListResourceTypesResponseBody$zodSchema
-  ).optional(),
-});
+> = z.union([
+  z.lazy(() => ListResourceTypesUnauthorizedResponseBody$zodSchema),
+  z.lazy(() => ListResourceTypesResponseBody$zodSchema),
+]);

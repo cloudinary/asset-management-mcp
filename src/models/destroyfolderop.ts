@@ -39,22 +39,13 @@ export const DestroyFolderResponseBody$zodSchema: z.ZodType<
   deleted: z.array(z.string()),
 }).describe("Folder deleted successfully");
 
-export type DestroyFolderResponse = {
-  ContentType: string;
-  StatusCode: number;
-  RawResponse: Response;
-  object?: DestroyFolderResponseBody | undefined;
-  api_error?: ApiError | undefined;
-};
+export type DestroyFolderResponse = DestroyFolderResponseBody | ApiError;
 
 export const DestroyFolderResponse$zodSchema: z.ZodType<
   DestroyFolderResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  ContentType: z.string(),
-  RawResponse: z.instanceof(Response),
-  StatusCode: z.number().int(),
-  api_error: ApiError$zodSchema.optional(),
-  object: z.lazy(() => DestroyFolderResponseBody$zodSchema).optional(),
-});
+> = z.union([
+  z.lazy(() => DestroyFolderResponseBody$zodSchema),
+  ApiError$zodSchema,
+]);
