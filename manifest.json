@@ -5,6 +5,8 @@
   },
   "description": "Cloudinary Asset Management MCP Server",
   "display_name": "Cloudinary Asset Management",
+  "documentation": "https://cloudinary.com/documentation/cloudinary_llm_mcp",
+  "homepage": "https://github.com/cloudinary/asset-management-mcp",
   "icon": "icon.png",
   "keywords": [
     "cloudinary",
@@ -15,10 +17,18 @@
     "cdn",
     "transformation"
   ],
+  "license": "MIT",
   "long_description": "A comprehensive MCP server for managing your Cloudinary assets. Upload, organize, search, and transform images, videos, and files with AI-powered tools.",
   "manifest_version": "0.3",
   "name": "@cloudinary/asset-management-mcp",
+  "privacy_policies": [
+    "https://cloudinary.com/privacy"
+  ],
   "prompts": [],
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/cloudinary/asset-management-mcp.git"
+    },
   "screenshots": [
       "icon.png"
     ],
