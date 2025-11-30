@@ -48,6 +48,7 @@ mcp-typescript:
   envVarPrefix: CLOUDINARY
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
+  formStringArrayEncodeMode: encoded-string
   generateExamples: false
   imports:
     option: openapi
@@ -57,6 +58,7 @@ mcp-typescript:
       operations: models/operations
       shared: models/components
       webhooks: models/webhooks
+  inferUnionDiscriminators: false
   inputModelSuffix: input
   jsonpath: legacy
   maxMethodParams: 100
@@ -66,6 +68,8 @@ mcp-typescript:
       url: https://cloudinary.com
     description: Cloudinary Asset Management MCP Server
     display_name: Cloudinary Asset Management
+    documentation: https://cloudinary.com/documentation/cloudinary_llm_mcp
+    homepage: https://github.com/cloudinary/asset-management-mcp
     icon: icon.png
     keywords:
       - cloudinary
@@ -75,7 +79,13 @@ mcp-typescript:
       - media
       - cdn
       - transformation
+    license: MIT
     long_description: A comprehensive MCP server for managing your Cloudinary assets. Upload, organize, search, and transform images, videos, and files with AI-powered tools.
+    privacy_policies:
+      - https://cloudinary.com/privacy
+    repository:
+      type: git
+      url: https://github.com/cloudinary/asset-management-mcp.git
     user_config:
       api_key:
         description: Your Cloudinary API key. Found in Dashboard → Settings → Access Keys.
@@ -101,6 +111,7 @@ mcp-typescript:
         type: string
   methodArguments: require-security-and-request
   moduleFormat: dual
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageName: '@cloudinary/asset-management-mcp'
   responseFormat: flat

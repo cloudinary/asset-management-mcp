@@ -266,6 +266,40 @@ The MCP server uses your Cloudinary API key and secret for authentication:
 
 The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI application to discover and invoke the available tools for uploading, managing, searching, and transforming your media assets.
 
+### Usage Examples
+
+#### Example 1: Upload and Transform an Image
+
+```
+1. Upload a local image: "Upload file:///Users/me/photo.jpg to Cloudinary as 'hero-image'"
+2. Transform it: "Transform asset 'hero-image' with transformations 'c_fill,w_800,h_600/e_sharpen'"
+3. Get details: "Show me details for asset with ID [asset-id]"
+```
+
+#### Example 2: Search and Organize Assets
+
+```
+1. Search for images: "Find all images with tag 'product' uploaded in the last 7 days"
+2. Create folder: "Create a new folder called 'summer-2024-products'"
+3. List assets: "Show me all video assets in the 'marketing' folder"
+```
+
+#### Example 3: Generate Archive
+
+```
+1. Get transformation docs: "Show me the Cloudinary transformation reference"
+2. Apply transformations: "Transform 'banner' asset with 'c_scale,w_1200/f_auto,q_auto'"
+3. Create archive: "Generate a ZIP archive of all images with tag 'export-ready'"
+```
+
+#### Example 4: Asset Management Workflow
+
+```
+1. Upload multiple files: "Upload all images from folder /assets/new-products/"
+2. Add tags: "Update asset [asset-id] and add tags 'featured,homepage'"
+3. Get usage stats: "Show my Cloudinary account usage statistics"
+```
+
 ## Custom Tools
 
 This MCP server includes two powerful custom tools:
