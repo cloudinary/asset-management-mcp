@@ -13,14 +13,18 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
     hoistGlobalSecurity: true
+  inferSSEOverload: true
   sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
+  persistentEdits: {}
   tests:
     generateTests: false
     generateNewTests: true
@@ -32,6 +36,11 @@ mcp-typescript:
     devDependencies: {}
     peerDependencies: {}
   additionalPackageJSON: {}
+  advancedFlags:
+    - apiHost
+    - oauth2
+    - region
+    - serverIndex
   author: Cloudinary
   authors:
     - Cloudinary
@@ -50,6 +59,7 @@ mcp-typescript:
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string
   generateExamples: false
+  gramEnabled: false
   imports:
     option: openapi
     paths:
@@ -99,15 +109,9 @@ mcp-typescript:
         title: API Secret
         type: string
       cloud_name:
-        description: Your Cloudinary cloud name (required). Find it in your Cloudinary Dashboard.
+        description: Your Cloudinary cloud name. Find it in your Cloudinary Dashboard.
         required: true
         title: Cloud Name
-        type: string
-      region:
-        default: api
-        description: 'Regional endpoint for optimal performance. Options: api (US), api-eu (Europe), api-ap (Asia-Pacific).'
-        required: false
-        title: Region
         type: string
   methodArguments: require-security-and-request
   moduleFormat: dual
@@ -119,3 +123,4 @@ mcp-typescript:
   templateVersion: v2
   usageSDKInitImports: []
   useIndexModules: true
+  validateResponse: false
