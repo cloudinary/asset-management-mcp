@@ -4,8 +4,11 @@
 
 import { z } from "zod";
 import { Register } from "./extensions.js";
+import { formatResult } from "./tools.js";
 import { assetsExplicitAsset } from "../funcs/assetsExplicitAsset.js";
-import { ResourceType } from "../models/resourcetype.js";
+import { ResourceType$zodSchema } from "../models/resourcetype.js";
+
+const TX_RULES_URL = "https://cloudinary.com/documentation/cloudinary_transformation_rules.md";
 
 export function registerMCPExtensions(register: Register): void {
   // Get transformation reference tool
@@ -17,12 +20,12 @@ export function registerMCPExtensions(register: Register): void {
       title: "Get Cloudinary Transformation Reference",
       destructiveHint: false,
       idempotentHint: true,
-      openWorldHint: false,
+      openWorldHint: true,
       readOnlyHint: true,
     },
-    tool: async (_client, _ctx) => {
+    tool: async (_client, ctx) => {
       try {
-        const response = await fetch("https://cloudinary.com/documentation/cloudinary_transformation_rules.md");
+        const response = await fetch(TX_RULES_URL, { signal: ctx.signal });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,7 +46,7 @@ export function registerMCPExtensions(register: Register): void {
           content: [
             {
               type: "text",
-              text: `Error fetching transformation rules documentation: ${error instanceof Error ? error.message : 'Unknown error'}\n\nYou can view the documentation directly at: https://cloudinary.com/documentation/cloudinary_transformation_rules.md`
+              text: `Error fetching transformation rules documentation: ${error instanceof Error ? error.message : 'Unknown error'}\n\nYou can view the documentation directly at: ${TX_RULES_URL}`
             }
           ],
           isError: true
@@ -60,47 +63,33 @@ export function registerMCPExtensions(register: Register): void {
     args: {
       publicId: z.string().describe("The public ID of the existing asset to transform"),
       transformations: z.string().describe("VALIDATED transformation string using ONLY parameters from get-tx-reference docs. Examples: 'c_fill,w_300,h_200' or 'e_sepia/a_90'. MUST follow component rules: commas within components, slashes between components."),
-      resourceType: z.enum(["image", "video", "raw"]).optional().default("image").describe("The resource type of the asset"),
+      resourceType: ResourceType$zodSchema.optional().default("image").describe("The resource type of the asset"),
       invalidate: z.boolean().optional().default(false).describe("Whether to invalidate cached versions"),
     },
     annotations: {
       title: "Transform Cloudinary Asset",
       destructiveHint: false,
-      idempotentHint: false,
+      idempotentHint: true,
       openWorldHint: false,
       readOnlyHint: false,
     },
-    tool: async (client, args, _ctx) => {
+    tool: async (client, args, ctx) => {
       try {
-        // Use the explicit API to generate eager transformations
-        const result = await assetsExplicitAsset(client, args.resourceType as ResourceType, {
+        const [result] = await assetsExplicitAsset(client, args.resourceType, {
           public_id: args.publicId,
           type: "upload",
           eager: args.transformations,
           invalidate: args.invalidate,
-        });
+        }, { fetchOptions: { signal: ctx.signal } }).$inspect();
 
         if (!result.ok) {
           return {
-            content: [
-              {
-                type: "text",
-                text: `Error transforming asset: ${result.error.message}`
-              }
-            ],
-            isError: true
+            content: [{ type: "text", text: result.error.message }],
+            isError: true,
           };
         }
 
-        // Return raw API response
-        return {
-          content: [
-            {
-              type: "text",
-              text: JSON.stringify(result.value, null, 2)
-            }
-          ]
-        };
+        return formatResult(result.value);
       } catch (error) {
         return {
           content: [
