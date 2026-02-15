@@ -1,6 +1,5 @@
 # Cloudinary Asset Management MCP Server
 
-
 <!-- Start Summary [summary] -->
 ## Summary
 
@@ -26,11 +25,11 @@
 ## Installation
 
 <details>
-<summary>MCP Bundle (Desktop Extension)</summary>
+<summary>Claude Desktop</summary>
 
-Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](./mcp-server.mcpb) file:
+Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.6.3/mcp-server.mcpb) file:
 
-Simply drag and drop the [`mcp-server.mcpb`](./mcp-server.mcpb) file onto Claude Desktop to install the extension.
+Simply drag and drop the [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.6.3/mcp-server.mcpb) file onto Claude Desktop to install the extension.
 
 The MCP bundle package includes the MCP server and all necessary configuration. Once installed, the server will be available without additional setup.
 
@@ -42,7 +41,7 @@ The MCP bundle package includes the MCP server and all necessary configuration. 
 <details>
 <summary>Cursor</summary>
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=CloudinaryAssetMgmt&config=eyJtY3BTZXJ2ZXJzIjp7IkNsb3VkaW5hcnlBc3NldE1nbXQiOnsiY29tbWFuZCI6Im5weCIsImFyZ3MiOlsiQGNsb3VkaW5hcnkvYXNzZXQtbWFuYWdlbWVudC1tY3AiLCJzdGFydCIsIi0tc2VydmVyLWluZGV4IiwiLi4uIiwiLS1yZWdpb24iLCIuLi4iLCItLWFwaS1ob3N0IiwiLi4uIiwiLS1hcGkta2V5IiwiLi4uIiwiLS1hcGktc2VjcmV0IiwiLi4uIiwiLS1vYXV0aDIiLCIuLi4iLCItLWNsb3VkLW5hbWUiLCIuLi4iXX19fQ==)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=CloudinaryAssetMgmt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAY2xvdWRpbmFyeS9hc3NldC1tYW5hZ2VtZW50LW1jcCIsInN0YXJ0IiwiLS1hcGkta2V5IiwiIiwiLS1hcGktc2VjcmV0IiwiIiwiLS1jbG91ZC1uYW1lIiwiIl19)
 
 Or manually:
 
@@ -53,29 +52,17 @@ Or manually:
 
 ```json
 {
-  "mcpServers": {
-    "CloudinaryAssetMgmt": {
-      "command": "npx",
-      "args": [
-        "@cloudinary/asset-management-mcp",
-        "start",
-        "--server-index",
-        "...",
-        "--region",
-        "...",
-        "--api-host",
-        "...",
-        "--api-key",
-        "...",
-        "--api-secret",
-        "...",
-        "--oauth2",
-        "...",
-        "--cloud-name",
-        "..."
-      ]
-    }
-  }
+  "command": "npx",
+  "args": [
+    "@cloudinary/asset-management-mcp",
+    "start",
+    "--api-key",
+    "",
+    "--api-secret",
+    "",
+    "--cloud-name",
+    ""
+  ]
 }
 ```
 
@@ -85,7 +72,15 @@ Or manually:
 <summary>Claude Code CLI</summary>
 
 ```bash
-claude mcp add @cloudinary/asset-management-mcp npx @cloudinary/asset-management-mcp start -- --server-index ... --region ... --api-host ... --api-key ... --api-secret ... --oauth2 ... --cloud-name ...
+claude mcp add CloudinaryAssetMgmt -- npx -y @cloudinary/asset-management-mcp start --api-key  --api-secret  --cloud-name 
+```
+
+</details>
+<details>
+<summary>Gemini</summary>
+
+```bash
+gemini mcp add CloudinaryAssetMgmt -- npx -y @cloudinary/asset-management-mcp start --api-key  --api-secret  --cloud-name 
 ```
 
 </details>
@@ -99,120 +94,59 @@ Refer to [Official Windsurf documentation](https://docs.windsurf.com/windsurf/ca
 3. Click on `Manage MCPs`. (To Manage MCPs you should be signed in with a Windsurf Account)
 4. Click on `View raw config` to open up the mcp configuration file.
 5. If the configuration file is empty paste the full json
-```
+
+```bash
 {
-  "mcpServers": {
-    "CloudinaryAssetMgmt": {
-      "command": "npx",
-      "args": [
-        "@cloudinary/asset-management-mcp",
-        "start",
-        "--server-index",
-        "...",
-        "--region",
-        "...",
-        "--api-host",
-        "...",
-        "--api-key",
-        "...",
-        "--api-secret",
-        "...",
-        "--oauth2",
-        "...",
-        "--cloud-name",
-        "..."
-      ]
-    }
-  }
+  "command": "npx",
+  "args": [
+    "@cloudinary/asset-management-mcp",
+    "start",
+    "--api-key",
+    "",
+    "--api-secret",
+    "",
+    "--cloud-name",
+    ""
+  ]
 }
 ```
 </details>
 <details>
 <summary>VS Code</summary>
 
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20CloudinaryAssetMgmt%20MCP&color=0098FF)](vscode://ms-vscode.vscode-mcp/install?name=CloudinaryAssetMgmt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAY2xvdWRpbmFyeS9hc3NldC1tYW5hZ2VtZW50LW1jcCIsInN0YXJ0IiwiLS1hcGkta2V5IiwiIiwiLS1hcGktc2VjcmV0IiwiIiwiLS1jbG91ZC1uYW1lIiwiIl19)
+
+Or manually:
+
 Refer to [Official VS Code documentation](https://code.visualstudio.com/api/extension-guides/ai/mcp) for latest information
 
 1. Open [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette)
 1. Search and open `MCP: Open User Configuration`. This should open mcp.json file
 2. If the configuration file is empty paste the full json
-```
+
+```bash
 {
-  "mcpServers": {
-    "CloudinaryAssetMgmt": {
-      "command": "npx",
-      "args": [
-        "@cloudinary/asset-management-mcp",
-        "start",
-        "--server-index",
-        "...",
-        "--region",
-        "...",
-        "--api-host",
-        "...",
-        "--api-key",
-        "...",
-        "--api-secret",
-        "...",
-        "--oauth2",
-        "...",
-        "--cloud-name",
-        "..."
-      ]
-    }
-  }
+  "command": "npx",
+  "args": [
+    "@cloudinary/asset-management-mcp",
+    "start",
+    "--api-key",
+    "",
+    "--api-secret",
+    "",
+    "--cloud-name",
+    ""
+  ]
 }
 ```
 
 </details>
-<details>
-<summary>Claude Desktop</summary>
-Claude Desktop doesn't yet support SSE/remote MCP servers.
-
-You need to do the following
-1. Open claude Desktop
-2. Open left hand side pane, then click on your Username
-3. Go to `Settings`
-4. Go to `Developer` tab (on the left hand side)
-5. Click on `Edit Config`
-Paste the following config in the configuration
-
-```json
-{
-  "mcpServers": {
-    "CloudinaryAssetMgmt": {
-      "command": "npx",
-      "args": [
-        "@cloudinary/asset-management-mcp",
-        "start",
-        "--server-index",
-        "...",
-        "--region",
-        "...",
-        "--api-host",
-        "...",
-        "--api-key",
-        "...",
-        "--api-secret",
-        "...",
-        "--oauth2",
-        "...",
-        "--cloud-name",
-        "..."
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-
 <details>
 <summary> Stdio installation via npm </summary>
 To start the MCP server, run:
 
 ```bash
-npx @cloudinary/asset-management-mcp start --server-index ... --region ... --api-host ... --api-key ... --api-secret ... --oauth2 ... --cloud-name ...
+npx @cloudinary/asset-management-mcp start --api-key  --api-secret  --cloud-name 
 ```
 
 For a full list of server arguments, run:
@@ -236,6 +170,7 @@ The MCP server supports the following environment variables:
 | `CLOUDINARY_API_KEY` | Your Cloudinary API key | Yes |
 | `CLOUDINARY_API_SECRET` | Your Cloudinary API secret | Yes |
 | `CLOUDINARY_URL` | Complete Cloudinary URL (alternative to individual vars) | No |
+| `CLOUDINARY_COLLECT_HEADERS` | Collect API response headers (see below) | No |
 
 ### CLOUDINARY_URL Format
 
@@ -245,7 +180,30 @@ You can use a single `CLOUDINARY_URL` instead of individual variables:
 CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
 ```
 
+### Response Header Collection
+
+You can configure the server to include Cloudinary API response headers (such as `x-request-id` and rate limit info) in tool output. This is useful for debugging and monitoring.
+
+Set `CLOUDINARY_COLLECT_HEADERS` to control which headers are collected:
+
+```bash
+# Collect all response headers
+CLOUDINARY_COLLECT_HEADERS=true
+
+# Collect specific headers (comma-separated)
+CLOUDINARY_COLLECT_HEADERS=x-request-id,x-featureratelimit-limit,x-featureratelimit-remaining,x-featureratelimit-reset
+```
+
+You can also set this via the `CLOUDINARY_URL` query parameter:
+
+```bash
+CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME?collect_headers=true
+```
+
+When enabled, collected headers appear in an `_headers` field in the tool response. When not set, no headers are collected and responses are unchanged.
+
 <!-- Start Authentication [security] -->
+
 ## Authentication
 
 The MCP server uses your Cloudinary API key and secret for authentication:
@@ -270,7 +228,7 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 
 #### Example 1: Upload and Transform an Image
 
-```
+```yaml
 1. Upload a local image: "Upload file:///Users/me/photo.jpg to Cloudinary as 'hero-image'"
 2. Transform it: "Transform asset 'hero-image' with transformations 'c_fill,w_800,h_600/e_sharpen'"
 3. Get details: "Show me details for asset with ID [asset-id]"
@@ -278,7 +236,7 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 
 #### Example 2: Search and Organize Assets
 
-```
+```yaml
 1. Search for images: "Find all images with tag 'product' uploaded in the last 7 days"
 2. Create folder: "Create a new folder called 'summer-2024-products'"
 3. List assets: "Show me all video assets in the 'marketing' folder"
@@ -286,7 +244,7 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 
 #### Example 3: Generate Archive
 
-```
+```yaml
 1. Get transformation docs: "Show me the Cloudinary transformation reference"
 2. Apply transformations: "Transform 'banner' asset with 'c_scale,w_1200/f_auto,q_auto'"
 3. Create archive: "Generate a ZIP archive of all images with tag 'export-ready'"
@@ -294,7 +252,7 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 
 #### Example 4: Asset Management Workflow
 
-```
+```yaml
 1. Upload multiple files: "Upload all images from folder /assets/new-products/"
 2. Add tags: "Update asset [asset-id] and add tags 'featured,homepage'"
 3. Get usage stats: "Show my Cloudinary account usage statistics"
@@ -305,28 +263,34 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 This MCP server includes two powerful custom tools:
 
 ### `get-tx-reference`
+
 Retrieves the complete Cloudinary transformation reference documentation.
 
 **When to use:**
+
 - Before creating or modifying transformations
 - When user asks about image/video effects, resizing, cropping, filters
 
 **Example:**
-```
+
+```sh
 Use get-tx-reference to learn about available transformations
 ```
 
 ### `transform-asset`
+
 Applies transformations to existing assets using Cloudinary's explicit API.
 
 **Parameters:**
+
 - `publicId` - The asset's public ID
 - `transformations` - Transformation string (e.g., `c_fill,w_300,h_200`)
 - `resourceType` - Type: `image`, `video`, or `raw` (default: `image`)
 - `invalidate` - Invalidate CDN cache (default: `false`)
 
 **Example:**
-```
+
+```sh
 Transform asset "sample" with transformations "c_fill,w_500,h_500/e_sepia"
 ```
 
@@ -335,6 +299,7 @@ Transform asset "sample" with transformations "c_fill,w_500,h_500/e_sepia"
 ## Building from Source
 
 ### Prerequisites
+
 - Node.js v20 or higher
 - npm, pnpm, bun, or yarn
 
@@ -357,7 +322,7 @@ npm start
 
 ### Project Structure
 
-```
+```ini
 asset-management-mcp/
 ├── src/
 │   ├── hooks/              # Custom authentication hooks
@@ -377,12 +342,14 @@ asset-management-mcp/
 While we value contributions to this MCP Server, the code is generated programmatically. Any manual changes to generated files will be overwritten on the next generation.
 
 **What you can contribute:**
+
 - ✅ Custom tools in `server.extensions.ts`
 - ✅ Custom hooks in `src/hooks/`
 - ✅ Documentation improvements
 - ✅ Bug reports and feature requests
 
 **Generated files (do not edit):**
+
 - ❌ `src/mcp-server/server.ts`
 - ❌ `src/mcp-server/tools/*.ts`
 - ❌ `src/funcs/*.ts`

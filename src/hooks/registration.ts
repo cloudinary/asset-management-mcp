@@ -1,5 +1,7 @@
-import { Hooks } from "./types.js";
+import { CloudConfig } from "./cloudConfig.js";
 import { CloudinaryAuthHook } from "./cloudinaryAuthHook.js";
+import { ResponseHeadersHook } from "./responseHeadersHook.js";
+import { Hooks } from "./types.js";
 import { UserAgentHook } from "./userAgentHook.js";
 /*
  * This file is only ever generated once on the first generation and then is free to be modified.
@@ -8,12 +10,10 @@ import { UserAgentHook } from "./userAgentHook.js";
  */
 
 export function initHooks(hooks: Hooks) {
-  // Add hooks by calling hooks.register{ClientInit/BeforeCreateRequest/BeforeRequest/AfterSuccess/AfterError}Hook
-  // with an instance of a hook that implements that specific Hook interface
-  // Hooks are registered per SDK instance, and are valid for the lifetime of the SDK instance
-    const cloudinaryAuthHook = new CloudinaryAuthHook();
-    hooks.registerBeforeRequestHook(cloudinaryAuthHook);
+  // Shared config — parsed once from CLOUDINARY_URL and env vars
+  const config = new CloudConfig();
 
-    const userAgentHook = new UserAgentHook();
-    hooks.registerSDKInitHook(userAgentHook);
+  hooks.registerBeforeRequestHook(new CloudinaryAuthHook(config));
+  hooks.registerSDKInitHook(new UserAgentHook());
+  hooks.registerAfterSuccessHook(new ResponseHeadersHook(config.collectHeaders));
 }

@@ -6,8 +6,8 @@ export class CloudinaryAuthHook
 
     private readonly cloudConfig: CloudConfig;
 
-    constructor() {
-        this.cloudConfig = new CloudConfig();
+    constructor(config: CloudConfig) {
+        this.cloudConfig = config;
     }
 
     async beforeRequest(hookCtx: BeforeRequestContext, request: Request): Promise<Request> {
