@@ -8,9 +8,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 export type DeleteBackupVersionsGlobals = { cloud_name?: string | undefined };
 
 export const DeleteBackupVersionsGlobals$zodSchema: z.ZodType<
-  DeleteBackupVersionsGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteBackupVersionsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -19,9 +17,7 @@ export const DeleteBackupVersionsGlobals$zodSchema: z.ZodType<
 export type DeleteBackupVersionsRequestBody = { version_ids: Array<string> };
 
 export const DeleteBackupVersionsRequestBody$zodSchema: z.ZodType<
-  DeleteBackupVersionsRequestBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteBackupVersionsRequestBody
 > = z.object({
   version_ids: z.array(z.string()),
 });
@@ -32,9 +28,7 @@ export type DeleteBackupVersionsRequest = {
 };
 
 export const DeleteBackupVersionsRequest$zodSchema: z.ZodType<
-  DeleteBackupVersionsRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteBackupVersionsRequest
 > = z.object({
   RequestBody: z.lazy(() => DeleteBackupVersionsRequestBody$zodSchema),
   asset_id: z.string().describe(
@@ -47,11 +41,10 @@ export type Failure = {
   error?: string | undefined;
 };
 
-export const Failure$zodSchema: z.ZodType<Failure, z.ZodTypeDef, unknown> = z
-  .object({
-    error: z.string().optional(),
-    version_id: z.string().optional(),
-  });
+export const Failure$zodSchema: z.ZodType<Failure> = z.object({
+  error: z.string().optional(),
+  version_id: z.string().optional(),
+});
 
 /**
  * Multi-status - some versions deleted successfully, others failed
@@ -63,9 +56,7 @@ export type DeleteBackupVersionsResponseBody2 = {
 };
 
 export const DeleteBackupVersionsResponseBody2$zodSchema: z.ZodType<
-  DeleteBackupVersionsResponseBody2,
-  z.ZodTypeDef,
-  unknown
+  DeleteBackupVersionsResponseBody2
 > = z.object({
   asset_id: z.string(),
   deleted_version_ids: z.array(z.string()),
@@ -81,9 +72,7 @@ export type DeleteBackupVersionsResponseBody1 = {
 };
 
 export const DeleteBackupVersionsResponseBody1$zodSchema: z.ZodType<
-  DeleteBackupVersionsResponseBody1,
-  z.ZodTypeDef,
-  unknown
+  DeleteBackupVersionsResponseBody1
 > = z.object({
   asset_id: z.string(),
   deleted_version_ids: z.array(z.string()),
@@ -95,9 +84,7 @@ export type DeleteBackupVersionsResponse =
   | ApiError;
 
 export const DeleteBackupVersionsResponse$zodSchema: z.ZodType<
-  DeleteBackupVersionsResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteBackupVersionsResponse
 > = z.union([
   z.lazy(() => DeleteBackupVersionsResponseBody1$zodSchema),
   z.lazy(() => DeleteBackupVersionsResponseBody2$zodSchema),

@@ -14,9 +14,7 @@ export type ListResourcesByAssetFolderGlobals = {
 };
 
 export const ListResourcesByAssetFolderGlobals$zodSchema: z.ZodType<
-  ListResourcesByAssetFolderGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByAssetFolderGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -32,16 +30,13 @@ export type ListResourcesByAssetFolderRequest = {
 };
 
 export const ListResourcesByAssetFolderRequest$zodSchema: z.ZodType<
-  ListResourcesByAssetFolderRequest,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByAssetFolderRequest
 > = z.object({
   asset_folder: z.string().describe("The full path of the asset folder."),
   direction: Direction$zodSchema.optional(),
   fields: z.array(FieldsSpec$zodSchema).optional(),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
+  max_results: z.int().describe("Maximum number of results to return (1-500).")
+    .optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
   resource_type: ResourceType$zodSchema.optional(),
 });
@@ -49,9 +44,7 @@ export const ListResourcesByAssetFolderRequest$zodSchema: z.ZodType<
 export type ListResourcesByAssetFolderResponse = ApiError | ListResponse;
 
 export const ListResourcesByAssetFolderResponse$zodSchema: z.ZodType<
-  ListResourcesByAssetFolderResponse,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByAssetFolderResponse
 > = z.union([
   ApiError$zodSchema,
   ListResponse$zodSchema,

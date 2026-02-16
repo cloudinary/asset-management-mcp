@@ -9,9 +9,7 @@ import { SearchResponse, SearchResponse$zodSchema } from "./searchresponse.js";
 export type VisualSearchAssetsGlobals = { cloud_name?: string | undefined };
 
 export const VisualSearchAssetsGlobals$zodSchema: z.ZodType<
-  VisualSearchAssetsGlobals,
-  z.ZodTypeDef,
-  unknown
+  VisualSearchAssetsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -20,9 +18,7 @@ export const VisualSearchAssetsGlobals$zodSchema: z.ZodType<
 export type VisualSearchAssetsResponse = ApiError | SearchResponse;
 
 export const VisualSearchAssetsResponse$zodSchema: z.ZodType<
-  VisualSearchAssetsResponse,
-  z.ZodTypeDef,
-  unknown
+  VisualSearchAssetsResponse
 > = z.union([
   ApiError$zodSchema,
   SearchResponse$zodSchema,

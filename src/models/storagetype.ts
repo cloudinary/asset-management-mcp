@@ -3,14 +3,23 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The storage type of the resource.
  */
+export const StorageType = {
+  Upload: "upload",
+  Private: "private",
+  Authenticated: "authenticated",
+} as const;
+/**
+ * The storage type of the resource.
+ */
+export type StorageType = ClosedEnum<typeof StorageType>;
+
 export const StorageType$zodSchema = z.enum([
   "upload",
   "private",
   "authenticated",
 ]).describe("The storage type of the resource.");
-
-export type StorageType = z.infer<typeof StorageType$zodSchema>;

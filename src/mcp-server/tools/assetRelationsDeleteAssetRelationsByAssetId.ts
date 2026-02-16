@@ -31,7 +31,7 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetRelationsDeleteAssetRelationsByAssetId(
+    const [result] = await assetRelationsDeleteAssetRelationsByAssetId(
       client,
       args.asset_id,
       args.RequestBody,
@@ -45,8 +45,6 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

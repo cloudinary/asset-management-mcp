@@ -27,7 +27,7 @@ Returns the deletion status and asset folder information when folder decoupling 
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsDestroyByAssetId(
+    const [result] = await assetsDestroyByAssetId(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -40,8 +40,6 @@ Returns the deletion status and asset folder information when folder decoupling 
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

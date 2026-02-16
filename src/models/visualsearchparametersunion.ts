@@ -10,9 +10,7 @@ export type VisualSearchParameters3 = {
 };
 
 export const VisualSearchParameters3$zodSchema: z.ZodType<
-  VisualSearchParameters3,
-  z.ZodTypeDef,
-  unknown
+  VisualSearchParameters3
 > = z.object({
   text: z.string(),
   threshold: z.number().optional(),
@@ -24,9 +22,7 @@ export type VisualSearchParameters2 = {
 };
 
 export const VisualSearchParameters2$zodSchema: z.ZodType<
-  VisualSearchParameters2,
-  z.ZodTypeDef,
-  unknown
+  VisualSearchParameters2
 > = z.object({
   image_asset_id: z.string(),
   threshold: z.number().optional(),
@@ -38,9 +34,7 @@ export type VisualSearchParameters1 = {
 };
 
 export const VisualSearchParameters1$zodSchema: z.ZodType<
-  VisualSearchParameters1,
-  z.ZodTypeDef,
-  unknown
+  VisualSearchParameters1
 > = z.object({
   image_url: z.string(),
   threshold: z.number().optional(),
@@ -55,9 +49,7 @@ export type VisualSearchParametersUnion =
   | VisualSearchParameters3;
 
 export const VisualSearchParametersUnion$zodSchema: z.ZodType<
-  VisualSearchParametersUnion,
-  z.ZodTypeDef,
-  unknown
+  VisualSearchParametersUnion
 > = z.union([
   z.lazy(() => VisualSearchParameters1$zodSchema),
   z.lazy(() => VisualSearchParameters2$zodSchema),

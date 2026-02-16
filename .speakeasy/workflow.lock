@@ -1,4 +1,4 @@
-speakeasyVersion: 1.717.0
+speakeasyVersion: 1.718.0
 sources:
     CloudinaryAssetMgmt-MCP-OAS:
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
@@ -6,6 +6,7 @@ sources:
         sourceBlobDigest: sha256:f4caad987450dc6391aacfcad94c27c951ff8a84fb03db609c8a1b470d0a9e0c
         tags:
             - latest
+            - speakeasy-sdk-regen-1771242575
             - 0.3.5
 targets:
     cloudinary-asset-mgmt-mcp:

@@ -27,9 +27,9 @@
 <details>
 <summary>Claude Desktop</summary>
 
-Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.6.3/mcp-server.mcpb) file:
+Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.7.0/mcp-server.mcpb) file:
 
-Simply drag and drop the [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.6.3/mcp-server.mcpb) file onto Claude Desktop to install the extension.
+Simply drag and drop the [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.7.0/mcp-server.mcpb) file onto Claude Desktop to install the extension.
 
 The MCP bundle package includes the MCP server and all necessary configuration. Once installed, the server will be available without additional setup.
 

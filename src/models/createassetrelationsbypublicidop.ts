@@ -19,9 +19,7 @@ export type CreateAssetRelationsByPublicIdGlobals = {
 };
 
 export const CreateAssetRelationsByPublicIdGlobals$zodSchema: z.ZodType<
-  CreateAssetRelationsByPublicIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  CreateAssetRelationsByPublicIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -32,9 +30,7 @@ export type CreateAssetRelationsByPublicIdRequestBody = {
 };
 
 export const CreateAssetRelationsByPublicIdRequestBody$zodSchema: z.ZodType<
-  CreateAssetRelationsByPublicIdRequestBody,
-  z.ZodTypeDef,
-  unknown
+  CreateAssetRelationsByPublicIdRequestBody
 > = z.object({
   assets_to_relate: z.array(z.string()),
 });
@@ -47,9 +43,7 @@ export type CreateAssetRelationsByPublicIdRequest = {
 };
 
 export const CreateAssetRelationsByPublicIdRequest$zodSchema: z.ZodType<
-  CreateAssetRelationsByPublicIdRequest,
-  z.ZodTypeDef,
-  unknown
+  CreateAssetRelationsByPublicIdRequest
 > = z.object({
   RequestBody: z.lazy(() =>
     CreateAssetRelationsByPublicIdRequestBody$zodSchema
@@ -64,9 +58,7 @@ export type CreateAssetRelationsByPublicIdResponse =
   | AssetRelationsResponse;
 
 export const CreateAssetRelationsByPublicIdResponse$zodSchema: z.ZodType<
-  CreateAssetRelationsByPublicIdResponse,
-  z.ZodTypeDef,
-  unknown
+  CreateAssetRelationsByPublicIdResponse
 > = z.union([
   ApiError$zodSchema,
   AssetRelationsResponse$zodSchema,

@@ -42,7 +42,7 @@ Transform media files using transformation syntax in delivery URLs, which create
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await uploadUpload(
+    const [result] = await uploadUpload(
       client,
       args.resource_type,
       args.upload_request,
@@ -56,8 +56,6 @@ Transform media files using transformation syntax in delivery URLs, which create
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

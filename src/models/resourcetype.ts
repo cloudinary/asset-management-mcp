@@ -3,14 +3,23 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The type of resource.
  */
+export const ResourceType = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of resource.
+ */
+export type ResourceType = ClosedEnum<typeof ResourceType>;
+
 export const ResourceType$zodSchema = z.enum([
   "image",
   "video",
   "raw",
 ]).describe("The type of resource.");
-
-export type ResourceType = z.infer<typeof ResourceType$zodSchema>;

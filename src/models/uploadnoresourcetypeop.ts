@@ -13,9 +13,7 @@ import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 export type UploadNoResourceTypeGlobals = { cloud_name?: string | undefined };
 
 export const UploadNoResourceTypeGlobals$zodSchema: z.ZodType<
-  UploadNoResourceTypeGlobals,
-  z.ZodTypeDef,
-  unknown
+  UploadNoResourceTypeGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -29,9 +27,7 @@ export type UploadNoResourceTypeResponseBody =
   | UploadResponse;
 
 export const UploadNoResourceTypeResponseBody$zodSchema: z.ZodType<
-  UploadNoResourceTypeResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UploadNoResourceTypeResponseBody
 > = z.union([
   AsyncUploadResponse$zodSchema,
   UploadResponse$zodSchema,
@@ -44,9 +40,7 @@ export type UploadNoResourceTypeResponse =
   | string;
 
 export const UploadNoResourceTypeResponse$zodSchema: z.ZodType<
-  UploadNoResourceTypeResponse,
-  z.ZodTypeDef,
-  unknown
+  UploadNoResourceTypeResponse
 > = z.union([
   ApiError$zodSchema,
   z.union([

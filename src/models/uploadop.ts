@@ -17,11 +17,7 @@ import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
 export type UploadGlobals = { cloud_name?: string | undefined };
 
-export const UploadGlobals$zodSchema: z.ZodType<
-  UploadGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UploadGlobals$zodSchema: z.ZodType<UploadGlobals> = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
@@ -31,28 +27,22 @@ export type UploadRequestRequest = {
   upload_request: UploadRequest;
 };
 
-export const UploadRequestRequest$zodSchema: z.ZodType<
-  UploadRequestRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resource_type: UploadResourceType$zodSchema.default("auto"),
-  upload_request: UploadRequest$zodSchema,
-});
+export const UploadRequestRequest$zodSchema: z.ZodType<UploadRequestRequest> = z
+  .object({
+    resource_type: UploadResourceType$zodSchema.default("auto"),
+    upload_request: UploadRequest$zodSchema,
+  });
 
 /**
  * Successful upload
  */
 export type UploadResponseBody = AsyncUploadResponse | UploadResponse;
 
-export const UploadResponseBody$zodSchema: z.ZodType<
-  UploadResponseBody,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  AsyncUploadResponse$zodSchema,
-  UploadResponse$zodSchema,
-]).describe("Successful upload");
+export const UploadResponseBody$zodSchema: z.ZodType<UploadResponseBody> = z
+  .union([
+    AsyncUploadResponse$zodSchema,
+    UploadResponse$zodSchema,
+  ]).describe("Successful upload");
 
 export type UploadResponseResponse =
   | ApiError
@@ -61,9 +51,7 @@ export type UploadResponseResponse =
   | string;
 
 export const UploadResponseResponse$zodSchema: z.ZodType<
-  UploadResponseResponse,
-  z.ZodTypeDef,
-  unknown
+  UploadResponseResponse
 > = z.union([
   ApiError$zodSchema,
   z.union([

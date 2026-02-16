@@ -11,12 +11,8 @@ export type ListResponse = {
   total_count?: number | undefined;
 };
 
-export const ListResponse$zodSchema: z.ZodType<
-  ListResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const ListResponse$zodSchema: z.ZodType<ListResponse> = z.object({
   next_cursor: z.string().nullable().optional(),
   resources: z.array(Info$zodSchema).optional(),
-  total_count: z.number().int().optional(),
+  total_count: z.int().optional(),
 });

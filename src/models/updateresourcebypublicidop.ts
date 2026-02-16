@@ -20,9 +20,7 @@ export type UpdateResourceByPublicIdGlobals = {
 };
 
 export const UpdateResourceByPublicIdGlobals$zodSchema: z.ZodType<
-  UpdateResourceByPublicIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  UpdateResourceByPublicIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -36,9 +34,7 @@ export type UpdateResourceByPublicIdRequest = {
 };
 
 export const UpdateResourceByPublicIdRequest$zodSchema: z.ZodType<
-  UpdateResourceByPublicIdRequest,
-  z.ZodTypeDef,
-  unknown
+  UpdateResourceByPublicIdRequest
 > = z.object({
   ResourceUpdateRequest: ResourceUpdateRequest$zodSchema,
   public_id: z.string().describe("The public ID of the asset."),
@@ -49,9 +45,7 @@ export const UpdateResourceByPublicIdRequest$zodSchema: z.ZodType<
 export type UpdateResourceByPublicIdResponse = ApiError | Info;
 
 export const UpdateResourceByPublicIdResponse$zodSchema: z.ZodType<
-  UpdateResourceByPublicIdResponse,
-  z.ZodTypeDef,
-  unknown
+  UpdateResourceByPublicIdResponse
 > = z.union([
   ApiError$zodSchema,
   Info$zodSchema,

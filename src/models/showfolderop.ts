@@ -11,32 +11,24 @@ import {
 
 export type ShowFolderGlobals = { cloud_name?: string | undefined };
 
-export const ShowFolderGlobals$zodSchema: z.ZodType<
-  ShowFolderGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const ShowFolderGlobals$zodSchema: z.ZodType<ShowFolderGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type ShowFolderRequest = { folder: string };
 
-export const ShowFolderRequest$zodSchema: z.ZodType<
-  ShowFolderRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  folder: z.string(),
-});
+export const ShowFolderRequest$zodSchema: z.ZodType<ShowFolderRequest> = z
+  .object({
+    folder: z.string(),
+  });
 
 export type ShowFolderResponse = FoldersListResponse | ApiError;
 
-export const ShowFolderResponse$zodSchema: z.ZodType<
-  ShowFolderResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  FoldersListResponse$zodSchema,
-  ApiError$zodSchema,
-]);
+export const ShowFolderResponse$zodSchema: z.ZodType<ShowFolderResponse> = z
+  .union([
+    FoldersListResponse$zodSchema,
+    ApiError$zodSchema,
+  ]);

@@ -3,15 +3,25 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The storage type of resources to include in the archive.
  */
+export const ArchiveStorageType = {
+  Upload: "upload",
+  Private: "private",
+  Authenticated: "authenticated",
+  Fetch: "fetch",
+} as const;
+/**
+ * The storage type of resources to include in the archive.
+ */
+export type ArchiveStorageType = ClosedEnum<typeof ArchiveStorageType>;
+
 export const ArchiveStorageType$zodSchema = z.enum([
   "upload",
   "private",
   "authenticated",
   "fetch",
 ]).describe("The storage type of resources to include in the archive.");
-
-export type ArchiveStorageType = z.infer<typeof ArchiveStorageType$zodSchema>;

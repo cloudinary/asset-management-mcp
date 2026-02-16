@@ -3,22 +3,34 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type GetVideoViewsGlobals = { cloud_name?: string | undefined };
 
-export const GetVideoViewsGlobals$zodSchema: z.ZodType<
-  GetVideoViewsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const GetVideoViewsGlobals$zodSchema: z.ZodType<GetVideoViewsGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 /**
  * Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.
  */
+export const SortBy = {
+  ViewEndedAt: "view_ended_at",
+  VideoDuration: "video_duration",
+  ViewWatchTime: "view_watch_time",
+  MinusViewEndedAt: "-view_ended_at",
+  MinusVideoDuration: "-video_duration",
+  MinusViewWatchTime: "-view_watch_time",
+} as const;
+/**
+ * Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.
+ */
+export type SortBy = ClosedEnum<typeof SortBy>;
+
 export const SortBy$zodSchema = z.enum([
   "view_ended_at",
   "video_duration",
@@ -30,8 +42,6 @@ export const SortBy$zodSchema = z.enum([
   "Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.",
 );
 
-export type SortBy = z.infer<typeof SortBy$zodSchema>;
-
 export type GetVideoViewsRequest = {
   expression?: string | undefined;
   max_results?: number | undefined;
@@ -39,22 +49,19 @@ export type GetVideoViewsRequest = {
   next_cursor?: string | undefined;
 };
 
-export const GetVideoViewsRequest$zodSchema: z.ZodType<
-  GetVideoViewsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  expression: z.string().describe(
-    "A set of conditions used to limit the results to rows that match those conditions. For example: `?expression=video_public_id=skate`",
-  ).optional(),
-  max_results: z.number().int().default(10).describe(
-    "The maximum number of results to return. Default is 10.",
-  ),
-  next_cursor: z.string().describe(
-    "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
-  ).optional(),
-  sort_by: SortBy$zodSchema.default("-view_ended_at"),
-});
+export const GetVideoViewsRequest$zodSchema: z.ZodType<GetVideoViewsRequest> = z
+  .object({
+    expression: z.string().describe(
+      "A set of conditions used to limit the results to rows that match those conditions. For example: `?expression=video_public_id=skate`",
+    ).optional(),
+    max_results: z.int().default(10).describe(
+      "The maximum number of results to return. Default is 10.",
+    ),
+    next_cursor: z.string().describe(
+      "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
+    ).optional(),
+    sort_by: SortBy$zodSchema.default("-view_ended_at"),
+  });
 
 export type Data = {
   video_public_id?: string | undefined;
@@ -68,12 +75,12 @@ export type Data = {
   view_ended_at?: string | undefined;
 };
 
-export const Data$zodSchema: z.ZodType<Data, z.ZodTypeDef, unknown> = z.object({
+export const Data$zodSchema: z.ZodType<Data> = z.object({
   video_duration: z.number().nullable().optional(),
   video_extension: z.string().nullable().optional(),
   video_public_id: z.string().optional(),
   video_transformation: z.string().nullable().optional(),
-  view_ended_at: z.string().datetime({ offset: true }).optional(),
+  view_ended_at: z.iso.datetime({ offset: true }).optional(),
   view_watch_time: z.number().nullable().optional(),
   viewer_application_name: z.string().nullable().optional(),
   viewer_location_country_code: z.string().nullable().optional(),
@@ -90,9 +97,7 @@ export type GetVideoViewsResponseBody = {
 };
 
 export const GetVideoViewsResponseBody$zodSchema: z.ZodType<
-  GetVideoViewsResponseBody,
-  z.ZodTypeDef,
-  unknown
+  GetVideoViewsResponseBody
 > = z.object({
   data: z.array(z.lazy(() => Data$zodSchema)).optional(),
   next_cursor: z.string().optional(),
@@ -101,11 +106,8 @@ export const GetVideoViewsResponseBody$zodSchema: z.ZodType<
 
 export type GetVideoViewsResponse = ApiError | GetVideoViewsResponseBody;
 
-export const GetVideoViewsResponse$zodSchema: z.ZodType<
-  GetVideoViewsResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  z.lazy(() => GetVideoViewsResponseBody$zodSchema),
-]);
+export const GetVideoViewsResponse$zodSchema: z.ZodType<GetVideoViewsResponse> =
+  z.union([
+    ApiError$zodSchema,
+    z.lazy(() => GetVideoViewsResponseBody$zodSchema),
+  ]);

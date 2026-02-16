@@ -13,9 +13,8 @@ const args = {
     "The prefix to use if you want to limit the returned tags to those that start with the specified prefix.",
   ).optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
+  max_results: z.int().describe("Maximum number of results to return (1-500).")
+    .optional(),
 };
 
 export const tool$assetsListResourceTags: ToolDefinition<typeof args> = {
@@ -37,7 +36,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsListResourceTags(
+    const [result] = await assetsListResourceTags(
       client,
       args.resource_type,
       args.prefix,
@@ -53,8 +52,6 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

@@ -3,24 +3,25 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
+
+export const Deleted = {
+  Deleted: "deleted",
+  NotFound: "not_found",
+} as const;
+export type Deleted = ClosedEnum<typeof Deleted>;
 
 export const Deleted$zodSchema = z.enum([
   "deleted",
   "not_found",
 ]);
 
-export type Deleted = z.infer<typeof Deleted$zodSchema>;
-
 export type Invalidation = {
   took?: number | undefined;
   urls?: Array<string> | undefined;
 };
 
-export const Invalidation$zodSchema: z.ZodType<
-  Invalidation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const Invalidation$zodSchema: z.ZodType<Invalidation> = z.object({
   took: z.number().optional(),
   urls: z.array(z.string()).optional(),
 });
@@ -35,11 +36,9 @@ export type DerivedDestroyResponse = {
 };
 
 export const DerivedDestroyResponse$zodSchema: z.ZodType<
-  DerivedDestroyResponse,
-  z.ZodTypeDef,
-  unknown
+  DerivedDestroyResponse
 > = z.object({
-  deleted: z.record(Deleted$zodSchema).optional(),
+  deleted: z.record(z.string(), Deleted$zodSchema).optional(),
   invalidation: z.lazy(() => Invalidation$zodSchema).optional(),
   unauthorized: z.array(z.string()).optional(),
 }).describe("Response for derived resource deletion");

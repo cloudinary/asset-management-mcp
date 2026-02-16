@@ -12,9 +12,7 @@ import {
 export type SearchFoldersPostGlobals = { cloud_name?: string | undefined };
 
 export const SearchFoldersPostGlobals$zodSchema: z.ZodType<
-  SearchFoldersPostGlobals,
-  z.ZodTypeDef,
-  unknown
+  SearchFoldersPostGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -28,12 +26,10 @@ export type SearchFoldersPostRequest = {
 };
 
 export const SearchFoldersPostRequest$zodSchema: z.ZodType<
-  SearchFoldersPostRequest,
-  z.ZodTypeDef,
-  unknown
+  SearchFoldersPostRequest
 > = z.object({
   expression: z.string().optional(),
-  max_results: z.number().int().default(50),
+  max_results: z.int().default(50),
   next_cursor: z.string().optional(),
   sort_by: z.array(z.string()).optional(),
 });
@@ -41,9 +37,7 @@ export const SearchFoldersPostRequest$zodSchema: z.ZodType<
 export type SearchFoldersPostResponse = FoldersSearchResponse | ApiError;
 
 export const SearchFoldersPostResponse$zodSchema: z.ZodType<
-  SearchFoldersPostResponse,
-  z.ZodTypeDef,
-  unknown
+  SearchFoldersPostResponse
 > = z.union([
   FoldersSearchResponse$zodSchema,
   ApiError$zodSchema,

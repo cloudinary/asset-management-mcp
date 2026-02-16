@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import {
   AccessControlItem,
   AccessControlItem$zodSchema,
@@ -11,19 +12,39 @@ import {
 /**
  * The type of resource.
  */
+export const SearchResponseResourceType = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of resource.
+ */
+export type SearchResponseResourceType = ClosedEnum<
+  typeof SearchResponseResourceType
+>;
+
 export const SearchResponseResourceType$zodSchema = z.enum([
   "image",
   "video",
   "raw",
 ]).describe("The type of resource.");
 
-export type SearchResponseResourceType = z.infer<
-  typeof SearchResponseResourceType$zodSchema
->;
-
 /**
  * The delivery type of the asset.
  */
+export const SearchResponseType = {
+  Upload: "upload",
+  Private: "private",
+  Authenticated: "authenticated",
+  List: "list",
+  Fetch: "fetch",
+} as const;
+/**
+ * The delivery type of the asset.
+ */
+export type SearchResponseType = ClosedEnum<typeof SearchResponseType>;
+
 export const SearchResponseType$zodSchema = z.enum([
   "upload",
   "private",
@@ -32,52 +53,57 @@ export const SearchResponseType$zodSchema = z.enum([
   "fetch",
 ]).describe("The delivery type of the asset.");
 
-export type SearchResponseType = z.infer<typeof SearchResponseType$zodSchema>;
-
 /**
  * The current status of the asset.
  */
+export const SearchResponseStatus = {
+  Active: "active",
+  Inactive: "inactive",
+} as const;
+/**
+ * The current status of the asset.
+ */
+export type SearchResponseStatus = ClosedEnum<typeof SearchResponseStatus>;
+
 export const SearchResponseStatus$zodSchema = z.enum([
   "active",
   "inactive",
 ]).describe("The current status of the asset.");
 
-export type SearchResponseStatus = z.infer<
-  typeof SearchResponseStatus$zodSchema
->;
-
 /**
  * The access mode of the asset.
  */
+export const SearchResponseAccessMode = {
+  Public: "public",
+  Authenticated: "authenticated",
+} as const;
+/**
+ * The access mode of the asset.
+ */
+export type SearchResponseAccessMode = ClosedEnum<
+  typeof SearchResponseAccessMode
+>;
+
 export const SearchResponseAccessMode$zodSchema = z.enum([
   "public",
   "authenticated",
 ]).describe("The access mode of the asset.");
-
-export type SearchResponseAccessMode = z.infer<
-  typeof SearchResponseAccessMode$zodSchema
->;
 
 /**
  * Information about who created the asset.
  */
 export type CreatedBy = { access_key?: string | undefined };
 
-export const CreatedBy$zodSchema: z.ZodType<CreatedBy, z.ZodTypeDef, unknown> =
-  z.object({
-    access_key: z.string().optional(),
-  }).describe("Information about who created the asset.");
+export const CreatedBy$zodSchema: z.ZodType<CreatedBy> = z.object({
+  access_key: z.string().optional(),
+}).describe("Information about who created the asset.");
 
 /**
  * Information about who uploaded the asset.
  */
 export type UploadedBy = { access_key?: string | undefined };
 
-export const UploadedBy$zodSchema: z.ZodType<
-  UploadedBy,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UploadedBy$zodSchema: z.ZodType<UploadedBy> = z.object({
   access_key: z.string().optional(),
 }).describe("Information about who uploaded the asset.");
 
@@ -86,11 +112,8 @@ export const UploadedBy$zodSchema: z.ZodType<
  */
 export type SearchResponseContext = {};
 
-export const SearchResponseContext$zodSchema: z.ZodType<
-  SearchResponseContext,
-  z.ZodTypeDef,
-  unknown
-> = z.object({}).describe("Custom context metadata associated with the asset.");
+export const SearchResponseContext$zodSchema: z.ZodType<SearchResponseContext> =
+  z.object({}).describe("Custom context metadata associated with the asset.");
 
 /**
  * Technical metadata extracted from the image.
@@ -98,9 +121,7 @@ export const SearchResponseContext$zodSchema: z.ZodType<
 export type SearchResponseImageMetadata = {};
 
 export const SearchResponseImageMetadata$zodSchema: z.ZodType<
-  SearchResponseImageMetadata,
-  z.ZodTypeDef,
-  unknown
+  SearchResponseImageMetadata
 > = z.object({}).describe("Technical metadata extracted from the image.");
 
 /**
@@ -108,41 +129,34 @@ export const SearchResponseImageMetadata$zodSchema: z.ZodType<
  */
 export type ImageAnalysis = {};
 
-export const ImageAnalysis$zodSchema: z.ZodType<
-  ImageAnalysis,
-  z.ZodTypeDef,
-  unknown
-> = z.object({}).describe("Results of image analysis.");
+export const ImageAnalysis$zodSchema: z.ZodType<ImageAnalysis> = z.object({})
+  .describe("Results of image analysis.");
 
 /**
  * Structured metadata associated with the asset.
  */
 export type Metadata = {};
 
-export const Metadata$zodSchema: z.ZodType<Metadata, z.ZodTypeDef, unknown> = z
-  .object({}).describe("Structured metadata associated with the asset.");
+export const Metadata$zodSchema: z.ZodType<Metadata> = z.object({}).describe(
+  "Structured metadata associated with the asset.",
+);
 
 /**
  * Results of quality analysis.
  */
 export type QualityAnalysis = {};
 
-export const QualityAnalysis$zodSchema: z.ZodType<
-  QualityAnalysis,
-  z.ZodTypeDef,
-  unknown
-> = z.object({}).describe("Results of quality analysis.");
+export const QualityAnalysis$zodSchema: z.ZodType<QualityAnalysis> = z.object(
+  {},
+).describe("Results of quality analysis.");
 
 /**
  * Results of accessibility analysis.
  */
 export type AccessibilityAnalysis = {};
 
-export const AccessibilityAnalysis$zodSchema: z.ZodType<
-  AccessibilityAnalysis,
-  z.ZodTypeDef,
-  unknown
-> = z.object({}).describe("Results of accessibility analysis.");
+export const AccessibilityAnalysis$zodSchema: z.ZodType<AccessibilityAnalysis> =
+  z.object({}).describe("Results of accessibility analysis.");
 
 /**
  * Resource fields that can be returned. All fields are optional and can be filtered using the fields parameter.
@@ -182,54 +196,52 @@ export type Resource = {
   accessibility_analysis?: AccessibilityAnalysis | null | undefined;
 };
 
-export const Resource$zodSchema: z.ZodType<Resource, z.ZodTypeDef, unknown> = z
-  .object({
-    access_control: z.array(AccessControlItem$zodSchema).nullable().optional(),
-    access_mode: SearchResponseAccessMode$zodSchema.optional(),
-    accessibility_analysis: z.lazy(() => AccessibilityAnalysis$zodSchema)
-      .nullable().optional(),
-    aspect_ratio: z.number().optional(),
-    asset_folder: z.string().optional(),
-    asset_id: z.string().optional(),
-    backup_bytes: z.number().int().optional(),
-    bytes: z.number().int().optional(),
-    context: z.lazy(() => SearchResponseContext$zodSchema).optional(),
-    created_at: z.string().datetime({ offset: true }).optional(),
-    created_by: z.lazy(() => CreatedBy$zodSchema).nullable().optional(),
-    display_name: z.string().optional(),
-    etag: z.string().optional(),
-    filename: z.string().optional(),
-    format: z.string().optional(),
-    height: z.number().int().optional(),
-    image_analysis: z.lazy(() => ImageAnalysis$zodSchema).nullable().optional(),
-    image_metadata: z.lazy(() => SearchResponseImageMetadata$zodSchema)
-      .nullable().optional(),
-    metadata: z.lazy(() => Metadata$zodSchema).nullable().optional(),
-    pixels: z.number().int().optional(),
-    public_id: z.string().optional(),
-    quality_analysis: z.lazy(() => QualityAnalysis$zodSchema).nullable()
-      .optional(),
-    resource_type: SearchResponseResourceType$zodSchema.optional(),
-    secure_url: z.string().optional(),
-    status: SearchResponseStatus$zodSchema.optional(),
-    tags: z.array(z.string()).optional(),
-    type: SearchResponseType$zodSchema.optional(),
-    uploaded_at: z.string().datetime({ offset: true }).optional(),
-    uploaded_by: z.lazy(() => UploadedBy$zodSchema).nullable().optional(),
-    url: z.string().optional(),
-    version: z.number().int().optional(),
-    width: z.number().int().optional(),
-  }).describe(
-    "Resource fields that can be returned. All fields are optional and can be filtered using the fields parameter.",
-  );
+export const Resource$zodSchema: z.ZodType<Resource> = z.object({
+  access_control: z.array(AccessControlItem$zodSchema).nullable().optional(),
+  access_mode: SearchResponseAccessMode$zodSchema.optional(),
+  accessibility_analysis: z.lazy(() => AccessibilityAnalysis$zodSchema)
+    .nullable().optional(),
+  aspect_ratio: z.number().optional(),
+  asset_folder: z.string().optional(),
+  asset_id: z.string().optional(),
+  backup_bytes: z.int().optional(),
+  bytes: z.int().optional(),
+  context: z.lazy(() => SearchResponseContext$zodSchema).optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
+  created_by: z.lazy(() => CreatedBy$zodSchema).nullable().optional(),
+  display_name: z.string().optional(),
+  etag: z.string().optional(),
+  filename: z.string().optional(),
+  format: z.string().optional(),
+  height: z.int().optional(),
+  image_analysis: z.lazy(() => ImageAnalysis$zodSchema).nullable().optional(),
+  image_metadata: z.lazy(() => SearchResponseImageMetadata$zodSchema).nullable()
+    .optional(),
+  metadata: z.lazy(() => Metadata$zodSchema).nullable().optional(),
+  pixels: z.int().optional(),
+  public_id: z.string().optional(),
+  quality_analysis: z.lazy(() => QualityAnalysis$zodSchema).nullable()
+    .optional(),
+  resource_type: SearchResponseResourceType$zodSchema.optional(),
+  secure_url: z.string().optional(),
+  status: SearchResponseStatus$zodSchema.optional(),
+  tags: z.array(z.string()).optional(),
+  type: SearchResponseType$zodSchema.optional(),
+  uploaded_at: z.iso.datetime({ offset: true }).optional(),
+  uploaded_by: z.lazy(() => UploadedBy$zodSchema).nullable().optional(),
+  url: z.string().optional(),
+  version: z.int().optional(),
+  width: z.int().optional(),
+}).describe(
+  "Resource fields that can be returned. All fields are optional and can be filtered using the fields parameter.",
+);
 
 export type Value = { value?: string | undefined; count?: number | undefined };
 
-export const Value$zodSchema: z.ZodType<Value, z.ZodTypeDef, unknown> = z
-  .object({
-    count: z.number().int().optional(),
-    value: z.string().optional(),
-  });
+export const Value$zodSchema: z.ZodType<Value> = z.object({
+  count: z.int().optional(),
+  value: z.string().optional(),
+});
 
 export type SearchResponseRange = {
   from?: number | undefined;
@@ -237,15 +249,12 @@ export type SearchResponseRange = {
   count?: number | undefined;
 };
 
-export const SearchResponseRange$zodSchema: z.ZodType<
-  SearchResponseRange,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  from: z.number().optional(),
-  to: z.number().optional(),
-});
+export const SearchResponseRange$zodSchema: z.ZodType<SearchResponseRange> = z
+  .object({
+    count: z.int().optional(),
+    from: z.number().optional(),
+    to: z.number().optional(),
+  });
 
 /**
  * Aggregation results when the aggregate parameter is used in the request. Only included when aggregations are requested.
@@ -255,11 +264,7 @@ export type Aggregations = {
   ranges?: Array<SearchResponseRange> | undefined;
 };
 
-export const Aggregations$zodSchema: z.ZodType<
-  Aggregations,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const Aggregations$zodSchema: z.ZodType<Aggregations> = z.object({
   ranges: z.array(z.lazy(() => SearchResponseRange$zodSchema)).optional(),
   values: z.array(z.lazy(() => Value$zodSchema)).optional(),
 }).describe(
@@ -277,14 +282,10 @@ export type SearchResponse = {
   aggregations?: Aggregations | undefined;
 };
 
-export const SearchResponse$zodSchema: z.ZodType<
-  SearchResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const SearchResponse$zodSchema: z.ZodType<SearchResponse> = z.object({
   aggregations: z.lazy(() => Aggregations$zodSchema).optional(),
   next_cursor: z.string().nullable().optional(),
   resources: z.array(z.lazy(() => Resource$zodSchema)).optional(),
-  time: z.number().int().optional(),
-  total_count: z.number().int().optional(),
+  time: z.int().optional(),
+  total_count: z.int().optional(),
 }).describe("The response object returned by search operations.");

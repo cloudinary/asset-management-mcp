@@ -20,7 +20,7 @@ export interface Env {
   CLOUDINARY_DEBUG?: boolean | undefined;
 }
 
-export const envSchema: z.ZodType<Env, z.ZodTypeDef, unknown> = z.object({
+export const envSchema: z.ZodType<Env> = z.object({
   CLOUDINARY_API_KEY: z.string().optional(),
   CLOUDINARY_API_SECRET: z.string().optional(),
   CLOUDINARY_OAUTH2: z.string().optional(),

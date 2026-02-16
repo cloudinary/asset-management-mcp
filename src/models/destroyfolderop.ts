@@ -7,24 +7,19 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type DestroyFolderGlobals = { cloud_name?: string | undefined };
 
-export const DestroyFolderGlobals$zodSchema: z.ZodType<
-  DestroyFolderGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const DestroyFolderGlobals$zodSchema: z.ZodType<DestroyFolderGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type DestroyFolderRequest = { folder: string };
 
-export const DestroyFolderRequest$zodSchema: z.ZodType<
-  DestroyFolderRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  folder: z.string(),
-});
+export const DestroyFolderRequest$zodSchema: z.ZodType<DestroyFolderRequest> = z
+  .object({
+    folder: z.string(),
+  });
 
 /**
  * Folder deleted successfully
@@ -32,20 +27,15 @@ export const DestroyFolderRequest$zodSchema: z.ZodType<
 export type DestroyFolderResponseBody = { deleted: Array<string> };
 
 export const DestroyFolderResponseBody$zodSchema: z.ZodType<
-  DestroyFolderResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DestroyFolderResponseBody
 > = z.object({
   deleted: z.array(z.string()),
 }).describe("Folder deleted successfully");
 
 export type DestroyFolderResponse = DestroyFolderResponseBody | ApiError;
 
-export const DestroyFolderResponse$zodSchema: z.ZodType<
-  DestroyFolderResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => DestroyFolderResponseBody$zodSchema),
-  ApiError$zodSchema,
-]);
+export const DestroyFolderResponse$zodSchema: z.ZodType<DestroyFolderResponse> =
+  z.union([
+    z.lazy(() => DestroyFolderResponseBody$zodSchema),
+    ApiError$zodSchema,
+  ]);

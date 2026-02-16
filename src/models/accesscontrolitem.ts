@@ -3,16 +3,24 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The type of access control to apply to the asset.
  */
+export const AccessType = {
+  Token: "token",
+  Anonymous: "anonymous",
+} as const;
+/**
+ * The type of access control to apply to the asset.
+ */
+export type AccessType = ClosedEnum<typeof AccessType>;
+
 export const AccessType$zodSchema = z.enum([
   "token",
   "anonymous",
 ]).describe("The type of access control to apply to the asset.");
-
-export type AccessType = z.infer<typeof AccessType$zodSchema>;
 
 /**
  * Access control rule that defines when and how the asset can be accessed.
@@ -24,15 +32,12 @@ export type AccessControlItem = {
   end?: string | undefined;
 };
 
-export const AccessControlItem$zodSchema: z.ZodType<
-  AccessControlItem,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  access_type: AccessType$zodSchema,
-  end: z.string().optional(),
-  key: z.string().optional(),
-  start: z.string().optional(),
-}).describe(
-  "Access control rule that defines when and how the asset can be accessed.",
-);
+export const AccessControlItem$zodSchema: z.ZodType<AccessControlItem> = z
+  .object({
+    access_type: AccessType$zodSchema,
+    end: z.string().optional(),
+    key: z.string().optional(),
+    start: z.string().optional(),
+  }).describe(
+    "Access control rule that defines when and how the asset can be accessed.",
+  );

@@ -25,7 +25,7 @@ Creates a new folder at the specified path`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await foldersCreateFolder(
+    const [result] = await foldersCreateFolder(
       client,
       args.folder,
       { fetchOptions: { signal: ctx.signal } },
@@ -38,8 +38,6 @@ Creates a new folder at the specified path`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

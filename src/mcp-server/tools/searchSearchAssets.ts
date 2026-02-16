@@ -31,7 +31,7 @@ Examples: tags:shirt AND uploaded_at>1d, resource_type:image AND bytes>1mb, fold
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await searchSearchAssets(
+    const [result] = await searchSearchAssets(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -44,8 +44,6 @@ Examples: tags:shirt AND uploaded_at>1d, resource_type:image AND bytes>1mb, fold
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

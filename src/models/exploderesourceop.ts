@@ -3,15 +3,14 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { StorageType, StorageType$zodSchema } from "./storagetype.js";
 
 export type ExplodeResourceGlobals = { cloud_name?: string | undefined };
 
 export const ExplodeResourceGlobals$zodSchema: z.ZodType<
-  ExplodeResourceGlobals,
-  z.ZodTypeDef,
-  unknown
+  ExplodeResourceGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -20,13 +19,19 @@ export const ExplodeResourceGlobals$zodSchema: z.ZodType<
 /**
  * The type of resource to explode. Only "image" is supported.
  */
+export const ExplodeResourceResourceType = {
+  Image: "image",
+} as const;
+/**
+ * The type of resource to explode. Only "image" is supported.
+ */
+export type ExplodeResourceResourceType = ClosedEnum<
+  typeof ExplodeResourceResourceType
+>;
+
 export const ExplodeResourceResourceType$zodSchema = z.enum([
   "image",
 ]).describe("The type of resource to explode. Only \"image\" is supported.");
-
-export type ExplodeResourceResourceType = z.infer<
-  typeof ExplodeResourceResourceType$zodSchema
->;
 
 export type ExplodeResourceRequestBody = {
   api_key?: string | undefined;
@@ -40,16 +45,14 @@ export type ExplodeResourceRequestBody = {
 };
 
 export const ExplodeResourceRequestBody$zodSchema: z.ZodType<
-  ExplodeResourceRequestBody,
-  z.ZodTypeDef,
-  unknown
+  ExplodeResourceRequestBody
 > = z.object({
   api_key: z.string().optional(),
   format: z.string().optional(),
   notification_url: z.string().optional(),
   public_id: z.string(),
   signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
+  timestamp: z.int().optional(),
   transformation: z.string(),
   type: StorageType$zodSchema.optional(),
 });
@@ -60,9 +63,7 @@ export type ExplodeResourceRequest = {
 };
 
 export const ExplodeResourceRequest$zodSchema: z.ZodType<
-  ExplodeResourceRequest,
-  z.ZodTypeDef,
-  unknown
+  ExplodeResourceRequest
 > = z.object({
   RequestBody: z.lazy(() => ExplodeResourceRequestBody$zodSchema),
   resource_type: ExplodeResourceResourceType$zodSchema,
@@ -71,13 +72,17 @@ export const ExplodeResourceRequest$zodSchema: z.ZodType<
 /**
  * The status of the explode operation.
  */
+export const ExplodeResourceStatus = {
+  Processing: "processing",
+} as const;
+/**
+ * The status of the explode operation.
+ */
+export type ExplodeResourceStatus = ClosedEnum<typeof ExplodeResourceStatus>;
+
 export const ExplodeResourceStatus$zodSchema = z.enum([
   "processing",
 ]).describe("The status of the explode operation.");
-
-export type ExplodeResourceStatus = z.infer<
-  typeof ExplodeResourceStatus$zodSchema
->;
 
 /**
  * Explode operation started successfully
@@ -88,9 +93,7 @@ export type ExplodeResourceResponseBody = {
 };
 
 export const ExplodeResourceResponseBody$zodSchema: z.ZodType<
-  ExplodeResourceResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ExplodeResourceResponseBody
 > = z.object({
   batch_id: z.string().optional(),
   status: ExplodeResourceStatus$zodSchema.optional(),
@@ -99,9 +102,7 @@ export const ExplodeResourceResponseBody$zodSchema: z.ZodType<
 export type ExplodeResourceResponse = ApiError | ExplodeResourceResponseBody;
 
 export const ExplodeResourceResponse$zodSchema: z.ZodType<
-  ExplodeResourceResponse,
-  z.ZodTypeDef,
-  unknown
+  ExplodeResourceResponse
 > = z.union([
   ApiError$zodSchema,
   z.lazy(() => ExplodeResourceResponseBody$zodSchema),

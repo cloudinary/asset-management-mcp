@@ -3,21 +3,28 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import { StorageType, StorageType$zodSchema } from "./storagetype.js";
 
 /**
  * The status of the asynchronous upload. Will be 'pending' for async uploads.
  */
+export const AsyncUploadResponseStatus = {
+  Pending: "pending",
+} as const;
+/**
+ * The status of the asynchronous upload. Will be 'pending' for async uploads.
+ */
+export type AsyncUploadResponseStatus = ClosedEnum<
+  typeof AsyncUploadResponseStatus
+>;
+
 export const AsyncUploadResponseStatus$zodSchema = z.enum([
   "pending",
 ]).describe(
   "The status of the asynchronous upload. Will be 'pending' for async uploads.",
 );
-
-export type AsyncUploadResponseStatus = z.infer<
-  typeof AsyncUploadResponseStatus$zodSchema
->;
 
 /**
  * Response returned when an upload is processed asynchronously (async=true)
@@ -31,17 +38,14 @@ export type AsyncUploadResponse = {
   requester_ip?: string | undefined;
 };
 
-export const AsyncUploadResponse$zodSchema: z.ZodType<
-  AsyncUploadResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  batch_id: z.string(),
-  public_id: z.string().optional(),
-  requester_ip: z.string().optional(),
-  resource_type: ResourceType$zodSchema.optional(),
-  status: AsyncUploadResponseStatus$zodSchema,
-  type: StorageType$zodSchema,
-}).describe(
-  "Response returned when an upload is processed asynchronously (async=true)",
-);
+export const AsyncUploadResponse$zodSchema: z.ZodType<AsyncUploadResponse> = z
+  .object({
+    batch_id: z.string(),
+    public_id: z.string().optional(),
+    requester_ip: z.string().optional(),
+    resource_type: ResourceType$zodSchema.optional(),
+    status: AsyncUploadResponseStatus$zodSchema,
+    type: StorageType$zodSchema,
+  }).describe(
+    "Response returned when an upload is processed asynchronously (async=true)",
+  );

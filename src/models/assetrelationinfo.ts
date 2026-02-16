@@ -3,10 +3,26 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The code indicating the result of the operation.
  */
+export const Code = {
+  RejectedIds: "rejected_ids",
+  InvalidIds: "invalid_ids",
+  InternalErrorIds: "internal_error_ids",
+  NonExistingIds: "non_existing_ids",
+  InvalidRelateToSelfId: "invalid_relate_to_self_id",
+  AlreadyExistsIds: "already_exists_ids",
+  RelationDoesNotExistIds: "relation_does_not_exist_ids",
+  SuccessIds: "success_ids",
+} as const;
+/**
+ * The code indicating the result of the operation.
+ */
+export type Code = ClosedEnum<typeof Code>;
+
 export const Code$zodSchema = z.enum([
   "rejected_ids",
   "invalid_ids",
@@ -18,8 +34,6 @@ export const Code$zodSchema = z.enum([
   "success_ids",
 ]).describe("The code indicating the result of the operation.");
 
-export type Code = z.infer<typeof Code$zodSchema>;
-
 export type AssetRelationInfo = {
   message?: string | undefined;
   code?: Code | undefined;
@@ -27,13 +41,10 @@ export type AssetRelationInfo = {
   status?: number | undefined;
 };
 
-export const AssetRelationInfo$zodSchema: z.ZodType<
-  AssetRelationInfo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  asset: z.string().optional(),
-  code: Code$zodSchema.optional(),
-  message: z.string().optional(),
-  status: z.number().int().optional(),
-});
+export const AssetRelationInfo$zodSchema: z.ZodType<AssetRelationInfo> = z
+  .object({
+    asset: z.string().optional(),
+    code: Code$zodSchema.optional(),
+    message: z.string().optional(),
+    status: z.int().optional(),
+  });

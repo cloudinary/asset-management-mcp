@@ -9,9 +9,7 @@ import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 export type ListResourceTagsGlobals = { cloud_name?: string | undefined };
 
 export const ListResourceTagsGlobals$zodSchema: z.ZodType<
-  ListResourceTagsGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTagsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -25,13 +23,10 @@ export type ListResourceTagsRequest = {
 };
 
 export const ListResourceTagsRequest$zodSchema: z.ZodType<
-  ListResourceTagsRequest,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTagsRequest
 > = z.object({
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
+  max_results: z.int().describe("Maximum number of results to return (1-500).")
+    .optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
   prefix: z.string().describe(
     "The prefix to use if you want to limit the returned tags to those that start with the specified prefix.",
@@ -48,9 +43,7 @@ export type ListResourceTagsResponseBody = {
 };
 
 export const ListResourceTagsResponseBody$zodSchema: z.ZodType<
-  ListResourceTagsResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTagsResponseBody
 > = z.object({
   next_cursor: z.string().nullable().optional(),
   tags: z.array(z.string()).optional(),
@@ -59,9 +52,7 @@ export const ListResourceTagsResponseBody$zodSchema: z.ZodType<
 export type ListResourceTagsResponse = ApiError | ListResourceTagsResponseBody;
 
 export const ListResourceTagsResponse$zodSchema: z.ZodType<
-  ListResourceTagsResponse,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTagsResponse
 > = z.union([
   ApiError$zodSchema,
   z.lazy(() => ListResourceTagsResponseBody$zodSchema),

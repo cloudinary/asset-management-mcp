@@ -12,13 +12,10 @@ export type FoldersSearchResponse = {
   folders: Array<Folder>;
 };
 
-export const FoldersSearchResponse$zodSchema: z.ZodType<
-  FoldersSearchResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  folders: z.array(Folder$zodSchema),
-  next_cursor: z.string().nullable().optional(),
-  time: z.number().int(),
-  total_count: z.number().int(),
-});
+export const FoldersSearchResponse$zodSchema: z.ZodType<FoldersSearchResponse> =
+  z.object({
+    folders: z.array(Folder$zodSchema),
+    next_cursor: z.string().nullable().optional(),
+    time: z.int(),
+    total_count: z.int(),
+  });

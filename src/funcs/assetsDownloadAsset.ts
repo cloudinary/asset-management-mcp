@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -13,8 +12,6 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DownloadAssetRequest,
   DownloadAssetRequest$zodSchema,
-  DownloadAssetResponse,
-  DownloadAssetResponse$zodSchema,
 } from "../models/downloadassetop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -56,7 +53,7 @@ export function assetsDownloadAsset(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    DownloadAssetResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -100,7 +97,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      DownloadAssetResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -215,36 +212,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    DownloadAssetResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.bytes(200, DownloadAssetResponse$zodSchema, {
-      key: "twoHundredApplicationOctetStreamBytes",
-    }),
-    M.bytes(200, DownloadAssetResponse$zodSchema, {
-      ctype: "image/*",
-      key: "twoHundredImageWildcardBytes",
-    }),
-    M.bytes(200, DownloadAssetResponse$zodSchema, {
-      ctype: "video/*",
-      key: "twoHundredVideoWildcardBytes",
-    }),
-    M.json([400, 401, 403, 404], DownloadAssetResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

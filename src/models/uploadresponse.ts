@@ -10,9 +10,7 @@ import * as z from "zod";
 export type UploadResponseImageMetadata = {};
 
 export const UploadResponseImageMetadata$zodSchema: z.ZodType<
-  UploadResponseImageMetadata,
-  z.ZodTypeDef,
-  unknown
+  UploadResponseImageMetadata
 > = z.object({}).describe("The image metadata of the uploaded file.");
 
 export type Eager = {
@@ -25,16 +23,15 @@ export type Eager = {
   secure_url?: string | undefined;
 };
 
-export const Eager$zodSchema: z.ZodType<Eager, z.ZodTypeDef, unknown> = z
-  .object({
-    bytes: z.number().int().optional(),
-    format: z.string().optional(),
-    height: z.number().int().optional(),
-    secure_url: z.string().optional(),
-    transformation: z.string().optional(),
-    url: z.string().optional(),
-    width: z.number().int().optional(),
-  });
+export const Eager$zodSchema: z.ZodType<Eager> = z.object({
+  bytes: z.int().optional(),
+  format: z.string().optional(),
+  height: z.int().optional(),
+  secure_url: z.string().optional(),
+  transformation: z.string().optional(),
+  url: z.string().optional(),
+  width: z.int().optional(),
+});
 
 export type UploadResponse = {
   url?: string | undefined;
@@ -64,25 +61,21 @@ export type UploadResponse = {
   api_key?: string | undefined;
 };
 
-export const UploadResponse$zodSchema: z.ZodType<
-  UploadResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UploadResponse$zodSchema: z.ZodType<UploadResponse> = z.object({
   api_key: z.string().optional(),
   asset_id: z.string().optional(),
-  bytes: z.number().int().optional(),
+  bytes: z.int().optional(),
   created_at: z.string().optional(),
   eager: z.array(z.lazy(() => Eager$zodSchema)).optional(),
   etag: z.string().optional(),
   format: z.string().optional(),
   grayscale: z.boolean().optional(),
-  height: z.number().int().optional(),
+  height: z.int().optional(),
   illustration_score: z.number().optional(),
   image_metadata: z.lazy(() => UploadResponseImageMetadata$zodSchema)
     .optional(),
   original_filename: z.string().optional(),
-  pages: z.number().int().optional(),
+  pages: z.int().optional(),
   placeholder: z.boolean().optional(),
   public_id: z.string().optional(),
   resource_type: z.string().optional(),
@@ -92,7 +85,7 @@ export const UploadResponse$zodSchema: z.ZodType<
   tags: z.array(z.string()).optional(),
   type: z.string().optional(),
   url: z.string().optional(),
-  version: z.number().int().optional(),
+  version: z.int().optional(),
   version_id: z.string().optional(),
-  width: z.number().int().optional(),
+  width: z.int().optional(),
 });

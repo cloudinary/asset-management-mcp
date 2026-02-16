@@ -13,12 +13,8 @@ import {
  */
 export type InfoContext = { custom?: { [k: string]: any } | undefined };
 
-export const InfoContext$zodSchema: z.ZodType<
-  InfoContext,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  custom: z.record(z.any()).optional(),
+export const InfoContext$zodSchema: z.ZodType<InfoContext> = z.object({
+  custom: z.record(z.string(), z.any()).optional(),
 }).describe("Included if 'context=true' parameter is used.");
 
 export type InfoModeration = {
@@ -27,14 +23,10 @@ export type InfoModeration = {
   updated_at?: string | undefined;
 };
 
-export const InfoModeration$zodSchema: z.ZodType<
-  InfoModeration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const InfoModeration$zodSchema: z.ZodType<InfoModeration> = z.object({
   kind: z.string().optional(),
   status: z.string().optional(),
-  updated_at: z.string().datetime({ offset: true }).optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
 });
 
 export type Derivative = {
@@ -44,11 +36,7 @@ export type Derivative = {
   secure_url?: string | undefined;
 };
 
-export const Derivative$zodSchema: z.ZodType<
-  Derivative,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const Derivative$zodSchema: z.ZodType<Derivative> = z.object({
   id: z.string().optional(),
   secure_url: z.string().optional(),
   transformation: z.string().optional(),
@@ -90,37 +78,37 @@ export type Info = {
   derivatives?: Array<Derivative> | undefined;
 };
 
-export const Info$zodSchema: z.ZodType<Info, z.ZodTypeDef, unknown> = z.object({
+export const Info$zodSchema: z.ZodType<Info> = z.object({
   access_control: z.array(AccessControlItem$zodSchema).nullable().optional(),
   access_mode: z.string().optional(),
   aspect_ratio: z.number().nullable().optional(),
   asset_folder: z.string().optional(),
   asset_id: z.string().optional(),
   backup: z.boolean().optional(),
-  backup_bytes: z.number().int().optional(),
-  bytes: z.number().int().optional(),
+  backup_bytes: z.int().optional(),
+  bytes: z.int().optional(),
   context: z.lazy(() => InfoContext$zodSchema).optional(),
-  created_at: z.string().datetime({ offset: true }).optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
   derivatives: z.array(z.lazy(() => Derivative$zodSchema)).optional(),
   display_name: z.string().optional(),
   etag: z.string().optional(),
   filename: z.string().optional(),
   folder: z.string().optional(),
   format: z.string().optional(),
-  height: z.number().int().nullable().optional(),
-  metadata: z.record(z.any()).optional(),
+  height: z.int().nullable().optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
   moderation: z.array(z.lazy(() => InfoModeration$zodSchema)).optional(),
   moderation_kind: z.string().optional(),
   moderation_status: z.string().optional(),
-  pixels: z.number().int().nullable().optional(),
+  pixels: z.int().nullable().optional(),
   public_id: z.string().optional(),
   resource_type: z.string().optional(),
   secure_url: z.string().optional(),
   status: z.string().optional(),
   tags: z.array(z.string()).optional(),
   type: z.string().optional(),
-  uploaded_at: z.string().datetime({ offset: true }).optional(),
+  uploaded_at: z.iso.datetime({ offset: true }).optional(),
   url: z.string().optional(),
-  version: z.number().int().optional(),
-  width: z.number().int().nullable().optional(),
+  version: z.int().optional(),
+  width: z.int().nullable().optional(),
 });

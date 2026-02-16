@@ -3,10 +3,32 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The extended storage type of the resource.
  */
+export const ExtendedStorageType = {
+  Upload: "upload",
+  Private: "private",
+  Authenticated: "authenticated",
+  Fetch: "fetch",
+  List: "list",
+  Facebook: "facebook",
+  Twitter: "twitter",
+  Gravatar: "gravatar",
+  Youtube: "youtube",
+  Hulu: "hulu",
+  Vimeo: "vimeo",
+  Animoto: "animoto",
+  Worldstarhiphop: "worldstarhiphop",
+  Dailymotion: "dailymotion",
+} as const;
+/**
+ * The extended storage type of the resource.
+ */
+export type ExtendedStorageType = ClosedEnum<typeof ExtendedStorageType>;
+
 export const ExtendedStorageType$zodSchema = z.enum([
   "upload",
   "private",
@@ -23,5 +45,3 @@ export const ExtendedStorageType$zodSchema = z.enum([
   "worldstarhiphop",
   "dailymotion",
 ]).describe("The extended storage type of the resource.");
-
-export type ExtendedStorageType = z.infer<typeof ExtendedStorageType$zodSchema>;

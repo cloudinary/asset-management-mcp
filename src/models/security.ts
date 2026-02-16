@@ -13,10 +13,9 @@ export type Security = {
   oauth2?: string | undefined;
 };
 
-export const Security$zodSchema: z.ZodType<Security, z.ZodTypeDef, unknown> = z
-  .object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
-    ).optional(),
-  });
+export const Security$zodSchema: z.ZodType<Security> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
+});

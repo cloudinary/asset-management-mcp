@@ -37,7 +37,7 @@ const args = {
   versions: z.boolean().default(false).describe(
     "Whether to include details of all the backed up versions of the asset. Default: false.",
   ),
-  max_results: z.number().int().default(10).describe(
+  max_results: z.int().default(10).describe(
     "Maximum number of derived assets to return. Default: 10.",
   ),
   derived_next_cursor: z.string().describe(
@@ -60,7 +60,7 @@ Returns the details of a single resource specified by its asset ID.`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsGetResourceByAssetId(
+    const [result] = await assetsGetResourceByAssetId(
       client,
       args.asset_id,
       args.colors,
@@ -84,8 +84,6 @@ Returns the details of a single resource specified by its asset ID.`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

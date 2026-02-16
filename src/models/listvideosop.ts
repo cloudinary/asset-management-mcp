@@ -14,14 +14,12 @@ import {
 
 export type ListVideosGlobals = { cloud_name?: string | undefined };
 
-export const ListVideosGlobals$zodSchema: z.ZodType<
-  ListVideosGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const ListVideosGlobals$zodSchema: z.ZodType<ListVideosGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type ListVideosRequest = {
   type?: ListStorageType | undefined;
@@ -35,38 +33,33 @@ export type ListVideosRequest = {
   fields?: Array<FieldsSpec> | undefined;
 };
 
-export const ListVideosRequest$zodSchema: z.ZodType<
-  ListVideosRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  direction: Direction$zodSchema.optional(),
-  fields: z.array(FieldsSpec$zodSchema).optional(),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
-  next_cursor: z.string().describe("Cursor for pagination.").optional(),
-  prefix: z.string().describe(
-    "A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.",
-  ).optional(),
-  public_ids: z.array(z.string()).describe("An array of public IDs to return.")
-    .optional(),
-  start_at: z.string().datetime({ offset: true }).describe(
-    "An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.",
-  ).optional(),
-  tags: z.boolean().describe(
-    "Whether to include the list of tag names assigned to each asset. Default: false",
-  ).optional(),
-  type: ListStorageType$zodSchema.optional(),
-});
+export const ListVideosRequest$zodSchema: z.ZodType<ListVideosRequest> = z
+  .object({
+    direction: Direction$zodSchema.optional(),
+    fields: z.array(FieldsSpec$zodSchema).optional(),
+    max_results: z.int().describe(
+      "Maximum number of results to return (1-500).",
+    ).optional(),
+    next_cursor: z.string().describe("Cursor for pagination.").optional(),
+    prefix: z.string().describe(
+      "A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.",
+    ).optional(),
+    public_ids: z.array(z.string()).describe(
+      "An array of public IDs to return.",
+    ).optional(),
+    start_at: z.iso.datetime({ offset: true }).describe(
+      "An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.",
+    ).optional(),
+    tags: z.boolean().describe(
+      "Whether to include the list of tag names assigned to each asset. Default: false",
+    ).optional(),
+    type: ListStorageType$zodSchema.optional(),
+  });
 
 export type ListVideosResponse = ApiError | ListResponse;
 
-export const ListVideosResponse$zodSchema: z.ZodType<
-  ListVideosResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  ListResponse$zodSchema,
-]);
+export const ListVideosResponse$zodSchema: z.ZodType<ListVideosResponse> = z
+  .union([
+    ApiError$zodSchema,
+    ListResponse$zodSchema,
+  ]);

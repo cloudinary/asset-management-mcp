@@ -14,14 +14,12 @@ import {
 
 export type ListImagesGlobals = { cloud_name?: string | undefined };
 
-export const ListImagesGlobals$zodSchema: z.ZodType<
-  ListImagesGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const ListImagesGlobals$zodSchema: z.ZodType<ListImagesGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type ListImagesRequest = {
   type?: ListStorageType | undefined;
@@ -35,38 +33,33 @@ export type ListImagesRequest = {
   fields?: Array<FieldsSpec> | undefined;
 };
 
-export const ListImagesRequest$zodSchema: z.ZodType<
-  ListImagesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  direction: Direction$zodSchema.optional(),
-  fields: z.array(FieldsSpec$zodSchema).optional(),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
-  next_cursor: z.string().describe("Cursor for pagination.").optional(),
-  prefix: z.string().describe(
-    "Find resources with a public ID prefix. Requires the `type` parameter.",
-  ).optional(),
-  public_ids: z.array(z.string()).describe("An array of public IDs to return.")
-    .optional(),
-  start_at: z.string().datetime({ offset: true }).describe(
-    "Retrieve resources uploaded after this timestamp.",
-  ).optional(),
-  tags: z.boolean().describe(
-    "Whether to include the list of tag names assigned to each asset. Default: false",
-  ).optional(),
-  type: ListStorageType$zodSchema.optional(),
-});
+export const ListImagesRequest$zodSchema: z.ZodType<ListImagesRequest> = z
+  .object({
+    direction: Direction$zodSchema.optional(),
+    fields: z.array(FieldsSpec$zodSchema).optional(),
+    max_results: z.int().describe(
+      "Maximum number of results to return (1-500).",
+    ).optional(),
+    next_cursor: z.string().describe("Cursor for pagination.").optional(),
+    prefix: z.string().describe(
+      "Find resources with a public ID prefix. Requires the `type` parameter.",
+    ).optional(),
+    public_ids: z.array(z.string()).describe(
+      "An array of public IDs to return.",
+    ).optional(),
+    start_at: z.iso.datetime({ offset: true }).describe(
+      "Retrieve resources uploaded after this timestamp.",
+    ).optional(),
+    tags: z.boolean().describe(
+      "Whether to include the list of tag names assigned to each asset. Default: false",
+    ).optional(),
+    type: ListStorageType$zodSchema.optional(),
+  });
 
 export type ListImagesResponse = ApiError | ListResponse;
 
-export const ListImagesResponse$zodSchema: z.ZodType<
-  ListImagesResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  ListResponse$zodSchema,
-]);
+export const ListImagesResponse$zodSchema: z.ZodType<ListImagesResponse> = z
+  .union([
+    ApiError$zodSchema,
+    ListResponse$zodSchema,
+  ]);

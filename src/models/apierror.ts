@@ -6,17 +6,12 @@ import * as z from "zod";
 
 export type ApiErrorError = { message: string };
 
-export const ApiErrorError$zodSchema: z.ZodType<
-  ApiErrorError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const ApiErrorError$zodSchema: z.ZodType<ApiErrorError> = z.object({
   message: z.string(),
 });
 
 export type ApiError = { error: ApiErrorError };
 
-export const ApiError$zodSchema: z.ZodType<ApiError, z.ZodTypeDef, unknown> = z
-  .object({
-    error: z.lazy(() => ApiErrorError$zodSchema),
-  });
+export const ApiError$zodSchema: z.ZodType<ApiError> = z.object({
+  error: z.lazy(() => ApiErrorError$zodSchema),
+});

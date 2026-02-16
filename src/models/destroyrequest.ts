@@ -14,16 +14,12 @@ export type DestroyRequest = {
   callback?: string | undefined;
 };
 
-export const DestroyRequest$zodSchema: z.ZodType<
-  DestroyRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const DestroyRequest$zodSchema: z.ZodType<DestroyRequest> = z.object({
   api_key: z.string().optional(),
   asset_id: z.string(),
   callback: z.string().optional(),
   invalidate: z.boolean().optional(),
   notification_url: z.string().optional(),
   signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
+  timestamp: z.int().optional(),
 });

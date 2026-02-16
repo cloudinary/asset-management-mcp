@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -13,8 +12,6 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DownloadBackupAssetRequest,
   DownloadBackupAssetRequest$zodSchema,
-  DownloadBackupAssetResponse,
-  DownloadBackupAssetResponse$zodSchema,
 } from "../models/downloadbackupassetop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -49,7 +46,7 @@ export function assetsDownloadBackupAsset(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    DownloadBackupAssetResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -83,7 +80,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      DownloadBackupAssetResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -183,46 +180,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    DownloadBackupAssetResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.bytes(200, DownloadBackupAssetResponse$zodSchema, {
-      key: "twoHundredApplicationOctetStreamBytes",
-    }),
-    M.bytes(200, DownloadBackupAssetResponse$zodSchema, {
-      ctype: "text/plain",
-      key: "twoHundredTextPlainBytes",
-    }),
-    M.bytes(200, DownloadBackupAssetResponse$zodSchema, {
-      ctype: "image/*",
-      key: "twoHundredImageWildcardBytes",
-    }),
-    M.bytes(200, DownloadBackupAssetResponse$zodSchema, {
-      ctype: "video/*",
-      key: "twoHundredVideoWildcardBytes",
-    }),
-    M.json(400, DownloadBackupAssetResponse$zodSchema, {
-      key: "fourHundredApplicationJsonObject",
-    }),
-    M.json(401, DownloadBackupAssetResponse$zodSchema, {
-      key: "fourHundredAndOneApplicationJsonObject",
-    }),
-    M.json(404, DownloadBackupAssetResponse$zodSchema, {
-      key: "fourHundredAndFourApplicationJsonObject",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

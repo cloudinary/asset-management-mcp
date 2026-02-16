@@ -7,24 +7,19 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type CreateFolderGlobals = { cloud_name?: string | undefined };
 
-export const CreateFolderGlobals$zodSchema: z.ZodType<
-  CreateFolderGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const CreateFolderGlobals$zodSchema: z.ZodType<CreateFolderGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type CreateFolderRequest = { folder: string };
 
-export const CreateFolderRequest$zodSchema: z.ZodType<
-  CreateFolderRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  folder: z.string(),
-});
+export const CreateFolderRequest$zodSchema: z.ZodType<CreateFolderRequest> = z
+  .object({
+    folder: z.string(),
+  });
 
 /**
  * Folder created successfully
@@ -36,9 +31,7 @@ export type CreateFolderResponseBody = {
 };
 
 export const CreateFolderResponseBody$zodSchema: z.ZodType<
-  CreateFolderResponseBody,
-  z.ZodTypeDef,
-  unknown
+  CreateFolderResponseBody
 > = z.object({
   name: z.string().optional(),
   path: z.string().optional(),
@@ -47,11 +40,8 @@ export const CreateFolderResponseBody$zodSchema: z.ZodType<
 
 export type CreateFolderResponse = ApiError | CreateFolderResponseBody;
 
-export const CreateFolderResponse$zodSchema: z.ZodType<
-  CreateFolderResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  z.lazy(() => CreateFolderResponseBody$zodSchema),
-]);
+export const CreateFolderResponse$zodSchema: z.ZodType<CreateFolderResponse> = z
+  .union([
+    ApiError$zodSchema,
+    z.lazy(() => CreateFolderResponseBody$zodSchema),
+  ]);

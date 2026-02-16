@@ -6,11 +6,8 @@ import * as z from "zod";
 
 export type SchemeCloudinaryAuth = { api_key: string; api_secret: string };
 
-export const SchemeCloudinaryAuth$zodSchema: z.ZodType<
-  SchemeCloudinaryAuth,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  api_key: z.string(),
-  api_secret: z.string(),
-});
+export const SchemeCloudinaryAuth$zodSchema: z.ZodType<SchemeCloudinaryAuth> = z
+  .object({
+    api_key: z.string(),
+    api_secret: z.string(),
+  });

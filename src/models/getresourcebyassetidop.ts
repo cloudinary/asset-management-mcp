@@ -9,9 +9,7 @@ import { Info, Info$zodSchema } from "./info.js";
 export type GetResourceByAssetIdGlobals = { cloud_name?: string | undefined };
 
 export const GetResourceByAssetIdGlobals$zodSchema: z.ZodType<
-  GetResourceByAssetIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  GetResourceByAssetIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -33,9 +31,7 @@ export type GetResourceByAssetIdRequest = {
 };
 
 export const GetResourceByAssetIdRequest$zodSchema: z.ZodType<
-  GetResourceByAssetIdRequest,
-  z.ZodTypeDef,
-  unknown
+  GetResourceByAssetIdRequest
 > = z.object({
   accessibility_analysis: z.boolean().default(false).describe(
     "Whether to return accessibility analysis scores for the image. Default: false.",
@@ -55,7 +51,7 @@ export const GetResourceByAssetIdRequest$zodSchema: z.ZodType<
   faces: z.boolean().default(false).describe(
     "Whether to include a list of coordinates of detected faces. Default: false.",
   ),
-  max_results: z.number().int().default(10).describe(
+  max_results: z.int().default(10).describe(
     "Maximum number of derived assets to return. Default: 10.",
   ),
   media_metadata: z.boolean().default(false).describe(
@@ -78,9 +74,7 @@ export const GetResourceByAssetIdRequest$zodSchema: z.ZodType<
 export type GetResourceByAssetIdResponse = ApiError | Info;
 
 export const GetResourceByAssetIdResponse$zodSchema: z.ZodType<
-  GetResourceByAssetIdResponse,
-  z.ZodTypeDef,
-  unknown
+  GetResourceByAssetIdResponse
 > = z.union([
   ApiError$zodSchema,
   Info$zodSchema,

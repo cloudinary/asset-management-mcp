@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import * as b64$ from "../lib/base64.js";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
   ArchiveResourceType,
@@ -16,9 +18,7 @@ import {
 export type GenerateArchiveGlobals = { cloud_name?: string | undefined };
 
 export const GenerateArchiveGlobals$zodSchema: z.ZodType<
-  GenerateArchiveGlobals,
-  z.ZodTypeDef,
-  unknown
+  GenerateArchiveGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -30,25 +30,39 @@ export const GenerateArchiveGlobals$zodSchema: z.ZodType<
  * @remarks
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
  */
+export const Mode = {
+  Create: "create",
+} as const;
+/**
+ * The method for generating and delivering the archive. Only "create" is supported:
+ *
+ * @remarks
+ * create - Creates and stores the archive as a raw asset, returning URLs in the response
+ */
+export type Mode = ClosedEnum<typeof Mode>;
+
 export const Mode$zodSchema = z.enum([
   "create",
 ]).describe(
-  "The method for generating and delivering the archive. Only \"create\" is supported:\n"
-    + "create - Creates and stores the archive as a raw asset, returning URLs in the response\n"
-    + "",
+  "The method for generating and delivering the archive. Only \"create\" is supported:\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\n",
 );
-
-export type Mode = z.infer<typeof Mode$zodSchema>;
 
 /**
  * The format of the generated archive.
  */
+export const TargetFormat = {
+  Zip: "zip",
+  Tgz: "tgz",
+} as const;
+/**
+ * The format of the generated archive.
+ */
+export type TargetFormat = ClosedEnum<typeof TargetFormat>;
+
 export const TargetFormat$zodSchema = z.enum([
   "zip",
   "tgz",
 ]).describe("The format of the generated archive.");
-
-export type TargetFormat = z.infer<typeof TargetFormat$zodSchema>;
 
 export type GenerateArchiveRequestBody = {
   api_key?: string | undefined;
@@ -76,14 +90,12 @@ export type GenerateArchiveRequestBody = {
 };
 
 export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
-  GenerateArchiveRequestBody,
-  z.ZodTypeDef,
-  unknown
+  GenerateArchiveRequestBody
 > = z.object({
   allow_missing: z.boolean().default(false),
   api_key: z.string().optional(),
   async: z.boolean().default(false),
-  expires_at: z.number().int().optional(),
+  expires_at: z.int().optional(),
   flatten_folders: z.boolean().default(false),
   flatten_transformations: z.boolean().default(false),
   keep_derived: z.boolean().default(false),
@@ -98,7 +110,7 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
   target_format: TargetFormat$zodSchema.default("zip"),
   target_public_id: z.string().optional(),
   target_tags: z.array(z.string()).optional(),
-  timestamp: z.number().int().optional(),
+  timestamp: z.int().optional(),
   transformations: z.string().optional(),
   type: ArchiveStorageType$zodSchema.optional(),
   use_original_filename: z.boolean().default(false),
@@ -110,9 +122,7 @@ export type GenerateArchiveRequest = {
 };
 
 export const GenerateArchiveRequest$zodSchema: z.ZodType<
-  GenerateArchiveRequest,
-  z.ZodTypeDef,
-  unknown
+  GenerateArchiveRequest
 > = z.object({
   RequestBody: z.lazy(() => GenerateArchiveRequestBody$zodSchema),
   resource_type: ArchiveResourceType$zodSchema,
@@ -144,28 +154,26 @@ export type GenerateArchiveResponseBody = {
 };
 
 export const GenerateArchiveResponseBody$zodSchema: z.ZodType<
-  GenerateArchiveResponseBody,
-  z.ZodTypeDef,
-  unknown
+  GenerateArchiveResponseBody
 > = z.object({
   asset_folder: z.string().optional(),
   asset_id: z.string().optional(),
-  bytes: z.number().int().optional(),
-  created_at: z.string().datetime({ offset: true }).optional(),
+  bytes: z.int().optional(),
+  created_at: z.iso.datetime({ offset: true }).optional(),
   display_name: z.string().optional(),
   empty_prefixes: z.array(z.string()).optional(),
   empty_tags: z.array(z.string()).optional(),
-  file_count: z.number().int().optional(),
+  file_count: z.int().optional(),
   folder: z.string().optional(),
   missing_public_ids: z.array(z.string()).optional(),
   public_id: z.string().optional(),
-  resource_count: z.number().int().optional(),
+  resource_count: z.int().optional(),
   resource_type: z.string().optional(),
   secure_url: z.string().optional(),
   tags: z.array(z.string()).optional(),
   type: z.string().optional(),
   url: z.string().optional(),
-  version: z.number().int().optional(),
+  version: z.int().optional(),
   version_id: z.string().optional(),
 }).describe("Archive successfully generated or downloaded");
 
@@ -176,11 +184,11 @@ export type GenerateArchiveResponse =
   | GenerateArchiveResponseBody;
 
 export const GenerateArchiveResponse$zodSchema: z.ZodType<
-  GenerateArchiveResponse,
-  z.ZodTypeDef,
-  unknown
+  GenerateArchiveResponse
 > = z.union([
   ApiError$zodSchema,
-  z.string().base64().describe("Archive successfully generated or downloaded"),
+  z.string().describe("Base64-encoded binary content").transform(
+    b64$.bytesFromBase64,
+  ),
   z.lazy(() => GenerateArchiveResponseBody$zodSchema),
 ]);

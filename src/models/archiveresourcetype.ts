@@ -3,10 +3,22 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.
  */
+export const ArchiveResourceType = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+  All: "all",
+} as const;
+/**
+ * The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.
+ */
+export type ArchiveResourceType = ClosedEnum<typeof ArchiveResourceType>;
+
 export const ArchiveResourceType$zodSchema = z.enum([
   "image",
   "video",
@@ -15,5 +27,3 @@ export const ArchiveResourceType$zodSchema = z.enum([
 ]).describe(
   "The type of resources to include in the archive. \"image\" for images, \"video\" for videos, \"raw\" for non-media files, or \"all\" for mixed types.",
 );
-
-export type ArchiveResourceType = z.infer<typeof ArchiveResourceType$zodSchema>;

@@ -20,11 +20,10 @@ const args = {
     "Whether to include the list of tag names assigned to each asset. Default: false",
   ).optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
+  max_results: z.int().describe("Maximum number of results to return (1-500).")
+    .optional(),
   direction: Direction$zodSchema.optional(),
-  start_at: z.string().datetime({ offset: true }).describe(
+  start_at: z.iso.datetime({ offset: true }).describe(
     "An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.",
   ).optional(),
   fields: z.array(FieldsSpec$zodSchema).optional(),
@@ -46,7 +45,7 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsListRawFiles(
+    const [result] = await assetsListRawFiles(
       client,
       args.type,
       args.prefix,
@@ -67,8 +66,6 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };
