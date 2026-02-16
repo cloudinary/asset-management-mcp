@@ -45,16 +45,28 @@ function getEnvDetails(): string {
     return isRemoteMCP() ? '; RemoteMCP' : '';
 }
 
-function buildUserAgent(sdkVersion: string, genVersion: string, openapiDocVersion: string, packageName: string, runtime: string): string {
+function buildUserAgent(
+    sdkVersion: string,
+    genVersion: string,
+    openapiDocVersion: string,
+    packageName: string,
+    runtime: string,
+    callerUserAgent?: string,
+): string {
     const productName = getProductName(packageName);
     const systemInfo = getSystemInfo();
     const envDetails = getEnvDetails();
+    const origin = callerUserAgent ? `; origin ${callerUserAgent}` : '';
 
-    return `Cloudinary/${productName} ${runtime}/${sdkVersion} Gen/${genVersion} Schema/${openapiDocVersion} (${systemInfo}${envDetails})`;
+    return `Cloudinary/${productName} ${runtime}/${sdkVersion} Gen/${genVersion} Schema/${openapiDocVersion} (${systemInfo}${envDetails}${origin})`;
 }
 
 export class UserAgentHook implements SDKInitHook {
     sdkInit(opts: SDKOptions): SDKOptions {
+        // If opts.userAgent is pre-set (e.g. by mcp-service via getSDK),
+        // treat it as the caller's User-Agent to embed in the combined string.
+        const callerUserAgent = opts.userAgent || undefined;
+
         const originalUserAgent = SDK_METADATA.userAgent;
 
         if (originalUserAgent && originalUserAgent.startsWith("speakeasy-sdk/")) {
@@ -69,7 +81,10 @@ export class UserAgentHook implements SDKInitHook {
                 // Ensure all parts are defined before proceeding
                 if (sdkVersion && genVersion && openapiDocVersion && packageName) {
                     const runtime = getRuntime();
-                    opts.userAgent = buildUserAgent(sdkVersion, genVersion, openapiDocVersion, packageName, runtime);
+                    opts.userAgent = buildUserAgent(
+                        sdkVersion, genVersion, openapiDocVersion,
+                        packageName, runtime, callerUserAgent,
+                    );
                 }
             }
         }

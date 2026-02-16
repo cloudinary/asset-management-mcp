@@ -190,9 +190,22 @@ Set `CLOUDINARY_COLLECT_HEADERS` to control which headers are collected:
 # Collect all response headers
 CLOUDINARY_COLLECT_HEADERS=true
 
-# Collect specific headers (comma-separated)
-CLOUDINARY_COLLECT_HEADERS=x-request-id,x-featureratelimit-limit,x-featureratelimit-remaining,x-featureratelimit-reset
+# Collect specific headers by exact name (comma-separated)
+CLOUDINARY_COLLECT_HEADERS=x-request-id,x-featureratelimit-limit,x-featureratelimit-remaining
+
+# Mix exact names, prefix matching, and regex matching
+CLOUDINARY_COLLECT_HEADERS=x-request-id,prefix:x-featureratelimit-
 ```
+
+#### Header matching specs
+
+Each entry in the comma-separated list is matched against response header names:
+
+| Format | Example | Behaviour |
+|--------|---------|-----------|
+| exact name | `x-request-id` | matches only `x-request-id` |
+| `prefix:<value>` | `prefix:x-featureratelimit-` | matches any header starting with `x-featureratelimit-` |
+| `regex:<pattern>` | `regex:ratelimit` | matches any header whose name contains `ratelimit` |
 
 You can also set this via the `CLOUDINARY_URL` query parameter:
 
@@ -325,7 +338,12 @@ npm start
 ```ini
 asset-management-mcp/
 ├── src/
-│   ├── hooks/              # Custom authentication hooks
+│   ├── hooks/              # SDK hooks (manual)
+│   │   ├── cloudinaryAuthHook.ts   # Auth & file:// handling
+│   │   ├── customHeadersHook.ts    # Inject custom request headers
+│   │   ├── responseHeadersHook.ts  # Collect response headers
+│   │   ├── userAgentHook.ts        # Build User-Agent string
+│   │   └── registration.ts         # Hook registration
 │   ├── mcp-server/         # MCP server implementation
 │   │   ├── server.ts       # Main server (auto-generated)
 │   │   ├── server.extensions.ts  # Custom tools (manual)
