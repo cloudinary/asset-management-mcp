@@ -20,17 +20,13 @@ export type NonFinalChunkUploadResponse = {
 };
 
 export const NonFinalChunkUploadResponse$zodSchema: z.ZodType<
-  NonFinalChunkUploadResponse,
-  z.ZodTypeDef,
-  unknown
+  NonFinalChunkUploadResponse
 > = z.object({
-  bytes: z.number().int(),
+  bytes: z.int(),
   done: z.boolean(),
   kind: StorageType$zodSchema.optional(),
   public_id: z.string().optional(),
   resource_type: z.string().optional(),
 }).describe(
-  "Status information returned for in-progress chunked uploads.\n"
-    + "Note that fields that are not yet determined or not known at the time of the call are omitted from the response.\n"
-    + "",
+  "Status information returned for in-progress chunked uploads.\nNote that fields that are not yet determined or not known at the time of the call are omitted from the response.\n",
 );

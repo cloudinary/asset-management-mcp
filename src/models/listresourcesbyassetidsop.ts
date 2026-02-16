@@ -13,9 +13,7 @@ export type ListResourcesByAssetIDsGlobals = {
 };
 
 export const ListResourcesByAssetIDsGlobals$zodSchema: z.ZodType<
-  ListResourcesByAssetIDsGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByAssetIDsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -28,9 +26,7 @@ export type ListResourcesByAssetIDsRequest = {
 };
 
 export const ListResourcesByAssetIDsRequest$zodSchema: z.ZodType<
-  ListResourcesByAssetIDsRequest,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByAssetIDsRequest
 > = z.object({
   asset_ids: z.array(z.string()).describe(
     "List of asset IDs to retrieve (max 100).",
@@ -42,9 +38,7 @@ export const ListResourcesByAssetIDsRequest$zodSchema: z.ZodType<
 export type ListResourcesByAssetIDsResponse = ApiError | ListResponse;
 
 export const ListResourcesByAssetIDsResponse$zodSchema: z.ZodType<
-  ListResourcesByAssetIDsResponse,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByAssetIDsResponse
 > = z.union([
   ApiError$zodSchema,
   ListResponse$zodSchema,

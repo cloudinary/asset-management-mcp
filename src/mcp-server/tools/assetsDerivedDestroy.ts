@@ -25,7 +25,7 @@ Deletes derived resources by derived resource ID`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsDerivedDestroy(
+    const [result] = await assetsDerivedDestroy(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -38,8 +38,6 @@ Deletes derived resources by derived resource ID`,
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

@@ -8,32 +8,20 @@ import { UsageResponse, UsageResponse$zodSchema } from "./usageresponse.js";
 
 export type GetUsageGlobals = { cloud_name?: string | undefined };
 
-export const GetUsageGlobals$zodSchema: z.ZodType<
-  GetUsageGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const GetUsageGlobals$zodSchema: z.ZodType<GetUsageGlobals> = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
 
 export type GetUsageRequest = { date?: string | undefined };
 
-export const GetUsageRequest$zodSchema: z.ZodType<
-  GetUsageRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const GetUsageRequest$zodSchema: z.ZodType<GetUsageRequest> = z.object({
   date: z.string().date().optional(),
 });
 
 export type GetUsageResponse = ApiError | UsageResponse;
 
-export const GetUsageResponse$zodSchema: z.ZodType<
-  GetUsageResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
+export const GetUsageResponse$zodSchema: z.ZodType<GetUsageResponse> = z.union([
   ApiError$zodSchema,
   UsageResponse$zodSchema,
 ]);

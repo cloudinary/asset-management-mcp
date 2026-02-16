@@ -15,9 +15,7 @@ export type UpdateResourceByAssetIdGlobals = {
 };
 
 export const UpdateResourceByAssetIdGlobals$zodSchema: z.ZodType<
-  UpdateResourceByAssetIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  UpdateResourceByAssetIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -29,9 +27,7 @@ export type UpdateResourceByAssetIdRequest = {
 };
 
 export const UpdateResourceByAssetIdRequest$zodSchema: z.ZodType<
-  UpdateResourceByAssetIdRequest,
-  z.ZodTypeDef,
-  unknown
+  UpdateResourceByAssetIdRequest
 > = z.object({
   ResourceUpdateRequest: ResourceUpdateRequest$zodSchema,
   asset_id: z.string().describe(
@@ -42,9 +38,7 @@ export const UpdateResourceByAssetIdRequest$zodSchema: z.ZodType<
 export type UpdateResourceByAssetIdResponse = ApiError | Info;
 
 export const UpdateResourceByAssetIdResponse$zodSchema: z.ZodType<
-  UpdateResourceByAssetIdResponse,
-  z.ZodTypeDef,
-  unknown
+  UpdateResourceByAssetIdResponse
 > = z.union([
   ApiError$zodSchema,
   Info$zodSchema,

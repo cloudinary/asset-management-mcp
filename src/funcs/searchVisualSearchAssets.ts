@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,10 +18,6 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  VisualSearchAssetsResponse,
-  VisualSearchAssetsResponse$zodSchema,
-} from "../models/visualsearchassetsop.js";
 import {
   VisualSearchParametersUnion,
   VisualSearchParametersUnion$zodSchema,
@@ -45,7 +40,7 @@ export function searchVisualSearchAssets(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    VisualSearchAssetsResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -69,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      VisualSearchAssetsResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -153,28 +148,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    VisualSearchAssetsResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, VisualSearchAssetsResponse$zodSchema, {
-      key: "search_response",
-    }),
-    M.json([400, 401], VisualSearchAssetsResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

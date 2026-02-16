@@ -14,7 +14,7 @@ import {
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
 import { registerMCPExtensions } from "./server.extensions.js";
-import { createRegisterTool } from "./tools.js";
+import { createRegisterTool, registerDynamicTools } from "./tools.js";
 import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetRelationsCreateAssetRelationsByAssetId.js";
 import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
 import { tool$assetsDerivedDestroy } from "./tools/assetsDerivedDestroy.js";
@@ -40,6 +40,7 @@ import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 export function createMCPServer(deps: {
   logger: ConsoleLogger;
   allowedTools?: string[] | undefined;
+  dynamic?: boolean | undefined;
   scopes?: MCPScope[] | undefined;
   getSDK?: () => CloudinaryAssetMgmtCore;
   serverURL?: string | undefined;
@@ -51,7 +52,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.6.3",
+    version: "0.7.0",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -74,12 +75,13 @@ export function createMCPServer(deps: {
   const scopes = new Set(deps.scopes);
 
   const allowedTools = deps.allowedTools && new Set(deps.allowedTools);
-  const tool = createRegisterTool(
+  const [tool, tools, toolMap] = createRegisterTool(
     deps.logger,
     server,
     getClient,
     scopes,
     allowedTools,
+    deps.dynamic,
   );
   const resource = createRegisterResource(
     deps.logger,
@@ -119,7 +121,11 @@ export function createMCPServer(deps: {
   tool(tool$searchSearchAssets);
   tool(tool$searchVisualSearchAssets);
 
+  if (deps.dynamic) {
+    registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
+  }
+
   registerMCPExtensions(register satisfies Register);
 
-  return server;
+  return { server, tools };
 }

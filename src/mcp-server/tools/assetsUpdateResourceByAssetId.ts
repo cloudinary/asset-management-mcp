@@ -31,7 +31,7 @@ Updates one or more attributes of a specified resource (asset) by its asset ID. 
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsUpdateResourceByAssetId(
+    const [result] = await assetsUpdateResourceByAssetId(
       client,
       args.asset_id,
       args.ResourceUpdateRequest,
@@ -45,8 +45,6 @@ Updates one or more attributes of a specified resource (asset) by its asset ID. 
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

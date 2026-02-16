@@ -3,10 +3,23 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
  */
+export const DeleteResourceByPublicIdsRequestResourceType3 = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export type DeleteResourceByPublicIdsRequestResourceType3 = ClosedEnum<
+  typeof DeleteResourceByPublicIdsRequestResourceType3
+>;
+
 export const DeleteResourceByPublicIdsRequestResourceType3$zodSchema = z.enum([
   "image",
   "video",
@@ -14,10 +27,6 @@ export const DeleteResourceByPublicIdsRequestResourceType3$zodSchema = z.enum([
 ]).describe(
   "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
 );
-
-export type DeleteResourceByPublicIdsRequestResourceType3 = z.infer<
-  typeof DeleteResourceByPublicIdsRequestResourceType3$zodSchema
->;
 
 export type DeleteResourceByPublicIdsRequest3 = {
   public_ids?: Array<string> | undefined;
@@ -31,9 +40,7 @@ export type DeleteResourceByPublicIdsRequest3 = {
 };
 
 export const DeleteResourceByPublicIdsRequest3$zodSchema: z.ZodType<
-  DeleteResourceByPublicIdsRequest3,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourceByPublicIdsRequest3
 > = z.object({
   all: z.boolean(),
   invalidate: z.boolean().default(false),
@@ -49,6 +56,18 @@ export const DeleteResourceByPublicIdsRequest3$zodSchema: z.ZodType<
 /**
  * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
  */
+export const DeleteResourceByPublicIdsRequestResourceType2 = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export type DeleteResourceByPublicIdsRequestResourceType2 = ClosedEnum<
+  typeof DeleteResourceByPublicIdsRequestResourceType2
+>;
+
 export const DeleteResourceByPublicIdsRequestResourceType2$zodSchema = z.enum([
   "image",
   "video",
@@ -56,10 +75,6 @@ export const DeleteResourceByPublicIdsRequestResourceType2$zodSchema = z.enum([
 ]).describe(
   "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
 );
-
-export type DeleteResourceByPublicIdsRequestResourceType2 = z.infer<
-  typeof DeleteResourceByPublicIdsRequestResourceType2$zodSchema
->;
 
 export type DeleteResourceByPublicIdsRequest2 = {
   public_ids?: Array<string> | undefined;
@@ -73,9 +88,7 @@ export type DeleteResourceByPublicIdsRequest2 = {
 };
 
 export const DeleteResourceByPublicIdsRequest2$zodSchema: z.ZodType<
-  DeleteResourceByPublicIdsRequest2,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourceByPublicIdsRequest2
 > = z.object({
   all: z.boolean().optional(),
   invalidate: z.boolean().default(false),
@@ -91,6 +104,18 @@ export const DeleteResourceByPublicIdsRequest2$zodSchema: z.ZodType<
 /**
  * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
  */
+export const DeleteResourceByPublicIdsRequestResourceType1 = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export type DeleteResourceByPublicIdsRequestResourceType1 = ClosedEnum<
+  typeof DeleteResourceByPublicIdsRequestResourceType1
+>;
+
 export const DeleteResourceByPublicIdsRequestResourceType1$zodSchema = z.enum([
   "image",
   "video",
@@ -98,10 +123,6 @@ export const DeleteResourceByPublicIdsRequestResourceType1$zodSchema = z.enum([
 ]).describe(
   "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
 );
-
-export type DeleteResourceByPublicIdsRequestResourceType1 = z.infer<
-  typeof DeleteResourceByPublicIdsRequestResourceType1$zodSchema
->;
 
 export type DeleteResourceByPublicIdsRequest1 = {
   public_ids: Array<string>;
@@ -115,9 +136,7 @@ export type DeleteResourceByPublicIdsRequest1 = {
 };
 
 export const DeleteResourceByPublicIdsRequest1$zodSchema: z.ZodType<
-  DeleteResourceByPublicIdsRequest1,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourceByPublicIdsRequest1
 > = z.object({
   all: z.boolean().optional(),
   invalidate: z.boolean().default(false),
@@ -136,9 +155,7 @@ export type DeleteResourceByPublicIdsRequestUnion =
   | DeleteResourceByPublicIdsRequest3;
 
 export const DeleteResourceByPublicIdsRequestUnion$zodSchema: z.ZodType<
-  DeleteResourceByPublicIdsRequestUnion,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourceByPublicIdsRequestUnion
 > = z.union([
   z.lazy(() => DeleteResourceByPublicIdsRequest1$zodSchema),
   z.lazy(() => DeleteResourceByPublicIdsRequest2$zodSchema),

@@ -3,10 +3,23 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The delivery type for filtering resources in list operations.
  */
+export const ListStorageType = {
+  Upload: "upload",
+  Private: "private",
+  Authenticated: "authenticated",
+  Fetch: "fetch",
+  List: "list",
+} as const;
+/**
+ * The delivery type for filtering resources in list operations.
+ */
+export type ListStorageType = ClosedEnum<typeof ListStorageType>;
+
 export const ListStorageType$zodSchema = z.enum([
   "upload",
   "private",
@@ -14,5 +27,3 @@ export const ListStorageType$zodSchema = z.enum([
   "fetch",
   "list",
 ]).describe("The delivery type for filtering resources in list operations.");
-
-export type ListStorageType = z.infer<typeof ListStorageType$zodSchema>;

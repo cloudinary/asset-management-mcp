@@ -11,12 +11,9 @@ export type FoldersListResponse = {
   total_count: number;
 };
 
-export const FoldersListResponse$zodSchema: z.ZodType<
-  FoldersListResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  folders: z.array(Folder$zodSchema),
-  next_cursor: z.string().nullable(),
-  total_count: z.number().int(),
-});
+export const FoldersListResponse$zodSchema: z.ZodType<FoldersListResponse> = z
+  .object({
+    folders: z.array(Folder$zodSchema),
+    next_cursor: z.string().nullable(),
+    total_count: z.int(),
+  });

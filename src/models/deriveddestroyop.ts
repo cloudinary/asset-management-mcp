@@ -11,21 +11,17 @@ import {
 
 export type DerivedDestroyGlobals = { cloud_name?: string | undefined };
 
-export const DerivedDestroyGlobals$zodSchema: z.ZodType<
-  DerivedDestroyGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const DerivedDestroyGlobals$zodSchema: z.ZodType<DerivedDestroyGlobals> =
+  z.object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type DerivedDestroyResponseResponse = ApiError | DerivedDestroyResponse;
 
 export const DerivedDestroyResponseResponse$zodSchema: z.ZodType<
-  DerivedDestroyResponseResponse,
-  z.ZodTypeDef,
-  unknown
+  DerivedDestroyResponseResponse
 > = z.union([
   ApiError$zodSchema,
   DerivedDestroyResponse$zodSchema,

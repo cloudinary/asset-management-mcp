@@ -3,7 +3,16 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { SearchSortPair, SearchSortPair$zodSchema } from "./searchsortpair.js";
+
+export const SearchParametersType = {
+  Bytes: "bytes",
+  ImagePixels: "image_pixels",
+  VideoPixels: "video_pixels",
+  Duration: "duration",
+} as const;
+export type SearchParametersType = ClosedEnum<typeof SearchParametersType>;
 
 export const SearchParametersType$zodSchema = z.enum([
   "bytes",
@@ -12,34 +21,33 @@ export const SearchParametersType$zodSchema = z.enum([
   "duration",
 ]);
 
-export type SearchParametersType = z.infer<
-  typeof SearchParametersType$zodSchema
->;
-
 export type SearchParametersRange = {
   from?: number | undefined;
   to?: number | undefined;
 };
 
-export const SearchParametersRange$zodSchema: z.ZodType<
-  SearchParametersRange,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  from: z.number().optional(),
-  to: z.number().optional(),
-});
+export const SearchParametersRange$zodSchema: z.ZodType<SearchParametersRange> =
+  z.object({
+    from: z.number().optional(),
+    to: z.number().optional(),
+  });
 
 export type Aggregate = {
   type: SearchParametersType;
   ranges: Array<SearchParametersRange>;
 };
 
-export const Aggregate$zodSchema: z.ZodType<Aggregate, z.ZodTypeDef, unknown> =
-  z.object({
-    ranges: z.array(z.lazy(() => SearchParametersRange$zodSchema)),
-    type: SearchParametersType$zodSchema,
-  });
+export const Aggregate$zodSchema: z.ZodType<Aggregate> = z.object({
+  ranges: z.array(z.lazy(() => SearchParametersRange$zodSchema)),
+  type: SearchParametersType$zodSchema,
+});
+
+export const AggregateEnum = {
+  Format: "format",
+  ResourceType: "resource_type",
+  Type: "type",
+} as const;
+export type AggregateEnum = ClosedEnum<typeof AggregateEnum>;
 
 export const AggregateEnum$zodSchema = z.enum([
   "format",
@@ -47,18 +55,23 @@ export const AggregateEnum$zodSchema = z.enum([
   "type",
 ]);
 
-export type AggregateEnum = z.infer<typeof AggregateEnum$zodSchema>;
-
 export type AggregateUnion = Array<AggregateEnum> | Array<Aggregate>;
 
-export const AggregateUnion$zodSchema: z.ZodType<
-  AggregateUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
+export const AggregateUnion$zodSchema: z.ZodType<AggregateUnion> = z.union([
   z.array(AggregateEnum$zodSchema),
   z.array(z.lazy(() => Aggregate$zodSchema)),
 ]);
+
+export const WithField = {
+  Context: "context",
+  Tags: "tags",
+  ImageMetadata: "image_metadata",
+  ImageAnalysis: "image_analysis",
+  Metadata: "metadata",
+  QualityAnalysis: "quality_analysis",
+  AccessibilityAnalysis: "accessibility_analysis",
+} as const;
+export type WithField = ClosedEnum<typeof WithField>;
 
 export const WithField$zodSchema = z.enum([
   "context",
@@ -69,8 +82,6 @@ export const WithField$zodSchema = z.enum([
   "quality_analysis",
   "accessibility_analysis",
 ]);
-
-export type WithField = z.infer<typeof WithField$zodSchema>;
 
 /**
  * Common parameters for resource search operations.
@@ -85,19 +96,17 @@ export type SearchParameters = {
   fields?: string | undefined;
 };
 
-export const SearchParameters$zodSchema: z.ZodType<
-  SearchParameters,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  aggregate: z.union([
-    z.array(AggregateEnum$zodSchema),
-    z.array(z.lazy(() => Aggregate$zodSchema)),
-  ]).optional(),
-  expression: z.string().optional(),
-  fields: z.string().optional(),
-  max_results: z.number().int().optional(),
-  next_cursor: z.string().optional(),
-  sort_by: z.array(z.record(SearchSortPair$zodSchema)).optional(),
-  with_field: z.array(WithField$zodSchema).optional(),
-}).describe("Common parameters for resource search operations.");
+export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
+  {
+    aggregate: z.union([
+      z.array(AggregateEnum$zodSchema),
+      z.array(z.lazy(() => Aggregate$zodSchema)),
+    ]).optional(),
+    expression: z.string().optional(),
+    fields: z.string().optional(),
+    max_results: z.int().optional(),
+    next_cursor: z.string().optional(),
+    sort_by: z.array(z.record(z.string(), SearchSortPair$zodSchema)).optional(),
+    with_field: z.array(WithField$zodSchema).optional(),
+  },
+).describe("Common parameters for resource search operations.");

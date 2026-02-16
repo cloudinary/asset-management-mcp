@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
@@ -18,11 +17,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  ListResourceTypesRequest,
-  ListResourceTypesResponse,
-  ListResourceTypesResponse$zodSchema,
-} from "../models/listresourcetypesop.js";
+import { ListResourceTypesRequest } from "../models/listresourcetypesop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -38,7 +33,7 @@ export function assetsListResourceTypes(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    ListResourceTypesResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -62,7 +57,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      ListResourceTypesResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -133,28 +128,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    ListResourceTypesResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, ListResourceTypesResponse$zodSchema, {
-      key: "twoHundredApplicationJsonObject",
-    }),
-    M.json(401, ListResourceTypesResponse$zodSchema, {
-      key: "fourHundredAndOneApplicationJsonObject",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

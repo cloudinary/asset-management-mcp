@@ -14,9 +14,7 @@ export type AssetRelationsResponse = {
 };
 
 export const AssetRelationsResponse$zodSchema: z.ZodType<
-  AssetRelationsResponse,
-  z.ZodTypeDef,
-  unknown
+  AssetRelationsResponse
 > = z.object({
   failed: z.array(AssetRelationInfo$zodSchema).optional(),
   success: z.array(AssetRelationInfo$zodSchema).optional(),

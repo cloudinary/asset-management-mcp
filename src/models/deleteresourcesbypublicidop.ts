@@ -19,9 +19,7 @@ export type DeleteResourcesByPublicIdGlobals = {
 };
 
 export const DeleteResourcesByPublicIdGlobals$zodSchema: z.ZodType<
-  DeleteResourcesByPublicIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourcesByPublicIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -34,9 +32,7 @@ export type DeleteResourcesByPublicIdRequest = {
 };
 
 export const DeleteResourcesByPublicIdRequest$zodSchema: z.ZodType<
-  DeleteResourcesByPublicIdRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourcesByPublicIdRequest
 > = z.object({
   DeleteResourceByPublicIdsRequest:
     DeleteResourceByPublicIdsRequestUnion$zodSchema,
@@ -50,9 +46,7 @@ export const DeleteResourcesByPublicIdRequest$zodSchema: z.ZodType<
 export type DeleteResourcesByPublicIdResponseBody = {};
 
 export const DeleteResourcesByPublicIdResponseBody$zodSchema: z.ZodType<
-  DeleteResourcesByPublicIdResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourcesByPublicIdResponseBody
 > = z.object({}).describe("Resource successfully deleted");
 
 export type DeleteResourcesByPublicIdResponse =
@@ -60,9 +54,7 @@ export type DeleteResourcesByPublicIdResponse =
   | DeleteResourcesByPublicIdResponseBody;
 
 export const DeleteResourcesByPublicIdResponse$zodSchema: z.ZodType<
-  DeleteResourcesByPublicIdResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteResourcesByPublicIdResponse
 > = z.union([
   ApiError$zodSchema,
   z.lazy(() => DeleteResourcesByPublicIdResponseBody$zodSchema),

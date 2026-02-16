@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,8 +21,6 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   UploadChunkRequest,
   UploadChunkRequest$zodSchema,
-  UploadChunkResponse,
-  UploadChunkResponse$zodSchema,
 } from "../models/uploadchunkop.js";
 import { UploadRequest } from "../models/uploadrequest.js";
 import { UploadResourceType } from "../models/uploadresourcetype.js";
@@ -53,7 +50,7 @@ export function uploadUploadChunk(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    UploadChunkResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -83,7 +80,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      UploadChunkResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -188,30 +185,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    UploadChunkResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, UploadChunkResponse$zodSchema, { key: "oneOf" }),
-    M.text(302, UploadChunkResponse$zodSchema, {
-      ctype: "text/html",
-      key: "html_redirect",
-    }),
-    M.json([400, 401, 403], UploadChunkResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

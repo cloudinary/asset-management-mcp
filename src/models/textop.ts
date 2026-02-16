@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import {
   AccessControlItem,
   AccessControlItem$zodSchema,
@@ -11,11 +12,7 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type TextGlobals = { cloud_name?: string | undefined };
 
-export const TextGlobals$zodSchema: z.ZodType<
-  TextGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const TextGlobals$zodSchema: z.ZodType<TextGlobals> = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
@@ -23,17 +20,34 @@ export const TextGlobals$zodSchema: z.ZodType<
 /**
  * The type of resource to create. Must be "image" for text generation.
  */
+export const TextResourceType = {
+  Image: "image",
+} as const;
+/**
+ * The type of resource to create. Must be "image" for text generation.
+ */
+export type TextResourceType = ClosedEnum<typeof TextResourceType>;
+
 export const TextResourceType$zodSchema = z.enum([
   "image",
 ]).describe(
   "The type of resource to create. Must be \"image\" for text generation.",
 );
 
-export type TextResourceType = z.infer<typeof TextResourceType$zodSchema>;
-
 /**
  * Text alignment (left, center, right, justify).
  */
+export const TextAlign = {
+  Left: "left",
+  Center: "center",
+  Right: "right",
+  Justify: "justify",
+} as const;
+/**
+ * Text alignment (left, center, right, justify).
+ */
+export type TextAlign = ClosedEnum<typeof TextAlign>;
+
 export const TextAlign$zodSchema = z.enum([
   "left",
   "center",
@@ -41,37 +55,56 @@ export const TextAlign$zodSchema = z.enum([
   "justify",
 ]).describe("Text alignment (left, center, right, justify).");
 
-export type TextAlign = z.infer<typeof TextAlign$zodSchema>;
-
 /**
  * Whether to use a normal or bold font.
  */
+export const FontWeight = {
+  Normal: "normal",
+  Bold: "bold",
+} as const;
+/**
+ * Whether to use a normal or bold font.
+ */
+export type FontWeight = ClosedEnum<typeof FontWeight>;
+
 export const FontWeight$zodSchema = z.enum([
   "normal",
   "bold",
 ]).describe("Whether to use a normal or bold font.");
 
-export type FontWeight = z.infer<typeof FontWeight$zodSchema>;
-
 /**
  * Whether to use a normal or italic font.
  */
+export const FontStyle = {
+  Normal: "normal",
+  Italic: "italic",
+} as const;
+/**
+ * Whether to use a normal or italic font.
+ */
+export type FontStyle = ClosedEnum<typeof FontStyle>;
+
 export const FontStyle$zodSchema = z.enum([
   "normal",
   "italic",
 ]).describe("Whether to use a normal or italic font.");
 
-export type FontStyle = z.infer<typeof FontStyle$zodSchema>;
-
 /**
  * Text decoration style.
  */
+export const TextDecoration = {
+  None: "none",
+  Underline: "underline",
+} as const;
+/**
+ * Text decoration style.
+ */
+export type TextDecoration = ClosedEnum<typeof TextDecoration>;
+
 export const TextDecoration$zodSchema = z.enum([
   "none",
   "underline",
 ]).describe("Text decoration style.");
-
-export type TextDecoration = z.infer<typeof TextDecoration$zodSchema>;
 
 export type TextRequestBody = {
   text: string;
@@ -88,19 +121,15 @@ export type TextRequestBody = {
   line_spacing?: number | undefined;
 };
 
-export const TextRequestBody$zodSchema: z.ZodType<
-  TextRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const TextRequestBody$zodSchema: z.ZodType<TextRequestBody> = z.object({
   background: z.string().default("transparent"),
   font_color: z.string().default("black"),
   font_family: z.string().optional(),
-  font_size: z.number().int().default(12),
+  font_size: z.int().default(12),
   font_style: FontStyle$zodSchema.default("normal"),
   font_weight: FontWeight$zodSchema.default("normal"),
-  line_spacing: z.number().int().optional(),
-  opacity: z.number().int().default(100),
+  line_spacing: z.int().optional(),
+  opacity: z.int().default(100),
   public_id: z.string().optional(),
   text: z.string(),
   text_align: TextAlign$zodSchema.optional(),
@@ -112,38 +141,31 @@ export type TextRequest = {
   RequestBody: TextRequestBody;
 };
 
-export const TextRequest$zodSchema: z.ZodType<
-  TextRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const TextRequest$zodSchema: z.ZodType<TextRequest> = z.object({
   RequestBody: z.lazy(() => TextRequestBody$zodSchema),
   resource_type: TextResourceType$zodSchema,
 });
 
 export type Region = {};
 
-export const Region$zodSchema: z.ZodType<Region, z.ZodTypeDef, unknown> = z
-  .object({});
+export const Region$zodSchema: z.ZodType<Region> = z.object({});
 
 /**
  * Moderation information for the asset.
  */
 export type TextModeration = {};
 
-export const TextModeration$zodSchema: z.ZodType<
-  TextModeration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({}).describe("Moderation information for the asset.");
+export const TextModeration$zodSchema: z.ZodType<TextModeration> = z.object({})
+  .describe("Moderation information for the asset.");
 
 /**
  * Additional information about the asset.
  */
 export type TextInfo = {};
 
-export const TextInfo$zodSchema: z.ZodType<TextInfo, z.ZodTypeDef, unknown> = z
-  .object({}).describe("Additional information about the asset.");
+export const TextInfo$zodSchema: z.ZodType<TextInfo> = z.object({}).describe(
+  "Additional information about the asset.",
+);
 
 /**
  * Text image created successfully
@@ -175,44 +197,38 @@ export type TextResponseBody = {
   info?: TextInfo | undefined;
 };
 
-export const TextResponseBody$zodSchema: z.ZodType<
-  TextResponseBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  access_control: z.array(AccessControlItem$zodSchema).optional(),
-  access_mode: z.string().optional(),
-  asset_id: z.string(),
-  bytes: z.number().int(),
-  created_at: z.string().datetime({ offset: true }),
-  display_name: z.string().optional(),
-  etag: z.string().optional(),
-  format: z.string(),
-  height: z.number().int(),
-  info: z.lazy(() => TextInfo$zodSchema).optional(),
-  moderation: z.lazy(() => TextModeration$zodSchema).optional(),
-  pages: z.number().int().optional(),
-  placeholder: z.boolean().optional(),
-  public_id: z.string(),
-  regions: z.array(z.lazy(() => Region$zodSchema)).optional(),
-  resource_type: z.string(),
-  secure_url: z.string(),
-  signature: z.string(),
-  tags: z.array(z.string()).optional(),
-  type: z.string(),
-  url: z.string(),
-  version: z.number().int(),
-  version_id: z.string(),
-  width: z.number().int(),
-}).describe("Text image created successfully");
+export const TextResponseBody$zodSchema: z.ZodType<TextResponseBody> = z.object(
+  {
+    access_control: z.array(AccessControlItem$zodSchema).optional(),
+    access_mode: z.string().optional(),
+    asset_id: z.string(),
+    bytes: z.int(),
+    created_at: z.iso.datetime({ offset: true }),
+    display_name: z.string().optional(),
+    etag: z.string().optional(),
+    format: z.string(),
+    height: z.int(),
+    info: z.lazy(() => TextInfo$zodSchema).optional(),
+    moderation: z.lazy(() => TextModeration$zodSchema).optional(),
+    pages: z.int().optional(),
+    placeholder: z.boolean().optional(),
+    public_id: z.string(),
+    regions: z.array(z.lazy(() => Region$zodSchema)).optional(),
+    resource_type: z.string(),
+    secure_url: z.string(),
+    signature: z.string(),
+    tags: z.array(z.string()).optional(),
+    type: z.string(),
+    url: z.string(),
+    version: z.int(),
+    version_id: z.string(),
+    width: z.int(),
+  },
+).describe("Text image created successfully");
 
 export type TextResponse = TextResponseBody | ApiError;
 
-export const TextResponse$zodSchema: z.ZodType<
-  TextResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
+export const TextResponse$zodSchema: z.ZodType<TextResponse> = z.union([
   z.lazy(() => TextResponseBody$zodSchema),
   ApiError$zodSchema,
 ]);

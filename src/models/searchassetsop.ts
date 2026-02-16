@@ -8,22 +8,17 @@ import { SearchResponse, SearchResponse$zodSchema } from "./searchresponse.js";
 
 export type SearchAssetsGlobals = { cloud_name?: string | undefined };
 
-export const SearchAssetsGlobals$zodSchema: z.ZodType<
-  SearchAssetsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const SearchAssetsGlobals$zodSchema: z.ZodType<SearchAssetsGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type SearchAssetsResponse = ApiError | SearchResponse;
 
-export const SearchAssetsResponse$zodSchema: z.ZodType<
-  SearchAssetsResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  SearchResponse$zodSchema,
-]);
+export const SearchAssetsResponse$zodSchema: z.ZodType<SearchAssetsResponse> = z
+  .union([
+    ApiError$zodSchema,
+    SearchResponse$zodSchema,
+  ]);

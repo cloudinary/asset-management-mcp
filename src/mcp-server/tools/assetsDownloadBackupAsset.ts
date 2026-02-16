@@ -17,10 +17,9 @@ const args = {
     "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
   ).optional(),
   signature: z.string().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n"
-      + "",
+    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
   ).optional(),
-  timestamp: z.number().int().describe(
+  timestamp: z.int().describe(
     "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
   ).optional(),
 };
@@ -37,7 +36,7 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsDownloadBackupAsset(
+    const [result] = await assetsDownloadBackupAsset(
       client,
       args.asset_id,
       args.version_id,
@@ -54,8 +53,6 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

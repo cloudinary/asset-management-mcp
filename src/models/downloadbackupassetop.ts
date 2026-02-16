@@ -3,13 +3,12 @@
  */
 
 import * as z from "zod";
+import * as b64$ from "../lib/base64.js";
 
 export type DownloadBackupAssetGlobals = { cloud_name?: string | undefined };
 
 export const DownloadBackupAssetGlobals$zodSchema: z.ZodType<
-  DownloadBackupAssetGlobals,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -24,9 +23,7 @@ export type DownloadBackupAssetRequest = {
 };
 
 export const DownloadBackupAssetRequest$zodSchema: z.ZodType<
-  DownloadBackupAssetRequest,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetRequest
 > = z.object({
   api_key: z.string().describe(
     "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
@@ -35,10 +32,9 @@ export const DownloadBackupAssetRequest$zodSchema: z.ZodType<
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
   signature: z.string().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n"
-      + "",
+    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
   ).optional(),
-  timestamp: z.number().int().describe(
+  timestamp: z.int().describe(
     "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
   ).optional(),
   version_id: z.string().describe(
@@ -48,11 +44,7 @@ export const DownloadBackupAssetRequest$zodSchema: z.ZodType<
 
 export type NotFoundError = { message?: string | undefined };
 
-export const NotFoundError$zodSchema: z.ZodType<
-  NotFoundError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const NotFoundError$zodSchema: z.ZodType<NotFoundError> = z.object({
   message: z.string().optional(),
 });
 
@@ -64,9 +56,7 @@ export type DownloadBackupAssetNotFoundResponseBody = {
 };
 
 export const DownloadBackupAssetNotFoundResponseBody$zodSchema: z.ZodType<
-  DownloadBackupAssetNotFoundResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetNotFoundResponseBody
 > = z.object({
   error: z.lazy(() => NotFoundError$zodSchema).optional(),
 }).describe("Version not found");
@@ -77,11 +67,9 @@ export type DownloadBackupAssetUnauthorizedError = {
 };
 
 export const DownloadBackupAssetUnauthorizedError$zodSchema: z.ZodType<
-  DownloadBackupAssetUnauthorizedError,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetUnauthorizedError
 > = z.object({
-  http_code: z.number().int().optional(),
+  http_code: z.int().optional(),
   message: z.string().optional(),
 });
 
@@ -93,9 +81,7 @@ export type DownloadBackupAssetUnauthorizedResponseBody = {
 };
 
 export const DownloadBackupAssetUnauthorizedResponseBody$zodSchema: z.ZodType<
-  DownloadBackupAssetUnauthorizedResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetUnauthorizedResponseBody
 > = z.object({
   error: z.lazy(() => DownloadBackupAssetUnauthorizedError$zodSchema)
     .optional(),
@@ -106,12 +92,8 @@ export type BadRequestError = {
   http_code?: number | undefined;
 };
 
-export const BadRequestError$zodSchema: z.ZodType<
-  BadRequestError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  http_code: z.number().int().optional(),
+export const BadRequestError$zodSchema: z.ZodType<BadRequestError> = z.object({
+  http_code: z.int().optional(),
   message: z.string().optional(),
 });
 
@@ -123,9 +105,7 @@ export type DownloadBackupAssetBadRequestResponseBody = {
 };
 
 export const DownloadBackupAssetBadRequestResponseBody$zodSchema: z.ZodType<
-  DownloadBackupAssetBadRequestResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetBadRequestResponseBody
 > = z.object({
   error: z.lazy(() => BadRequestError$zodSchema).optional(),
 }).describe("Bad request");
@@ -144,14 +124,20 @@ export type DownloadBackupAssetResponse =
   | DownloadBackupAssetNotFoundResponseBody;
 
 export const DownloadBackupAssetResponse$zodSchema: z.ZodType<
-  DownloadBackupAssetResponse,
-  z.ZodTypeDef,
-  unknown
+  DownloadBackupAssetResponse
 > = z.union([
-  z.string().base64().describe("Asset backup downloaded successfully"),
-  z.string().base64().describe("Asset backup downloaded successfully"),
-  z.string().base64().describe("Asset backup downloaded successfully"),
-  z.string().base64().describe("Asset backup downloaded successfully"),
+  z.string().describe("Base64-encoded binary content").transform(
+    b64$.bytesFromBase64,
+  ),
+  z.string().describe("Base64-encoded binary content").transform(
+    b64$.bytesFromBase64,
+  ),
+  z.string().describe("Base64-encoded binary content").transform(
+    b64$.bytesFromBase64,
+  ),
+  z.string().describe("Base64-encoded binary content").transform(
+    b64$.bytesFromBase64,
+  ),
   z.lazy(() => DownloadBackupAssetBadRequestResponseBody$zodSchema),
   z.lazy(() => DownloadBackupAssetUnauthorizedResponseBody$zodSchema),
   z.lazy(() => DownloadBackupAssetNotFoundResponseBody$zodSchema),

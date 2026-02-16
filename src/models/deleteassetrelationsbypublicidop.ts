@@ -19,9 +19,7 @@ export type DeleteAssetRelationsByPublicIdGlobals = {
 };
 
 export const DeleteAssetRelationsByPublicIdGlobals$zodSchema: z.ZodType<
-  DeleteAssetRelationsByPublicIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  DeleteAssetRelationsByPublicIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -32,9 +30,7 @@ export type DeleteAssetRelationsByPublicIdRequestBody = {
 };
 
 export const DeleteAssetRelationsByPublicIdRequestBody$zodSchema: z.ZodType<
-  DeleteAssetRelationsByPublicIdRequestBody,
-  z.ZodTypeDef,
-  unknown
+  DeleteAssetRelationsByPublicIdRequestBody
 > = z.object({
   assets_to_unrelate: z.array(z.string()),
 });
@@ -47,9 +43,7 @@ export type DeleteAssetRelationsByPublicIdRequest = {
 };
 
 export const DeleteAssetRelationsByPublicIdRequest$zodSchema: z.ZodType<
-  DeleteAssetRelationsByPublicIdRequest,
-  z.ZodTypeDef,
-  unknown
+  DeleteAssetRelationsByPublicIdRequest
 > = z.object({
   RequestBody: z.lazy(() =>
     DeleteAssetRelationsByPublicIdRequestBody$zodSchema
@@ -64,9 +58,7 @@ export type DeleteAssetRelationsByPublicIdResponse =
   | AssetRelationsDeleteResponse;
 
 export const DeleteAssetRelationsByPublicIdResponse$zodSchema: z.ZodType<
-  DeleteAssetRelationsByPublicIdResponse,
-  z.ZodTypeDef,
-  unknown
+  DeleteAssetRelationsByPublicIdResponse
 > = z.union([
   ApiError$zodSchema,
   AssetRelationsDeleteResponse$zodSchema,

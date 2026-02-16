@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,8 +21,6 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   GetVideoViewsRequest,
   GetVideoViewsRequest$zodSchema,
-  GetVideoViewsResponse,
-  GetVideoViewsResponse$zodSchema,
   SortBy,
 } from "../models/getvideoviewsop.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -45,7 +42,7 @@ export function videoAnalyticsGetVideoViews(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    GetVideoViewsResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -75,7 +72,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      GetVideoViewsResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -172,24 +169,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    GetVideoViewsResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, GetVideoViewsResponse$zodSchema, { key: "object" }),
-    M.json([400, 401], GetVideoViewsResponse$zodSchema, { key: "api_error" }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

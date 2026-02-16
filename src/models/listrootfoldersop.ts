@@ -12,9 +12,7 @@ import {
 export type ListRootFoldersGlobals = { cloud_name?: string | undefined };
 
 export const ListRootFoldersGlobals$zodSchema: z.ZodType<
-  ListRootFoldersGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListRootFoldersGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,17 +21,13 @@ export const ListRootFoldersGlobals$zodSchema: z.ZodType<
 export type ListRootFoldersRequest = {};
 
 export const ListRootFoldersRequest$zodSchema: z.ZodType<
-  ListRootFoldersRequest,
-  z.ZodTypeDef,
-  unknown
+  ListRootFoldersRequest
 > = z.object({});
 
 export type ListRootFoldersResponse = FoldersListResponse | ApiError;
 
 export const ListRootFoldersResponse$zodSchema: z.ZodType<
-  ListRootFoldersResponse,
-  z.ZodTypeDef,
-  unknown
+  ListRootFoldersResponse
 > = z.union([
   FoldersListResponse$zodSchema,
   ApiError$zodSchema,

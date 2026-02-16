@@ -3,10 +3,15 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
+
+export const SearchSortPair = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+export type SearchSortPair = ClosedEnum<typeof SearchSortPair>;
 
 export const SearchSortPair$zodSchema = z.enum([
   "asc",
   "desc",
 ]);
-
-export type SearchSortPair = z.infer<typeof SearchSortPair$zodSchema>;

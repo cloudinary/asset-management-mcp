@@ -21,14 +21,12 @@ import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
 export type UploadChunkGlobals = { cloud_name?: string | undefined };
 
-export const UploadChunkGlobals$zodSchema: z.ZodType<
-  UploadChunkGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const UploadChunkGlobals$zodSchema: z.ZodType<UploadChunkGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type UploadChunkRequest = {
   resource_type?: UploadResourceType | undefined;
@@ -37,20 +35,17 @@ export type UploadChunkRequest = {
   upload_request: UploadRequest;
 };
 
-export const UploadChunkRequest$zodSchema: z.ZodType<
-  UploadChunkRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  contentRange: z.string().describe(
-    "The range of bytes being uploaded in the current chunk, in the format \"bytes start-end/total\". For example, \"bytes 0-999999/3000000\" indicates the first 1MB chunk of a 3MB file.",
-  ),
-  resource_type: UploadResourceType$zodSchema.default("auto"),
-  upload_request: UploadRequest$zodSchema,
-  xUniqueUploadId: z.string().describe(
-    "A unique identifier for the upload. Must be the same for all chunks of the same file.",
-  ),
-});
+export const UploadChunkRequest$zodSchema: z.ZodType<UploadChunkRequest> = z
+  .object({
+    contentRange: z.string().describe(
+      "The range of bytes being uploaded in the current chunk, in the format \"bytes start-end/total\". For example, \"bytes 0-999999/3000000\" indicates the first 1MB chunk of a 3MB file.",
+    ),
+    resource_type: UploadResourceType$zodSchema.default("auto"),
+    upload_request: UploadRequest$zodSchema,
+    xUniqueUploadId: z.string().describe(
+      "A unique identifier for the upload. Must be the same for all chunks of the same file.",
+    ),
+  });
 
 /**
  * Chunk upload successful. For all but the final chunk, this returns upload status. For the final chunk, it returns the complete upload response.
@@ -61,9 +56,7 @@ export type UploadChunkResponseBody =
   | UploadResponse;
 
 export const UploadChunkResponseBody$zodSchema: z.ZodType<
-  UploadChunkResponseBody,
-  z.ZodTypeDef,
-  unknown
+  UploadChunkResponseBody
 > = z.union([
   AsyncUploadResponse$zodSchema,
   NonFinalChunkUploadResponse$zodSchema,
@@ -79,18 +72,15 @@ export type UploadChunkResponse =
   | UploadResponse
   | string;
 
-export const UploadChunkResponse$zodSchema: z.ZodType<
-  UploadChunkResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  z.union([
-    AsyncUploadResponse$zodSchema,
-    NonFinalChunkUploadResponse$zodSchema,
-    UploadResponse$zodSchema,
-  ]),
-  z.string().describe(
-    "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
-  ),
-]);
+export const UploadChunkResponse$zodSchema: z.ZodType<UploadChunkResponse> = z
+  .union([
+    ApiError$zodSchema,
+    z.union([
+      AsyncUploadResponse$zodSchema,
+      NonFinalChunkUploadResponse$zodSchema,
+      UploadResponse$zodSchema,
+    ]),
+    z.string().describe(
+      "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
+    ),
+  ]);

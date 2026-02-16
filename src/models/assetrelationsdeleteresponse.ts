@@ -14,9 +14,7 @@ export type AssetRelationsDeleteResponse = {
 };
 
 export const AssetRelationsDeleteResponse$zodSchema: z.ZodType<
-  AssetRelationsDeleteResponse,
-  z.ZodTypeDef,
-  unknown
+  AssetRelationsDeleteResponse
 > = z.object({
   failed: z.array(AssetRelationInfo$zodSchema).optional(),
   success: z.array(AssetRelationInfo$zodSchema).optional(),

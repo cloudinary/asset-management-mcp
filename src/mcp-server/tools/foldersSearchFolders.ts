@@ -12,7 +12,7 @@ const args = {
   sort_by: z.array(z.string()).describe(
     "An array of key-value pairs for sorting. Each value is a key and direction (asc/desc).",
   ).optional(),
-  max_results: z.number().int().default(50).describe(
+  max_results: z.int().default(50).describe(
     "Maximum number of folders to return (max 500, default 50).",
   ),
   next_cursor: z.string().describe(
@@ -36,7 +36,7 @@ Lists the folders that match the specified search expression. Limited to 2000 re
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await foldersSearchFolders(
+    const [result] = await foldersSearchFolders(
       client,
       args.expression,
       args.sort_by,
@@ -52,8 +52,6 @@ Lists the folders that match the specified search expression. Limited to 2000 re
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

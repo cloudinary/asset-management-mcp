@@ -12,9 +12,7 @@ import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 export type ListResourcesByContextGlobals = { cloud_name?: string | undefined };
 
 export const ListResourcesByContextGlobals$zodSchema: z.ZodType<
-  ListResourcesByContextGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByContextGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -31,16 +29,13 @@ export type ListResourcesByContextRequest = {
 };
 
 export const ListResourcesByContextRequest$zodSchema: z.ZodType<
-  ListResourcesByContextRequest,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByContextRequest
 > = z.object({
   direction: Direction$zodSchema.optional(),
   fields: z.array(FieldsSpec$zodSchema).optional(),
   key: z.string().describe("Context key to filter by."),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
+  max_results: z.int().describe("Maximum number of results to return (1-500).")
+    .optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
   resource_type: ResourceType$zodSchema,
   value: z.string().describe("Context value to filter by.").optional(),
@@ -49,9 +44,7 @@ export const ListResourcesByContextRequest$zodSchema: z.ZodType<
 export type ListResourcesByContextResponse = ApiError | ListResponse;
 
 export const ListResourcesByContextResponse$zodSchema: z.ZodType<
-  ListResourcesByContextResponse,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByContextResponse
 > = z.union([
   ApiError$zodSchema,
   ListResponse$zodSchema,

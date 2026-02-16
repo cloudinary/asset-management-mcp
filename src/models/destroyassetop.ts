@@ -3,19 +3,18 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
 export type DestroyAssetGlobals = { cloud_name?: string | undefined };
 
-export const DestroyAssetGlobals$zodSchema: z.ZodType<
-  DestroyAssetGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const DestroyAssetGlobals$zodSchema: z.ZodType<DestroyAssetGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type DestroyAssetRequest = {
   resource_type: ResourceType;
@@ -23,26 +22,29 @@ export type DestroyAssetRequest = {
   invalidate?: boolean | undefined;
 };
 
-export const DestroyAssetRequest$zodSchema: z.ZodType<
-  DestroyAssetRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  invalidate: z.boolean().default(false).describe(
-    "Whether to invalidate CDN cached copies of the asset",
-  ),
-  public_id: z.string().describe("The public ID of the asset."),
-  resource_type: ResourceType$zodSchema,
-});
+export const DestroyAssetRequest$zodSchema: z.ZodType<DestroyAssetRequest> = z
+  .object({
+    invalidate: z.boolean().default(false).describe(
+      "Whether to invalidate CDN cached copies of the asset",
+    ),
+    public_id: z.string().describe("The public ID of the asset."),
+    resource_type: ResourceType$zodSchema,
+  });
 
 /**
  * Indicates successful deletion
  */
+export const DestroyAssetResult = {
+  Ok: "ok",
+} as const;
+/**
+ * Indicates successful deletion
+ */
+export type DestroyAssetResult = ClosedEnum<typeof DestroyAssetResult>;
+
 export const DestroyAssetResult$zodSchema = z.enum([
   "ok",
 ]).describe("Indicates successful deletion");
-
-export type DestroyAssetResult = z.infer<typeof DestroyAssetResult$zodSchema>;
 
 /**
  * Asset/resource destroyed successfully
@@ -52,20 +54,15 @@ export type DestroyAssetResponseBody = {
 };
 
 export const DestroyAssetResponseBody$zodSchema: z.ZodType<
-  DestroyAssetResponseBody,
-  z.ZodTypeDef,
-  unknown
+  DestroyAssetResponseBody
 > = z.object({
   result: DestroyAssetResult$zodSchema.optional(),
 }).describe("Asset/resource destroyed successfully");
 
 export type DestroyAssetResponse = ApiError | DestroyAssetResponseBody;
 
-export const DestroyAssetResponse$zodSchema: z.ZodType<
-  DestroyAssetResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  z.lazy(() => DestroyAssetResponseBody$zodSchema),
-]);
+export const DestroyAssetResponse$zodSchema: z.ZodType<DestroyAssetResponse> = z
+  .union([
+    ApiError$zodSchema,
+    z.lazy(() => DestroyAssetResponseBody$zodSchema),
+  ]);

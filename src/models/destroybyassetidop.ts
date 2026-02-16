@@ -12,9 +12,7 @@ import {
 export type DestroyByAssetIdGlobals = { cloud_name?: string | undefined };
 
 export const DestroyByAssetIdGlobals$zodSchema: z.ZodType<
-  DestroyByAssetIdGlobals,
-  z.ZodTypeDef,
-  unknown
+  DestroyByAssetIdGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -23,9 +21,7 @@ export const DestroyByAssetIdGlobals$zodSchema: z.ZodType<
 export type DestroyByAssetIdResponse = DestroyResponse | ApiError;
 
 export const DestroyByAssetIdResponse$zodSchema: z.ZodType<
-  DestroyByAssetIdResponse,
-  z.ZodTypeDef,
-  unknown
+  DestroyByAssetIdResponse
 > = z.union([
   DestroyResponse$zodSchema,
   ApiError$zodSchema,

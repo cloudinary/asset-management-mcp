@@ -6,12 +6,8 @@ import * as z from "zod";
 
 export type Transformations = { usage?: number | undefined };
 
-export const Transformations$zodSchema: z.ZodType<
-  Transformations,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  usage: z.number().int().optional(),
+export const Transformations$zodSchema: z.ZodType<Transformations> = z.object({
+  usage: z.int().optional(),
 });
 
 export type Objects = {
@@ -20,12 +16,11 @@ export type Objects = {
   used_percent?: number | undefined;
 };
 
-export const Objects$zodSchema: z.ZodType<Objects, z.ZodTypeDef, unknown> = z
-  .object({
-    limit: z.number().int().optional(),
-    usage: z.number().int().optional(),
-    used_percent: z.number().optional(),
-  });
+export const Objects$zodSchema: z.ZodType<Objects> = z.object({
+  limit: z.int().optional(),
+  usage: z.int().optional(),
+  used_percent: z.number().optional(),
+});
 
 export type Bandwidth = {
   usage?: number | undefined;
@@ -33,12 +28,11 @@ export type Bandwidth = {
   used_percent?: number | undefined;
 };
 
-export const Bandwidth$zodSchema: z.ZodType<Bandwidth, z.ZodTypeDef, unknown> =
-  z.object({
-    limit: z.number().int().optional(),
-    usage: z.number().int().optional(),
-    used_percent: z.number().optional(),
-  });
+export const Bandwidth$zodSchema: z.ZodType<Bandwidth> = z.object({
+  limit: z.int().optional(),
+  usage: z.int().optional(),
+  used_percent: z.number().optional(),
+});
 
 export type Storage = {
   usage?: number | undefined;
@@ -46,32 +40,25 @@ export type Storage = {
   used_percent?: number | undefined;
 };
 
-export const Storage$zodSchema: z.ZodType<Storage, z.ZodTypeDef, unknown> = z
-  .object({
-    limit: z.number().int().optional(),
-    usage: z.number().int().optional(),
-    used_percent: z.number().optional(),
-  });
+export const Storage$zodSchema: z.ZodType<Storage> = z.object({
+  limit: z.int().optional(),
+  usage: z.int().optional(),
+  used_percent: z.number().optional(),
+});
 
 export type Impressions = { usage?: number | undefined };
 
-export const Impressions$zodSchema: z.ZodType<
-  Impressions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  usage: z.number().int().optional(),
+export const Impressions$zodSchema: z.ZodType<Impressions> = z.object({
+  usage: z.int().optional(),
 });
 
 export type SecondsDelivered = { usage?: number | undefined };
 
-export const SecondsDelivered$zodSchema: z.ZodType<
-  SecondsDelivered,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  usage: z.number().int().optional(),
-});
+export const SecondsDelivered$zodSchema: z.ZodType<SecondsDelivered> = z.object(
+  {
+    usage: z.int().optional(),
+  },
+);
 
 /**
  * Upload size and pixel limits
@@ -84,16 +71,12 @@ export type MediaLimits = {
   asset_max_total_px?: number | undefined;
 };
 
-export const MediaLimits$zodSchema: z.ZodType<
-  MediaLimits,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  asset_max_total_px: z.number().int().optional(),
-  image_max_px: z.number().int().optional(),
-  image_max_size_bytes: z.number().int().optional(),
-  raw_max_size_bytes: z.number().int().optional(),
-  video_max_size_bytes: z.number().int().optional(),
+export const MediaLimits$zodSchema: z.ZodType<MediaLimits> = z.object({
+  asset_max_total_px: z.int().optional(),
+  image_max_px: z.int().optional(),
+  image_max_size_bytes: z.int().optional(),
+  raw_max_size_bytes: z.int().optional(),
+  video_max_size_bytes: z.int().optional(),
 }).describe("Upload size and pixel limits");
 
 export type UsageResponse = {
@@ -112,21 +95,17 @@ export type UsageResponse = {
   media_limits?: MediaLimits | undefined;
 };
 
-export const UsageResponse$zodSchema: z.ZodType<
-  UsageResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const UsageResponse$zodSchema: z.ZodType<UsageResponse> = z.object({
   bandwidth: z.lazy(() => Bandwidth$zodSchema).optional(),
-  date_requested: z.string().datetime({ offset: true }).optional(),
-  derived_resources: z.number().int().optional(),
+  date_requested: z.iso.datetime({ offset: true }).optional(),
+  derived_resources: z.int().optional(),
   impressions: z.lazy(() => Impressions$zodSchema).optional(),
   last_updated: z.string().date().optional(),
   media_limits: z.lazy(() => MediaLimits$zodSchema).optional(),
   objects: z.lazy(() => Objects$zodSchema).optional(),
   plan: z.string().optional(),
-  requests: z.number().int().optional(),
-  resources: z.number().int().optional(),
+  requests: z.int().optional(),
+  resources: z.int().optional(),
   seconds_delivered: z.lazy(() => SecondsDelivered$zodSchema).optional(),
   storage: z.lazy(() => Storage$zodSchema).optional(),
   transformations: z.lazy(() => Transformations$zodSchema).optional(),

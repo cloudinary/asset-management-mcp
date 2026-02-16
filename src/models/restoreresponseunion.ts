@@ -3,36 +3,38 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { Info, Info$zodSchema } from "./info.js";
 
 /**
  * The error message if restore failed for a specific asset.
  */
+export const ErrorEnum = {
+  NoBackup: "no_backup",
+  Failed: "failed",
+  Unauthorized: "unauthorized",
+} as const;
+/**
+ * The error message if restore failed for a specific asset.
+ */
+export type ErrorEnum = ClosedEnum<typeof ErrorEnum>;
+
 export const ErrorEnum$zodSchema = z.enum([
   "no_backup",
   "failed",
   "unauthorized",
 ]).describe("The error message if restore failed for a specific asset.");
 
-export type ErrorEnum = z.infer<typeof ErrorEnum$zodSchema>;
-
 export type RestoreResponse = { error?: ErrorEnum | undefined };
 
-export const RestoreResponse$zodSchema: z.ZodType<
-  RestoreResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const RestoreResponse$zodSchema: z.ZodType<RestoreResponse> = z.object({
   error: ErrorEnum$zodSchema.optional(),
 });
 
 export type RestoreResponseUnion = Info | RestoreResponse;
 
-export const RestoreResponseUnion$zodSchema: z.ZodType<
-  RestoreResponseUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  Info$zodSchema,
-  z.lazy(() => RestoreResponse$zodSchema),
-]);
+export const RestoreResponseUnion$zodSchema: z.ZodType<RestoreResponseUnion> = z
+  .union([
+    Info$zodSchema,
+    z.lazy(() => RestoreResponse$zodSchema),
+  ]);

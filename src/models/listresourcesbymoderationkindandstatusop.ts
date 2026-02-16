@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { Direction, Direction$zodSchema } from "./direction.js";
 import { FieldsSpec, FieldsSpec$zodSchema } from "./fieldsspec.js";
@@ -14,13 +15,22 @@ export type ListResourcesByModerationKindAndStatusGlobals = {
 };
 
 export const ListResourcesByModerationKindAndStatusGlobals$zodSchema: z.ZodType<
-  ListResourcesByModerationKindAndStatusGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByModerationKindAndStatusGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
+
+export const ModerationKind = {
+  Manual: "manual",
+  Webpurify: "webpurify",
+  AwsRek: "aws_rek",
+  AwsRekVideo: "aws_rek_video",
+  PerceptionPoint: "perception_point",
+  GoogleVideoModeration: "google_video_moderation",
+  Duplicate: "duplicate",
+} as const;
+export type ModerationKind = ClosedEnum<typeof ModerationKind>;
 
 export const ModerationKind$zodSchema = z.enum([
   "manual",
@@ -32,7 +42,16 @@ export const ModerationKind$zodSchema = z.enum([
   "duplicate",
 ]);
 
-export type ModerationKind = z.infer<typeof ModerationKind$zodSchema>;
+export const ListResourcesByModerationKindAndStatusModerationStatus = {
+  Approved: "approved",
+  Rejected: "rejected",
+  Pending: "pending",
+  Queued: "queued",
+  Aborted: "aborted",
+} as const;
+export type ListResourcesByModerationKindAndStatusModerationStatus = ClosedEnum<
+  typeof ListResourcesByModerationKindAndStatusModerationStatus
+>;
 
 export const ListResourcesByModerationKindAndStatusModerationStatus$zodSchema =
   z.enum([
@@ -42,10 +61,6 @@ export const ListResourcesByModerationKindAndStatusModerationStatus$zodSchema =
     "queued",
     "aborted",
   ]);
-
-export type ListResourcesByModerationKindAndStatusModerationStatus = z.infer<
-  typeof ListResourcesByModerationKindAndStatusModerationStatus$zodSchema
->;
 
 export type ListResourcesByModerationKindAndStatusRequest = {
   resource_type: ResourceType;
@@ -58,15 +73,12 @@ export type ListResourcesByModerationKindAndStatusRequest = {
 };
 
 export const ListResourcesByModerationKindAndStatusRequest$zodSchema: z.ZodType<
-  ListResourcesByModerationKindAndStatusRequest,
-  z.ZodTypeDef,
-  unknown
+  ListResourcesByModerationKindAndStatusRequest
 > = z.object({
   direction: Direction$zodSchema.optional(),
   fields: z.array(FieldsSpec$zodSchema).optional(),
-  max_results: z.number().int().describe(
-    "Maximum number of results to return (1-500).",
-  ).optional(),
+  max_results: z.int().describe("Maximum number of results to return (1-500).")
+    .optional(),
   moderation_kind: ModerationKind$zodSchema,
   moderation_status:
     ListResourcesByModerationKindAndStatusModerationStatus$zodSchema,
@@ -79,11 +91,7 @@ export type ListResourcesByModerationKindAndStatusResponse =
   | ListResponse;
 
 export const ListResourcesByModerationKindAndStatusResponse$zodSchema:
-  z.ZodType<
-    ListResourcesByModerationKindAndStatusResponse,
-    z.ZodTypeDef,
-    unknown
-  > = z.union([
+  z.ZodType<ListResourcesByModerationKindAndStatusResponse> = z.union([
     ApiError$zodSchema,
     ListResponse$zodSchema,
   ]);

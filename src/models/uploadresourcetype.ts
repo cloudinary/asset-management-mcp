@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The type of resource to upload:
@@ -13,18 +14,28 @@ import * as z from "zod";
  * - "raw" for uploading non-media files
  * - "auto" for allowing Cloudinary to automatically detect the type of the uploaded file
  */
+export const UploadResourceType = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+  Auto: "auto",
+} as const;
+/**
+ * The type of resource to upload:
+ *
+ * @remarks
+ * - "image" for uploading strictly images
+ * - "video" for uploading strictly videos
+ * - "raw" for uploading non-media files
+ * - "auto" for allowing Cloudinary to automatically detect the type of the uploaded file
+ */
+export type UploadResourceType = ClosedEnum<typeof UploadResourceType>;
+
 export const UploadResourceType$zodSchema = z.enum([
   "image",
   "video",
   "raw",
   "auto",
 ]).describe(
-  "The type of resource to upload:\n"
-    + "- \"image\" for uploading strictly images\n"
-    + "- \"video\" for uploading strictly videos\n"
-    + "- \"raw\" for uploading non-media files\n"
-    + "- \"auto\" for allowing Cloudinary to automatically detect the type of the uploaded file\n"
-    + "",
+  "The type of resource to upload:\n- \"image\" for uploading strictly images\n- \"video\" for uploading strictly videos\n- \"raw\" for uploading non-media files\n- \"auto\" for allowing Cloudinary to automatically detect the type of the uploaded file\n",
 );
-
-export type UploadResourceType = z.infer<typeof UploadResourceType$zodSchema>;

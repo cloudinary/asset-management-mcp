@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,10 +18,6 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  UploadNoResourceTypeResponse,
-  UploadNoResourceTypeResponse$zodSchema,
-} from "../models/uploadnoresourcetypeop.js";
 import {
   UploadRequest,
   UploadRequest$zodSchema,
@@ -47,7 +42,7 @@ export function uploadUploadNoResourceType(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    UploadNoResourceTypeResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -73,7 +68,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      UploadNoResourceTypeResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -158,30 +153,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    UploadNoResourceTypeResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, UploadNoResourceTypeResponse$zodSchema, { key: "oneOf" }),
-    M.text(302, UploadNoResourceTypeResponse$zodSchema, {
-      ctype: "text/html",
-      key: "html_redirect",
-    }),
-    M.json([400, 401, 403, 404], UploadNoResourceTypeResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }

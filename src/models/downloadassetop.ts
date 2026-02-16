@@ -3,20 +3,19 @@
  */
 
 import * as z from "zod";
+import * as b64$ from "../lib/base64.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import { StorageType, StorageType$zodSchema } from "./storagetype.js";
 
 export type DownloadAssetGlobals = { cloud_name?: string | undefined };
 
-export const DownloadAssetGlobals$zodSchema: z.ZodType<
-  DownloadAssetGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const DownloadAssetGlobals$zodSchema: z.ZodType<DownloadAssetGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type DownloadAssetRequest = {
   resource_type: ResourceType;
@@ -32,40 +31,36 @@ export type DownloadAssetRequest = {
   timestamp?: number | undefined;
 };
 
-export const DownloadAssetRequest$zodSchema: z.ZodType<
-  DownloadAssetRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  api_key: z.string().describe(
-    "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
-  ).optional(),
-  attachment: z.boolean().default(false).describe(
-    "Whether to force download as an attachment.",
-  ),
-  expires_at: z.number().int().describe(
-    "Unix timestamp indicating when the download URL should expire.",
-  ).optional(),
-  format: z.string().describe(
-    "The format to convert the asset to before downloading.",
-  ).optional(),
-  public_id: z.string().describe("The public ID of the asset."),
-  resource_type: ResourceType$zodSchema,
-  signature: z.string().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n"
-      + "",
-  ).optional(),
-  target_filename: z.string().describe(
-    "The desired filename for the downloaded file.",
-  ).optional(),
-  timestamp: z.number().int().describe(
-    "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
-  ).optional(),
-  transformation: z.string().describe(
-    "A transformation to apply to the asset before downloading.",
-  ).optional(),
-  type: StorageType$zodSchema.optional(),
-});
+export const DownloadAssetRequest$zodSchema: z.ZodType<DownloadAssetRequest> = z
+  .object({
+    api_key: z.string().describe(
+      "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
+    ).optional(),
+    attachment: z.boolean().default(false).describe(
+      "Whether to force download as an attachment.",
+    ),
+    expires_at: z.int().describe(
+      "Unix timestamp indicating when the download URL should expire.",
+    ).optional(),
+    format: z.string().describe(
+      "The format to convert the asset to before downloading.",
+    ).optional(),
+    public_id: z.string().describe("The public ID of the asset."),
+    resource_type: ResourceType$zodSchema,
+    signature: z.string().describe(
+      "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
+    ).optional(),
+    target_filename: z.string().describe(
+      "The desired filename for the downloaded file.",
+    ).optional(),
+    timestamp: z.int().describe(
+      "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
+    ).optional(),
+    transformation: z.string().describe(
+      "A transformation to apply to the asset before downloading.",
+    ).optional(),
+    type: StorageType$zodSchema.optional(),
+  });
 
 export type DownloadAssetResponse =
   | ApiError
@@ -76,13 +71,16 @@ export type DownloadAssetResponse =
   | Uint8Array
   | string;
 
-export const DownloadAssetResponse$zodSchema: z.ZodType<
-  DownloadAssetResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  z.string().base64().describe("Asset downloaded successfully"),
-  z.string().base64().describe("Asset downloaded successfully"),
-  z.string().base64().describe("Asset downloaded successfully"),
-]);
+export const DownloadAssetResponse$zodSchema: z.ZodType<DownloadAssetResponse> =
+  z.union([
+    ApiError$zodSchema,
+    z.string().describe("Base64-encoded binary content").transform(
+      b64$.bytesFromBase64,
+    ),
+    z.string().describe("Base64-encoded binary content").transform(
+      b64$.bytesFromBase64,
+    ),
+    z.string().describe("Base64-encoded binary content").transform(
+      b64$.bytesFromBase64,
+    ),
+  ]);

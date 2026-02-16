@@ -3,6 +3,37 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
+
+export const FieldsSpec = {
+  AssetFolder: "asset_folder",
+  Folder: "folder",
+  Filename: "filename",
+  Format: "format",
+  Version: "version",
+  VersionId: "version_id",
+  Signature: "signature",
+  ResourceType: "resource_type",
+  CreatedAt: "created_at",
+  UploadedAt: "uploaded_at",
+  Bytes: "bytes",
+  BackupBytes: "backup_bytes",
+  Width: "width",
+  Height: "height",
+  AspectRatio: "aspect_ratio",
+  AccessControl: "access_control",
+  Metadata: "metadata",
+  Context: "context",
+  Tags: "tags",
+  Pixels: "pixels",
+  Custom: "custom",
+  Moderation: "moderation",
+  Url: "url",
+  SecureUrl: "secure_url",
+  Status: "status",
+  Etag: "etag",
+} as const;
+export type FieldsSpec = ClosedEnum<typeof FieldsSpec>;
 
 export const FieldsSpec$zodSchema = z.enum([
   "asset_folder",
@@ -32,5 +63,3 @@ export const FieldsSpec$zodSchema = z.enum([
   "status",
   "etag",
 ]);
-
-export type FieldsSpec = z.infer<typeof FieldsSpec$zodSchema>;

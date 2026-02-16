@@ -12,11 +12,8 @@ export type DerivedDestroyRequest = {
   invalidate?: boolean | undefined;
 };
 
-export const DerivedDestroyRequest$zodSchema: z.ZodType<
-  DerivedDestroyRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  derived_resource_ids: z.array(z.string()),
-  invalidate: z.boolean().optional(),
-}).describe("Request parameters for deleting derived resources");
+export const DerivedDestroyRequest$zodSchema: z.ZodType<DerivedDestroyRequest> =
+  z.object({
+    derived_resource_ids: z.array(z.string()),
+    invalidate: z.boolean().optional(),
+  }).describe("Request parameters for deleting derived resources");

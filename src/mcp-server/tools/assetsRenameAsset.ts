@@ -26,7 +26,7 @@ export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await assetsRenameAsset(
+    const [result] = await assetsRenameAsset(
       client,
       args.resource_type,
       args.RequestBody,
@@ -40,8 +40,6 @@ export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

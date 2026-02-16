@@ -3,27 +3,31 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 /**
  * The result of the deletion operation.
  */
+export const Result = {
+  Ok: "ok",
+  NotFound: "not found",
+} as const;
+/**
+ * The result of the deletion operation.
+ */
+export type Result = ClosedEnum<typeof Result>;
+
 export const Result$zodSchema = z.enum([
   "ok",
   "not found",
 ]).describe("The result of the deletion operation.");
-
-export type Result = z.infer<typeof Result$zodSchema>;
 
 export type DestroyResponse = {
   result: Result;
   asset_folder?: string | undefined;
 };
 
-export const DestroyResponse$zodSchema: z.ZodType<
-  DestroyResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const DestroyResponse$zodSchema: z.ZodType<DestroyResponse> = z.object({
   asset_folder: z.string().optional(),
   result: Result$zodSchema,
 });

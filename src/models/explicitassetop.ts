@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
   ArchiveStorageType,
@@ -13,14 +14,12 @@ import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
 export type ExplicitAssetGlobals = { cloud_name?: string | undefined };
 
-export const ExplicitAssetGlobals$zodSchema: z.ZodType<
-  ExplicitAssetGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const ExplicitAssetGlobals$zodSchema: z.ZodType<ExplicitAssetGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 /**
  * Configuration object for automatic video transcription with translation options.
@@ -30,9 +29,7 @@ export type ExplicitAssetAutoTranscription = {
 };
 
 export const ExplicitAssetAutoTranscription$zodSchema: z.ZodType<
-  ExplicitAssetAutoTranscription,
-  z.ZodTypeDef,
-  unknown
+  ExplicitAssetAutoTranscription
 > = z.object({
   translate: z.array(z.string()).optional(),
 }).describe(
@@ -44,9 +41,7 @@ export type ExplicitAssetAutoTranscriptionUnion =
   | ExplicitAssetAutoTranscription;
 
 export const ExplicitAssetAutoTranscriptionUnion$zodSchema: z.ZodType<
-  ExplicitAssetAutoTranscriptionUnion,
-  z.ZodTypeDef,
-  unknown
+  ExplicitAssetAutoTranscriptionUnion
 > = z.union([
   z.boolean(),
   z.lazy(() => ExplicitAssetAutoTranscription$zodSchema),
@@ -73,6 +68,42 @@ export const ExplicitAssetAutoTranscriptionUnion$zodSchema: z.ZodType<
  *
  * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
  */
+export const ExplicitAssetModeration = {
+  Manual: "manual",
+  Webpurify: "webpurify",
+  Metascan: "metascan",
+  AwsRek: "aws_rek",
+  AwsRekVideo: "aws_rek_video",
+  GoogleVideoModeration: "google_video_moderation",
+  PerceptionPoint: "perception_point",
+  Duplicate: "duplicate",
+  Cld: "cld",
+} as const;
+/**
+ * For all asset types, set to:
+ *
+ * @remarks
+ * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
+ * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
+ *
+ * For images only, set to:
+ * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
+ * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
+ * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
+ *
+ * For videos only, set to:
+ * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
+ * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
+ *
+ * To request multiple moderations in a single API call:
+ * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
+ *
+ * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
+ */
+export type ExplicitAssetModeration = ClosedEnum<
+  typeof ExplicitAssetModeration
+>;
+
 export const ExplicitAssetModeration$zodSchema = z.enum([
   "manual",
   "webpurify",
@@ -84,29 +115,8 @@ export const ExplicitAssetModeration$zodSchema = z.enum([
   "duplicate",
   "cld",
 ]).describe(
-  "For all asset types, set to:\n"
-    + "- manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.\n"
-    + "- perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.\n"
-    + "\n"
-    + "For images only, set to:\n"
-    + "- webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.\n"
-    + "- aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.\n"
-    + "- duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.\n"
-    + "\n"
-    + "For videos only, set to:\n"
-    + "- aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.\n"
-    + "- google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.\n"
-    + "\n"
-    + "To request multiple moderations in a single API call:\n"
-    + "- Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.\n"
-    + "\n"
-    + "Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.\n"
-    + "",
+  "For all asset types, set to:\n- manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.\n- perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.\n\nFor images only, set to:\n- webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.\n- aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.\n- duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.\n\nFor videos only, set to:\n- aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.\n- google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.\n\nTo request multiple moderations in a single API call:\n- Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.\n\nNote: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.\n",
 );
-
-export type ExplicitAssetModeration = z.infer<
-  typeof ExplicitAssetModeration$zodSchema
->;
 
 export type ExplicitAssetResponsiveBreakpoint = {
   create_derived?: boolean | undefined;
@@ -118,15 +128,13 @@ export type ExplicitAssetResponsiveBreakpoint = {
 };
 
 export const ExplicitAssetResponsiveBreakpoint$zodSchema: z.ZodType<
-  ExplicitAssetResponsiveBreakpoint,
-  z.ZodTypeDef,
-  unknown
+  ExplicitAssetResponsiveBreakpoint
 > = z.object({
-  bytes_step: z.number().int().optional(),
+  bytes_step: z.int().optional(),
   create_derived: z.boolean().optional(),
-  max_images: z.number().int().optional(),
-  max_width: z.number().int().optional(),
-  min_width: z.number().int().optional(),
+  max_images: z.int().optional(),
+  max_width: z.int().optional(),
+  min_width: z.int().optional(),
   transformation: z.string().optional(),
 });
 
@@ -135,13 +143,9 @@ export const ExplicitAssetResponsiveBreakpoint$zodSchema: z.ZodType<
  */
 export type QualityOverride = string | number;
 
-export const QualityOverride$zodSchema: z.ZodType<
-  QualityOverride,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
+export const QualityOverride$zodSchema: z.ZodType<QualityOverride> = z.union([
   z.string(),
-  z.number().int(),
+  z.int(),
 ]).describe("Override the quality setting for this asset.");
 
 export type ExplicitAssetRequestBody = {
@@ -182,9 +186,7 @@ export type ExplicitAssetRequestBody = {
 };
 
 export const ExplicitAssetRequestBody$zodSchema: z.ZodType<
-  ExplicitAssetRequestBody,
-  z.ZodTypeDef,
-  unknown
+  ExplicitAssetRequestBody
 > = z.object({
   accessibility_analysis: z.boolean().optional(),
   api_key: z.string().optional(),
@@ -218,7 +220,7 @@ export const ExplicitAssetRequestBody$zodSchema: z.ZodType<
   quality_analysis: z.boolean().optional(),
   quality_override: z.union([
     z.string(),
-    z.number().int(),
+    z.int(),
   ]).optional(),
   regions: z.string().optional(),
   responsive_breakpoints: z.array(
@@ -226,7 +228,7 @@ export const ExplicitAssetRequestBody$zodSchema: z.ZodType<
   ).optional(),
   signature: z.string().optional(),
   tags: z.string().optional(),
-  timestamp: z.number().int().optional(),
+  timestamp: z.int().optional(),
   type: ArchiveStorageType$zodSchema.optional(),
 });
 
@@ -235,22 +237,16 @@ export type ExplicitAssetRequest = {
   RequestBody: ExplicitAssetRequestBody;
 };
 
-export const ExplicitAssetRequest$zodSchema: z.ZodType<
-  ExplicitAssetRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  RequestBody: z.lazy(() => ExplicitAssetRequestBody$zodSchema),
-  resource_type: ResourceType$zodSchema,
-});
+export const ExplicitAssetRequest$zodSchema: z.ZodType<ExplicitAssetRequest> = z
+  .object({
+    RequestBody: z.lazy(() => ExplicitAssetRequestBody$zodSchema),
+    resource_type: ResourceType$zodSchema,
+  });
 
 export type ExplicitAssetResponse = ApiError | UploadResponse;
 
-export const ExplicitAssetResponse$zodSchema: z.ZodType<
-  ExplicitAssetResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  UploadResponse$zodSchema,
-]);
+export const ExplicitAssetResponse$zodSchema: z.ZodType<ExplicitAssetResponse> =
+  z.union([
+    ApiError$zodSchema,
+    UploadResponse$zodSchema,
+  ]);

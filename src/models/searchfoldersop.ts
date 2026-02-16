@@ -11,33 +11,23 @@ import {
 
 export type SearchFoldersGlobals = { cloud_name?: string | undefined };
 
-export const SearchFoldersGlobals$zodSchema: z.ZodType<
-  SearchFoldersGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const SearchFoldersGlobals$zodSchema: z.ZodType<SearchFoldersGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type Expression = {};
 
-export const Expression$zodSchema: z.ZodType<
-  Expression,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
+export const Expression$zodSchema: z.ZodType<Expression> = z.object({});
 
 /**
  * The (Lucene-like) string expression specifying the search query, or an object for advanced queries. If not passed, returns all folders (up to max_results).
  */
 export type ExpressionUnion = string | Expression;
 
-export const ExpressionUnion$zodSchema: z.ZodType<
-  ExpressionUnion,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
+export const ExpressionUnion$zodSchema: z.ZodType<ExpressionUnion> = z.union([
   z.string(),
   z.lazy(() => Expression$zodSchema),
 ]).describe(
@@ -51,33 +41,27 @@ export type SearchFoldersRequest = {
   next_cursor?: string | undefined;
 };
 
-export const SearchFoldersRequest$zodSchema: z.ZodType<
-  SearchFoldersRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  expression: z.union([
-    z.string(),
-    z.lazy(() => Expression$zodSchema),
-  ]).optional(),
-  max_results: z.number().int().default(50).describe(
-    "Maximum number of folders to return (max 500, default 50).",
-  ),
-  next_cursor: z.string().describe(
-    "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
-  ).optional(),
-  sort_by: z.array(z.string()).describe(
-    "An array of key-value pairs for sorting. Each value is a key and direction (asc/desc).",
-  ).optional(),
-});
+export const SearchFoldersRequest$zodSchema: z.ZodType<SearchFoldersRequest> = z
+  .object({
+    expression: z.union([
+      z.string(),
+      z.lazy(() => Expression$zodSchema),
+    ]).optional(),
+    max_results: z.int().default(50).describe(
+      "Maximum number of folders to return (max 500, default 50).",
+    ),
+    next_cursor: z.string().describe(
+      "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
+    ).optional(),
+    sort_by: z.array(z.string()).describe(
+      "An array of key-value pairs for sorting. Each value is a key and direction (asc/desc).",
+    ).optional(),
+  });
 
 export type SearchFoldersResponse = FoldersSearchResponse | ApiError;
 
-export const SearchFoldersResponse$zodSchema: z.ZodType<
-  SearchFoldersResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  FoldersSearchResponse$zodSchema,
-  ApiError$zodSchema,
-]);
+export const SearchFoldersResponse$zodSchema: z.ZodType<SearchFoldersResponse> =
+  z.union([
+    FoldersSearchResponse$zodSchema,
+    ApiError$zodSchema,
+  ]);

@@ -14,9 +14,7 @@ export type RestoreResourcesByAssetIDsGlobals = {
 };
 
 export const RestoreResourcesByAssetIDsGlobals$zodSchema: z.ZodType<
-  RestoreResourcesByAssetIDsGlobals,
-  z.ZodTypeDef,
-  unknown
+  RestoreResourcesByAssetIDsGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -29,9 +27,7 @@ export type RestoreResourcesByAssetIDsRequest = {
 };
 
 export const RestoreResourcesByAssetIDsRequest$zodSchema: z.ZodType<
-  RestoreResourcesByAssetIDsRequest,
-  z.ZodTypeDef,
-  unknown
+  RestoreResourcesByAssetIDsRequest
 > = z.object({
   asset_ids: z.array(z.string()),
   notification_url: z.string().optional(),
@@ -43,12 +39,10 @@ export type RestoreResourcesByAssetIDsResponse = ApiError | {
 };
 
 export const RestoreResourcesByAssetIDsResponse$zodSchema: z.ZodType<
-  RestoreResourcesByAssetIDsResponse,
-  z.ZodTypeDef,
-  unknown
+  RestoreResourcesByAssetIDsResponse
 > = z.union([
   ApiError$zodSchema,
-  z.record(RestoreResponseUnion$zodSchema).describe(
+  z.record(z.string(), RestoreResponseUnion$zodSchema).describe(
     "Resources restored successfully",
   ),
 ]);

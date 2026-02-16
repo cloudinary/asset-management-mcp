@@ -10,14 +10,12 @@ import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
 export type RenameAssetGlobals = { cloud_name?: string | undefined };
 
-export const RenameAssetGlobals$zodSchema: z.ZodType<
-  RenameAssetGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
+export const RenameAssetGlobals$zodSchema: z.ZodType<RenameAssetGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type RenameAssetRequestBody = {
   api_key?: string | undefined;
@@ -35,9 +33,7 @@ export type RenameAssetRequestBody = {
 };
 
 export const RenameAssetRequestBody$zodSchema: z.ZodType<
-  RenameAssetRequestBody,
-  z.ZodTypeDef,
-  unknown
+  RenameAssetRequestBody
 > = z.object({
   api_key: z.string().optional(),
   context: z.string().optional(),
@@ -47,7 +43,7 @@ export const RenameAssetRequestBody$zodSchema: z.ZodType<
   notification_url: z.string().optional(),
   overwrite: z.boolean().optional(),
   signature: z.string().optional(),
-  timestamp: z.number().int().optional(),
+  timestamp: z.int().optional(),
   to_public_id: z.string(),
   to_type: StorageType$zodSchema.optional(),
   type: StorageType$zodSchema.optional(),
@@ -58,22 +54,16 @@ export type RenameAssetRequest = {
   RequestBody: RenameAssetRequestBody;
 };
 
-export const RenameAssetRequest$zodSchema: z.ZodType<
-  RenameAssetRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  RequestBody: z.lazy(() => RenameAssetRequestBody$zodSchema),
-  resource_type: ResourceType$zodSchema,
-});
+export const RenameAssetRequest$zodSchema: z.ZodType<RenameAssetRequest> = z
+  .object({
+    RequestBody: z.lazy(() => RenameAssetRequestBody$zodSchema),
+    resource_type: ResourceType$zodSchema,
+  });
 
 export type RenameAssetResponse = ApiError | UploadResponse;
 
-export const RenameAssetResponse$zodSchema: z.ZodType<
-  RenameAssetResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  ApiError$zodSchema,
-  UploadResponse$zodSchema,
-]);
+export const RenameAssetResponse$zodSchema: z.ZodType<RenameAssetResponse> = z
+  .union([
+    ApiError$zodSchema,
+    UploadResponse$zodSchema,
+  ]);

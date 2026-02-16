@@ -3,13 +3,12 @@
  */
 
 import * as z from "zod";
+import { ClosedEnum } from "../types/enums.js";
 
 export type ListResourceTypesGlobals = { cloud_name?: string | undefined };
 
 export const ListResourceTypesGlobals$zodSchema: z.ZodType<
-  ListResourceTypesGlobals,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTypesGlobals
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
@@ -18,17 +17,13 @@ export const ListResourceTypesGlobals$zodSchema: z.ZodType<
 export type ListResourceTypesRequest = {};
 
 export const ListResourceTypesRequest$zodSchema: z.ZodType<
-  ListResourceTypesRequest,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTypesRequest
 > = z.object({});
 
 export type ListResourceTypesError = { message: string };
 
 export const ListResourceTypesError$zodSchema: z.ZodType<
-  ListResourceTypesError,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTypesError
 > = z.object({
   message: z.string(),
 });
@@ -41,22 +36,25 @@ export type ListResourceTypesUnauthorizedResponseBody = {
 };
 
 export const ListResourceTypesUnauthorizedResponseBody$zodSchema: z.ZodType<
-  ListResourceTypesUnauthorizedResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTypesUnauthorizedResponseBody
 > = z.object({
   error: z.lazy(() => ListResourceTypesError$zodSchema),
 }).describe("Authentication failed.");
+
+export const ListResourceTypesResourceType = {
+  Image: "image",
+  Raw: "raw",
+  Video: "video",
+} as const;
+export type ListResourceTypesResourceType = ClosedEnum<
+  typeof ListResourceTypesResourceType
+>;
 
 export const ListResourceTypesResourceType$zodSchema = z.enum([
   "image",
   "raw",
   "video",
 ]);
-
-export type ListResourceTypesResourceType = z.infer<
-  typeof ListResourceTypesResourceType$zodSchema
->;
 
 /**
  * The list of resource types.
@@ -66,9 +64,7 @@ export type ListResourceTypesResponseBody = {
 };
 
 export const ListResourceTypesResponseBody$zodSchema: z.ZodType<
-  ListResourceTypesResponseBody,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTypesResponseBody
 > = z.object({
   resource_types: z.array(ListResourceTypesResourceType$zodSchema).optional(),
 }).describe("The list of resource types.");
@@ -78,9 +74,7 @@ export type ListResourceTypesResponse =
   | ListResourceTypesResponseBody;
 
 export const ListResourceTypesResponse$zodSchema: z.ZodType<
-  ListResourceTypesResponse,
-  z.ZodTypeDef,
-  unknown
+  ListResourceTypesResponse
 > = z.union([
   z.lazy(() => ListResourceTypesUnauthorizedResponseBody$zodSchema),
   z.lazy(() => ListResourceTypesResponseBody$zodSchema),

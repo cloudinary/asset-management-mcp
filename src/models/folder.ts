@@ -11,10 +11,9 @@ export type Folder = {
   created_at?: string | undefined;
 };
 
-export const Folder$zodSchema: z.ZodType<Folder, z.ZodTypeDef, unknown> = z
-  .object({
-    created_at: z.string().datetime({ offset: true }).optional(),
-    external_id: z.string(),
-    name: z.string(),
-    path: z.string(),
-  });
+export const Folder$zodSchema: z.ZodType<Folder> = z.object({
+  created_at: z.iso.datetime({ offset: true }).optional(),
+  external_id: z.string(),
+  name: z.string(),
+  path: z.string(),
+});

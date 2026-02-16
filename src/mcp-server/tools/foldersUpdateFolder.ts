@@ -28,7 +28,7 @@ Renames or moves an entire folder (along with all assets it contains) to a new l
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result, apiCall] = await foldersUpdateFolder(
+    const [result] = await foldersUpdateFolder(
       client,
       args.folder,
       args.RequestBody,
@@ -42,8 +42,6 @@ Renames or moves an entire folder (along with all assets it contains) to a new l
       };
     }
 
-    const value = result.value;
-
-    return formatResult(value, apiCall);
+    return formatResult(result.value);
   },
 };

@@ -4,7 +4,6 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
-import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -23,8 +22,6 @@ import {
   RenameAssetRequest,
   RenameAssetRequest$zodSchema,
   RenameAssetRequestBody,
-  RenameAssetResponse,
-  RenameAssetResponse$zodSchema,
 } from "../models/renameassetop.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -40,7 +37,7 @@ export function assetsRenameAsset(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    RenameAssetResponse,
+    Response,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -66,7 +63,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      RenameAssetResponse,
+      Response,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -159,26 +156,9 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  const response = doResult.value;
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: req$ },
-  };
-
-  const [result$] = await M.match<
-    RenameAssetResponse,
-    | APIError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | ConnectionError
-  >(
-    M.json(200, RenameAssetResponse$zodSchema, { key: "upload_response" }),
-    M.json([400, 401, 404], RenameAssetResponse$zodSchema, {
-      key: "api_error",
-    }),
-  )(response, req$, { extraFields: responseFields$ });
-
-  return [result$, { status: "complete", request: req$, response }];
+  return [doResult, {
+    status: "complete",
+    "request": req$,
+    response: doResult.value,
+  }];
 }
