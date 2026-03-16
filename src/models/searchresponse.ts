@@ -59,6 +59,8 @@ export const SearchResponseType$zodSchema = z.enum([
 export const SearchResponseStatus = {
   Active: "active",
   Inactive: "inactive",
+  Deleted: "deleted",
+  Pending: "pending",
 } as const;
 /**
  * The current status of the asset.
@@ -68,6 +70,8 @@ export type SearchResponseStatus = ClosedEnum<typeof SearchResponseStatus>;
 export const SearchResponseStatus$zodSchema = z.enum([
   "active",
   "inactive",
+  "deleted",
+  "pending",
 ]).describe("The current status of the asset.");
 
 /**

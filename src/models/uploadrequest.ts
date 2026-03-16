@@ -30,77 +30,6 @@ export const AutoTranscriptionUnion$zodSchema: z.ZodType<
   z.lazy(() => AutoTranscription$zodSchema),
 ]);
 
-/**
- * For all asset types, set to:
- *
- * @remarks
- * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
- * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
- *
- * For images only, set to:
- * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
- * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
- * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
- *
- * For videos only, set to:
- * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
- * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
- *
- * To request multiple moderations in a single API call:
- * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
- *
- * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
- */
-export const UploadRequestModeration = {
-  Manual: "manual",
-  Webpurify: "webpurify",
-  Metascan: "metascan",
-  AwsRek: "aws_rek",
-  AwsRekVideo: "aws_rek_video",
-  GoogleVideoModeration: "google_video_moderation",
-  PerceptionPoint: "perception_point",
-  Duplicate: "duplicate",
-  Cld: "cld",
-} as const;
-/**
- * For all asset types, set to:
- *
- * @remarks
- * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
- * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
- *
- * For images only, set to:
- * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
- * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
- * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
- *
- * For videos only, set to:
- * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
- * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
- *
- * To request multiple moderations in a single API call:
- * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
- *
- * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
- */
-export type UploadRequestModeration = ClosedEnum<
-  typeof UploadRequestModeration
->;
-
-export const UploadRequestModeration$zodSchema = z.enum([
-  "manual",
-  "webpurify",
-  "metascan",
-  "aws_rek",
-  "aws_rek_video",
-  "google_video_moderation",
-  "perception_point",
-  "duplicate",
-  "cld",
-]).describe(
-  "For all asset types, set to:\n- manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.\n- perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.\n\nFor images only, set to:\n- webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.\n- aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.\n- duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.\n\nFor videos only, set to:\n- aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.\n- google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.\n\nTo request multiple moderations in a single API call:\n- Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.\n\nNote: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.\n",
-);
-
 export type ResponsiveBreakpoint = {
   create_derived?: boolean | undefined;
   max_width?: number | undefined;
@@ -172,89 +101,6 @@ export const UploadRequestAccessMode$zodSchema = z.enum([
   "Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.\n",
 );
 
-/**
- * A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.
- */
-export const UploadRequestCategorization = {
-  RekognitionScene: "rekognition_scene",
-  ImaggaTagging: "imagga_tagging",
-  AwsRekTagging: "aws_rek_tagging",
-  GoogleVideoTagging: "google_video_tagging",
-  GoogleTagging: "google_tagging",
-  VisenzeRecognition: "visenze_recognition",
-  AzureVideoIndexer: "azure_video_indexer",
-} as const;
-/**
- * A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.
- */
-export type UploadRequestCategorization = ClosedEnum<
-  typeof UploadRequestCategorization
->;
-
-export const UploadRequestCategorization$zodSchema = z.enum([
-  "rekognition_scene",
-  "imagga_tagging",
-  "aws_rek_tagging",
-  "google_video_tagging",
-  "google_tagging",
-  "visenze_recognition",
-  "azure_video_indexer",
-]).describe(
-  "A comma-separated list of the categorization add-ons to run on the asset. Set to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging to automatically classify the scenes of the uploaded asset.",
-);
-
-/**
- * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
- */
-export const UploadRequestOcr = {
-  AdvOcr: "adv_ocr",
-} as const;
-/**
- * Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.
- */
-export type UploadRequestOcr = ClosedEnum<typeof UploadRequestOcr>;
-
-export const UploadRequestOcr$zodSchema = z.enum([
-  "adv_ocr",
-]).describe(
-  "Set to adv_ocr to extract all text elements in an image as well as the bounding box coordinates of each detected element using the OCR text detection and extraction add-on.",
-);
-
-/**
- * Automatically remove the background of an image using an add-on.
- *
- * @remarks
- * - Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.
- * - Note: this feature has been superseded by background removal on the fly.
- * - Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.
- * Relevant for images only.
- */
-export const UploadRequestBackgroundRemoval = {
-  CloudinaryAi: "cloudinary_ai",
-  RemoveTheBackground: "remove_the_background",
-  Pixelz: "pixelz",
-} as const;
-/**
- * Automatically remove the background of an image using an add-on.
- *
- * @remarks
- * - Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.
- * - Note: this feature has been superseded by background removal on the fly.
- * - Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.
- * Relevant for images only.
- */
-export type UploadRequestBackgroundRemoval = ClosedEnum<
-  typeof UploadRequestBackgroundRemoval
->;
-
-export const UploadRequestBackgroundRemoval$zodSchema = z.enum([
-  "cloudinary_ai",
-  "remove_the_background",
-  "pixelz",
-]).describe(
-  "Automatically remove the background of an image using an add-on.\n- Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.\n- Note: this feature has been superseded by background removal on the fly.\n- Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.\nRelevant for images only.\n",
-);
-
 export type UploadRequest = {
   api_key?: string | undefined;
   timestamp?: number | undefined;
@@ -278,7 +124,7 @@ export type UploadRequest = {
   invalidate?: boolean | undefined;
   media_metadata?: boolean | undefined;
   metadata?: string | undefined;
-  moderation?: UploadRequestModeration | undefined;
+  moderation?: string | undefined;
   notification_url?: string | undefined;
   phash?: boolean | undefined;
   quality_analysis?: boolean | undefined;
@@ -292,10 +138,10 @@ export type UploadRequest = {
   return_delete_token?: boolean | undefined;
   type?: UploadRequestType | undefined;
   access_mode?: UploadRequestAccessMode | undefined;
-  categorization?: UploadRequestCategorization | undefined;
-  ocr?: UploadRequestOcr | undefined;
+  categorization?: string | undefined;
+  ocr?: string | undefined;
   raw_convert?: string | undefined;
-  background_removal?: UploadRequestBackgroundRemoval | undefined;
+  background_removal?: string | undefined;
   public_id?: string | undefined;
   transformation?: string | undefined;
   format?: string | undefined;
@@ -333,10 +179,10 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
     z.boolean(),
     z.lazy(() => AutoTranscription$zodSchema),
   ]).optional(),
-  background_removal: UploadRequestBackgroundRemoval$zodSchema.optional(),
+  background_removal: z.string().optional(),
   backup: z.boolean().optional(),
   callback: z.string().optional(),
-  categorization: UploadRequestCategorization$zodSchema.optional(),
+  categorization: z.string().optional(),
   cinemagraph_analysis: z.boolean().optional(),
   colors: z.boolean().default(false),
   context: z.string().optional(),
@@ -358,9 +204,9 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
   invalidate: z.boolean().optional(),
   media_metadata: z.boolean().optional(),
   metadata: z.string().optional(),
-  moderation: UploadRequestModeration$zodSchema.optional(),
+  moderation: z.string().optional(),
   notification_url: z.string().optional(),
-  ocr: UploadRequestOcr$zodSchema.optional(),
+  ocr: z.string().optional(),
   on_success: z.string().optional(),
   overwrite: z.boolean().optional(),
   phash: z.boolean().optional(),

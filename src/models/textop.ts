@@ -171,24 +171,24 @@ export const TextInfo$zodSchema: z.ZodType<TextInfo> = z.object({}).describe(
  * Text image created successfully
  */
 export type TextResponseBody = {
-  asset_id: string;
-  public_id: string;
-  version: number;
-  version_id: string;
-  signature: string;
-  width: number;
-  height: number;
-  format: string;
-  resource_type: string;
-  created_at: string;
+  asset_id?: string | undefined;
+  public_id?: string | undefined;
+  version?: number | undefined;
+  version_id?: string | undefined;
+  signature?: string | undefined;
+  width?: number | undefined;
+  height?: number | undefined;
+  format?: string | undefined;
+  resource_type?: string | undefined;
+  created_at?: string | undefined;
   tags?: Array<string> | undefined;
   pages?: number | undefined;
-  bytes: number;
-  type: string;
+  bytes?: number | undefined;
+  type?: string | undefined;
   etag?: string | undefined;
   placeholder?: boolean | undefined;
-  url: string;
-  secure_url: string;
+  url?: string | undefined;
+  secure_url?: string | undefined;
   display_name?: string | undefined;
   access_mode?: string | undefined;
   access_control?: Array<AccessControlItem> | undefined;
@@ -201,34 +201,34 @@ export const TextResponseBody$zodSchema: z.ZodType<TextResponseBody> = z.object(
   {
     access_control: z.array(AccessControlItem$zodSchema).optional(),
     access_mode: z.string().optional(),
-    asset_id: z.string(),
-    bytes: z.int(),
-    created_at: z.iso.datetime({ offset: true }),
+    asset_id: z.string().optional(),
+    bytes: z.int().optional(),
+    created_at: z.iso.datetime({ offset: true }).optional(),
     display_name: z.string().optional(),
     etag: z.string().optional(),
-    format: z.string(),
-    height: z.int(),
+    format: z.string().optional(),
+    height: z.int().optional(),
     info: z.lazy(() => TextInfo$zodSchema).optional(),
     moderation: z.lazy(() => TextModeration$zodSchema).optional(),
     pages: z.int().optional(),
     placeholder: z.boolean().optional(),
-    public_id: z.string(),
+    public_id: z.string().optional(),
     regions: z.array(z.lazy(() => Region$zodSchema)).optional(),
-    resource_type: z.string(),
-    secure_url: z.string(),
-    signature: z.string(),
+    resource_type: z.string().optional(),
+    secure_url: z.string().optional(),
+    signature: z.string().optional(),
     tags: z.array(z.string()).optional(),
-    type: z.string(),
-    url: z.string(),
-    version: z.int(),
-    version_id: z.string(),
-    width: z.int(),
+    type: z.string().optional(),
+    url: z.string().optional(),
+    version: z.int().optional(),
+    version_id: z.string().optional(),
+    width: z.int().optional(),
   },
 ).describe("Text image created successfully");
 
-export type TextResponse = TextResponseBody | ApiError;
+export type TextResponse = ApiError | TextResponseBody;
 
 export const TextResponse$zodSchema: z.ZodType<TextResponse> = z.union([
-  z.lazy(() => TextResponseBody$zodSchema),
   ApiError$zodSchema,
+  z.lazy(() => TextResponseBody$zodSchema),
 ]);

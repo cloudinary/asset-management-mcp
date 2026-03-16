@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
   ArchiveStorageType,
@@ -46,77 +45,6 @@ export const ExplicitAssetAutoTranscriptionUnion$zodSchema: z.ZodType<
   z.boolean(),
   z.lazy(() => ExplicitAssetAutoTranscription$zodSchema),
 ]);
-
-/**
- * For all asset types, set to:
- *
- * @remarks
- * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
- * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
- *
- * For images only, set to:
- * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
- * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
- * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
- *
- * For videos only, set to:
- * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
- * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
- *
- * To request multiple moderations in a single API call:
- * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
- *
- * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
- */
-export const ExplicitAssetModeration = {
-  Manual: "manual",
-  Webpurify: "webpurify",
-  Metascan: "metascan",
-  AwsRek: "aws_rek",
-  AwsRekVideo: "aws_rek_video",
-  GoogleVideoModeration: "google_video_moderation",
-  PerceptionPoint: "perception_point",
-  Duplicate: "duplicate",
-  Cld: "cld",
-} as const;
-/**
- * For all asset types, set to:
- *
- * @remarks
- * - manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.
- * - perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.
- *
- * For images only, set to:
- * - webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.
- * - aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.
- * - duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.
- *
- * For videos only, set to:
- * - aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.
- * - google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.
- *
- * To request multiple moderations in a single API call:
- * - Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.
- *
- * Note: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.
- */
-export type ExplicitAssetModeration = ClosedEnum<
-  typeof ExplicitAssetModeration
->;
-
-export const ExplicitAssetModeration$zodSchema = z.enum([
-  "manual",
-  "webpurify",
-  "metascan",
-  "aws_rek",
-  "aws_rek_video",
-  "google_video_moderation",
-  "perception_point",
-  "duplicate",
-  "cld",
-]).describe(
-  "For all asset types, set to:\n- manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.\n- perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.\n\nFor images only, set to:\n- webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.\n- aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.\n- duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.\n\nFor videos only, set to:\n- aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.\n- google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.\n\nTo request multiple moderations in a single API call:\n- Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.\n\nNote: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.\n",
-);
 
 export type ExplicitAssetResponsiveBreakpoint = {
   create_derived?: boolean | undefined;
@@ -171,7 +99,7 @@ export type ExplicitAssetRequestBody = {
   invalidate?: boolean | undefined;
   media_metadata?: boolean | undefined;
   metadata?: string | undefined;
-  moderation?: ExplicitAssetModeration | undefined;
+  moderation?: string | undefined;
   notification_url?: string | undefined;
   phash?: boolean | undefined;
   quality_analysis?: boolean | undefined;
@@ -212,7 +140,7 @@ export const ExplicitAssetRequestBody$zodSchema: z.ZodType<
   invalidate: z.boolean().optional(),
   media_metadata: z.boolean().optional(),
   metadata: z.string().optional(),
-  moderation: ExplicitAssetModeration$zodSchema.optional(),
+  moderation: z.string().optional(),
   notification_url: z.string().optional(),
   overwrite: z.boolean().optional(),
   phash: z.boolean().optional(),

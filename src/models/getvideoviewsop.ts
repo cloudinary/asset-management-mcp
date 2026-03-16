@@ -18,7 +18,7 @@ export const GetVideoViewsGlobals$zodSchema: z.ZodType<GetVideoViewsGlobals> = z
 /**
  * Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.
  */
-export const SortBy = {
+export const GetVideoViewsSortBy = {
   ViewEndedAt: "view_ended_at",
   VideoDuration: "video_duration",
   ViewWatchTime: "view_watch_time",
@@ -29,9 +29,9 @@ export const SortBy = {
 /**
  * Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.
  */
-export type SortBy = ClosedEnum<typeof SortBy>;
+export type GetVideoViewsSortBy = ClosedEnum<typeof GetVideoViewsSortBy>;
 
-export const SortBy$zodSchema = z.enum([
+export const GetVideoViewsSortBy$zodSchema = z.enum([
   "view_ended_at",
   "video_duration",
   "view_watch_time",
@@ -45,7 +45,7 @@ export const SortBy$zodSchema = z.enum([
 export type GetVideoViewsRequest = {
   expression?: string | undefined;
   max_results?: number | undefined;
-  sort_by?: SortBy | undefined;
+  sort_by?: GetVideoViewsSortBy | undefined;
   next_cursor?: string | undefined;
 };
 
@@ -60,7 +60,7 @@ export const GetVideoViewsRequest$zodSchema: z.ZodType<GetVideoViewsRequest> = z
     next_cursor: z.string().describe(
       "The cursor for pagination. Use the next_cursor value from a previous response to get the next page of results.",
     ).optional(),
-    sort_by: SortBy$zodSchema.default("-view_ended_at"),
+    sort_by: GetVideoViewsSortBy$zodSchema.default("-view_ended_at"),
   });
 
 export type Data = {

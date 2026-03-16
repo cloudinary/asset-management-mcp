@@ -26,84 +26,6 @@ export const ModerationStatus$zodSchema = z.enum([
   "rejected",
 ]).describe("The moderation status of the resource.");
 
-/**
- * The type of OCR to perform on the resource.
- */
-export const ResourceUpdateRequestOcr = {
-  AdvOcr: "adv_ocr",
-} as const;
-/**
- * The type of OCR to perform on the resource.
- */
-export type ResourceUpdateRequestOcr = ClosedEnum<
-  typeof ResourceUpdateRequestOcr
->;
-
-export const ResourceUpdateRequestOcr$zodSchema = z.enum([
-  "adv_ocr",
-]).describe("The type of OCR to perform on the resource.");
-
-/**
- * The conversion to apply for raw files.
- */
-export const RawConvert = {
-  Aspose: "aspose",
-  GoogleSpeech: "google_speech",
-  ExtractText: "extract_text",
-} as const;
-/**
- * The conversion to apply for raw files.
- */
-export type RawConvert = ClosedEnum<typeof RawConvert>;
-
-export const RawConvert$zodSchema = z.enum([
-  "aspose",
-  "google_speech",
-  "extract_text",
-]).describe("The conversion to apply for raw files.");
-
-/**
- * The type of categorization to perform on the resource.
- */
-export const ResourceUpdateRequestCategorization = {
-  GoogleTagging: "google_tagging",
-  GoogleVideoTagging: "google_video_tagging",
-  ImaggaTagging: "imagga_tagging",
-  AwsRekTagging: "aws_rek_tagging",
-} as const;
-/**
- * The type of categorization to perform on the resource.
- */
-export type ResourceUpdateRequestCategorization = ClosedEnum<
-  typeof ResourceUpdateRequestCategorization
->;
-
-export const ResourceUpdateRequestCategorization$zodSchema = z.enum([
-  "google_tagging",
-  "google_video_tagging",
-  "imagga_tagging",
-  "aws_rek_tagging",
-]).describe("The type of categorization to perform on the resource.");
-
-/**
- * The background removal provider to use for the resource.
- */
-export const ResourceUpdateRequestBackgroundRemoval = {
-  CloudinaryAi: "cloudinary_ai",
-  Pixelz: "pixelz",
-} as const;
-/**
- * The background removal provider to use for the resource.
- */
-export type ResourceUpdateRequestBackgroundRemoval = ClosedEnum<
-  typeof ResourceUpdateRequestBackgroundRemoval
->;
-
-export const ResourceUpdateRequestBackgroundRemoval$zodSchema = z.enum([
-  "cloudinary_ai",
-  "pixelz",
-]).describe("The background removal provider to use for the resource.");
-
 export type ResourceUpdateRequest = {
   display_name?: string | undefined;
   unique_display_name?: boolean | undefined;
@@ -119,11 +41,11 @@ export type ResourceUpdateRequest = {
   moderation_status?: ModerationStatus | undefined;
   auto_tagging?: number | undefined;
   detection?: string | undefined;
-  ocr?: ResourceUpdateRequestOcr | undefined;
-  raw_convert?: RawConvert | undefined;
-  categorization?: ResourceUpdateRequestCategorization | undefined;
+  ocr?: string | undefined;
+  raw_convert?: string | undefined;
+  categorization?: string | undefined;
   visual_search?: boolean | undefined;
-  background_removal?: ResourceUpdateRequestBackgroundRemoval | undefined;
+  background_removal?: string | undefined;
   access_control?: Array<AccessControlItem> | undefined;
 };
 
@@ -132,9 +54,8 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
     access_control: z.array(AccessControlItem$zodSchema).optional(),
     asset_folder: z.string().optional(),
     auto_tagging: z.number().optional(),
-    background_removal: ResourceUpdateRequestBackgroundRemoval$zodSchema
-      .optional(),
-    categorization: ResourceUpdateRequestCategorization$zodSchema.optional(),
+    background_removal: z.string().optional(),
+    categorization: z.string().optional(),
     clear_invalid: z.boolean().default(false),
     context: z.string().optional(),
     custom_coordinates: z.string().optional(),
@@ -143,9 +64,9 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
     face_coordinates: z.string().optional(),
     metadata: z.string().optional(),
     moderation_status: ModerationStatus$zodSchema.optional(),
-    ocr: ResourceUpdateRequestOcr$zodSchema.optional(),
+    ocr: z.string().optional(),
     quality_override: z.string().optional(),
-    raw_convert: RawConvert$zodSchema.optional(),
+    raw_convert: z.string().optional(),
     regions: z.string().optional(),
     tags: z.string().optional(),
     unique_display_name: z.boolean().default(false),

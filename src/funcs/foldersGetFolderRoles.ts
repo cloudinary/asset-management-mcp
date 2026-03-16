@@ -19,26 +19,22 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  GetVideoViewsRequest,
-  GetVideoViewsRequest$zodSchema,
-  GetVideoViewsSortBy,
-} from "../models/getvideoviewsop.js";
+  GetFolderRolesRequest,
+  GetFolderRolesRequest$zodSchema,
+} from "../models/getfolderrolesop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get video views
+ * Get folder roles
  *
  * @remarks
- * Retrieves analytics data for video views. Results can be filtered using expressions based on various criteria
- * such as video public ID, view duration, viewer information, and more.
+ * Lists the principals (users, groups, or API keys) and their role assignments on a specific folder, including roles inherited from ancestor folders.
  */
-export function videoAnalyticsGetVideoViews(
+export function foldersGetFolderRoles(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
-  max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
-  next_cursor?: string | undefined,
+  folder_id: string,
+  permitted_roles?: boolean | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,20 +50,16 @@ export function videoAnalyticsGetVideoViews(
 > {
   return new APIPromise($do(
     client$,
-    expression,
-    max_results,
-    sort_by,
-    next_cursor,
+    folder_id,
+    permitted_roles,
     options,
   ));
 }
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
-  max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
-  next_cursor?: string | undefined,
+  folder_id: string,
+  permitted_roles?: boolean | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -84,16 +76,14 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: GetVideoViewsRequest | undefined = {
-    expression: expression,
-    max_results: max_results,
-    sort_by: sort_by,
-    next_cursor: next_cursor,
+  const input$: GetFolderRolesRequest = {
+    folder_id: folder_id,
+    permitted_roles: permitted_roles,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => GetVideoViewsRequest$zodSchema.optional().parse(value$),
+    (value$) => GetFolderRolesRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
@@ -107,15 +97,18 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    folder_id: encodeSimple("folder_id", payload$.folder_id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/video/analytics/views")(
+  const path$ = pathToFunc(
+    "/v1_1/{cloud_name}/folder_operations/invite/{folder_id}",
+  )(
     pathParams$,
   );
   const query$ = encodeFormQuery({
-    "expression": payload$?.expression,
-    "max_results": payload$?.max_results,
-    "next_cursor": payload$?.next_cursor,
-    "sort_by": payload$?.sort_by,
+    "permitted_roles": payload$.permitted_roles,
   });
 
   const headers$ = new Headers(compactMap({
@@ -127,7 +120,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "getVideoViews",
+    operationID: "getFolderRoles",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
