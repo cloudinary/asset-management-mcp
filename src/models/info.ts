@@ -8,26 +8,49 @@ import {
   AccessControlItem$zodSchema,
 } from "./accesscontrolitem.js";
 
-/**
- * Included if 'context=true' parameter is used.
- */
-export type InfoContext = { custom?: { [k: string]: any } | undefined };
+export type InfoContext2 = {
+  key?: string | undefined;
+  value?: string | undefined;
+};
 
-export const InfoContext$zodSchema: z.ZodType<InfoContext> = z.object({
+export const InfoContext2$zodSchema: z.ZodType<InfoContext2> = z.object({
+  key: z.string().optional(),
+  value: z.string().optional(),
+});
+
+export type InfoContext1 = { custom?: { [k: string]: any } | undefined };
+
+export const InfoContext1$zodSchema: z.ZodType<InfoContext1> = z.object({
   custom: z.record(z.string(), z.any()).optional(),
-}).describe("Included if 'context=true' parameter is used.");
+});
 
-export type InfoModeration = {
+/**
+ * Included if 'context=true' parameter is used. Can be object with custom properties or array of key-value pairs.
+ */
+export type Context = InfoContext1 | Array<InfoContext2>;
+
+export const Context$zodSchema: z.ZodType<Context> = z.union([
+  z.lazy(() => InfoContext1$zodSchema),
+  z.array(z.lazy(() => InfoContext2$zodSchema)),
+]).describe(
+  "Included if 'context=true' parameter is used. Can be object with custom properties or array of key-value pairs.",
+);
+
+export type Moderation = {
   kind?: string | undefined;
   status?: string | undefined;
   updated_at?: string | undefined;
 };
 
-export const InfoModeration$zodSchema: z.ZodType<InfoModeration> = z.object({
+export const Moderation$zodSchema: z.ZodType<Moderation> = z.object({
   kind: z.string().optional(),
   status: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
 });
+
+export type RelatedAsset = {};
+
+export const RelatedAsset$zodSchema: z.ZodType<RelatedAsset> = z.object({});
 
 export type Derivative = {
   id?: string | undefined;
@@ -62,50 +85,63 @@ export type Info = {
   height?: number | null | undefined;
   aspect_ratio?: number | null | undefined;
   pixels?: number | null | undefined;
-  tags?: Array<string> | undefined;
-  context?: InfoContext | undefined;
+  tags?: Array<string> | null | undefined;
+  context?: InfoContext1 | Array<InfoContext2> | null | undefined;
   metadata?: { [k: string]: any } | undefined;
   moderation_kind?: string | undefined;
   moderation_status?: string | undefined;
-  moderation?: Array<InfoModeration> | undefined;
+  moderation?: Array<Moderation> | undefined;
   backup?: boolean | undefined;
-  access_mode?: string | undefined;
   url?: string | undefined;
   secure_url?: string | undefined;
   status?: string | undefined;
   access_control?: Array<AccessControlItem> | null | undefined;
   etag?: string | undefined;
-  derivatives?: Array<Derivative> | undefined;
+  animated?: boolean | null | undefined;
+  duration?: number | null | undefined;
+  resource_subtype?: string | null | undefined;
+  substatus?: string | null | undefined;
+  related_assets?: Array<RelatedAsset> | null | undefined;
+  derivatives?: Array<Derivative> | null | undefined;
 };
 
 export const Info$zodSchema: z.ZodType<Info> = z.object({
   access_control: z.array(AccessControlItem$zodSchema).nullable().optional(),
-  access_mode: z.string().optional(),
+  animated: z.boolean().nullable().optional(),
   aspect_ratio: z.number().nullable().optional(),
   asset_folder: z.string().optional(),
   asset_id: z.string().optional(),
   backup: z.boolean().optional(),
   backup_bytes: z.int().optional(),
   bytes: z.int().optional(),
-  context: z.lazy(() => InfoContext$zodSchema).optional(),
+  context: z.union([
+    z.lazy(() => InfoContext1$zodSchema),
+    z.array(z.lazy(() => InfoContext2$zodSchema)),
+  ]).nullable().optional(),
   created_at: z.iso.datetime({ offset: true }).optional(),
-  derivatives: z.array(z.lazy(() => Derivative$zodSchema)).optional(),
+  derivatives: z.array(z.lazy(() => Derivative$zodSchema)).nullable()
+    .optional(),
   display_name: z.string().optional(),
+  duration: z.number().nullable().optional(),
   etag: z.string().optional(),
   filename: z.string().optional(),
   folder: z.string().optional(),
   format: z.string().optional(),
   height: z.int().nullable().optional(),
   metadata: z.record(z.string(), z.any()).optional(),
-  moderation: z.array(z.lazy(() => InfoModeration$zodSchema)).optional(),
+  moderation: z.array(z.lazy(() => Moderation$zodSchema)).optional(),
   moderation_kind: z.string().optional(),
   moderation_status: z.string().optional(),
   pixels: z.int().nullable().optional(),
   public_id: z.string().optional(),
+  related_assets: z.array(z.lazy(() => RelatedAsset$zodSchema)).nullable()
+    .optional(),
+  resource_subtype: z.string().nullable().optional(),
   resource_type: z.string().optional(),
   secure_url: z.string().optional(),
   status: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+  substatus: z.string().nullable().optional(),
+  tags: z.array(z.string()).nullable().optional(),
   type: z.string().optional(),
   uploaded_at: z.iso.datetime({ offset: true }).optional(),
   url: z.string().optional(),

@@ -3,7 +3,7 @@
  */
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,26 +19,22 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  GetVideoViewsRequest,
-  GetVideoViewsRequest$zodSchema,
-  GetVideoViewsSortBy,
-} from "../models/getvideoviewsop.js";
+  GetPersonRequest,
+  GetPersonRequest$zodSchema,
+} from "../models/getpersonop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get video views
+ * Get person details
  *
  * @remarks
- * Retrieves analytics data for video views. Results can be filtered using expressions based on various criteria
- * such as video public ID, view duration, viewer information, and more.
+ * Returns details of a specific recognized person.
+ * People Search must be enabled for this product environment.
  */
-export function videoAnalyticsGetVideoViews(
+export function peopleGetPerson(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
-  max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
-  next_cursor?: string | undefined,
+  person_id: string,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,20 +50,14 @@ export function videoAnalyticsGetVideoViews(
 > {
   return new APIPromise($do(
     client$,
-    expression,
-    max_results,
-    sort_by,
-    next_cursor,
+    person_id,
     options,
   ));
 }
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
-  max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
-  next_cursor?: string | undefined,
+  person_id: string,
   options?: RequestOptions,
 ): Promise<
   [
@@ -84,16 +74,13 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: GetVideoViewsRequest | undefined = {
-    expression: expression,
-    max_results: max_results,
-    sort_by: sort_by,
-    next_cursor: next_cursor,
+  const input$: GetPersonRequest = {
+    person_id: person_id,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => GetVideoViewsRequest$zodSchema.optional().parse(value$),
+    (value$) => GetPersonRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
@@ -107,16 +94,14 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    person_id: encodeSimple("person_id", payload$.person_id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/video/analytics/views")(
+  const path$ = pathToFunc("/v1_1/{cloud_name}/people/{person_id}")(
     pathParams$,
   );
-  const query$ = encodeFormQuery({
-    "expression": payload$?.expression,
-    "max_results": payload$?.max_results,
-    "next_cursor": payload$?.next_cursor,
-    "sort_by": payload$?.sort_by,
-  });
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
@@ -127,7 +112,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "getVideoViews",
+    operationID: "getPerson",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
@@ -149,7 +134,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
-    query: query$,
     body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs

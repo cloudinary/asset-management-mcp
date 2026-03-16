@@ -32,22 +32,24 @@ export const DestroyAssetRequest$zodSchema: z.ZodType<DestroyAssetRequest> = z
   });
 
 /**
- * Indicates successful deletion
+ * Result of the deletion operation
  */
 export const DestroyAssetResult = {
   Ok: "ok",
+  NotFound: "not found",
 } as const;
 /**
- * Indicates successful deletion
+ * Result of the deletion operation
  */
 export type DestroyAssetResult = ClosedEnum<typeof DestroyAssetResult>;
 
 export const DestroyAssetResult$zodSchema = z.enum([
   "ok",
-]).describe("Indicates successful deletion");
+  "not found",
+]).describe("Result of the deletion operation");
 
 /**
- * Asset/resource destroyed successfully
+ * Asset/resource destroyed successfully or not found
  */
 export type DestroyAssetResponseBody = {
   result?: DestroyAssetResult | undefined;
@@ -57,7 +59,7 @@ export const DestroyAssetResponseBody$zodSchema: z.ZodType<
   DestroyAssetResponseBody
 > = z.object({
   result: DestroyAssetResult$zodSchema.optional(),
-}).describe("Asset/resource destroyed successfully");
+}).describe("Asset/resource destroyed successfully or not found");
 
 export type DestroyAssetResponse = ApiError | DestroyAssetResponseBody;
 

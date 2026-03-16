@@ -1,24 +1,25 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: b97299c9914f1d7e6efd001238b973ec
-  docVersion: 0.3.5
-  speakeasyVersion: 1.718.0
-  generationVersion: 2.824.1
-  releaseVersion: 0.7.0
-  configChecksum: 269733825b57abc37da1259c1b6d11a8
+  docChecksum: 6658bcde752b9bcbcf692f3afbaff9c6
+  docVersion: 0.4.0
+  speakeasyVersion: 1.755.0
+  generationVersion: 2.865.2
+  releaseVersion: 0.8.0
+  configChecksum: b5ccb7c4366a54513bf1bc21ebd3eaea
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
+  installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 4dc19604-7834-4935-89b4-5ea1fa3c7bb1
-  pristine_commit_hash: f8eebe1c333a2ed927528d4c9fdcf7ef6b239081
-  pristine_tree_hash: 850094f32b74aa1a0a8ea4488f86637076183016
+  generation_id: b75065d0-c0b0-476b-b97f-926aad238fa1
+  pristine_commit_hash: e01c4a7fb11791283abc35aba819b24dc14ccf16
+  pristine_tree_hash: 250bd9ae75b74976550f286f58b9cf4dc243fc64
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
     additionalDependencies: 0.1.0
-    constsAndDefaults: 0.1.1
-    core: 1.2.7
+    constsAndDefaults: 0.1.2
+    core: 1.2.22
     customSecuritySchemes: 0.1.1
     defaultEnabledRetries: 0.1.0
     deprecations: 0.1.0
@@ -26,7 +27,7 @@ features:
     flattening: 0.1.0
     globalSecurity: 0.1.2
     globalSecurityCallbacks: 0.0.0
-    globalServerURLs: 0.1.1
+    globalServerURLs: 0.1.2
     globals: 0.1.0
     hiddenGlobals: 0.1.0
     ignores: 0.1.0
@@ -46,20 +47,20 @@ trackedFiles:
     pristine_git_object: 113eead5093c17d43a46159132885318f281a68a
   .npmignore:
     id: aa70c1f807c3
-    last_write_checksum: sha1:31ba03a712796b133695c4c410504b6824e09506
-    pristine_git_object: 146d4cc4e80691410519da81c141ce381d30c265
+    last_write_checksum: sha1:aa14435f0c166ebc0edbf1ae6f65128e33dc8c97
+    pristine_git_object: 0bc901db2a899e4b8f0bdcbea7fd547ef18e2fd9
   eslint.config.mjs:
     id: 461c8d07f6da
     last_write_checksum: sha1:576025302d3d8650f37276bc9075f6ade3842cc7
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:f9927c49a9c2cfe9d5e28cc7931095a23b4323f4
-    pristine_git_object: 069267de54626c77904646a7e6218369a5786223
+    last_write_checksum: sha1:31ac9d439829f6a84d12f590786df64977a0efd9
+    pristine_git_object: 3092032e332dcd5c0a5a42454b0afde354560856
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:58da517e5cc3a267c816be49d7202805227d5509
-    pristine_git_object: 1fe886a83f6723e858ffb4dacb28cd04ebc6258d
+    last_write_checksum: sha1:77c9d2780cdd438d69542e827c951c1d7bc1a880
+    pristine_git_object: e84943c7088aa8a03334c7e00892ea8ddfe13dbd
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:72258e524e1f168873ca4ce603fc93bfbd79ce65
@@ -180,6 +181,10 @@ trackedFiles:
     id: c1cc94cc183a
     last_write_checksum: sha1:395163d8ba2d6d173455c4067d1c8f204dc60bad
     pristine_git_object: ea92209a947ff4c13bfa454f79ff9ba5669aec2c
+  src/funcs/foldersAssignFolderRoles.ts:
+    id: 9f36648384bd
+    last_write_checksum: sha1:9a063de5450dcdadfc3f6a39975cf8ce92944dd7
+    pristine_git_object: c430c6ade013fa6790005be42630026520279e70
   src/funcs/foldersCreateFolder.ts:
     id: 36329e6e9333
     last_write_checksum: sha1:03a07e6901635bcec04cf25b4784db740ec7f8bd
@@ -188,6 +193,10 @@ trackedFiles:
     id: 31ed470be4ab
     last_write_checksum: sha1:73fffc1e139fe2793294f35ce535597be5939d5d
     pristine_git_object: 81a7b0459d88fe3944ae6d42b5fe5752029ea0cc
+  src/funcs/foldersGetFolderRoles.ts:
+    id: f4f613b248a2
+    last_write_checksum: sha1:f98ec5f8e91c97c912eb624dbca4fcbc4f260c86
+    pristine_git_object: b5e5e82d208d55a301f568e0e2144f2c3977822d
   src/funcs/foldersListRootFolders.ts:
     id: 7e66e4a8d6f8
     last_write_checksum: sha1:6823f1d1347f0edfde43adf02ba495b015116c32
@@ -212,6 +221,18 @@ trackedFiles:
     id: fc11d4aeec08
     last_write_checksum: sha1:0758ae45d5f8a606e361d326017d6da289ef6b91
     pristine_git_object: c39242cb175a0617306d26650259d42404dee253
+  src/funcs/peopleGetPerson.ts:
+    id: 777bbc414998
+    last_write_checksum: sha1:54a0e2c523036ab30e7de583dd2b6aad2f4ca751
+    pristine_git_object: f8a70ef043b9544fdf651836f0c302039c96195b
+  src/funcs/peopleListPeople.ts:
+    id: fee825c99595
+    last_write_checksum: sha1:815a1d5991a392f361f6dc518474d1a5b0a81ca6
+    pristine_git_object: c119052b4c1b9b309ae17defcbab6a111c50a370
+  src/funcs/peopleUpdatePerson.ts:
+    id: 89ec35a63e7d
+    last_write_checksum: sha1:21aaa4c1c306285ed9cce5dea351ae3cad5dda49
+    pristine_git_object: 260e986278282bcfb0f90abd939aa196e4d7de0f
   src/funcs/searchSearchAssets.ts:
     id: 7e457683073d
     last_write_checksum: sha1:e3dec740b45789f98258bcd270cef48cc6be31c4
@@ -250,8 +271,8 @@ trackedFiles:
     pristine_git_object: 954dc8e5f6d5d9ebb1aff8975cfc38e3df2055f5
   src/funcs/videoAnalyticsGetVideoViews.ts:
     id: 646049fa8bae
-    last_write_checksum: sha1:214cbe66747d40508c1217ad37f76e6a476a5867
-    pristine_git_object: 1bc86398230c6379a7cf414f3562be12017899f5
+    last_write_checksum: sha1:5c3edbd8f342bfd09eb5ffbb114dafb87ee20226
+    pristine_git_object: 7703b25b90fa0399f9119396b28cf879483ace01
   src/hooks/hooks.ts:
     id: a2463fc6f69b
     last_write_checksum: sha1:327ed0fa581be991d633155a30a13e502caa80ef
@@ -266,16 +287,16 @@ trackedFiles:
     pristine_git_object: 9c36bf01332084f735909a71036c3544cc4c7e3a
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:37e2250c590ef9888a4ba2c72171ea93b5195423
-    pristine_git_object: 6a84502fc4c9185a1f4fe5b4d562a129734a07a8
+    last_write_checksum: sha1:2eb8f0970c2421098a912ffc841220e03d9ea2c8
+    pristine_git_object: e3282be26a962d1f4d6eccd283d96449c6d010aa
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:e9f04a037018040361043104960982f7c22db52d
     pristine_git_object: d4bd8b341290e7a828a171d840bd0b0fff7c7cd7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:15500e708de1e63c8db83ea781abbf37991cd650
-    pristine_git_object: cdf7aa2746bbe7ab2ed01bd1b601ff2b3fd0e725
+    last_write_checksum: sha1:55b3f9e5b1795cf47d58cc90aefb09a7f2018e5a
+    pristine_git_object: 61a50966ea9d8d017169017f96cedd82482b17a5
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -326,8 +347,8 @@ trackedFiles:
     pristine_git_object: 3f69f7ae4a1e5d0711578ddf34f65c86051e65b8
   src/lib/security.ts:
     id: 0502afa7922e
-    last_write_checksum: sha1:2d3fb0b7785dfb2dfc33fb83a0c473e13da6df61
-    pristine_git_object: 75fec10bac89d83af28f458ff3422e6e8d61a169
+    last_write_checksum: sha1:146ebef93a9f0e1a8186f38b188d13fae8eaae9d
+    pristine_git_object: 8eefaf4b67df452517a590c5e2ab2109ea064d85
   src/lib/url.ts:
     id: b0057e24ed76
     last_write_checksum: sha1:9550819577dc1e514e61496167aefcc137238aaf
@@ -340,6 +361,14 @@ trackedFiles:
     id: 4ade0ef98b00
     last_write_checksum: sha1:7331efddde881832342fa8779d23be7445d4480c
     pristine_git_object: b878d8de9f2a0275c3cdbfdcaed48a31092e558a
+  src/mcp-server/cli/serve/command.ts:
+    id: 7cd4394c80e8
+    last_write_checksum: sha1:29cec58b71b4a9884de25c7719ae0523ee83c7bb
+    pristine_git_object: 2b45a28bf194928673f10f99001e285905931f28
+  src/mcp-server/cli/serve/impl.ts:
+    id: 03e83f226068
+    last_write_checksum: sha1:900c45e8decc321e23b87e80f1384a06993192ef
+    pristine_git_object: 75ff1185a8610eca58fbf96175780374deacdbc3
   src/mcp-server/cli/start/command.ts:
     id: b3e53408ccb4
     last_write_checksum: sha1:e2306d4cf7a3197e1ee71d5e3554bcca624376ca
@@ -362,8 +391,8 @@ trackedFiles:
     pristine_git_object: 3eb7f532a0c29285b3f63805e42d101e11eb5b4c
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:3a7220383da215d4a5eb8387761d5acc76760de5
-    pristine_git_object: 0ffdff16af6524605c553452d02efded440cd7e9
+    last_write_checksum: sha1:ea4074a669873b8e10a5cd44c3e3d41af15252f1
+    pristine_git_object: 7721850945b2852c6f1eee4732a13299f66f7226
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b5f5ce5c4ab222f5ba52918ffd7619fb6fdfb0d1
@@ -378,16 +407,16 @@ trackedFiles:
     pristine_git_object: 2fb3e06dc1684e1ff4b3591c8048c0de261cf5b7
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:423a280955fc9da743e2e02ab47e196b4f0d1823
-    pristine_git_object: 7e1101724f1be289cd4f8e90b86642b91bf276cd
+    last_write_checksum: sha1:7a8695f816868af5474fa50ab5fa705bcb7c38e2
+    pristine_git_object: 7f88b02380372696e65f9742580bee7bb6ec75c4
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:19c9034032819a14f15c430de4350c8aba99d725
     pristine_git_object: bb74a74788ebd7d11262f5f63b8fdd29ab817f48
   src/mcp-server/tools.ts:
     id: 654d5d1f2062
-    last_write_checksum: sha1:47eafd16884bfc5a344f43ca60d5d3cac10e0465
-    pristine_git_object: ba89beb697779571b5e8c95d1af48fe1afdb310b
+    last_write_checksum: sha1:f65cf00061fc4b0d7b809cc5c862de0b69c7c465
+    pristine_git_object: 536ef5566ef80b774e655dda6d70c753fb463852
   src/mcp-server/tools/assetRelationsCreateAssetRelationsByAssetId.ts:
     id: cb6c64076c69
     last_write_checksum: sha1:594796421d1045ad687a25ee241f81b57094e845
@@ -500,6 +529,14 @@ trackedFiles:
     id: bfa409c6b1ac
     last_write_checksum: sha1:d4ef99be5ef8cd5a9df0762b84c3625b63f1f848
     pristine_git_object: 10ba22e8eb768d72e883a763ff68a81716e81fcb
+  src/models/assignfolderrolesop.ts:
+    id: 0976d6581a2c
+    last_write_checksum: sha1:4ff0c32a2e7d7c476052ad839f2e87c967848618
+    pristine_git_object: 488d704c6694555f841990938d8025c490fc1ef6
+  src/models/assignfolderrolesrequest.ts:
+    id: f3016dd9de4e
+    last_write_checksum: sha1:3d7c86ec005b52609895546291b19ba009b35c8c
+    pristine_git_object: 36e78672a883a4c4246e238b2d56a7a33a034710
   src/models/asyncuploadresponse.ts:
     id: 2d92c68fa5b0
     last_write_checksum: sha1:1fffbafef83317485715ee414ec52a577d1d4111
@@ -550,8 +587,8 @@ trackedFiles:
     pristine_git_object: 1bc98809a8353ea33efef49ac7e92b09fc857956
   src/models/destroyassetop.ts:
     id: e8b735f037d4
-    last_write_checksum: sha1:5228f9f395b60e56b39e9c22e10596f163b74eb6
-    pristine_git_object: bc86479322d0e4a2cffc1cb7b570e8c07cdd1ae0
+    last_write_checksum: sha1:2e7c209f3c5f923ed8318f412adab3a573a13990
+    pristine_git_object: c46093d9ca6d1cfb10213c96c6a84ada5cc6590a
   src/models/destroybyassetidop.ts:
     id: 34d4c54fd9b8
     last_write_checksum: sha1:8bf3864baac9cb5aea80880e59ffa9441cb66db7
@@ -594,8 +631,8 @@ trackedFiles:
     pristine_git_object: 7749cf32c29ba2d44124253d9f07fbb1913b89f6
   src/models/explicitassetop.ts:
     id: dedbc3c2a2a8
-    last_write_checksum: sha1:3de505ca18a3c8a97fd389bfb8b5c1a60a48856f
-    pristine_git_object: fb60f2904d547193d02449963329a5486526a45b
+    last_write_checksum: sha1:ff30d36a3ae21630c83d490220abe5556c28321e
+    pristine_git_object: 401e3110ff86141c36b51b2260e8a90d7f95f290
   src/models/exploderesourceop.ts:
     id: 5b8dcd950c40
     last_write_checksum: sha1:7f777d486d18a99f52a4a8d80a837962d35b8714
@@ -612,6 +649,18 @@ trackedFiles:
     id: a6cc95890d14
     last_write_checksum: sha1:bc9fc0416857a01651d448933a90415311ff080d
     pristine_git_object: d7200d568367efd4e52d921b8ea249be367fe3f9
+  src/models/folderrole.ts:
+    id: 164b01265596
+    last_write_checksum: sha1:67aca205453873511c402d86cef1335c1a5a7b15
+    pristine_git_object: 14d5fbf023bcc95afff3b25c58201edd9962316c
+  src/models/folderroleassignment.ts:
+    id: b5abb32aaca9
+    last_write_checksum: sha1:27340e9cd3c7258eaa4be0af82781facf732f39e
+    pristine_git_object: 6e2df7a8098fb4c9c52c537c79bd60697ebb91a1
+  src/models/folderrolesresponse.ts:
+    id: a303d53836d0
+    last_write_checksum: sha1:8b797bf1485af7de627d6de2942aff23355b2627
+    pristine_git_object: 78f79b68e5406f22d4ee2c7e218cdb982de45c7f
   src/models/folderslistresponse.ts:
     id: dd1a90f3c5e6
     last_write_checksum: sha1:7528cf8e9d664f80b3b7335e9aaaad08585c6193
@@ -624,6 +673,14 @@ trackedFiles:
     id: 0c28b0f5b136
     last_write_checksum: sha1:7c2f7df826da6ec01d2dcec1063d29db3ab298f9
     pristine_git_object: aa0e725f2b8e749fee3e55ea783d437922783ba4
+  src/models/getfolderrolesop.ts:
+    id: af070f1be2e4
+    last_write_checksum: sha1:6c5c87cbbdac298d629b4388fc13811528cee66f
+    pristine_git_object: 269407ac9e5d3bc1710b2bf15f09fb16bcf86948
+  src/models/getpersonop.ts:
+    id: 3681227fdc16
+    last_write_checksum: sha1:223af10b659b79374cb75619a013849b91e94635
+    pristine_git_object: 354c46da3afd41d708d19336f46fb304ec95919c
   src/models/getresourcebyassetidop.ts:
     id: ff6558def3e3
     last_write_checksum: sha1:b9f6c8070c1d3f637d6b5710122352d06a6ce2e5
@@ -638,16 +695,20 @@ trackedFiles:
     pristine_git_object: 644111c2dc57019bb6a3c75112f83b4cf86efd00
   src/models/getvideoviewsop.ts:
     id: f526444117c0
-    last_write_checksum: sha1:a020d606acfc53fb42c6cede72587289996ffe30
-    pristine_git_object: dc90fdfd6fc4ee6c6837eab94d53f69d182887f1
+    last_write_checksum: sha1:b51db94323134f8a069a1d7ffa8b0efc4dc50aee
+    pristine_git_object: 41212058459b4167211a03c7eead59b9d93750cb
   src/models/info.ts:
     id: 70f4d95abf4e
-    last_write_checksum: sha1:308f94dd4902d005b1b30d69bfccc131f4fdc92a
-    pristine_git_object: 6c7e48b2dcda0fcafab283ba053400db5416f92c
+    last_write_checksum: sha1:eb249cc2b99dd77ebc23c28ad1e1e37bbe55cd09
+    pristine_git_object: 7d86f5b5ac54c1fb0b7d5c37d6302e63fc075ad5
   src/models/listimagesop.ts:
     id: 2d4428cd7790
     last_write_checksum: sha1:7dae95f428fae51410d9a8b512d1adecbb48d8a4
     pristine_git_object: 0e566f481fbcf6443b25876aff0ca994c8b0b355
+  src/models/listpeopleop.ts:
+    id: 81f94f065dc1
+    last_write_checksum: sha1:6f9a9c50a0a77323e31f4834479efe94d4f70141
+    pristine_git_object: 9871d2c48bada6c7ec750ec865d38506faf93634
   src/models/listrawfilesop.ts:
     id: 08feb5513e5a
     last_write_checksum: sha1:be02a856055ae96966fff2e7372b550ee94d51db
@@ -696,6 +757,26 @@ trackedFiles:
     id: 04218d941f9e
     last_write_checksum: sha1:7526b00bfd0b87352d4d37c7a49ce14d45f88621
     pristine_git_object: f27430170d63f94069fdf615b6b01514381e71c4
+  src/models/parametersdirection.ts:
+    id: 5f9a874f5402
+    last_write_checksum: sha1:46c05a56e3de5a9394384c67ce8076ab76cc49f4
+    pristine_git_object: 6a0c8e3f265daf979622ed17f314696abac74941
+  src/models/permittedrole.ts:
+    id: 8a5e1b9f2d4d
+    last_write_checksum: sha1:68819437915f81c42301ed807466018835ef780f
+    pristine_git_object: 41cdc2318ded2d540384dc32011b74a1563ac003
+  src/models/persondetails.ts:
+    id: ef3731a522b1
+    last_write_checksum: sha1:553d9f5933e36552c9a3e8e3d28362d766ce1a32
+    pristine_git_object: 9b250b5c8e070acc295e7eb5b466f3468647e5ab
+  src/models/personstatus.ts:
+    id: 11ea3e94c956
+    last_write_checksum: sha1:b2a5d4fd1464068eab27b9d4cf8bfcdb122b7f90
+    pristine_git_object: cc0b81531624ae414406cb8ff9adb9ad760b135d
+  src/models/principaltype.ts:
+    id: 9c55942ff716
+    last_write_checksum: sha1:c1dd8e23560728dbb4bef0939698f977f3a17109
+    pristine_git_object: be0af7066aadf01c8732e060da594e4f845a4ad6
   src/models/renameassetop.ts:
     id: 189398e65a00
     last_write_checksum: sha1:bdf84b74d33788ebc5ddeb7888c23ae8726383c8
@@ -706,8 +787,8 @@ trackedFiles:
     pristine_git_object: 3c3bfbf28ab9099a890f0bf38ca6952300821a67
   src/models/resourceupdaterequest.ts:
     id: "870113738309"
-    last_write_checksum: sha1:775cf218ecbd58aaf91274d0fefcb6753269a4b0
-    pristine_git_object: 34e8b9dd228723ce54098a876dfbc47ad70d41d4
+    last_write_checksum: sha1:26f6d47c2835f9a7a658312a330bd785d9a4bc67
+    pristine_git_object: 99338bde40232356b4d7351bec9168dcaf1f3d75
   src/models/restoreresourcesbyassetidsop.ts:
     id: ce48bda9c502
     last_write_checksum: sha1:076a91c46d6e33c467d5931cef3f5b74720b52ce
@@ -738,8 +819,8 @@ trackedFiles:
     pristine_git_object: 90bf49705efb57fd375698686d5e4b44d6272960
   src/models/searchresponse.ts:
     id: bbcd43bc9f51
-    last_write_checksum: sha1:654318b37bccd8e8ec2939b18241ec7e1b217d75
-    pristine_git_object: 4ec98208fd8f459a07e93990a4e4d9beeea2a43c
+    last_write_checksum: sha1:bf73c9f3d7c799c576e924604e8ff8d690865552
+    pristine_git_object: 8b94dcb106002502043c9038e93a2e2662a25ce1
   src/models/searchsortpair.ts:
     id: d2bebd37bf29
     last_write_checksum: sha1:b87383e0f443a8a65434771a043b43189997d477
@@ -760,14 +841,26 @@ trackedFiles:
     id: 54c3c73fdb23
     last_write_checksum: sha1:7216d11b2bca28882b6eb670e80a750d8b8ab994
     pristine_git_object: 00e5fd85d0d07334fdc384dfb9467bdfabaddf88
+  src/models/successresponse.ts:
+    id: 5d95d1ff8650
+    last_write_checksum: sha1:8621a39ee1c3d5cd1d91bda467dfb3bda4d97d1b
+    pristine_git_object: 67f3c12b30c5b1f8095fa17d2b2487ed710fd89b
   src/models/textop.ts:
     id: a49c6a61da8e
-    last_write_checksum: sha1:d2675af155eaa0b7d2ae5d6239dea529591132b0
-    pristine_git_object: a1f1bb8ac738828a07016d5e78002fda9cd2e15d
+    last_write_checksum: sha1:e72b88aba7cb907ab975ba43ac378ebe6b7f55f2
+    pristine_git_object: 268cb1e6a3ee520e056364c431218c328479d81a
+  src/models/thumbnail.ts:
+    id: 5606c8e3b931
+    last_write_checksum: sha1:29ef58113f0c32a3c02cb4fc59706de5bfcef4b4
+    pristine_git_object: 3a224fcb36e7a64d1fcad4134c83836755f42476
   src/models/updatefolderop.ts:
     id: c10dd50c3c15
     last_write_checksum: sha1:f4d8c902db10353bf537863b372ce9b474e3e228
     pristine_git_object: 4334e94eca5956d313d37d366e6fa047b6bd159c
+  src/models/updatepersonop.ts:
+    id: 5ddf6ef3582c
+    last_write_checksum: sha1:336cefc2730eb5bf27cb74bf1b000a2a52d29316
+    pristine_git_object: e3878b47076a71e7234bd546a3ca80d128295983
   src/models/updateresourcebyassetidop.ts:
     id: 2f4f2acb9ee5
     last_write_checksum: sha1:cf764e2aa2c0ce6a7bf43dde86e16d3e1f2bf7d7
@@ -790,8 +883,8 @@ trackedFiles:
     pristine_git_object: f44bb47da70a2a15f7eaaff451a554399b8b6ab8
   src/models/uploadrequest.ts:
     id: 2c1149457ac9
-    last_write_checksum: sha1:5b8e8818ba54871586767e5de1295100e6cc88d0
-    pristine_git_object: 3b03acd0e8f31c77b1cf99cefb936e2eb900c213
+    last_write_checksum: sha1:4bc5acb5dac107657e7004411568aa6e336d2854
+    pristine_git_object: a72e52b26c87ca3c18ad995e6c1d67637b1cd392
   src/models/uploadresourcetype.ts:
     id: 869417d840c4
     last_write_checksum: sha1:62f83bb77b44bffff37f26a75bfd70af32fa61cb
@@ -856,7 +949,7 @@ examples:
           resource_type: "auto"
           cloud_name: "<value>"
       requestBody:
-        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "google_video_moderation", "categorization": "google_tagging", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "api_key": "614335564976464"}
@@ -870,7 +963,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "aws_rek_video", "categorization": "google_tagging", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -888,7 +981,7 @@ examples:
           Content-Range: "bytes 0-999999/3000000"
           X-Unique-Upload-Id: "2fd4e1c67a2d28fce"
       requestBody:
-        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
+        application/json: {"auto_transcription": true, "colors": false, "headers": "X-Robots-Tag: noindex", "moderation": "duplicate", "categorization": "google_tagging", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "background_removal": "pixelz", "format": "jpg", "allowed_formats": "mp4,ogv,jpg,png,pdf", "auto_tagging": 0.5, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "detection": "coco_v2", "file": "<value>"}
       responses:
         "200":
           application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
@@ -920,7 +1013,7 @@ examples:
         application/json: {"text": "<value>", "font_size": 12, "font_color": "black", "font_weight": "normal", "font_style": "normal", "background": "transparent", "opacity": 100, "text_decoration": "none"}
       responses:
         "200":
-          application/json: {"asset_id": "<id>", "public_id": "<id>", "version": 706047, "version_id": "<id>", "signature": "<value>", "width": 951489, "height": 435701, "format": "<value>", "resource_type": "<value>", "created_at": "2025-02-16T17:19:59.850Z", "bytes": 284062, "type": "<value>", "url": "https://true-hose.com", "secure_url": "https://possible-taro.name", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
+          application/json: {"access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   renameAsset:
@@ -1265,7 +1358,7 @@ examples:
           type: "dailymotion"
           public_id: "<id>"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
           application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
@@ -1317,7 +1410,7 @@ examples:
           cloud_name: "<value>"
           asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
           application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
@@ -1329,7 +1422,7 @@ examples:
           cloud_name: "<value>"
           asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
           application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
@@ -1568,7 +1661,122 @@ examples:
           application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}]}}
         "400":
           application/json: {"error": {"message": "<value>"}}
+  getFolderRoles:
+    speakeasy-default-get-folder-roles:
+      parameters:
+        path:
+          folder_id: "cd7e9d690a014c68ae8b58f08e090cb03a"
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"shared_with": [{"type": "user", "id": "cec735fd65b7d541f35d9f661d130f", "folder_id": "cd7e9d690a014c68ae8b58f08e090cb03a", "roles": [{"id": "cld::role::folder::viewer", "name": "Viewer", "description": "View and download public assets.", "inherited": false}]}], "permitted_roles": [{"id": "cld::role::folder::viewer", "name": "Viewer", "description": "View and download public assets."}, {"id": "cld::role::folder::contributor", "name": "Contributor", "description": "Viewer permissions, plus add assets and create subfolders."}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  assignFolderRoles:
+    speakeasy-default-assign-folder-roles:
+      parameters:
+        path:
+          folder_id: "cd7e9d690a014c68ae8b58f08e090cb03a"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"principal": {"type": "apiKey", "id": "799451857115779"}, "operation": "add", "roles": ["cld::role::folder::contributor"]}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  listPeople:
+    speakeasy-default-list-people:
+      parameters:
+        path:
+          cloud_name: "<value>"
+        query:
+          max_results: 20
+          name_status: "named"
+          name_prefix: "Alice"
+          status: "active"
+          sort_by: "created_at"
+      responses:
+        "200":
+          application/json: {"people": [{"id": "a1b2c3d4e5f6", "name": "Jane Doe", "status": "active", "thumbnail": {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "bounding_box": [10, 20, 100, 150], "url": "https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg", "resource_type": "image", "type": "upload", "public_id": "sample", "version": 1234567890}, "created_at": "2025-01-15T10:30:00Z", "updated_at": "2025-01-20T14:45:00Z"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  getPerson:
+    speakeasy-default-get-person:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      responses:
+        "200":
+          application/json: {"person": {"id": "a1b2c3d4e5f6", "name": "Jane Doe", "status": "active", "thumbnail": {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "bounding_box": [10, 20, 100, 150], "url": "https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg", "resource_type": "image", "type": "upload", "public_id": "sample", "version": 1234567890}, "created_at": "2025-01-15T10:30:00Z", "updated_at": "2025-01-20T14:45:00Z"}}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+  updatePerson:
+    speakeasy-default-update-person:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"name": "Jane Doe", "status": "active", "thumbnail_asset_id": "2262b0b5eb88f1fd7724e29b0e57d730"}
+      responses:
+        "200":
+          application/json: {"person_id": "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2", "name": "Jane Doe", "status": "active"}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
+    name_too_long:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"name": "Jane Doe", "status": "active", "thumbnail_asset_id": "2262b0b5eb88f1fd7724e29b0e57d730"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "Name is too long, maximum is 255"}}
+    invalid_status:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"name": "Jane Doe", "status": "active", "thumbnail_asset_id": "2262b0b5eb88f1fd7724e29b0e57d730"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "Invalid status value, must be one of active, hidden"}}
+    missing_params:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"name": "Jane Doe", "status": "active", "thumbnail_asset_id": "2262b0b5eb88f1fd7724e29b0e57d730"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "Missing required parameter"}}
+    no_face:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"name": "Jane Doe", "status": "active", "thumbnail_asset_id": "2262b0b5eb88f1fd7724e29b0e57d730"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "No faces detected in the provided Asset"}}
+    wrong_person:
+      parameters:
+        path:
+          person_id: "f10f893da5a1586dca6764b22514aa0d25e6b867baffc4fb43a2318a25d8e5b2"
+          cloud_name: "<value>"
+      requestBody:
+        application/json: {"name": "Jane Doe", "status": "active", "thumbnail_asset_id": "2262b0b5eb88f1fd7724e29b0e57d730"}
+      responses:
+        "400":
+          application/json: {"error": {"message": "The provided Asset does not contain a face for this Person"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.assets.listVideos()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.updateResourceByAssetId()`: \n  *  `request.ResourceUpdateRequest` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.search.visualSearchAssets()`:  `response.resources[].status` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.search.searchAssets()`:  `response.resources[].status` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.moderations.listResourcesByModerationKindAndStatus()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.upload.upload()`:  `request.upload_request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.upload.uploadNoResourceType()`:  `request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.upload.uploadChunk()`:  `request.upload_request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.upload.destroyAsset()`:  `response.result.enum(not found)` **Added** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listRawFiles()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.explicitAsset()`: \n  *  `request.RequestBody.moderation` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listImages()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.getResourceByAssetId()`:  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.updateResourceByPublicId()`: \n  *  `request.ResourceUpdateRequest` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.restoreResourcesByAssetIDs()`:  `response.Map<restore_response>.union(info)` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listResourcesByAssetIDs()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listResourcesByContext()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listResourcesByModerationKindAndStatus()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listResourcesByAssetFolder()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.getResourceByPublicId()`:  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.folders.getFolderRoles()`: **Added**\n* `CloudinaryAssetMgmt.folders.assignFolderRoles()`: **Added**\n* `CloudinaryAssetMgmt.upload.text()`:  `response` **Changed**\n* `CloudinaryAssetMgmt.people.updatePerson()`: **Added**\n* `CloudinaryAssetMgmt.people.getPerson()`: **Added**\n* `CloudinaryAssetMgmt.people.listPeople()`: **Added**\n"
 generatedFiles:
   - .dxtignore
   - .gitattributes

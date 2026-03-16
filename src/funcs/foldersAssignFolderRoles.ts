@@ -3,12 +3,17 @@
  */
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import {
+  AssignFolderRolesRequestRequest,
+  AssignFolderRolesRequestRequest$zodSchema,
+} from "../models/assignfolderrolesop.js";
+import { AssignFolderRolesRequest } from "../models/assignfolderrolesrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -18,27 +23,22 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  GetVideoViewsRequest,
-  GetVideoViewsRequest$zodSchema,
-  GetVideoViewsSortBy,
-} from "../models/getvideoviewsop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get video views
+ * Assign folder roles
  *
  * @remarks
- * Retrieves analytics data for video views. Results can be filtered using expressions based on various criteria
- * such as video public ID, view duration, viewer information, and more.
+ * Assigns or removes folder roles for a principal (user, group, or API key).
+ * Supports all system folder roles (see [System roles reference](https://cloudinary.com/documentation/permissions_system_roles_policies#folder_roles)).
+ * Enterprise customers can also assign custom roles by ID.
+ * Note: Assigning roles to users or groups via this endpoint requires their user or group IDs, which are available through the Provisioning API (Enterprise only). Free customers can use this endpoint to assign roles only to API keys, but can assign folder roles to users and groups through the UI.
  */
-export function videoAnalyticsGetVideoViews(
+export function foldersAssignFolderRoles(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
-  max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
-  next_cursor?: string | undefined,
+  folder_id: string,
+  assign_folder_roles_request: AssignFolderRolesRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,20 +54,16 @@ export function videoAnalyticsGetVideoViews(
 > {
   return new APIPromise($do(
     client$,
-    expression,
-    max_results,
-    sort_by,
-    next_cursor,
+    folder_id,
+    assign_folder_roles_request,
     options,
   ));
 }
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
-  max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
-  next_cursor?: string | undefined,
+  folder_id: string,
+  assign_folder_roles_request: AssignFolderRolesRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -84,41 +80,42 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: GetVideoViewsRequest | undefined = {
-    expression: expression,
-    max_results: max_results,
-    sort_by: sort_by,
-    next_cursor: next_cursor,
+  const input$: AssignFolderRolesRequestRequest = {
+    folder_id: folder_id,
+    assign_folder_roles_request: assign_folder_roles_request,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => GetVideoViewsRequest$zodSchema.optional().parse(value$),
+    (value$) => AssignFolderRolesRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = null;
+  const body$ = encodeJSON("body", payload$.assign_folder_roles_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
       charEncoding: "percent",
     }),
+    folder_id: encodeSimple("folder_id", payload$.folder_id, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/video/analytics/views")(
+  const path$ = pathToFunc(
+    "/v1_1/{cloud_name}/folder_operations/invite/{folder_id}",
+  )(
     pathParams$,
   );
-  const query$ = encodeFormQuery({
-    "expression": payload$?.expression,
-    "max_results": payload$?.max_results,
-    "next_cursor": payload$?.next_cursor,
-    "sort_by": payload$?.sort_by,
-  });
 
   const headers$ = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
   const securityInput = await extractSecurity(client$._options.security);
@@ -127,7 +124,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "getVideoViews",
+    operationID: "assignFolderRoles",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
@@ -145,11 +142,10 @@ async function $do(
 
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
-    query: query$,
     body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs

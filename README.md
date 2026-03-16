@@ -18,6 +18,7 @@
 * [Development](#development)
   * [Building from Source](#building-from-source)
   * [Contributions](#contributions)
+  * [Progressive Discovery](#progressive-discovery)
 
 <!-- End Table of Contents [toc] -->
 
@@ -27,9 +28,9 @@
 <details>
 <summary>Claude Desktop</summary>
 
-Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.7.0/mcp-server.mcpb) file:
+Install the MCP server as a Desktop Extension using the pre-built [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.8.0/mcp-server.mcpb) file:
 
-Simply drag and drop the [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.7.0/mcp-server.mcpb) file onto Claude Desktop to install the extension.
+Simply drag and drop the [`mcp-server.mcpb`](https://github.com/cloudinary/asset-management-mcp/releases/download/v0.8.0/mcp-server.mcpb) file onto Claude Desktop to install the extension.
 
 The MCP bundle package includes the MCP server and all necessary configuration. Once installed, the server will be available without additional setup.
 
@@ -378,5 +379,48 @@ We look forward to hearing your feedback. Feel free to open a PR or issue with a
 ---
 
 ### MCP Server Created by [Speakeasy](https://www.speakeasy.com/?utm_source=asset-management-mcp&utm_campaign=mcp-typescript)
+
+<!-- Start Progressive Discovery [dynamic-mode] -->
+## Progressive Discovery
+
+MCP servers with many tools can bloat LLM context windows, leading to increased token usage and tool confusion. Dynamic mode solves this by exposing only a small set of meta-tools that let agents progressively discover and invoke tools on demand.
+
+To enable dynamic mode, pass the `--mode dynamic` flag when starting your server:
+
+```jsonc
+{
+  "mcpServers": {
+    "CloudinaryAssetMgmt": {
+      "command": "npx",
+      "args": ["@cloudinary/asset-management-mcp", "start", "--mode", "dynamic"],
+      // ... other server arguments
+    }
+  }
+}
+```
+
+In dynamic mode, the server registers only the following meta-tools instead of every individual tool:
+
+- **`list_tools`**: Lists all available tools with their names and descriptions.
+- **`describe_tool`**: Returns the input schema for one or more tools by name.
+- **`execute_tool`**: Executes a tool by name with the provided input parameters.
+- **`list_scopes`**: Lists the scopes available on the server.
+
+This approach significantly reduces the number of tokens sent to the LLM on each request, which is especially useful for servers with a large number of tools.
+
+You can combine dynamic mode with scope and tool filters:
+
+```jsonc
+{
+  "mcpServers": {
+    "CloudinaryAssetMgmt": {
+      "command": "npx",
+      "args": ["@cloudinary/asset-management-mcp", "start", "--mode", "dynamic", "--scope", "admin"],
+      // ... other server arguments
+    }
+  }
+}
+```
+<!-- End Progressive Discovery [dynamic-mode] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

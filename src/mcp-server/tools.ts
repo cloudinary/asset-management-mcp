@@ -15,7 +15,9 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import * as z from "zod";
 import { CloudinaryAssetMgmtCore } from "../core.js";
+import { ServerRegion$zodSchema } from "../lib/config.js";
 import { ConsoleLogger } from "./console-logger.js";
+import { MCPServerFlags } from "./flags.js";
 import { MCPScope, mcpScopes } from "./scopes.js";
 import { valueToBase64 } from "./shared.js";
 
@@ -375,4 +377,91 @@ export function registerDynamicTools(
     });
     logger.debug("Registered dynamic meta-tool", { name: "list_scopes" });
   }
+}
+function resolveHeader<T>(
+  headers: Headers,
+  headerName: string,
+  schema: z.ZodType<T>,
+  cliFlagValue: T | undefined,
+  disableStaticAuth: boolean,
+): T | undefined {
+  const val = headers.get(headerName);
+  if (val != null) {
+    return schema.parse(val);
+  }
+  return disableStaticAuth ? undefined : schema.parse(cliFlagValue);
+}
+
+export function buildSDK(
+  headers: Headers,
+  cliFlags: MCPServerFlags,
+  disableStaticAuth: boolean,
+  logger: { level: string },
+) {
+  const flags = {
+    ...cliFlags,
+    "api-key": resolveHeader(
+      headers,
+      "api-key",
+      z.string(),
+      cliFlags["api-key"],
+      disableStaticAuth,
+    ),
+    "api-secret": resolveHeader(
+      headers,
+      "api-secret",
+      z.string(),
+      cliFlags["api-secret"],
+      disableStaticAuth,
+    ),
+    "oauth2": resolveHeader(
+      headers,
+      "oauth2",
+      z.string(),
+      cliFlags["oauth2"],
+      disableStaticAuth,
+    ),
+  };
+
+  return new CloudinaryAssetMgmtCore({
+    security: {
+      cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
+        ? {
+          api_key: flags["api-key"] ?? "",
+          api_secret: flags["api-secret"] ?? "",
+        }
+        : void 0,
+      oauth2: flags.oauth2 ?? "",
+    },
+    serverURL: cliFlags["server-url"],
+    cloud_name: resolveHeader(
+      headers,
+      "cloud-name",
+      z.string(),
+      cliFlags["cloud-name"],
+      disableStaticAuth,
+    ),
+    serverIdx: cliFlags["server-index"],
+    region: resolveHeader(
+      headers,
+      "region",
+      ServerRegion$zodSchema,
+      cliFlags.region,
+      disableStaticAuth,
+    ),
+    host: resolveHeader(
+      headers,
+      "api-host",
+      z.string(),
+      cliFlags["api-host"],
+      disableStaticAuth,
+    ),
+    debugLogger: logger.level === "debug"
+      ? {
+        log: (...args) => console.log(...args),
+        group: (...args) => console.group(...args),
+        groupEnd: (...args) => console.groupEnd(...args),
+      }
+      : undefined,
+  });
 }

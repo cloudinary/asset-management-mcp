@@ -19,26 +19,32 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  GetVideoViewsRequest,
-  GetVideoViewsRequest$zodSchema,
-  GetVideoViewsSortBy,
-} from "../models/getvideoviewsop.js";
+  ListPeopleRequest,
+  ListPeopleRequest$zodSchema,
+  ListPeopleSortBy,
+  NameStatus,
+} from "../models/listpeopleop.js";
+import { ParametersDirection } from "../models/parametersdirection.js";
+import { PersonStatus } from "../models/personstatus.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get video views
+ * List recognized people
  *
  * @remarks
- * Retrieves analytics data for video views. Results can be filtered using expressions based on various criteria
- * such as video public ID, view duration, viewer information, and more.
+ * Returns a list of all recognized people in your product environment.
+ * People Search must be enabled for this product environment.
  */
-export function videoAnalyticsGetVideoViews(
+export function peopleListPeople(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
   max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
   next_cursor?: string | undefined,
+  name_status?: NameStatus | undefined,
+  name_prefix?: string | undefined,
+  status?: PersonStatus | undefined,
+  sort_by?: ListPeopleSortBy | undefined,
+  direction?: ParametersDirection | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,20 +60,26 @@ export function videoAnalyticsGetVideoViews(
 > {
   return new APIPromise($do(
     client$,
-    expression,
     max_results,
-    sort_by,
     next_cursor,
+    name_status,
+    name_prefix,
+    status,
+    sort_by,
+    direction,
     options,
   ));
 }
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  expression?: string | undefined,
   max_results?: number | undefined,
-  sort_by?: GetVideoViewsSortBy | undefined,
   next_cursor?: string | undefined,
+  name_status?: NameStatus | undefined,
+  name_prefix?: string | undefined,
+  status?: PersonStatus | undefined,
+  sort_by?: ListPeopleSortBy | undefined,
+  direction?: ParametersDirection | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -84,16 +96,19 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: GetVideoViewsRequest | undefined = {
-    expression: expression,
+  const input$: ListPeopleRequest | undefined = {
     max_results: max_results,
-    sort_by: sort_by,
     next_cursor: next_cursor,
+    name_status: name_status,
+    name_prefix: name_prefix,
+    status: status,
+    sort_by: sort_by,
+    direction: direction,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => GetVideoViewsRequest$zodSchema.optional().parse(value$),
+    (value$) => ListPeopleRequest$zodSchema.optional().parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
@@ -108,14 +123,17 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/video/analytics/views")(
+  const path$ = pathToFunc("/v1_1/{cloud_name}/people")(
     pathParams$,
   );
   const query$ = encodeFormQuery({
-    "expression": payload$?.expression,
+    "direction": payload$?.direction,
     "max_results": payload$?.max_results,
+    "name_prefix": payload$?.name_prefix,
+    "name_status": payload$?.name_status,
     "next_cursor": payload$?.next_cursor,
     "sort_by": payload$?.sort_by,
+    "status": payload$?.status,
   });
 
   const headers$ = new Headers(compactMap({
@@ -127,7 +145,7 @@ async function $do(
   const context = {
     options: client$._options,
     baseURL: options?.serverURL ?? client$._baseURL ?? "",
-    operationID: "getVideoViews",
+    operationID: "listPeople",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
     securitySource: client$._options.security,
