@@ -1,5 +1,7 @@
 # Cloudinary Asset Management MCP Server
 
+<!-- mcp-name: io.github.cloudinary/asset-management-mcp -->
+
 <!-- Start Summary [summary] -->
 ## Summary
 
