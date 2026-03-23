@@ -1,4 +1,4 @@
-speakeasyVersion: 1.755.0
+speakeasyVersion: 1.759.1
 sources:
     CloudinaryAssetMgmt-MCP-OAS:
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
