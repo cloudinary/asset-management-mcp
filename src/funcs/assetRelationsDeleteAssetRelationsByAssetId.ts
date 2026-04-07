@@ -13,7 +13,6 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DeleteAssetRelationsByAssetIdRequest,
   DeleteAssetRelationsByAssetIdRequest$zodSchema,
-  DeleteAssetRelationsByAssetIdRequestBody,
 } from "../models/deleteassetrelationsbyassetidop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -24,6 +23,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { UnrelateAssetsByAssetIdRequest } from "../models/unrelateassetsbyassetidrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -31,12 +31,12 @@ import { Result } from "../types/fp.js";
  * Delete asset relations by asset ID
  *
  * @remarks
- * Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
+ * Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.
  */
 export function assetRelationsDeleteAssetRelationsByAssetId(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
-  RequestBody: DeleteAssetRelationsByAssetIdRequestBody,
+  unrelate_assets_by_asset_id_request: UnrelateAssetsByAssetIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -53,7 +53,7 @@ export function assetRelationsDeleteAssetRelationsByAssetId(
   return new APIPromise($do(
     client$,
     asset_id,
-    RequestBody,
+    unrelate_assets_by_asset_id_request,
     options,
   ));
 }
@@ -61,7 +61,7 @@ export function assetRelationsDeleteAssetRelationsByAssetId(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
-  RequestBody: DeleteAssetRelationsByAssetIdRequestBody,
+  unrelate_assets_by_asset_id_request: UnrelateAssetsByAssetIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,7 @@ async function $do(
 > {
   const input$: DeleteAssetRelationsByAssetIdRequest = {
     asset_id: asset_id,
-    RequestBody: RequestBody,
+    unrelate_assets_by_asset_id_request: unrelate_assets_by_asset_id_request,
   };
 
   const parsed$ = safeParse(
@@ -92,7 +92,11 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON(
+    "body",
+    payload$.unrelate_assets_by_asset_id_request,
+    { explode: true },
+  );
 
   const pathParams$ = {
     asset_id: encodeSimple("asset_id", payload$.asset_id, {

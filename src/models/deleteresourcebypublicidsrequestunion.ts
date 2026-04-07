@@ -198,6 +198,9 @@ export const DeleteResourceByPublicIdsRequest1$zodSchema: z.ZodType<
   ),
 });
 
+/**
+ * The delete request specifying which resources to delete.
+ */
 export type DeleteResourceByPublicIdsRequestUnion =
   | DeleteResourceByPublicIdsRequest1
   | DeleteResourceByPublicIdsRequest2
@@ -209,4 +212,4 @@ export const DeleteResourceByPublicIdsRequestUnion$zodSchema: z.ZodType<
   z.lazy(() => DeleteResourceByPublicIdsRequest1$zodSchema),
   z.lazy(() => DeleteResourceByPublicIdsRequest2$zodSchema),
   z.lazy(() => DeleteResourceByPublicIdsRequest3$zodSchema),
-]);
+]).describe("The delete request specifying which resources to delete.");

@@ -21,10 +21,10 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  GenerateArchiveRequest,
-  GenerateArchiveRequest$zodSchema,
-  GenerateArchiveRequestBody,
+  GenerateArchiveRequestRequest,
+  GenerateArchiveRequestRequest$zodSchema,
 } from "../models/generatearchiveop.js";
+import { GenerateArchiveRequest } from "../models/generatearchiverequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -42,7 +42,7 @@ export enum GenerateArchiveAcceptEnum {
 export function assetsGenerateArchive(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ArchiveResourceType,
-  RequestBody: GenerateArchiveRequestBody,
+  generate_archive_request: GenerateArchiveRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function assetsGenerateArchive(
   return new APIPromise($do(
     client$,
     resource_type,
-    RequestBody,
+    generate_archive_request,
     options,
   ));
 }
@@ -67,7 +67,7 @@ export function assetsGenerateArchive(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ArchiveResourceType,
-  RequestBody: GenerateArchiveRequestBody,
+  generate_archive_request: GenerateArchiveRequest,
   options?: RequestOptions & {
     acceptHeaderOverride?: GenerateArchiveAcceptEnum;
   },
@@ -86,21 +86,23 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: GenerateArchiveRequest = {
+  const input$: GenerateArchiveRequestRequest = {
     resource_type: resource_type,
-    RequestBody: RequestBody,
+    generate_archive_request: generate_archive_request,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => GenerateArchiveRequest$zodSchema.parse(value$),
+    (value$) => GenerateArchiveRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.generate_archive_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

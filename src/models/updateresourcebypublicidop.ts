@@ -6,9 +6,9 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  ExtendedStorageType,
-  ExtendedStorageType$zodSchema,
-} from "./extendedstoragetype.js";
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
 import { Info, Info$zodSchema } from "./info.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import {
@@ -29,7 +29,7 @@ export const UpdateResourceByPublicIdGlobals$zodSchema: z.ZodType<
 
 export type UpdateResourceByPublicIdRequest = {
   resource_type: ResourceType;
-  type: ExtendedStorageType;
+  type: DeliveryTypeAll;
   public_id: string;
   ResourceUpdateRequest: ResourceUpdateRequest;
 };
@@ -37,12 +37,14 @@ export type UpdateResourceByPublicIdRequest = {
 export const UpdateResourceByPublicIdRequest$zodSchema: z.ZodType<
   UpdateResourceByPublicIdRequest
 > = z.object({
-  ResourceUpdateRequest: ResourceUpdateRequest$zodSchema,
-  public_id: z.string().describe("The public ID of the asset."),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
-  type: ExtendedStorageType$zodSchema.describe(
-    "The extended storage type of the resource.",
+  ResourceUpdateRequest: ResourceUpdateRequest$zodSchema.describe(
+    "The asset attributes to update.",
   ),
+  public_id: z.string().describe("The public ID of the asset."),
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
+  ),
+  type: DeliveryTypeAll$zodSchema.describe("The delivery type of the asset."),
 });
 
 export type UpdateResourceByPublicIdResponse = ApiError | Info;

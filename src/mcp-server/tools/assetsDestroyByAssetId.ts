@@ -4,19 +4,20 @@
  */
 
 import { assetsDestroyByAssetId } from "../../funcs/assetsDestroyByAssetId.js";
-import { DestroyRequest$zodSchema } from "../../models/destroyrequest.js";
+import { ComponentsDestroyRequest$zodSchema } from "../../models/componentsdestroyrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DestroyRequest$zodSchema,
+  request: ComponentsDestroyRequest$zodSchema.describe(
+    `The asset to delete and related options.`,
+  ),
 };
 
 export const tool$assetsDestroyByAssetId: ToolDefinition<typeof args> = {
   name: "delete-asset",
-  description: `Delete asset by asset-id
+  description: `Delete asset by asset ID
 
-Deletes an asset using its asset ID. This endpoint replaces the legacy /resources/by_asset_id endpoint.
-Returns the deletion status and asset folder information when folder decoupling is enabled.
+Deletes an asset using its immutable asset ID.
 `,
   scopes: ["admin"],
   annotations: {

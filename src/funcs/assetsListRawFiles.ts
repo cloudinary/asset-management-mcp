@@ -10,7 +10,8 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { Direction } from "../models/direction.js";
+import { DeliveryTypeAll } from "../models/deliverytypeall.js";
+import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -20,12 +21,11 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { FieldsSpec } from "../models/fieldsspec.js";
+import { Fields } from "../models/fields.js";
 import {
   ListRawFilesRequest,
   ListRawFilesRequest$zodSchema,
 } from "../models/listrawfilesop.js";
-import { ListStorageType } from "../models/liststoragetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,19 +33,19 @@ import { Result } from "../types/fp.js";
  * Get raw assets
  *
  * @remarks
- * Retrieves a list of raw assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+ * Retrieves a list of raw assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
  */
 export function assetsListRawFiles(
   client$: CloudinaryAssetMgmtCore,
-  type?: ListStorageType | undefined,
+  type?: DeliveryTypeAll | undefined,
   prefix?: string | undefined,
   public_ids?: Array<string> | undefined,
   tags?: boolean | undefined,
   next_cursor?: string | undefined,
   max_results?: number | undefined,
-  direction?: Direction | undefined,
+  direction?: DirectionEnum | undefined,
   start_at?: string | undefined,
-  fields?: Array<FieldsSpec> | undefined,
+  fields?: Fields | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -76,15 +76,15 @@ export function assetsListRawFiles(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  type?: ListStorageType | undefined,
+  type?: DeliveryTypeAll | undefined,
   prefix?: string | undefined,
   public_ids?: Array<string> | undefined,
   tags?: boolean | undefined,
   next_cursor?: string | undefined,
   max_results?: number | undefined,
-  direction?: Direction | undefined,
+  direction?: DirectionEnum | undefined,
   start_at?: string | undefined,
-  fields?: Array<FieldsSpec> | undefined,
+  fields?: Fields | undefined,
   options?: RequestOptions,
 ): Promise<
   [

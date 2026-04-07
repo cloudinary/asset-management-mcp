@@ -8,42 +8,26 @@ import {
   AccessControlItem,
   AccessControlItem$zodSchema,
 } from "./accesscontrolitem.js";
+import {
+  ContextFullResponse,
+  ContextFullResponse$zodSchema,
+} from "./contextfullresponse.js";
+import {
+  CoordinatesResponse,
+  CoordinatesResponse$zodSchema,
+} from "./coordinatesresponse.js";
+import {
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
 
-export type InfoContext2 = {
-  key?: string | undefined;
-  value?: string | undefined;
-};
-
-export const InfoContext2$zodSchema: z.ZodType<InfoContext2> = z.object({
-  key: z.string().optional(),
-  value: z.string().optional(),
-});
-
-export type InfoContext1 = { custom?: { [k: string]: any } | undefined };
-
-export const InfoContext1$zodSchema: z.ZodType<InfoContext1> = z.object({
-  custom: z.record(z.string(), z.any()).optional(),
-});
-
-/**
- * Included if 'context=true' parameter is used. Can be object with custom properties or array of key-value pairs.
- */
-export type Context = InfoContext1 | Array<InfoContext2>;
-
-export const Context$zodSchema: z.ZodType<Context> = z.union([
-  z.lazy(() => InfoContext1$zodSchema),
-  z.array(z.lazy(() => InfoContext2$zodSchema)),
-]).describe(
-  "Included if 'context=true' parameter is used. Can be object with custom properties or array of key-value pairs.",
-);
-
-export type Moderation = {
+export type InfoModeration = {
   kind?: string | undefined;
   status?: string | undefined;
   updated_at?: string | undefined;
 };
 
-export const Moderation$zodSchema: z.ZodType<Moderation> = z.object({
+export const InfoModeration$zodSchema: z.ZodType<InfoModeration> = z.object({
   kind: z.string().optional(),
   status: z.string().optional(),
   updated_at: z.iso.datetime({ offset: true }).optional(),
@@ -52,6 +36,71 @@ export const Moderation$zodSchema: z.ZodType<Moderation> = z.object({
 export type RelatedAsset = {};
 
 export const RelatedAsset$zodSchema: z.ZodType<RelatedAsset> = z.object({});
+
+export type LastUpdated = {
+  access_control_updated_at?: string | undefined;
+  context_updated_at?: string | undefined;
+  metadata_updated_at?: string | undefined;
+  public_id_updated_at?: string | undefined;
+  tags_updated_at?: string | undefined;
+  updated_at?: string | undefined;
+};
+
+export const LastUpdated$zodSchema: z.ZodType<LastUpdated> = z.object({
+  access_control_updated_at: z.iso.datetime({ offset: true }).optional(),
+  context_updated_at: z.iso.datetime({ offset: true }).optional(),
+  metadata_updated_at: z.iso.datetime({ offset: true }).optional(),
+  public_id_updated_at: z.iso.datetime({ offset: true }).optional(),
+  tags_updated_at: z.iso.datetime({ offset: true }).optional(),
+  updated_at: z.iso.datetime({ offset: true }).optional(),
+});
+
+export type Derived = {
+  transformation?: string | undefined;
+  format?: string | undefined;
+  bytes?: number | undefined;
+  id?: string | undefined;
+  url?: string | undefined;
+  secure_url?: string | undefined;
+};
+
+export const Derived$zodSchema: z.ZodType<Derived> = z.object({
+  bytes: z.int().optional(),
+  format: z.string().optional(),
+  id: z.string().optional(),
+  secure_url: z.string().optional(),
+  transformation: z.string().optional(),
+  url: z.string().optional(),
+});
+
+export type Version = {
+  version_id?: string | undefined;
+  version?: string | undefined;
+  format?: string | undefined;
+  size?: number | undefined;
+  time?: string | undefined;
+  restorable?: boolean | undefined;
+};
+
+export const Version$zodSchema: z.ZodType<Version> = z.object({
+  format: z.string().optional(),
+  restorable: z.boolean().optional(),
+  size: z.int().optional(),
+  time: z.iso.datetime({ offset: true }).optional(),
+  version: z.string().optional(),
+  version_id: z.string().optional().describe(
+    "A 32-character hexadecimal version ID.",
+  ),
+});
+
+/**
+ * Additional asset information (visual search, recognized people, etc.)
+ */
+export type InfoInfo = {};
+
+export const InfoInfo$zodSchema: z.ZodType<InfoInfo> = z.object({}).describe(
+  "Additional asset information (visual search, recognized people, etc.)",
+);
 
 export type Derivative = {
   id?: string | undefined;
@@ -62,16 +111,16 @@ export type Derivative = {
 
 export const Derivative$zodSchema: z.ZodType<Derivative> = z.object({
   id: z.string().optional().describe(
-    "The unique identifier of the derived resource",
+    "The unique identifier of the derived resource.",
   ),
   secure_url: z.string().optional().describe(
-    "The secure URL for accessing the derived resource",
+    "The secure URL for accessing the derived resource.",
   ),
   transformation: z.string().optional().describe(
-    "The transformation string that was applied",
+    "The transformation string that was applied.",
   ),
   transformation_signature: z.string().optional().describe(
-    "The unique signature of the transformation",
+    "The unique signature of the transformation.",
   ),
 });
 
@@ -85,7 +134,7 @@ export type Info = {
   format?: string | undefined;
   version?: number | undefined;
   resource_type?: string | undefined;
-  type?: string | undefined;
+  type?: DeliveryTypeAll | undefined;
   created_at?: string | undefined;
   uploaded_at?: string | undefined;
   bytes?: number | undefined;
@@ -95,11 +144,11 @@ export type Info = {
   aspect_ratio?: number | null | undefined;
   pixels?: number | null | undefined;
   tags?: Array<string> | null | undefined;
-  context?: InfoContext1 | Array<InfoContext2> | null | undefined;
+  context?: ContextFullResponse | null | undefined;
   metadata?: { [k: string]: any } | undefined;
   moderation_kind?: string | undefined;
   moderation_status?: string | undefined;
-  moderation?: Array<Moderation> | undefined;
+  moderation?: Array<InfoModeration> | undefined;
   backup?: boolean | undefined;
   url?: string | undefined;
   secure_url?: string | undefined;
@@ -111,6 +160,18 @@ export type Info = {
   resource_subtype?: string | null | undefined;
   substatus?: string | null | undefined;
   related_assets?: Array<RelatedAsset> | null | undefined;
+  last_updated?: LastUpdated | undefined;
+  next_cursor?: string | undefined;
+  derived?: Array<Derived> | undefined;
+  faces?: Array<Array<number>> | null | undefined;
+  coordinates?: CoordinatesResponse | null | undefined;
+  illustration_score?: number | undefined;
+  semi_transparent?: boolean | undefined;
+  grayscale?: boolean | undefined;
+  colors?: Array<Array<any>> | undefined;
+  predominant?: { [k: string]: Array<Array<any>> } | undefined;
+  versions?: Array<Version> | undefined;
+  info?: InfoInfo | undefined;
   derivatives?: Array<Derivative> | null | undefined;
 };
 
@@ -121,41 +182,57 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   ),
   aspect_ratio: z.number().nullable().optional(),
   asset_folder: z.string().optional(),
-  asset_id: z.string().optional(),
+  asset_id: z.string().optional().describe(
+    "A 32-character hexadecimal asset ID.",
+  ),
   backup: z.boolean().optional(),
   backup_bytes: z.int().optional(),
   bytes: z.int().optional(),
-  context: z.union([
-    z.lazy(() => InfoContext1$zodSchema),
-    z.array(z.lazy(() => InfoContext2$zodSchema)),
-  ]).nullable().optional().describe(
-    "Included if 'context=true' parameter is used. Can be object with custom properties or array of key-value pairs.",
+  colors: z.array(z.array(z.any())).optional(),
+  context: ContextFullResponse$zodSchema.nullable().optional().describe(
+    "Included if 'context=true' parameter is used.",
+  ),
+  coordinates: CoordinatesResponse$zodSchema.nullable().optional().describe(
+    "Face and custom coordinate data. Included if 'coordinates=true' parameter is used.",
   ),
   created_at: z.iso.datetime({ offset: true }).optional(),
   derivatives: z.array(z.lazy(() => Derivative$zodSchema)).nullable().optional()
     .describe(
       "Included if 'derived=true' parameter is used. Null when no derivatives exist.",
     ),
+  derived: z.array(z.lazy(() => Derived$zodSchema)).optional(),
   display_name: z.string().optional(),
   duration: z.number().nullable().optional().describe(
     "Duration in seconds for video/audio assets. Null for images.",
   ),
   etag: z.string().optional(),
+  faces: z.array(z.array(z.int())).nullable().optional().describe(
+    "Detected face rectangles. Included if 'faces=true' parameter is used.",
+  ),
   filename: z.string().optional(),
   folder: z.string().optional(),
   format: z.string().optional(),
+  grayscale: z.boolean().optional(),
   height: z.int().nullable().optional(),
-  metadata: z.record(z.string(), z.any()).optional(),
-  moderation: z.array(z.lazy(() => Moderation$zodSchema)).optional().describe(
-    "Included if 'moderations=true' parameter is used.",
+  illustration_score: z.number().optional(),
+  info: z.lazy(() => InfoInfo$zodSchema).optional().describe(
+    "Additional asset information (visual search, recognized people, etc.)",
   ),
+  last_updated: z.lazy(() => LastUpdated$zodSchema).optional(),
+  metadata: z.record(z.string(), z.any()).optional(),
+  moderation: z.array(z.lazy(() => InfoModeration$zodSchema)).optional()
+    .describe("Included if 'moderations=true' parameter is used."),
   moderation_kind: z.string().optional().describe(
     "The type of moderation applied to the asset.",
   ),
   moderation_status: z.string().optional().describe(
     "The current status of the moderation process for the asset.",
   ),
+  next_cursor: z.string().optional().describe(
+    "Cursor for paginating derived assets.",
+  ),
   pixels: z.int().nullable().optional(),
+  predominant: z.record(z.string(), z.array(z.array(z.any()))).optional(),
   public_id: z.string().optional(),
   related_assets: z.array(z.lazy(() => RelatedAsset$zodSchema)).nullable()
     .optional().describe(
@@ -166,6 +243,7 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   ),
   resource_type: z.string().optional(),
   secure_url: z.string().optional(),
+  semi_transparent: z.boolean().optional(),
   status: z.string().optional(),
   substatus: z.string().nullable().optional().describe(
     "The substatus of the resource. Null when not set.",
@@ -173,9 +251,12 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   tags: z.array(z.string()).nullable().optional().describe(
     "Included if 'tags=true' parameter is used.",
   ),
-  type: z.string().optional(),
+  type: DeliveryTypeAll$zodSchema.optional().describe(
+    "All possible delivery types.",
+  ),
   uploaded_at: z.iso.datetime({ offset: true }).optional(),
   url: z.string().optional(),
   version: z.int().optional(),
+  versions: z.array(z.lazy(() => Version$zodSchema)).optional(),
   width: z.int().nullable().optional(),
 });

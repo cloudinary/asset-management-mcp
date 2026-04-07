@@ -22,8 +22,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   RenameAssetRequest,
   RenameAssetRequest$zodSchema,
-  RenameAssetRequestBody,
 } from "../models/renameassetop.js";
+import { RenameRequest } from "../models/renamerequest.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
 export function assetsRenameAsset(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  RequestBody: RenameAssetRequestBody,
+  rename_request: RenameRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -51,7 +51,7 @@ export function assetsRenameAsset(
   return new APIPromise($do(
     client$,
     resource_type,
-    RequestBody,
+    rename_request,
     options,
   ));
 }
@@ -59,7 +59,7 @@ export function assetsRenameAsset(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  RequestBody: RenameAssetRequestBody,
+  rename_request: RenameRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -78,7 +78,7 @@ async function $do(
 > {
   const input$: RenameAssetRequest = {
     resource_type: resource_type,
-    RequestBody: RequestBody,
+    rename_request: rename_request,
   };
 
   const parsed$ = safeParse(
@@ -90,7 +90,7 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.rename_request, { explode: true });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { DeliveryTypeAll } from "../models/deliverytypeall.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -19,7 +20,6 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { ExtendedStorageType } from "../models/extendedstoragetype.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { ResourceUpdateRequest } from "../models/resourceupdaterequest.js";
 import {
@@ -38,7 +38,7 @@ import { Result } from "../types/fp.js";
 export function assetsUpdateResourceByPublicId(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: ExtendedStorageType,
+  type: DeliveryTypeAll,
   public_id: string,
   ResourceUpdateRequest: ResourceUpdateRequest,
   options?: RequestOptions,
@@ -67,7 +67,7 @@ export function assetsUpdateResourceByPublicId(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: ExtendedStorageType,
+  type: DeliveryTypeAll,
   public_id: string,
   ResourceUpdateRequest: ResourceUpdateRequest,
   options?: RequestOptions,

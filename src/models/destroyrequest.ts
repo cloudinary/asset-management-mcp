@@ -4,35 +4,39 @@
  */
 
 import * as z from "zod";
+import {
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
 
 export type DestroyRequest = {
   api_key?: string | undefined;
   timestamp?: number | undefined;
   signature?: string | undefined;
-  asset_id: string;
+  public_id: string;
+  type?: DeliveryTypeAll | undefined;
   invalidate?: boolean | undefined;
   notification_url?: string | undefined;
-  callback?: string | undefined;
 };
 
 export const DestroyRequest$zodSchema: z.ZodType<DestroyRequest> = z.object({
   api_key: z.string().optional().describe(
     "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
   ),
-  asset_id: z.string().describe("The ID of the asset to delete."),
-  callback: z.string().optional().describe(
-    "URL for redirect after operation completion.",
-  ),
-  invalidate: z.boolean().optional().describe(
-    "Whether to invalidate CDN cache. Default is false.",
+  invalidate: z.boolean().default(false).describe(
+    "Whether to invalidate CDN cached copies of the asset.",
   ),
   notification_url: z.string().optional().describe(
-    "URL to receive completion notification.",
+    "URL to receive a notification when the operation is complete.",
   ),
+  public_id: z.string().describe("The public ID of the asset to destroy."),
   signature: z.string().optional().describe(
     "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
   ),
   timestamp: z.int().optional().describe(
     "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
+  ),
+  type: DeliveryTypeAll$zodSchema.optional().describe(
+    "All possible delivery types.",
   ),
 });

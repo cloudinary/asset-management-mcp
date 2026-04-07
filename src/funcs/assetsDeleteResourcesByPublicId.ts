@@ -15,6 +15,7 @@ import {
   DeleteResourcesByPublicIdRequest,
   DeleteResourcesByPublicIdRequest$zodSchema,
 } from "../models/deleteresourcesbypublicidop.js";
+import { DeliveryTypeAll } from "../models/deliverytypeall.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -24,7 +25,6 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { ExtendedStorageType } from "../models/extendedstoragetype.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -38,7 +38,7 @@ import { Result } from "../types/fp.js";
 export function assetsDeleteResourcesByPublicId(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: ExtendedStorageType,
+  type: DeliveryTypeAll,
   DeleteResourceByPublicIdsRequest: DeleteResourceByPublicIdsRequestUnion,
   options?: RequestOptions,
 ): APIPromise<
@@ -65,7 +65,7 @@ export function assetsDeleteResourcesByPublicId(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: ExtendedStorageType,
+  type: DeliveryTypeAll,
   DeleteResourceByPublicIdsRequest: DeleteResourceByPublicIdsRequestUnion,
   options?: RequestOptions,
 ): Promise<

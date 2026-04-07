@@ -10,9 +10,9 @@ import {
   DeleteResourceByPublicIdsRequestUnion$zodSchema,
 } from "./deleteresourcebypublicidsrequestunion.js";
 import {
-  ExtendedStorageType,
-  ExtendedStorageType$zodSchema,
-} from "./extendedstoragetype.js";
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
 export type DeleteResourcesByPublicIdGlobals = {
@@ -28,7 +28,7 @@ export const DeleteResourcesByPublicIdGlobals$zodSchema: z.ZodType<
 
 export type DeleteResourcesByPublicIdRequest = {
   resource_type: ResourceType;
-  type: ExtendedStorageType;
+  type: DeliveryTypeAll;
   DeleteResourceByPublicIdsRequest: DeleteResourceByPublicIdsRequestUnion;
 };
 
@@ -36,11 +36,13 @@ export const DeleteResourcesByPublicIdRequest$zodSchema: z.ZodType<
   DeleteResourcesByPublicIdRequest
 > = z.object({
   DeleteResourceByPublicIdsRequest:
-    DeleteResourceByPublicIdsRequestUnion$zodSchema,
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
-  type: ExtendedStorageType$zodSchema.describe(
-    "The extended storage type of the resource.",
+    DeleteResourceByPublicIdsRequestUnion$zodSchema.describe(
+      "The public IDs and options for the resources to delete.",
+    ),
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
   ),
+  type: DeliveryTypeAll$zodSchema.describe("The delivery type of the asset."),
 });
 
 /**

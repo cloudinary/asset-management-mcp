@@ -5,6 +5,7 @@
 
 import * as z from "zod";
 import * as b64$ from "../lib/base64.js";
+import { ApiError, ApiError$zodSchema } from "./apierror.js";
 
 export type DownloadBackupAssetGlobals = { cloud_name?: string | undefined };
 
@@ -43,79 +44,8 @@ export const DownloadBackupAssetRequest$zodSchema: z.ZodType<
   ),
 });
 
-export type NotFoundError = { message?: string | undefined };
-
-export const NotFoundError$zodSchema: z.ZodType<NotFoundError> = z.object({
-  message: z.string().optional().describe("Specified version does not exist"),
-});
-
-/**
- * Version not found
- */
-export type DownloadBackupAssetNotFoundResponseBody = {
-  error?: NotFoundError | undefined;
-};
-
-export const DownloadBackupAssetNotFoundResponseBody$zodSchema: z.ZodType<
-  DownloadBackupAssetNotFoundResponseBody
-> = z.object({
-  error: z.lazy(() => NotFoundError$zodSchema).optional(),
-}).describe("Version not found");
-
-export type DownloadBackupAssetUnauthorizedError = {
-  message?: string | undefined;
-  http_code?: number | undefined;
-};
-
-export const DownloadBackupAssetUnauthorizedError$zodSchema: z.ZodType<
-  DownloadBackupAssetUnauthorizedError
-> = z.object({
-  http_code: z.int().optional().describe("The HTTP status code."),
-  message: z.string().optional().describe(
-    "Invalid Signature or timestamp expired.",
-  ),
-});
-
-/**
- * Authentication failed
- */
-export type DownloadBackupAssetUnauthorizedResponseBody = {
-  error?: DownloadBackupAssetUnauthorizedError | undefined;
-};
-
-export const DownloadBackupAssetUnauthorizedResponseBody$zodSchema: z.ZodType<
-  DownloadBackupAssetUnauthorizedResponseBody
-> = z.object({
-  error: z.lazy(() => DownloadBackupAssetUnauthorizedError$zodSchema)
-    .optional(),
-}).describe("Authentication failed");
-
-export type BadRequestError = {
-  message?: string | undefined;
-  http_code?: number | undefined;
-};
-
-export const BadRequestError$zodSchema: z.ZodType<BadRequestError> = z.object({
-  http_code: z.int().optional().describe("The HTTP status code."),
-  message: z.string().optional().describe(
-    "A problem with one of the parameters or timestamp.",
-  ),
-});
-
-/**
- * Bad request
- */
-export type DownloadBackupAssetBadRequestResponseBody = {
-  error?: BadRequestError | undefined;
-};
-
-export const DownloadBackupAssetBadRequestResponseBody$zodSchema: z.ZodType<
-  DownloadBackupAssetBadRequestResponseBody
-> = z.object({
-  error: z.lazy(() => BadRequestError$zodSchema).optional(),
-}).describe("Bad request");
-
 export type DownloadBackupAssetResponse =
+  | ApiError
   | Uint8Array
   | string
   | Uint8Array
@@ -123,14 +53,12 @@ export type DownloadBackupAssetResponse =
   | Uint8Array
   | string
   | Uint8Array
-  | string
-  | DownloadBackupAssetBadRequestResponseBody
-  | DownloadBackupAssetUnauthorizedResponseBody
-  | DownloadBackupAssetNotFoundResponseBody;
+  | string;
 
 export const DownloadBackupAssetResponse$zodSchema: z.ZodType<
   DownloadBackupAssetResponse
 > = z.union([
+  ApiError$zodSchema,
   z.string().describe("Base64-encoded binary content").transform(
     b64$.bytesFromBase64,
   ),
@@ -143,7 +71,4 @@ export const DownloadBackupAssetResponse$zodSchema: z.ZodType<
   z.string().describe("Base64-encoded binary content").transform(
     b64$.bytesFromBase64,
   ),
-  z.lazy(() => DownloadBackupAssetBadRequestResponseBody$zodSchema),
-  z.lazy(() => DownloadBackupAssetUnauthorizedResponseBody$zodSchema),
-  z.lazy(() => DownloadBackupAssetNotFoundResponseBody$zodSchema),
 ]);

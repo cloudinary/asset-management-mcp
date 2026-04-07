@@ -6,9 +6,9 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  ExtendedStorageType,
-  ExtendedStorageType$zodSchema,
-} from "./extendedstoragetype.js";
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
 import { Info, Info$zodSchema } from "./info.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
@@ -23,7 +23,7 @@ export const GetResourceByPublicIdGlobals$zodSchema: z.ZodType<
 
 export type GetResourceByPublicIdRequest = {
   resource_type: ResourceType;
-  type: ExtendedStorageType;
+  type: DeliveryTypeAll;
   public_id: string;
   colors?: boolean | undefined;
   media_metadata?: boolean | undefined;
@@ -72,10 +72,10 @@ export const GetResourceByPublicIdRequest$zodSchema: z.ZodType<
   quality_analysis: z.boolean().default(false).describe(
     "Whether to return quality analysis scores for the image. Default: false.",
   ),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
-  type: ExtendedStorageType$zodSchema.describe(
-    "The extended storage type of the resource.",
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
   ),
+  type: DeliveryTypeAll$zodSchema.describe("The delivery type of the asset."),
   versions: z.boolean().default(false).describe(
     "Whether to include details of all the backed up versions of the asset. Default: false.",
   ),

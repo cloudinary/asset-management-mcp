@@ -5,17 +5,17 @@
 
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
-import { SearchSortPair, SearchSortPair$zodSchema } from "./searchsortpair.js";
+import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 
-export const SearchParametersType = {
+export const Type = {
   Bytes: "bytes",
   ImagePixels: "image_pixels",
   VideoPixels: "video_pixels",
   Duration: "duration",
 } as const;
-export type SearchParametersType = ClosedEnum<typeof SearchParametersType>;
+export type Type = ClosedEnum<typeof Type>;
 
-export const SearchParametersType$zodSchema = z.enum([
+export const Type$zodSchema = z.enum([
   "bytes",
   "image_pixels",
   "video_pixels",
@@ -33,14 +33,11 @@ export const SearchParametersRange$zodSchema: z.ZodType<SearchParametersRange> =
     to: z.number().optional().describe("End of the range (exclusive)"),
   });
 
-export type Aggregate = {
-  type: SearchParametersType;
-  ranges: Array<SearchParametersRange>;
-};
+export type Aggregate = { type: Type; ranges: Array<SearchParametersRange> };
 
 export const Aggregate$zodSchema: z.ZodType<Aggregate> = z.object({
   ranges: z.array(z.lazy(() => SearchParametersRange$zodSchema)),
-  type: SearchParametersType$zodSchema,
+  type: Type$zodSchema,
 });
 
 export const AggregateEnum = {
@@ -56,12 +53,15 @@ export const AggregateEnum$zodSchema = z.enum([
   "type",
 ]);
 
+/**
+ * Fields or ranges to aggregate search results by.
+ */
 export type AggregateUnion = Array<AggregateEnum> | Array<Aggregate>;
 
 export const AggregateUnion$zodSchema: z.ZodType<AggregateUnion> = z.union([
   z.array(AggregateEnum$zodSchema),
   z.array(z.lazy(() => Aggregate$zodSchema)),
-]);
+]).describe("Fields or ranges to aggregate search results by.");
 
 export const WithField = {
   Context: "context",
@@ -89,7 +89,7 @@ export const WithField$zodSchema = z.enum([
  */
 export type SearchParameters = {
   expression?: string | undefined;
-  sort_by?: Array<{ [k: string]: SearchSortPair }> | undefined;
+  sort_by?: Array<{ [k: string]: DirectionEnum }> | undefined;
   max_results?: number | undefined;
   next_cursor?: string | undefined;
   aggregate?: Array<AggregateEnum> | Array<Aggregate> | undefined;
@@ -102,7 +102,7 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
     aggregate: z.union([
       z.array(AggregateEnum$zodSchema),
       z.array(z.lazy(() => Aggregate$zodSchema)),
-    ]).optional(),
+    ]).optional().describe("Fields or ranges to aggregate search results by."),
     expression: z.string().optional().describe(
       "The search expression. Supports exact match, wildcard match, presence, greater/less than, and range. For details on building expressions, see the Search API documentation.",
     ),
@@ -115,7 +115,7 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
     next_cursor: z.string().optional().describe(
       "The cursor value to get the next page of results. Available when a previous search returned more results than max_results.",
     ),
-    sort_by: z.array(z.record(z.string(), SearchSortPair$zodSchema)).optional()
+    sort_by: z.array(z.record(z.string(), DirectionEnum$zodSchema)).optional()
       .describe(
         "An array of single-key objects mapping a field to a sort direction. Each object must contain exactly one field name mapped to 'asc' or 'desc'.\nDefault: [{\"created_at\": \"desc\"}].\n",
       ),

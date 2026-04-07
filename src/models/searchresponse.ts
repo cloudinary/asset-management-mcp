@@ -9,6 +9,10 @@ import {
   AccessControlItem,
   AccessControlItem$zodSchema,
 } from "./accesscontrolitem.js";
+import {
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
 
 /**
  * The type of resource.
@@ -30,29 +34,6 @@ export const SearchResponseResourceType$zodSchema = z.enum([
   "video",
   "raw",
 ]).describe("The type of resource.");
-
-/**
- * The delivery type of the asset.
- */
-export const SearchResponseType = {
-  Upload: "upload",
-  Private: "private",
-  Authenticated: "authenticated",
-  List: "list",
-  Fetch: "fetch",
-} as const;
-/**
- * The delivery type of the asset.
- */
-export type SearchResponseType = ClosedEnum<typeof SearchResponseType>;
-
-export const SearchResponseType$zodSchema = z.enum([
-  "upload",
-  "private",
-  "authenticated",
-  "list",
-  "fetch",
-]).describe("The delivery type of the asset.");
 
 /**
  * The current status of the asset.
@@ -117,14 +98,6 @@ export const UploadedBy$zodSchema: z.ZodType<UploadedBy> = z.object({
 }).describe("Information about who uploaded the asset.");
 
 /**
- * Custom context metadata associated with the asset.
- */
-export type SearchResponseContext = {};
-
-export const SearchResponseContext$zodSchema: z.ZodType<SearchResponseContext> =
-  z.object({}).describe("Custom context metadata associated with the asset.");
-
-/**
  * Technical metadata extracted from the image.
  */
 export type SearchResponseImageMetadata = {};
@@ -179,7 +152,7 @@ export type Resource = {
   format?: string | undefined;
   version?: number | undefined;
   resource_type?: SearchResponseResourceType | undefined;
-  type?: SearchResponseType | undefined;
+  type?: DeliveryTypeAll | undefined;
   created_at?: string | undefined;
   uploaded_at?: string | undefined;
   bytes?: number | undefined;
@@ -196,7 +169,7 @@ export type Resource = {
   etag?: string | undefined;
   created_by?: CreatedBy | null | undefined;
   uploaded_by?: UploadedBy | null | undefined;
-  context?: SearchResponseContext | undefined;
+  context?: { [k: string]: string } | undefined;
   tags?: Array<string> | undefined;
   image_metadata?: SearchResponseImageMetadata | null | undefined;
   image_analysis?: ImageAnalysis | null | undefined;
@@ -226,7 +199,7 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
     "The size of the backup asset in bytes.",
   ),
   bytes: z.int().optional().describe("The size of the asset in bytes."),
-  context: z.lazy(() => SearchResponseContext$zodSchema).optional().describe(
+  context: z.record(z.string(), z.string()).optional().describe(
     "Custom context metadata associated with the asset.",
   ),
   created_at: z.iso.datetime({ offset: true }).optional().describe(
@@ -271,8 +244,8 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   tags: z.array(z.string()).optional().describe(
     "Tags associated with the asset.",
   ),
-  type: SearchResponseType$zodSchema.optional().describe(
-    "The delivery type of the asset.",
+  type: DeliveryTypeAll$zodSchema.optional().describe(
+    "All possible delivery types.",
   ),
   uploaded_at: z.iso.datetime({ offset: true }).optional().describe(
     "The timestamp when the asset was uploaded.",

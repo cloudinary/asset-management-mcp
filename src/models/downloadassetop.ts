@@ -6,8 +6,11 @@
 import * as z from "zod";
 import * as b64$ from "../lib/base64.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  ManagedDeliveryType,
+  ManagedDeliveryType$zodSchema,
+} from "./manageddeliverytype.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import { StorageType, StorageType$zodSchema } from "./storagetype.js";
 
 export type DownloadAssetGlobals = { cloud_name?: string | undefined };
 
@@ -22,7 +25,7 @@ export type DownloadAssetRequest = {
   resource_type: ResourceType;
   public_id: string;
   format?: string | undefined;
-  type?: StorageType | undefined;
+  type?: ManagedDeliveryType | undefined;
   expires_at?: number | undefined;
   attachment?: boolean | undefined;
   target_filename?: string | undefined;
@@ -47,7 +50,9 @@ export const DownloadAssetRequest$zodSchema: z.ZodType<DownloadAssetRequest> = z
       "The format to convert the asset to before downloading.",
     ).optional(),
     public_id: z.string().describe("The public ID of the asset."),
-    resource_type: ResourceType$zodSchema.describe("The type of resource."),
+    resource_type: ResourceType$zodSchema.describe(
+      "The type of resource (image, video, or raw).",
+    ),
     signature: z.string().describe(
       "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
     ).optional(),
@@ -60,8 +65,8 @@ export const DownloadAssetRequest$zodSchema: z.ZodType<DownloadAssetRequest> = z
     transformation: z.string().describe(
       "A transformation to apply to the asset before downloading.",
     ).optional(),
-    type: StorageType$zodSchema.optional().describe(
-      "The storage type of the asset. Default is \"upload\".",
+    type: ManagedDeliveryType$zodSchema.optional().describe(
+      "The delivery type of the asset. Default is \"upload\".",
     ),
   });
 

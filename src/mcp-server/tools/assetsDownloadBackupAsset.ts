@@ -31,7 +31,7 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
   annotations: {
     "title": "Download Asset Backup",
     "destructiveHint": false,
-    "idempotentHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": true,
   },

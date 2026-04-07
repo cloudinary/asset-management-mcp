@@ -4,13 +4,17 @@
  */
 
 import { assetsRenameAsset } from "../../funcs/assetsRenameAsset.js";
-import { RenameAssetRequestBody$zodSchema } from "../../models/renameassetop.js";
+import { RenameRequest$zodSchema } from "../../models/renamerequest.js";
 import { ResourceType$zodSchema } from "../../models/resourcetype.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  resource_type: ResourceType$zodSchema.describe(`The type of resource.`),
-  RequestBody: RenameAssetRequestBody$zodSchema,
+  resource_type: ResourceType$zodSchema.describe(
+    `The type of resource (image, video, or raw).`,
+  ),
+  rename_request: RenameRequest$zodSchema.describe(
+    `The rename request parameters.`,
+  ),
 };
 
 export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
@@ -30,7 +34,7 @@ export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {
     const [result] = await assetsRenameAsset(
       client,
       args.resource_type,
-      args.RequestBody,
+      args.rename_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

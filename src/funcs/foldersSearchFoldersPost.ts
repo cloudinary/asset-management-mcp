@@ -20,9 +20,9 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  SearchFoldersPostRequest,
-  SearchFoldersPostRequest$zodSchema,
-} from "../models/searchfolderspostop.js";
+  FolderSearchRequest,
+  FolderSearchRequest$zodSchema,
+} from "../models/foldersearchrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function foldersSearchFoldersPost(
   client$: CloudinaryAssetMgmtCore,
-  request: SearchFoldersPostRequest,
+  request: FolderSearchRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -57,7 +57,7 @@ export function foldersSearchFoldersPost(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  request: SearchFoldersPostRequest,
+  request: FolderSearchRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -76,7 +76,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => SearchFoldersPostRequest$zodSchema.parse(value$),
+    (value$) => FolderSearchRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

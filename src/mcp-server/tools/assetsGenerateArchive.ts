@@ -5,14 +5,16 @@
 
 import { assetsGenerateArchive } from "../../funcs/assetsGenerateArchive.js";
 import { ArchiveResourceType$zodSchema } from "../../models/archiveresourcetype.js";
-import { GenerateArchiveRequestBody$zodSchema } from "../../models/generatearchiveop.js";
+import { GenerateArchiveRequest$zodSchema } from "../../models/generatearchiverequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   resource_type: ArchiveResourceType$zodSchema.describe(
-    `The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.`,
+    `The type of resource for archive generation (image, video, or raw).`,
   ),
-  RequestBody: GenerateArchiveRequestBody$zodSchema,
+  generate_archive_request: GenerateArchiveRequest$zodSchema.describe(
+    `The archive generation parameters.`,
+  ),
 };
 
 export const tool$assetsGenerateArchive: ToolDefinition<typeof args> = {
@@ -34,7 +36,7 @@ Creates a downloadable ZIP or other archive format containing the specified reso
     const [result] = await assetsGenerateArchive(
       client,
       args.resource_type,
-      args.RequestBody,
+      args.generate_archive_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

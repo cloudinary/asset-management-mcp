@@ -23,8 +23,8 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { ManagedDeliveryType } from "../models/manageddeliverytype.js";
 import { ResourceType } from "../models/resourcetype.js";
-import { StorageType } from "../models/storagetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -43,7 +43,7 @@ export function assetsDownloadAsset(
   resource_type: ResourceType,
   public_id: string,
   format?: string | undefined,
-  type?: StorageType | undefined,
+  type?: ManagedDeliveryType | undefined,
   expires_at?: number | undefined,
   attachment?: boolean | undefined,
   target_filename?: string | undefined,
@@ -86,7 +86,7 @@ async function $do(
   resource_type: ResourceType,
   public_id: string,
   format?: string | undefined,
-  type?: StorageType | undefined,
+  type?: ManagedDeliveryType | undefined,
   expires_at?: number | undefined,
   attachment?: boolean | undefined,
   target_filename?: string | undefined,

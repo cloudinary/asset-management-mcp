@@ -17,7 +17,9 @@ export const GetUsageGlobals$zodSchema: z.ZodType<GetUsageGlobals> = z.object({
 export type GetUsageRequest = { date?: string | undefined };
 
 export const GetUsageRequest$zodSchema: z.ZodType<GetUsageRequest> = z.object({
-  date: z.string().date().optional(),
+  date: z.string().date().describe(
+    "The date for which to retrieve usage details (YYYY-MM-DD). If not specified, returns the current usage.",
+  ).optional(),
 });
 
 export type GetUsageResponse = ApiError | UsageResponse;

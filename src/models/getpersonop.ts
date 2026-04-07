@@ -5,7 +5,7 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { PersonDetails, PersonDetails$zodSchema } from "./persondetails.js";
+import { PersonResponse, PersonResponse$zodSchema } from "./personresponse.js";
 
 export type GetPersonGlobals = { cloud_name?: string | undefined };
 
@@ -25,22 +25,10 @@ export const GetPersonRequest$zodSchema: z.ZodType<GetPersonRequest> = z.object(
   },
 );
 
-/**
- * Person retrieved successfully
- */
-export type GetPersonResponseBody = { person?: PersonDetails | undefined };
-
-export const GetPersonResponseBody$zodSchema: z.ZodType<GetPersonResponseBody> =
-  z.object({
-    person: PersonDetails$zodSchema.optional().describe(
-      "Detailed information about a recognized person.",
-    ),
-  }).describe("Person retrieved successfully");
-
-export type GetPersonResponse = ApiError | GetPersonResponseBody;
+export type GetPersonResponse = ApiError | PersonResponse;
 
 export const GetPersonResponse$zodSchema: z.ZodType<GetPersonResponse> = z
   .union([
     ApiError$zodSchema,
-    z.lazy(() => GetPersonResponseBody$zodSchema),
+    PersonResponse$zodSchema,
   ]);

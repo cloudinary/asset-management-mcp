@@ -19,10 +19,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { ExplodeRequest } from "../models/exploderequest.js";
 import {
   ExplodeResourceRequest,
   ExplodeResourceRequest$zodSchema,
-  ExplodeResourceRequestBody,
   ExplodeResourceResourceType,
 } from "../models/exploderesourceop.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
 export function explodeExplodeResource(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ExplodeResourceResourceType,
-  RequestBody: ExplodeResourceRequestBody,
+  explode_request: ExplodeRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +54,7 @@ export function explodeExplodeResource(
   return new APIPromise($do(
     client$,
     resource_type,
-    RequestBody,
+    explode_request,
     options,
   ));
 }
@@ -62,7 +62,7 @@ export function explodeExplodeResource(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ExplodeResourceResourceType,
-  RequestBody: ExplodeResourceRequestBody,
+  explode_request: ExplodeRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,7 +81,7 @@ async function $do(
 > {
   const input$: ExplodeResourceRequest = {
     resource_type: resource_type,
-    RequestBody: RequestBody,
+    explode_request: explode_request,
   };
 
   const parsed$ = safeParse(
@@ -93,7 +93,7 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.explode_request, { explode: true });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
