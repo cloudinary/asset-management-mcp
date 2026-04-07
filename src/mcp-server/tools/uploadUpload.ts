@@ -6,6 +6,7 @@
 import { uploadUpload } from "../../funcs/uploadUpload.js";
 import { UploadRequest$zodSchema } from "../../models/uploadrequest.js";
 import { UploadResourceType$zodSchema } from "../../models/uploadresourcetype.js";
+import { ASSET_UPLOAD_RESOURCE_URI } from "../asset-upload-widget.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
@@ -47,6 +48,9 @@ Transform media files using transformation syntax in delivery URLs, which create
     "idempotentHint": false,
     "openWorldHint": false,
     "readOnlyHint": false,
+  },
+  _meta: {
+    ui: { resourceUri: ASSET_UPLOAD_RESOURCE_URI },
   },
   args,
   tool: async (client, args, ctx) => {

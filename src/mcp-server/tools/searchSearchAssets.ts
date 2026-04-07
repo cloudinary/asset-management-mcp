@@ -6,6 +6,7 @@
 import { searchSearchAssets } from "../../funcs/searchSearchAssets.js";
 import { SearchParameters$zodSchema } from "../../models/searchparameters.js";
 import { formatResult, ToolDefinition } from "../tools.js";
+import { ASSET_GALLERY_RESOURCE_URI } from "../asset-gallery-widget.js";
 
 const args = {
   request: SearchParameters$zodSchema,
@@ -29,6 +30,9 @@ Examples: tags:shirt AND uploaded_at>1d, resource_type:image AND bytes>1mb, fold
     "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": true,
+  },
+  _meta: {
+    ui: { resourceUri: ASSET_GALLERY_RESOURCE_URI },
   },
   args,
   tool: async (client, args, ctx) => {

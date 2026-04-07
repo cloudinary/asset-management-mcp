@@ -80,6 +80,7 @@ export type ToolDefinition<
       openWorldHint: boolean;
       readOnlyHint: boolean;
     };
+    _meta?: Record<string, unknown>;
     tool: (
       client: CloudinaryAssetMgmtCore,
       args: ShapeOutput<Args>,
@@ -98,6 +99,7 @@ export type ToolDefinition<
       openWorldHint: boolean;
       readOnlyHint: boolean;
     };
+    _meta?: Record<string, unknown>;
     tool: (
       client: CloudinaryAssetMgmtCore,
       extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
@@ -212,6 +214,7 @@ export function createRegisterTool(
           description: tool.description,
           inputSchema: tool.args,
           annotations: tool.annotations,
+          ...(tool._meta ? { _meta: tool._meta } : {}),
         },
         async (args, ctx) => {
           return tool.tool(getSDK(), args, ctx);
@@ -223,6 +226,7 @@ export function createRegisterTool(
         {
           description: tool.description,
           annotations: tool.annotations,
+          ...(tool._meta ? { _meta: tool._meta } : {}),
         },
         async (ctx) => {
           return tool.tool(getSDK(), ctx);

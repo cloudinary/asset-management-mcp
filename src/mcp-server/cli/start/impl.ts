@@ -158,20 +158,34 @@ async function startSSE(cliFlags: StartCommandFlags) {
     };
 
     // Wrap transport.send to log error responses for debugging
+    const requestMethods = new Map<number | string, string>();
     const originalSend = transport.send.bind(transport);
     transport.send = async (message) => {
       if ("error" in message && message.error) {
+        const method = requestMethods.get((message as any).id) ?? "unknown";
         logger.error("MCP sending error response", {
           sessionId,
           id: message.id,
+          method,
           errorCode: message.error.code,
           errorMessage: message.error.message,
         });
+        requestMethods.delete((message as any).id);
       }
       return originalSend(message);
     };
 
     await mcpServer.connect(transport);
+
+    // Intercept incoming messages AFTER connect() so we wrap the protocol handler
+    const protocolOnMessage = transport.onmessage;
+    transport.onmessage = (msg: any) => {
+      if (msg?.method && msg?.id != null) {
+        requestMethods.set(msg.id, msg.method);
+        logger.debug("MCP request received", { sessionId, id: msg.id, method: msg.method });
+      }
+      protocolOnMessage?.call(transport, msg);
+    };
 
     mcpServer.server.onclose = async () => {
       connectionClosed = true;

@@ -9,6 +9,7 @@ import { Direction$zodSchema } from "../../models/direction.js";
 import { FieldsSpec$zodSchema } from "../../models/fieldsspec.js";
 import { ListStorageType$zodSchema } from "../../models/liststoragetype.js";
 import { formatResult, ToolDefinition } from "../tools.js";
+import { ASSET_GALLERY_RESOURCE_URI } from "../asset-gallery-widget.js";
 
 const args = {
   type: ListStorageType$zodSchema.optional().describe(
@@ -45,6 +46,9 @@ Retrieves a list of video assets. Results can be filtered by various criteria li
     "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": true,
+  },
+  _meta: {
+    ui: { resourceUri: ASSET_GALLERY_RESOURCE_URI },
   },
   args,
   tool: async (client, args, ctx) => {
