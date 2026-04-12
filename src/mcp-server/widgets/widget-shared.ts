@@ -623,6 +623,26 @@ details.upload-section > .upload-form { margin: 0; padding: 10px 12px; }
   cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .combo-item:hover, .combo-item-active { background: var(--cld-accent-bg); color: var(--cld-accent); }
+
+.raw-response-pre {
+  margin: 0; padding: 10px 12px; overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-all;
+  background: var(--cld-bg2); border-radius: 6px; color: var(--cld-text2);
+  max-height: 500px; overflow-y: auto;
+}
+.json-key { color: #881391; }
+.json-str { color: #0b7285; }
+.json-num { color: #c92a2a; }
+.json-bool { color: #5c940d; }
+.json-null { color: #868e96; }
+@media (prefers-color-scheme: dark) {
+  .json-key { color: #da77f2; }
+  .json-str { color: #66d9e8; }
+  .json-num { color: #ff8787; }
+  .json-bool { color: #a9e34b; }
+  .json-null { color: #868e96; }
+}
 `;
 
 // ── JS: MCPApp client class ─────────────────────────────────────────
@@ -1060,8 +1080,76 @@ function renderAssetGrid(r) {
       h += '<div class="meta-row"><span class="meta-key">Secure URL</span>';
       h += '<span class="meta-val link-val detail-cell-val" data-url="' + esc(r.secure_url) + '">' + esc(r.secure_url) + "</span></div>";
     }
+    if (r.playback_url) {
+      h += '<div class="meta-row"><span class="meta-key">Playback URL</span>';
+      h += '<span class="meta-val link-val detail-cell-val" data-url="' + esc(r.playback_url) + '">' + esc(r.playback_url) + "</span></div>";
+    }
     h += "</div>";
   }
+  return h;
+}
+
+function renderAudioInfo(r) {
+  var a = r.audio || (r.video_metadata && r.video_metadata.audio);
+  var codec = (a && a.codec) || r.audio_codec || "";
+  var bitRate = (a && a.bit_rate) || r.audio_bit_rate || "";
+  var freq = (a && a.frequency) || r.audio_frequency || "";
+  var ch = (a && a.channels) || r.channels || "";
+  var layout = (a && a.channel_layout) || r.channel_layout || "";
+  if (!codec && !bitRate && !freq && !ch) return "";
+  var fields = [
+    ["Codec", codec],
+    ["Bit Rate", bitRate ? Math.round(Number(bitRate) / 1000) + " kbps" : ""],
+    ["Frequency", freq ? Number(freq).toLocaleString() + " Hz" : ""],
+    ["Channels", layout ? ch + " (" + layout + ")" : ch],
+  ];
+  var h = sectionStart("audio_info");
+  h += '<summary class="detail-section-title">Audio Info</summary>';
+  h += '<div class="detail-grid">';
+  for (var i = 0; i < fields.length; i++) {
+    if (!fields[i][1] && fields[i][1] !== 0) continue;
+    h += '<div class="detail-cell">';
+    h += '<div class="detail-cell-key">' + esc(fields[i][0]) + "</div>";
+    h += '<div class="detail-cell-val">' + esc(String(fields[i][1])) + "</div>";
+    h += "</div>";
+  }
+  h += "</div></details>";
+  return h;
+}
+
+function renderVideoInfo(r) {
+  var v = r.video || (r.video_metadata && r.video_metadata.video);
+  var codec = (v && v.codec) || r.codec || "";
+  var profile = (v && v.profile) || r.profile || "";
+  var level = (v && v.level) || r.level || "";
+  var pixFmt = (v && v.pix_format) || r.pix_format || "";
+  var vbr = (v && v.bit_rate) || r.video_bit_rate || "";
+  var dar = (v && v.dar) || r.dar || "";
+  var tb = (v && v.time_base) || r.time_base || "";
+  if (!codec && !profile && !pixFmt && !vbr) return "";
+  var fields = [
+    ["Codec", codec],
+    ["Profile", profile],
+    ["Level", level],
+    ["Pixel Format", pixFmt],
+    ["Bit Rate", vbr ? Math.round(Number(vbr) / 1000) + " kbps" : ""],
+    ["Aspect Ratio", dar],
+    ["Time Base", tb],
+    ["Frame Rate", r.frame_rate ? r.frame_rate + " fps" : ""],
+    ["Frames", r.nb_frames],
+    ["Rotation", (r.rotation != null && r.rotation !== 0) ? r.rotation + "\\u00b0" : ""],
+  ];
+  var h = sectionStart("video_info");
+  h += '<summary class="detail-section-title">Video Info</summary>';
+  h += '<div class="detail-grid">';
+  for (var i = 0; i < fields.length; i++) {
+    if (!fields[i][1] && fields[i][1] !== 0) continue;
+    h += '<div class="detail-cell">';
+    h += '<div class="detail-cell-key">' + esc(fields[i][0]) + "</div>";
+    h += '<div class="detail-cell-val">' + esc(String(fields[i][1])) + "</div>";
+    h += "</div>";
+  }
+  h += "</div></details>";
   return h;
 }
 
@@ -1648,28 +1736,102 @@ var RENDERED_KEYS = {
   api_key:1, derivatives:1, versions:1, access_control:1, related_assets:1,
   quality_analysis:1, quality_score:1, accessibility_analysis:1, phash:1,
   cinemagraph_analysis:1, responsive_breakpoints:1, last_updated:1,
-  next_cursor:1, derived_next_cursor:1, usage:1
+  next_cursor:1, derived_next_cursor:1, usage:1,
+  playback_url:1, video_metadata:1,
+  frame_rate:1, rotation:1, nb_frames:1,
+  audio_codec:1, audio_bit_rate:1, audio_frequency:1, channels:1, channel_layout:1,
+  codec:1, profile:1, level:1, pix_format:1, video_bit_rate:1, dar:1, time_base:1
 };
 
+function isEmptyObj(v) {
+  if (v === null || v === undefined || v === "") return true;
+  if (typeof v === "object" && !Array.isArray(v) && Object.keys(v).length === 0) return true;
+  if (Array.isArray(v) && v.length === 0) return true;
+  return false;
+}
+
+var RENDERED_LEAF_KEYS = {
+  codec:1, bit_rate:1, frequency:1, channels:1, channel_layout:1,
+  pix_format:1, profile:1, level:1, dar:1, time_base:1
+};
+
+function flattenObj(obj, prefix, out) {
+  var keys = Object.keys(obj);
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    var v = obj[k];
+    var label = prefix ? prefix + " \\u203a " + prettyKey(k) : prettyKey(k);
+    if (isEmptyObj(v)) continue;
+    if (prefix && RENDERED_LEAF_KEYS[k] && typeof v !== "object") continue;
+    if (Array.isArray(v)) {
+      var vs = JSON.stringify(v);
+      if (vs.length > 500) vs = vs.substring(0, 497) + "...";
+      out.push([label, vs, k]);
+    } else if (typeof v === "object") {
+      flattenObj(v, label, out);
+    } else {
+      var s = String(v);
+      if (s.length > 500) s = s.substring(0, 497) + "...";
+      out.push([label, s, k]);
+    }
+  }
+}
+
 function renderExtraFields(r) {
+  var cells = [];
   var keys = Object.keys(r);
-  var h = "";
   for (var i = 0; i < keys.length; i++) {
     var k = keys[i];
     if (RENDERED_KEYS[k]) continue;
     var v = r[k];
-    if (v === null || v === undefined || v === "") continue;
-    var vs = typeof v === "object" ? JSON.stringify(v) : String(v);
-    if (vs.length > 500) vs = vs.substring(0, 497) + "...";
+    if (isEmptyObj(v)) continue;
+    if (typeof v === "object" && !Array.isArray(v)) {
+      flattenObj(v, prettyKey(k), cells);
+    } else {
+      var vs = typeof v === "object" ? JSON.stringify(v) : String(v);
+      if (vs.length > 500) vs = vs.substring(0, 497) + "...";
+      cells.push([prettyKey(k), vs, k]);
+    }
+  }
+  if (!cells.length) return "";
+  var h = "";
+  for (var c = 0; c < cells.length; c++) {
     h += '<div class="detail-cell">';
-    h += '<div class="detail-cell-key">' + esc(prettyKey(k)) + tip(k) + "</div>";
-    h += '<div class="detail-cell-val" style="word-break:break-all">' + esc(vs) + "</div>";
+    h += '<div class="detail-cell-key">' + esc(cells[c][0]) + (cells[c][2] && !cells[c][0].indexOf("\\u203a") ? tip(cells[c][2]) : "") + "</div>";
+    h += '<div class="detail-cell-val" style="word-break:break-all">' + esc(cells[c][1]) + "</div>";
     h += "</div>";
   }
-  if (!h) return "";
   var out = '<details class="upload-section" style="margin-top:12px">';
-  out += "<summary>Full Response</summary>";
+  out += "<summary>More Details</summary>";
   out += '<div class="detail-grid" style="padding:10px 12px">' + h + "</div>";
+  out += "</details>";
+  return out;
+}
+
+function syntaxHighlight(json) {
+  var s = json.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return s.replace(
+    /("(\\\\u[a-fA-F0-9]{4}|\\\\[^u]|[^\\\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+    function(m) {
+      var cls = "json-num";
+      if (/^"/.test(m)) {
+        cls = /:$/.test(m) ? "json-key" : "json-str";
+      } else if (/true|false/.test(m)) {
+        cls = "json-bool";
+      } else if (/null/.test(m)) {
+        cls = "json-null";
+      }
+      return '<span class="' + cls + '">' + m + "</span>";
+    }
+  );
+}
+
+function renderRawResponse(r) {
+  if (!r || typeof r !== "object") return "";
+  var json = JSON.stringify(r, null, 2);
+  var out = '<details class="upload-section" style="margin-top:12px">';
+  out += "<summary>Raw Response</summary>";
+  out += '<pre class="raw-response-pre">' + syntaxHighlight(json) + "</pre>";
   out += "</details>";
   return out;
 }
@@ -1682,6 +1844,8 @@ function renderFullDetails(r) {
   body += renderAssetGrid(r);
   body += "</details>";
 
+  body += renderAudioInfo(r);
+  body += renderVideoInfo(r);
   body += renderTags(r.tags);
   body += renderContext(r.context);
   body += renderImageMetadata(r.image_metadata || r.media_metadata);
@@ -1700,6 +1864,7 @@ function renderFullDetails(r) {
   body += renderQualityAnalysis(r.quality_analysis, r.quality_score);
   body += renderAccessibilityAnalysis(r.accessibility_analysis);
   body += renderExtraFields(r);
+  body += renderRawResponse(r);
 
   return body;
 }

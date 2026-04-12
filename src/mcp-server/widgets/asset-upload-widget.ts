@@ -915,6 +915,9 @@ function renderResult(r) {
     h += '<summary class="detail-section-title">Asset Info</summary>';
     h += renderAssetGrid(r);
     h += "</details>";
+
+    h += renderAudioInfo(r);
+    h += renderVideoInfo(r);
   }
 
   if (!isPending) {
@@ -939,6 +942,7 @@ function renderResult(r) {
     h += renderQualityAnalysis(r.quality_analysis, r.quality_score);
     h += renderAccessibilityAnalysis(r.accessibility_analysis);
     h += renderExtraFields(r);
+    h += renderRawResponse(r);
   }
 
   h += '<div class="upload-actions">';

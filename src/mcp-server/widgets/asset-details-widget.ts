@@ -151,6 +151,8 @@ function renderPage(r) {
   h += renderAssetGrid(r);
   h += "</details>";
 
+  h += renderAudioInfo(r);
+  h += renderVideoInfo(r);
   h += renderTags(r.tags);
   h += renderContext(r.context);
   h += renderImageMetadata(r.image_metadata || r.media_metadata);
@@ -169,6 +171,7 @@ function renderPage(r) {
   h += renderQualityAnalysis(r.quality_analysis, r.quality_score);
   h += renderAccessibilityAnalysis(r.accessibility_analysis);
   h += renderExtraFields(r);
+  h += renderRawResponse(r);
 
   h += "</div>";
 
