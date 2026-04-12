@@ -8,8 +8,7 @@ import { assetsListImages } from "../../funcs/assetsListImages.js";
 import { Direction$zodSchema } from "../../models/direction.js";
 import { FieldsSpec$zodSchema } from "../../models/fieldsspec.js";
 import { ListStorageType$zodSchema } from "../../models/liststoragetype.js";
-import { ASSET_GALLERY_RESOURCE_URI } from "../asset-gallery-widget.js";
-import { formatResultWithContentFormat, ResponseContentFormat } from "../format-markdown.js";
+import { ASSET_GALLERY_RESOURCE_URI } from "../widgets/asset-gallery-widget.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
@@ -32,9 +31,6 @@ const args = {
     "Retrieve resources uploaded after this timestamp.",
   ).optional(),
   fields: z.array(FieldsSpec$zodSchema).optional(),
-  responseContentFormat: z.enum(["json", "markdown"]).optional().describe(
-    'Response format: "json" returns raw API JSON (default), "markdown" returns a formatted markdown table with asset details.',
-  ),
 };
 
 export const tool$assetsListImages: ToolDefinition<typeof args> = {
@@ -75,11 +71,6 @@ Retrieves a list of image assets. Results can be filtered by various criteria li
         content: [{ type: "text", text: result.error.message }],
         isError: true,
       };
-    }
-
-    const fmt = args.responseContentFormat as ResponseContentFormat | undefined;
-    if (fmt === "markdown") {
-      return formatResultWithContentFormat(result.value, fmt, "image");
     }
 
     return formatResult(result.value);

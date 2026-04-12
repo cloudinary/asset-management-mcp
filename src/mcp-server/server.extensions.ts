@@ -11,15 +11,15 @@ import {
   ASSET_GALLERY_RESOURCE_URI,
   MCP_APP_MIME_TYPE,
   getAssetGalleryHtml,
-} from "./asset-gallery-widget.js";
+} from "./widgets/asset-gallery-widget.js";
 import {
   ASSET_DETAILS_RESOURCE_URI,
   getAssetDetailsHtml,
-} from "./asset-details-widget.js";
+} from "./widgets/asset-details-widget.js";
 import {
   ASSET_UPLOAD_RESOURCE_URI,
   getAssetUploadHtml,
-} from "./asset-upload-widget.js";
+} from "./widgets/asset-upload-widget.js";
 
 const TX_RULES_URL = "https://cloudinary.com/documentation/cloudinary_transformation_rules.md";
 

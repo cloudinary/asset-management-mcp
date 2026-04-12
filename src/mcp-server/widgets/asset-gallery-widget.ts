@@ -12,6 +12,7 @@ import {
   SHARED_CSS_COMPONENTS,
   SHARED_JS_MCP_CLIENT,
   SHARED_JS_HELPERS,
+  SHARED_JS_TOOLTIPS,
   SHARED_JS_MODAL,
   SHARED_JS_DETAIL_RENDERERS,
   SHARED_JS_HOST_CONTEXT,
@@ -25,8 +26,6 @@ export function getAssetGalleryHtml(): string {
 }
 
 const GALLERY_CSS = /* css */ `
-body { min-height: 580px; }
-
 .header {
   display: flex; align-items: center; justify-content: space-between;
   margin-bottom: var(--cld-sp-md); padding-bottom: var(--cld-sp-sm);
@@ -39,6 +38,13 @@ body { min-height: 580px; }
 .count-badge {
   font-size: var(--cld-font-xxs); color: var(--cld-text2); background: var(--cld-bg3);
   padding: var(--cld-sp-xxs) var(--cld-sp-sm); border-radius: var(--cld-radius-lg); font-weight: 500;
+}
+.refresh-btn {
+  background: none; border: 1px solid var(--cld-border); border-radius: var(--cld-radius-sm);
+  color: var(--cld-text2); cursor: pointer; font-size: 14px; padding: 2px 7px;
+  line-height: 1; transition: background 0.15s, color 0.15s;
+}
+.refresh-btn:hover { background: var(--cld-bg3); color: var(--cld-text);
 }
 
 .grid {
@@ -64,6 +70,7 @@ body { min-height: 580px; }
   text-transform: uppercase; letter-spacing: 0.5px; backdrop-filter: blur(4px);
 }
 .thumb .placeholder { color: var(--cld-text3); font-size: 28px; }
+.thumb .audio-placeholder { color: var(--cld-text3); font-size: 32px; font-weight: 700; }
 .thumb.link:hover { opacity: 0.9; }
 
 .info { padding: var(--cld-sp-xs) var(--cld-sp-sm) var(--cld-sp-sm); }
@@ -97,7 +104,7 @@ body { min-height: 580px; }
 
 const GALLERY_JS = /* js */ `
 var LOG_PREFIX = "[gallery]";
-var MIN_HEIGHT = 580;
+var MIN_HEIGHT = 120;
 var allResources = [];
 var lastCursor = null;
 var pendingCall = { name: null, args: null };
@@ -115,7 +122,10 @@ function render() {
   var h = "";
   h += '<div class="header">';
   h += '<h1>Cloudinary Assets</h1>';
+  h += '<div style="display:flex;align-items:center;gap:8px">';
   h += '<span class="count-badge">' + allResources.length + (lastCursor ? "+" : "") + " items</span>";
+  h += '<button class="refresh-btn" id="refresh-gallery" title="Refresh">\\u21BB</button>';
+  h += "</div>";
   h += "</div>";
 
   h += '<div class="grid">';
@@ -136,7 +146,7 @@ function render() {
     h += '<div class="card">';
     h += '<div class="thumb' + (url ? " link" : "") + '"' + (url ? ' data-url="' + esc(url) + '"' : '') + '>';
     if (thumb) {
-      h += '<img src="' + esc(thumb) + '" alt="' + esc(name) + '" loading="lazy">';
+      h += '<img src="' + esc(thumb) + '" alt="' + esc(name) + '" loading="lazy" data-audio="' + (audio ? "1" : "") + '">';
       if (audio) {
         h += '<div class="thumb-overlay playable" data-play="' + i + '"><div class="audio-icon">\\u266B</div></div>';
       } else if (rt === "video") {
@@ -182,11 +192,35 @@ function render() {
   }
   h += "</div>";
 
+  if (lastCursor) {
+    h += '<div style="text-align:center;padding:16px 0;">';
+    h += '<button class="prompt-btn prompt-btn-primary" id="load-more-btn">Load More</button>';
+    h += "</div>";
+  }
+
   root.innerHTML = h;
+
+  var imgs = root.querySelectorAll(".thumb img");
+  for (var ii = 0; ii < imgs.length; ii++) {
+    imgs[ii].addEventListener("error", function() {
+      this.style.display = "none";
+      var isAudio = this.getAttribute("data-audio") === "1";
+      var ph = isAudio
+        ? '<div class="audio-placeholder">\\u266B</div>'
+        : '<span class="placeholder">\\u{1F5BC}</span>';
+      this.parentElement.insertAdjacentHTML("afterbegin", ph);
+    });
+  }
+
+  requestAnimationFrame(function() {
+    app.reportSize(Math.max(document.documentElement.scrollHeight, MIN_HEIGHT));
+  });
 
   root.addEventListener("click", function(e) {
     var el = e.target;
     while (el && el !== root) {
+      if (el.id === "load-more-btn") { loadMore(); return; }
+      if (el.id === "refresh-gallery") { refreshGallery(); return; }
       if (el.dataset && el.dataset.play != null) {
         playMedia(parseInt(el.dataset.play, 10));
         return;
@@ -240,13 +274,14 @@ async function showDetails(idx) {
       arguments: { asset_id: r.asset_id },
     });
     var data = ingestResult(res);
-    if (data && !data._truncated) {
+    if (data && !data._error && !data._truncated && !data._parseError) {
       console.log(LOG_PREFIX, "details loaded for", r.asset_id);
       var modalBody = document.querySelector(".modal-body");
       if (modalBody) modalBody.innerHTML = renderFullDetails(data);
     } else {
+      var errDetail = (data && data._message) ? data._message.substring(0, 300) : "Could not parse asset details from the server response.";
       var mb = document.querySelector(".modal-body");
-      if (mb) mb.innerHTML = renderModalError("Unexpected Response", "Could not parse asset details from the server response.");
+      if (mb) mb.innerHTML = renderModalError("Unexpected Response", errDetail);
     }
   } catch (e) {
     var errMsg = String(e && e.message ? e.message : e);
@@ -263,23 +298,45 @@ async function showDetails(idx) {
 
 // Bootstrap
 app.ontoolinput = function(params) {
-  if (params.toolName) pendingCall.name = params.toolName;
-  if (params.arguments) {
-    pendingCall.args = params.arguments;
-    if (!pendingCall.name)
-      pendingCall.name = params.arguments.request !== undefined ? "search-assets" : "list-images";
-  }
+  if (params.name) pendingCall.name = params.name;
+  if (params.arguments) pendingCall.args = params.arguments;
+  showReadyPrompt(pendingCall, fetchDirect);
 };
 
-app.ontoolresult = function(result) {
-  if (result.toolName) pendingCall.name = result.toolName;
+app.ontoolcancelled = function(params) {
+  console.log(LOG_PREFIX, "tool cancelled:", params && params.reason);
+  showCancelledPrompt(pendingCall, fetchDirect);
+};
 
+function inferToolName(data) {
+  if (data.total_count !== undefined) return "search-assets";
+  var resources = data.resources;
+  if (!resources || !resources.length) return null;
+  var rt = resources[0].resource_type;
+  if (rt === "video") return "list-videos";
+  if (rt === "raw") return "list-files";
+  return "list-images";
+}
+
+app.ontoolresult = function(result) {
   var data = ingestResult(result);
   if (data && data.resources) {
     console.log(LOG_PREFIX, "host result:", data.resources.length, "resources");
     allResources = data.resources;
     lastCursor = data.next_cursor || null;
+    pendingCall.name = inferToolName(data) || pendingCall.name;
     render();
+    return;
+  }
+
+  if (data && data._error) {
+    showPersistentError("Error", data._message || JSON.stringify(data));
+    return;
+  }
+
+  if (data && (data._truncated || data._parseError)) {
+    console.log(LOG_PREFIX, "host result not JSON, auto-refetching as JSON");
+    fetchDirect();
     return;
   }
 
@@ -304,34 +361,76 @@ function showFetchPrompt() {
   document.getElementById("fetch-direct-btn").addEventListener("click", function() { fetchDirect(); });
 }
 
+function jsonArgs(src) {
+  var a = {};
+  for (var k in src) a[k] = src[k];
+  return a;
+}
+
 async function fetchDirect() {
   var name = pendingCall.name || "list-images";
-  var args = pendingCall.args || {};
-  console.log(LOG_PREFIX, "tools/call ->", name);
+  var args = jsonArgs(pendingCall.args || {});
+  console.log(LOG_PREFIX, "fetchDirect ->", name);
 
   document.getElementById("app").innerHTML = '<div class="status">Fetching assets\\u2026</div>';
   try {
     var res = await app.callServerTool({ name: name, arguments: args });
     var data = ingestResult(res);
-    if (data && data.resources) {
+    if (data && data._error) {
+      showPersistentError("Error", data._message || JSON.stringify(data));
+    } else if (data && data.resources) {
       console.log(LOG_PREFIX, "direct fetch:", data.resources.length, "resources");
       allResources = data.resources;
       lastCursor = data.next_cursor || null;
       render();
     } else {
-      showError("No Data", "Server returned no assets.");
+      showPersistentError("No Data", "Server returned no assets.");
     }
   } catch (e) {
-    showError("Fetch Failed", e && e.message ? e.message : String(e));
+    showPersistentError("Fetch Failed", e && e.message ? e.message : String(e));
   }
 }
+
+async function loadMore() {
+  if (!lastCursor) return;
+  var name = pendingCall.name || "list-images";
+  var args = name === "search-assets"
+    ? { request: { next_cursor: lastCursor } }
+    : { next_cursor: lastCursor };
+
+  var btn = document.getElementById("load-more-btn");
+  if (btn) { btn.textContent = "Loading\\u2026"; btn.disabled = true; }
+
+  try {
+    var res = await app.callServerTool({ name: name, arguments: args });
+    var data = ingestResult(res);
+    if (data && data.resources) {
+      allResources = allResources.concat(data.resources);
+      lastCursor = data.next_cursor || null;
+      render();
+    } else {
+      showError("No Data", "Server returned no additional assets.");
+    }
+  } catch (e) {
+    showError("Load More Failed", e && e.message ? e.message : String(e));
+    if (btn) { btn.textContent = "Load More"; btn.disabled = false; }
+  }
+}
+
+function refreshGallery() {
+  allResources = [];
+  lastCursor = null;
+  fetchDirect();
+}
+
 
 app.connect().then(function() {
   console.log(LOG_PREFIX, "ready");
   setupResize(app, MIN_HEIGHT);
 }).catch(function(err) {
-  showError("Connection Failed", err && err.message ? err.message : String(err));
+  console.warn(LOG_PREFIX, "connect failed:", err && err.message ? err.message : String(err));
 });
+
 `;
 
 const ASSET_GALLERY_HTML = /* html */ `<!DOCTYPE html>
@@ -352,6 +451,7 @@ ${GALLERY_CSS}
 <script>
 ${SHARED_JS_MCP_CLIENT}
 ${SHARED_JS_HELPERS}
+${SHARED_JS_TOOLTIPS}
 ${SHARED_JS_MODAL}
 ${SHARED_JS_DETAIL_RENDERERS}
 ${SHARED_JS_HOST_CONTEXT}

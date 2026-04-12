@@ -6,7 +6,7 @@
 import { searchSearchAssets } from "../../funcs/searchSearchAssets.js";
 import { SearchParameters$zodSchema } from "../../models/searchparameters.js";
 import { formatResult, ToolDefinition } from "../tools.js";
-import { ASSET_GALLERY_RESOURCE_URI } from "../asset-gallery-widget.js";
+import { ASSET_GALLERY_RESOURCE_URI } from "../widgets/asset-gallery-widget.js";
 
 const args = {
   request: SearchParameters$zodSchema,

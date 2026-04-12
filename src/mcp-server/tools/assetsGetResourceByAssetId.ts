@@ -6,7 +6,7 @@
 import * as z from "zod";
 import { assetsGetResourceByAssetId } from "../../funcs/assetsGetResourceByAssetId.js";
 import { formatResult, ToolDefinition } from "../tools.js";
-import { ASSET_DETAILS_RESOURCE_URI } from "../asset-details-widget.js";
+import { ASSET_DETAILS_RESOURCE_URI } from "../widgets/asset-details-widget.js";
 
 const args = {
   asset_id: z.string().describe(

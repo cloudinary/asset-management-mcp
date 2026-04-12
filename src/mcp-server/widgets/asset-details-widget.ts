@@ -11,6 +11,7 @@ import {
   SHARED_CSS_COMPONENTS,
   SHARED_JS_MCP_CLIENT,
   SHARED_JS_HELPERS,
+  SHARED_JS_TOOLTIPS,
   SHARED_JS_MODAL,
   SHARED_JS_DETAIL_RENDERERS,
   SHARED_JS_HOST_CONTEXT,
@@ -23,8 +24,6 @@ export function getAssetDetailsHtml(): string {
 }
 
 const ASSET_DETAILS_CSS = /* css */ `
-body { min-height: 400px; }
-
 .details-header {
   display: flex; align-items: center; gap: 14px;
   padding-bottom: var(--cld-sp-md);
@@ -98,7 +97,7 @@ body { min-height: 400px; }
 
 const ASSET_DETAILS_JS = /* js */ `
 var LOG_PREFIX = "[details]";
-var MIN_HEIGHT = 400;
+var MIN_HEIGHT = 120;
 var pendingCall = { name: null, args: null };
 
 var app = new MCPApp({ name: "Cloudinary Asset Details", version: "1.0.0" });
@@ -133,7 +132,10 @@ function renderPage(r) {
   if (dur) h += '<span class="pill">' + dur + "</span>";
   if (size) h += '<span class="pill">' + size + "</span>";
   h += "</div></div>";
+  h += '<div style="display:flex;gap:6px;flex-shrink:0">';
+  h += '<button class="open-link" id="refresh-asset" title="Refresh">\\u21BB</button>';
   if (url) h += '<button class="open-link" id="open-asset">Open</button>';
+  h += "</div>";
   h += "</div>";
 
   // Hero
@@ -144,14 +146,29 @@ function renderPage(r) {
   // Details content
   h += '<div class="details-content">';
 
-  h += '<div class="detail-section"><div class="detail-section-title">Asset Info</div>';
+  h += sectionStart("asset_info");
+  h += '<summary class="detail-section-title">Asset Info</summary>';
   h += renderAssetGrid(r);
-  h += "</div>";
+  h += "</details>";
 
   h += renderTags(r.tags);
+  h += renderContext(r.context);
+  h += renderImageMetadata(r.image_metadata || r.media_metadata);
+  h += renderColors(r.colors, r.predominant);
+  h += renderModerationSection(r.moderation, r.moderation_kind, r.moderation_status);
+  h += renderAccessControl(r.access_control);
+  h += renderCoordinates(r.faces, r.coordinates);
   h += renderLastUpdated(r.last_updated);
   h += renderMetadata(r.metadata);
-  h += renderDerived(r.derived);
+  h += renderInfo(r.info);
+  h += renderDerived(r.derived, r.derived_next_cursor, r.asset_id);
+  h += renderDerivatives(r.derivatives);
+  h += renderRelatedAssets(r.related_assets);
+  h += renderVersions(r.versions);
+  h += renderEager(r.eager);
+  h += renderQualityAnalysis(r.quality_analysis, r.quality_score);
+  h += renderAccessibilityAnalysis(r.accessibility_analysis);
+  h += renderExtraFields(r);
 
   h += "</div>";
 
@@ -163,6 +180,14 @@ function renderPage(r) {
     while (el && el !== root) {
       if (el.id === "open-asset") {
         app._rpc("ui/open-link", { url: url });
+        return;
+      }
+      if (el.id === "refresh-asset") {
+        fetchDirect();
+        return;
+      }
+      if (el.id === "load-more-derived-btn") {
+        loadMoreDerived(el);
         return;
       }
       if (el.classList && el.classList.contains("link-val") && el.dataset.url) {
@@ -177,6 +202,7 @@ function renderPage(r) {
     }
   });
 }
+
 
 function showFetchPrompt() {
   var name = pendingCall.name || "get-asset-details";
@@ -198,38 +224,53 @@ function showFetchPrompt() {
 async function fetchDirect() {
   var name = pendingCall.name || "get-asset-details";
   var args = pendingCall.args || {};
-  console.log(LOG_PREFIX, "tools/call ->", name);
+  console.log(LOG_PREFIX, "tools/call ->", name, JSON.stringify(args));
 
   document.getElementById("app").innerHTML = '<div class="status">Fetching asset details\\u2026</div>';
   try {
     var res = await app.callServerTool({ name: name, arguments: args });
     var data = ingestResult(res);
-    if (data && !data._truncated) {
+    if (data && !data._error && !data._truncated && !data._parseError) {
       renderPage(data);
+    } else if (data && data._error) {
+      showPersistentError("Server Error", data._message || JSON.stringify(data));
+    } else if (data && data._parseError) {
+      showPersistentError("Parse Error", data._message || "Could not parse response.");
+    } else if (data && data._truncated) {
+      showPersistentError("Truncated", "Response was truncated: " + (data._message || "").substring(0, 200));
     } else {
-      showError("No Data", "Server returned no asset details.");
+      showPersistentError("No Data", "Server returned no asset details.");
     }
   } catch (e) {
-    showError("Fetch Failed", e && e.message ? e.message : String(e));
+    showPersistentError("Fetch Failed", e && e.message ? e.message : String(e));
   }
 }
 
 app.ontoolinput = function(params) {
-  if (params.toolName) pendingCall.name = params.toolName;
+  pendingCall.name = "get-asset-details";
   if (params.arguments) pendingCall.args = params.arguments;
+  showReadyPrompt(pendingCall, fetchDirect);
+};
+
+app.ontoolcancelled = function(params) {
+  console.log(LOG_PREFIX, "tool cancelled:", params && params.reason);
+  showCancelledPrompt(pendingCall, fetchDirect);
 };
 
 app.ontoolresult = function(result) {
-  if (result.toolName) pendingCall.name = result.toolName;
-
   var data = ingestResult(result);
-  if (data && !data._truncated) {
+  if (data && !data._error && !data._truncated && !data._parseError) {
     console.log(LOG_PREFIX, "host result received for", data.asset_id || data.public_id);
     renderPage(data);
     return;
   }
 
-  console.warn(LOG_PREFIX, "host result unusable");
+  if (data && data._error) {
+    showPersistentError("Error", data._message || JSON.stringify(data));
+    return;
+  }
+
+  console.warn(LOG_PREFIX, "host result unusable:", data && data._message ? data._message.substring(0, 200) : "null");
   showFetchPrompt();
 };
 
@@ -259,6 +300,7 @@ ${ASSET_DETAILS_CSS}
 <script>
 ${SHARED_JS_MCP_CLIENT}
 ${SHARED_JS_HELPERS}
+${SHARED_JS_TOOLTIPS}
 ${SHARED_JS_MODAL}
 ${SHARED_JS_DETAIL_RENDERERS}
 ${SHARED_JS_HOST_CONTEXT}

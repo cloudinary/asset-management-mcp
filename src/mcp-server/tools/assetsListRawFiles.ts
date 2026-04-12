@@ -9,7 +9,7 @@ import { Direction$zodSchema } from "../../models/direction.js";
 import { FieldsSpec$zodSchema } from "../../models/fieldsspec.js";
 import { ListStorageType$zodSchema } from "../../models/liststoragetype.js";
 import { formatResult, ToolDefinition } from "../tools.js";
-import { ASSET_GALLERY_RESOURCE_URI } from "../asset-gallery-widget.js";
+import { ASSET_GALLERY_RESOURCE_URI } from "../widgets/asset-gallery-widget.js";
 
 const args = {
   type: ListStorageType$zodSchema.optional().describe(
