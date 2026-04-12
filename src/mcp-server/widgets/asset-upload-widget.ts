@@ -735,12 +735,22 @@ function renderUploadError(title, msg) {
   });
 }
 
+function extractPathFromError(errMsg) {
+  if (!errMsg) return "";
+  var m = errMsg.match(/open '([^']+)'/);
+  if (m) return m[1];
+  m = errMsg.match(/read file: ([^.]+)/);
+  if (m) return m[1].trim();
+  return "";
+}
+
 function classifyFileError(errMsg) {
   var lower = (errMsg || "").toLowerCase();
   if (lower.indexOf("enoent") >= 0 || lower.indexOf("no such file") >= 0) {
     return {
       title: "File Not Found",
-      desc: "could not be found at the specified path. It may have been moved or deleted."
+      desc: "could not be found at the specified path.",
+      hint: "If the server is running remotely, it cannot access files on your device. Drop the file below or click Browse to select it."
     };
   }
   if (lower.indexOf("eacces") >= 0 || lower.indexOf("eperm") >= 0 || lower.indexOf("permission") >= 0) {
@@ -767,8 +777,12 @@ function renderLocalFileNeeded(expectedName, errMsg) {
   h += '<div class="prompt-desc">The file <strong>' + esc(expectedName)
      + "</strong> " + classified.desc
      + " Please select it from your device.</div>";
-  if (errMsg) {
-    h += '<div style="margin-top:8px;font-size:11px;color:var(--cld-text3);word-break:break-all;">' + esc(errMsg) + "</div>";
+  if (classified.hint) {
+    h += '<div style="margin-top:8px;font-size:11.5px;color:var(--cld-text3);">' + esc(classified.hint) + "</div>";
+  }
+  var filePath = extractPathFromError(errMsg);
+  if (filePath) {
+    h += '<div style="margin-top:6px;font-size:11px;color:var(--cld-text3);word-break:break-all;">Path: ' + esc(filePath) + "</div>";
   }
   h += "</div>";
   h += '<div class="upload-zone" id="drop-zone">';
