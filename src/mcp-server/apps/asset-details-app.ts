@@ -1,9 +1,9 @@
 /*
- * Standalone MCP App widget for displaying a single Cloudinary asset
+ * Standalone MCP App for displaying a single Cloudinary asset
  * in a rich detail view. Attached to the get-asset-details tool.
  *
  * Shares CLDS tokens, MCPApp client, helpers, and detail renderers
- * with the gallery widget via widget-shared.ts.
+ * with the gallery app via app-shared.ts.
  */
 
 import {
@@ -15,12 +15,11 @@ import {
   SHARED_JS_MODAL,
   SHARED_JS_DETAIL_RENDERERS,
   SHARED_JS_HOST_CONTEXT,
-} from "./widget-shared.js";
+} from "./app-shared.js";
+import { injectToolName } from "./uri.js";
 
-export const ASSET_DETAILS_RESOURCE_URI = "ui://cloudinary/asset-details.html";
-
-export function getAssetDetailsHtml(): string {
-  return ASSET_DETAILS_HTML;
+export function getAssetDetailsHtml(toolName?: string): string {
+  return injectToolName(ASSET_DETAILS_HTML, toolName);
 }
 
 const ASSET_DETAILS_CSS = /* css */ `

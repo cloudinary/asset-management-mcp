@@ -8,7 +8,7 @@ import { assetsListImages } from "../../funcs/assetsListImages.js";
 import { Direction$zodSchema } from "../../models/direction.js";
 import { FieldsSpec$zodSchema } from "../../models/fieldsspec.js";
 import { ListStorageType$zodSchema } from "../../models/liststoragetype.js";
-import { ASSET_GALLERY_RESOURCE_URI } from "../widgets/asset-gallery-widget.js";
+import { appUri } from "../apps/uri.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
@@ -48,7 +48,7 @@ Retrieves a list of image assets. Results can be filtered by various criteria li
     "readOnlyHint": true,
   },
   _meta: {
-    ui: { resourceUri: ASSET_GALLERY_RESOURCE_URI },
+    ui: { resourceUri: appUri("asset-gallery", "list-images") },
   },
   args,
   tool: async (client, args, ctx) => {

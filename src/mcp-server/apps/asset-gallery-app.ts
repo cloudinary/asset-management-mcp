@@ -1,10 +1,10 @@
 /*
- * MCP App widget for displaying Cloudinary assets in an interactive
+ * MCP App for displaying Cloudinary assets in an interactive
  * gallery. Attached to list-images, list-videos, list-files, and
  * search-assets tools.
  *
  * Shares CLDS tokens, MCPApp client, helpers, and detail renderers
- * with the details widget via widget-shared.ts.
+ * with the details app via app-shared.ts.
  */
 
 import {
@@ -16,13 +16,11 @@ import {
   SHARED_JS_MODAL,
   SHARED_JS_DETAIL_RENDERERS,
   SHARED_JS_HOST_CONTEXT,
-} from "./widget-shared.js";
+} from "./app-shared.js";
+import { injectToolName } from "./uri.js";
 
-export const ASSET_GALLERY_RESOURCE_URI = "ui://cloudinary/asset-gallery.html";
-export const MCP_APP_MIME_TYPE = "text/html;profile=mcp-app";
-
-export function getAssetGalleryHtml(): string {
-  return ASSET_GALLERY_HTML;
+export function getAssetGalleryHtml(toolName?: string): string {
+  return injectToolName(ASSET_GALLERY_HTML, toolName);
 }
 
 const GALLERY_CSS = /* css */ `
@@ -303,7 +301,10 @@ var LOG_PREFIX = "[gallery]";
 var MIN_HEIGHT = 120;
 var allResources = [];
 var lastCursor = null;
-var pendingCall = { name: null, args: null };
+var pendingCall = {
+  name: (typeof window.__MCP_TOOL_NAME__ === "string" && window.__MCP_TOOL_NAME__) || null,
+  args: null,
+};
 var selected = new Set();
 var filterQuery = "";
 var aspectFilter = "";
@@ -915,23 +916,23 @@ app.ontoolcancelled = function(params) {
   showCancelledPrompt(pendingCall, fetchDirect);
 };
 
-function inferToolName(data) {
-  if (data.total_count !== undefined) return "search-assets";
-  var resources = data.resources;
-  if (!resources || !resources.length) return null;
-  var rt = resources[0].resource_type;
-  if (rt === "video") return "list-videos";
-  if (rt === "raw") return "list-files";
-  return "list-images";
+function resolveToolName(result) {
+  if (typeof window.__MCP_TOOL_NAME__ === "string" && window.__MCP_TOOL_NAME__) {
+    return window.__MCP_TOOL_NAME__;
+  }
+  var fromMeta = result && result._meta && result._meta["cloudinary/toolName"];
+  if (fromMeta) return fromMeta;
+  return pendingCall.name;
 }
 
 app.ontoolresult = function(result) {
   var data = ingestResult(result);
+  var name = resolveToolName(result);
+  if (name) pendingCall.name = name;
   if (data && data.resources) {
     console.log(LOG_PREFIX, "host result:", data.resources.length, "resources");
     allResources = data.resources;
     lastCursor = data.next_cursor || null;
-    pendingCall.name = inferToolName(data) || pendingCall.name;
     render(); attachEvents();
     return;
   }
@@ -952,7 +953,11 @@ app.ontoolresult = function(result) {
 };
 
 function showFetchPrompt() {
-  var name = pendingCall.name || "list-images";
+  var name = pendingCall.name;
+  if (!name) {
+    showPersistentError("Unknown Tool", "Could not determine which tool produced this result. Please retry from the host.");
+    return;
+  }
   var root = document.getElementById("app");
   var h = '<div class="prompt">';
   h += '<div class="prompt-icon">\\u{1F4E6}</div>';
@@ -975,7 +980,11 @@ function jsonArgs(src) {
 }
 
 async function fetchDirect() {
-  var name = pendingCall.name || "list-images";
+  var name = pendingCall.name;
+  if (!name) {
+    showPersistentError("Unknown Tool", "Could not determine which tool to call. Please retry from the host.");
+    return;
+  }
   var args = jsonArgs(pendingCall.args || {});
   console.log(LOG_PREFIX, "fetchDirect ->", name);
 
@@ -1000,7 +1009,11 @@ async function fetchDirect() {
 
 async function loadMore() {
   if (!lastCursor) return;
-  var name = pendingCall.name || "list-images";
+  var name = pendingCall.name;
+  if (!name) {
+    showError("Unknown Tool", "Could not determine which tool to call for pagination.");
+    return;
+  }
   var args = name === "search-assets"
     ? { request: { next_cursor: lastCursor } }
     : { next_cursor: lastCursor };

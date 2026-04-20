@@ -1,5 +1,5 @@
 /*
- * MCP App widget for uploading assets to Cloudinary.
+ * MCP App for uploading assets to Cloudinary.
  * Attached to the upload-asset tool.
  *
  * Features:
@@ -11,7 +11,7 @@
  *  - Folder picker: combobox with search-folders tool for autocomplete.
  *
  * Shares CLDS tokens, MCPApp client, helpers, and detail renderers
- * with the gallery/details widgets via widget-shared.ts.
+ * with the gallery/details apps via app-shared.ts.
  */
 
 import { toJSONSchema } from "zod";
@@ -24,14 +24,13 @@ import {
   SHARED_JS_MODAL,
   SHARED_JS_DETAIL_RENDERERS,
   SHARED_JS_HOST_CONTEXT,
-} from "./widget-shared.js";
+} from "./app-shared.js";
 import { UploadRequest$zodSchema } from "../../models/uploadrequest.js";
 import { UploadResourceType$zodSchema } from "../../models/uploadresourcetype.js";
+import { injectToolName } from "./uri.js";
 
-export const ASSET_UPLOAD_RESOURCE_URI = "ui://cloudinary/asset-upload.html";
-
-export function getAssetUploadHtml(): string {
-  return ASSET_UPLOAD_HTML;
+export function getAssetUploadHtml(toolName?: string): string {
+  return injectToolName(ASSET_UPLOAD_HTML, toolName);
 }
 
 // ── Build-time schema generation ────────────────────────────────────
@@ -711,7 +710,7 @@ function renderUploadError(title, msg) {
     var safeMsg = esc(msg).replace(/\\n/g, "<br>");
     var h = '<div class="upload-error-msg">' + safeMsg + "</div>";
     h += '<div class="upload-another" style="margin-top:14px">';
-    h += '<button class="prompt-btn prompt-btn-primary" id="retry-upload-btn">Try from Widget</button>';
+    h += '<button class="prompt-btn prompt-btn-primary" id="retry-upload-btn">Try from App</button>';
     h += "</div>";
     wrap.innerHTML = h;
   } else {
@@ -723,7 +722,7 @@ function renderUploadError(title, msg) {
     h += "</div>";
     h += '<div class="upload-error-msg">' + safeMsg + "</div>";
     h += '<div class="upload-another" style="margin-top:14px;text-align:center">';
-    h += '<button class="prompt-btn prompt-btn-primary" id="retry-upload-btn">Try from Widget</button>';
+    h += '<button class="prompt-btn prompt-btn-primary" id="retry-upload-btn">Try from App</button>';
     h += "</div>";
     root.innerHTML = h;
   }
@@ -861,7 +860,7 @@ async function doUpload(fileData, displayHint) {
       if (uploadOrigin === "host") {
         try {
           app._rpc("ui/updateModelContext", {
-            content: [{ type: "text", text: "File uploaded successfully via widget. public_id: " + data.public_id + ", secure_url: " + (data.secure_url || data.url || "") }]
+            content: [{ type: "text", text: "File uploaded successfully via app. public_id: " + data.public_id + ", secure_url: " + (data.secure_url || data.url || "") }]
           });
         } catch (e) { console.warn(LOG_PREFIX, "updateModelContext failed:", e); }
       }
@@ -1028,7 +1027,7 @@ app.ontoolcancelled = function(params) {
   h += '<div style="font-size:14px;font-weight:600;color:var(--cld-text);margin-bottom:4px">Upload Cancelled</div>';
   h += renderParamsList(pendingCall.args);
   h += '<div class="prompt-actions" style="margin-top:14px">';
-  h += '<button class="prompt-btn prompt-btn-primary" id="cancelled-retry-btn">Upload from Widget</button>';
+  h += '<button class="prompt-btn prompt-btn-primary" id="cancelled-retry-btn">Upload from App</button>';
   h += '</div>';
   h += '</div>';
   root.innerHTML = h;

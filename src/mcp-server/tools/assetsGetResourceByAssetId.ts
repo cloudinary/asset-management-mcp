@@ -6,7 +6,7 @@
 import * as z from "zod";
 import { assetsGetResourceByAssetId } from "../../funcs/assetsGetResourceByAssetId.js";
 import { formatResult, ToolDefinition } from "../tools.js";
-import { ASSET_DETAILS_RESOURCE_URI } from "../widgets/asset-details-widget.js";
+import { appUri } from "../apps/uri.js";
 
 const args = {
   asset_id: z.string().describe(
@@ -61,7 +61,7 @@ Returns the details of a single resource specified by its asset ID.`,
     "readOnlyHint": true,
   },
   _meta: {
-    ui: { resourceUri: ASSET_DETAILS_RESOURCE_URI },
+    ui: { resourceUri: appUri("asset-details", "get-asset-details") },
   },
   args,
   tool: async (client, args, ctx) => {

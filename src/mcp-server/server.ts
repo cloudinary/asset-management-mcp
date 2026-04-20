@@ -6,6 +6,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { SDKOptions } from "../lib/config.js";
+import type { McpApp } from "./apps/config.js";
 import type { ConsoleLogger } from "./console-logger.js";
 import { Register } from "./extensions.js";
 import { createRegisterPrompt } from "./prompts.js";
@@ -55,6 +56,7 @@ export function createMCPServer(deps: {
   serverIdx?: SDKOptions["serverIdx"] | undefined;
   region?: SDKOptions["region"] | undefined;
   host?: SDKOptions["host"] | undefined;
+  mcpApps?: McpApp[] | undefined;
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
@@ -89,6 +91,7 @@ export function createMCPServer(deps: {
     allowedTools,
     deps.dynamic,
     deps.annotationFilter,
+    deps.mcpApps,
   );
   const resource = createRegisterResource(
     deps.logger,
@@ -132,7 +135,7 @@ export function createMCPServer(deps: {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
   }
 
-  registerMCPExtensions(register satisfies Register);
+  registerMCPExtensions(register satisfies Register, deps.mcpApps);
 
   return { server, tools };
 }

@@ -7,6 +7,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import type { Transport } from "@modelcontextprotocol/sdk/shared/transport.js";
 import express from "express";
 import { LocalContext } from "../../cli.js";
+import { resolveMcpApps } from "../../apps/config.js";
 import {
   ConsoleLoggerLevel,
   createConsoleLogger,
@@ -76,6 +77,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       serverIdx: cliFlags["server-index"],
       region: cliFlags.region,
       host: cliFlags["api-host"],
+      mcpApps: resolveMcpApps(cliFlags["mcp-apps"]),
     });
 
     mcpServer.server.onerror = (error) => {

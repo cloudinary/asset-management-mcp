@@ -17,10 +17,10 @@
   * [Authentication](#authentication)
   * [Available Tools](#available-tools)
   * [Custom Tools](#custom-tools)
+  * [Progressive Discovery](#progressive-discovery)
 * [Development](#development)
   * [Building from Source](#building-from-source)
   * [Contributions](#contributions)
-  * [Progressive Discovery](#progressive-discovery)
 
 <!-- End Table of Contents [toc] -->
 
@@ -174,6 +174,7 @@ The MCP server supports the following environment variables:
 | `CLOUDINARY_API_SECRET` | Your Cloudinary API secret | Yes |
 | `CLOUDINARY_URL` | Complete Cloudinary URL (alternative to individual vars) | No |
 | `CLOUDINARY_COLLECT_HEADERS` | Collect API response headers (see below) | No |
+| `CLOUDINARY_MCP_APPS` | Enable MCP Apps (see [MCP Apps](#mcp-apps)) | No |
 
 ### CLOUDINARY_URL Format
 
@@ -217,6 +218,37 @@ CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME?collect_headers=true
 ```
 
 When enabled, collected headers appear in an `_headers` field in the tool response. When not set, no headers are collected and responses are unchanged.
+
+### MCP Apps
+
+The server can expose interactive MCP UI **Apps** (spec-aligned with `io.modelcontextprotocol/ui`) that hosts can render alongside tool results — for example, an asset gallery for list results, a single-asset detail view, and an upload UI.
+
+Apps are **opt-in**. Use the `--mcp-apps` flag (available on both `start` and `serve`) or the `CLOUDINARY_MCP_APPS` environment variable to enable them:
+
+| Value | Effect |
+|-------|--------|
+| bare `--mcp-apps` (no value), `all`, or `true` | Enable every app |
+| `none` or `false` | Disable every app (kill-switch) |
+| comma-separated subset, e.g. `asset-gallery,asset-details` | Enable only the listed apps |
+| unset | Default (currently **off**; may flip on in a future release) |
+
+Available app names: `asset-gallery`, `asset-details`, `asset-upload`.
+
+```bash
+# Enable all apps via CLI flag (bare flag implies "all")
+npx @cloudinary/asset-management-mcp start --mcp-apps
+
+# Equivalent: explicit value
+npx @cloudinary/asset-management-mcp start --mcp-apps all
+
+# Enable just the gallery via env var
+CLOUDINARY_MCP_APPS=asset-gallery npx @cloudinary/asset-management-mcp start
+
+# Explicitly disable
+npx @cloudinary/asset-management-mcp serve --mcp-apps none
+```
+
+Precedence: CLI flag > environment variable > built-in default.
 
 <!-- Start Authentication [security] -->
 
@@ -310,78 +342,6 @@ Applies transformations to existing assets using Cloudinary's explicit API.
 Transform asset "sample" with transformations "c_fill,w_500,h_500/e_sepia"
 ```
 
-# Development
-
-## Building from Source
-
-### Prerequisites
-
-- Node.js v20 or higher
-- npm, pnpm, bun, or yarn
-
-### Build Steps
-
-```bash
-# Clone the repository
-git clone https://github.com/cloudinary/asset-management-mcp.git
-cd asset-management-mcp
-
-# Install dependencies
-npm install
-
-# Build the project
-npm run build
-
-# Run locally
-npm start
-```
-
-### Project Structure
-
-```ini
-asset-management-mcp/
-├── src/
-│   ├── hooks/              # SDK hooks (manual)
-│   │   ├── cloudinaryAuthHook.ts   # Auth & file:// handling
-│   │   ├── customHeadersHook.ts    # Inject custom request headers
-│   │   ├── responseHeadersHook.ts  # Collect response headers
-│   │   ├── userAgentHook.ts        # Build User-Agent string
-│   │   └── registration.ts         # Hook registration
-│   ├── mcp-server/         # MCP server implementation
-│   │   ├── server.ts       # Main server (auto-generated)
-│   │   ├── server.extensions.ts  # Custom tools (manual)
-│   │   └── tools/          # Generated tool wrappers
-│   ├── funcs/              # API function implementations
-│   └── models/             # Type definitions
-├── .github/
-│   └── workflows/          # CI/CD workflows
-└── .speakeasy/             # Speakeasy configuration
-```
-
-## Contributions
-
-While we value contributions to this MCP Server, the code is generated programmatically. Any manual changes to generated files will be overwritten on the next generation.
-
-**What you can contribute:**
-
-- ✅ Custom tools in `server.extensions.ts`
-- ✅ Custom hooks in `src/hooks/`
-- ✅ Documentation improvements
-- ✅ Bug reports and feature requests
-
-**Generated files (do not edit):**
-
-- ❌ `src/mcp-server/server.ts`
-- ❌ `src/mcp-server/tools/*.ts`
-- ❌ `src/funcs/*.ts`
-- ❌ `src/models/*.ts`
-
-We look forward to hearing your feedback. Feel free to open a PR or issue with a proof of concept and we'll do our best to include it in a future release.
-
----
-
-### MCP Server Created by [Speakeasy](https://www.speakeasy.com/?utm_source=asset-management-mcp&utm_campaign=mcp-typescript)
-
 <!-- Start Progressive Discovery [dynamic-mode] -->
 ## Progressive Discovery
 
@@ -424,5 +384,90 @@ You can combine dynamic mode with scope and tool filters:
 }
 ```
 <!-- End Progressive Discovery [dynamic-mode] -->
+
+# Development
+
+## Building from Source
+
+### Prerequisites
+
+- Node.js v20 or higher
+- npm, pnpm, bun, or yarn
+
+### Build Steps
+
+```bash
+# Clone the repository
+git clone https://github.com/cloudinary/asset-management-mcp.git
+cd asset-management-mcp
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run locally
+npm start
+```
+
+### Project Structure
+
+```ini
+asset-management-mcp/
+├── src/
+│   ├── hooks/              # SDK hooks (manual)
+│   │   ├── cloudinaryAuthHook.ts   # Auth & file:// handling
+│   │   ├── customHeadersHook.ts    # Inject custom request headers
+│   │   ├── responseHeadersHook.ts  # Collect response headers
+│   │   ├── userAgentHook.ts        # Build User-Agent string
+│   │   └── registration.ts         # Hook registration
+│   ├── mcp-server/         # MCP server implementation
+│   │   ├── server.ts             # Main server (auto-generated)
+│   │   ├── server.extensions.ts  # Custom tools & app wiring (manual)
+│   │   ├── tools/                # Generated tool wrappers
+│   │   └── apps/                 # MCP UI Apps (manual)
+│   │       ├── config.ts             # App registry & --mcp-apps parsing
+│   │       ├── cli-flag.ts           # stricli flag definition
+│   │       ├── extensions.ts         # Resource-template registration
+│   │       ├── uri.ts                # App URI helpers / tool-name injection
+│   │       ├── tool-hooks.ts         # Per-tool app hooks
+│   │       ├── app-shared.ts         # Shared app utilities
+│   │       ├── asset-gallery-app.ts  # List results gallery UI
+│   │       ├── asset-details-app.ts  # Single-asset detail UI
+│   │       └── asset-upload-app.ts   # Upload UI
+│   ├── funcs/              # API function implementations
+│   └── models/             # Type definitions
+├── .github/
+│   └── workflows/          # CI/CD workflows
+└── .speakeasy/             # Speakeasy configuration
+```
+
+## Contributions
+
+While we value contributions to this MCP Server, most of the code is generated programmatically from the Cloudinary API spec. Any manual changes to generated files will be overwritten on the next generation — please direct your changes to the manual extension points below.
+
+**What you can contribute:**
+
+- Custom tools and server wiring in `src/mcp-server/server.extensions.ts`
+- MCP UI Apps in `src/mcp-server/apps/` (gallery, details, upload, and new apps)
+- SDK hooks in `src/hooks/` (auth, custom headers, response headers, user agent)
+- Documentation improvements (this README, JSDoc on manual files)
+- Bug reports and feature requests
+
+**Generated files (do not edit):**
+
+- `src/mcp-server/server.ts`
+- `src/mcp-server/tools/*.ts`
+- `src/funcs/*.ts`
+- `src/models/*.ts`
+
+When touching generated files is unavoidable, prefer updating the upstream spec or Speakeasy configuration in `.speakeasy/` so the change survives regeneration.
+
+We look forward to hearing your feedback. Feel free to open a PR or issue with a proof of concept and we'll do our best to include it in a future release.
+
+---
+
+### MCP Server Created by [Speakeasy](https://www.speakeasy.com/?utm_source=asset-management-mcp&utm_campaign=mcp-typescript)
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->

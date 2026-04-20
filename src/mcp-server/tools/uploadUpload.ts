@@ -6,7 +6,7 @@
 import { uploadUpload } from "../../funcs/uploadUpload.js";
 import { UploadRequest$zodSchema } from "../../models/uploadrequest.js";
 import { UploadResourceType$zodSchema } from "../../models/uploadresourcetype.js";
-import { ASSET_UPLOAD_RESOURCE_URI } from "../widgets/asset-upload-widget.js";
+import { appUri } from "../apps/uri.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
@@ -50,7 +50,7 @@ Transform media files using transformation syntax in delivery URLs, which create
     "readOnlyHint": false,
   },
   _meta: {
-    ui: { resourceUri: ASSET_UPLOAD_RESOURCE_URI },
+    ui: { resourceUri: appUri("asset-upload", "upload-asset") },
   },
   args,
   tool: async (client, args, ctx) => {

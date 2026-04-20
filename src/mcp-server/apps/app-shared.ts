@@ -1,7 +1,7 @@
 /*
- * Shared building blocks for MCP App widgets (gallery + details).
+ * Shared building blocks for MCP Apps (gallery + details).
  * Each export is a raw string fragment to be interpolated into the
- * final HTML template literal of each widget.
+ * final HTML template literal of each app.
  */
 
 import { toJSONSchema } from "zod";
@@ -380,7 +380,7 @@ details.detail-section > summary.detail-section-title::-webkit-details-marker { 
 .media-modal-audio-wrap audio { width: 100%; max-width: 480px; }
 .thumb-overlay.playable { pointer-events: auto; cursor: pointer; }
 
-/* Upload widget */
+/* Upload app */
 .upload-zone {
   border: 2px dashed var(--cld-border2); border-radius: var(--cld-radius);
   padding: 40px 24px; text-align: center; cursor: pointer;

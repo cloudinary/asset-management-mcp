@@ -7,6 +7,7 @@ import { buildCommand } from "@stricli/core";
 import { numberParser } from "@stricli/core";
 import * as z from "zod";
 import { ServerRegion } from "../../../lib/config.js";
+import { mcpAppsFlag } from "../../apps/cli-flag.js";
 import { consoleLoggerLevels } from "../../console-logger.js";
 import { mcpScopes } from "../../scopes.js";
 
@@ -117,6 +118,7 @@ export const startCommand = buildCommand({
         optional: true,
         parse: (value) => value,
       },
+      "mcp-apps": mcpAppsFlag,
       "log-level": {
         kind: "enum",
         brief: "The log level to use for the server",

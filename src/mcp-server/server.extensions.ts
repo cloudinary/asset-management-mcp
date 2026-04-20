@@ -7,23 +7,17 @@ import { Register } from "./extensions.js";
 import { formatResult } from "./tools.js";
 import { assetsExplicitAsset } from "../funcs/assetsExplicitAsset.js";
 import { ResourceType$zodSchema } from "../models/resourcetype.js";
-import {
-  ASSET_GALLERY_RESOURCE_URI,
-  MCP_APP_MIME_TYPE,
-  getAssetGalleryHtml,
-} from "./widgets/asset-gallery-widget.js";
-import {
-  ASSET_DETAILS_RESOURCE_URI,
-  getAssetDetailsHtml,
-} from "./widgets/asset-details-widget.js";
-import {
-  ASSET_UPLOAD_RESOURCE_URI,
-  getAssetUploadHtml,
-} from "./widgets/asset-upload-widget.js";
+import type { McpApp } from "./apps/config.js";
+import { registerAppResources } from "./apps/extensions.js";
 
 const TX_RULES_URL = "https://cloudinary.com/documentation/cloudinary_transformation_rules.md";
 
-export function registerMCPExtensions(register: Register): void {
+export function registerMCPExtensions(
+  register: Register,
+  mcpApps: McpApp[] = [],
+): void {
+  registerAppResources(register, new Set(mcpApps));
+
   // Get transformation reference tool
   register.tool({
     name: "get-tx-reference",
@@ -66,90 +60,6 @@ export function registerMCPExtensions(register: Register): void {
         };
       }
     }
-  });
-
-  // Asset gallery MCP App — interactive UI for list-images results
-  register.resource({
-    name: "Asset Gallery Widget",
-    description: "Interactive asset gallery for browsing Cloudinary images",
-    metadata: {
-      mimeType: MCP_APP_MIME_TYPE,
-    },
-    resource: ASSET_GALLERY_RESOURCE_URI,
-    scopes: [],
-    read: async (_client, _uri, _extra) => ({
-      contents: [{
-        uri: ASSET_GALLERY_RESOURCE_URI,
-        mimeType: MCP_APP_MIME_TYPE,
-        text: getAssetGalleryHtml(),
-        _meta: {
-          ui: {
-            csp: {
-              resourceDomains: [
-                "https://res.cloudinary.com",
-                "https://*.cloudinary.com",
-              ],
-            },
-          },
-        },
-      } as any],
-    }),
-  });
-
-  // Asset details MCP App — interactive UI for get-asset-details results
-  register.resource({
-    name: "Asset Details Widget",
-    description: "Interactive single-asset detail view for Cloudinary assets",
-    metadata: {
-      mimeType: MCP_APP_MIME_TYPE,
-    },
-    resource: ASSET_DETAILS_RESOURCE_URI,
-    scopes: [],
-    read: async (_client, _uri, _extra) => ({
-      contents: [{
-        uri: ASSET_DETAILS_RESOURCE_URI,
-        mimeType: MCP_APP_MIME_TYPE,
-        text: getAssetDetailsHtml(),
-        _meta: {
-          ui: {
-            csp: {
-              resourceDomains: [
-                "https://res.cloudinary.com",
-                "https://*.cloudinary.com",
-              ],
-            },
-          },
-        },
-      } as any],
-    }),
-  });
-
-  // Asset upload MCP App — interactive upload UI for upload-asset tool
-  register.resource({
-    name: "Asset Upload Widget",
-    description: "Interactive upload interface for uploading assets to Cloudinary",
-    metadata: {
-      mimeType: MCP_APP_MIME_TYPE,
-    },
-    resource: ASSET_UPLOAD_RESOURCE_URI,
-    scopes: [],
-    read: async (_client, _uri, _extra) => ({
-      contents: [{
-        uri: ASSET_UPLOAD_RESOURCE_URI,
-        mimeType: MCP_APP_MIME_TYPE,
-        text: getAssetUploadHtml(),
-        _meta: {
-          ui: {
-            csp: {
-              resourceDomains: [
-                "https://res.cloudinary.com",
-                "https://*.cloudinary.com",
-              ],
-            },
-          },
-        },
-      } as any],
-    }),
   });
 
   // Transform asset tool using explicit API with eager transformations

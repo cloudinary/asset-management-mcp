@@ -17,6 +17,8 @@ import {
 import * as z from "zod";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { ServerRegion$zodSchema } from "../lib/config.js";
+import { enabledAppUriPrefixes, type McpApp } from "./apps/config.js";
+import { shouldForwardToolMeta } from "./apps/tool-hooks.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPServerFlags } from "./flags.js";
 import { MCPScope, mcpScopes } from "./scopes.js";
@@ -139,11 +141,13 @@ export function createRegisterTool(
   allowedTools?: Set<string>,
   dynamic?: boolean,
   annotationFilter?: MCPToolAnnotationFilter,
+  mcpApps?: McpApp[],
 ): [
   <A extends ZodRawShapeCompat | undefined>(tool: ToolDefinition<A>) => void,
   Array<{ name: string; description: string }>,
   Map<string, ToolDefinition<ZodRawShapeCompat | undefined>>,
 ] {
+  const enabledUris = enabledAppUriPrefixes(mcpApps ?? []);
   const tools: Array<{ name: string; description: string }> = [];
   const toolMap = new Map<
     string,
@@ -214,7 +218,9 @@ export function createRegisterTool(
           description: tool.description,
           inputSchema: tool.args,
           annotations: tool.annotations,
-          ...(tool._meta ? { _meta: tool._meta } : {}),
+          ...(shouldForwardToolMeta(tool._meta, enabledUris)
+            ? { _meta: tool._meta }
+            : {}),
         },
         async (args, ctx) => {
           return tool.tool(getSDK(), args, ctx);
@@ -226,7 +232,9 @@ export function createRegisterTool(
         {
           description: tool.description,
           annotations: tool.annotations,
-          ...(tool._meta ? { _meta: tool._meta } : {}),
+          ...(shouldForwardToolMeta(tool._meta, enabledUris)
+            ? { _meta: tool._meta }
+            : {}),
         },
         async (ctx) => {
           return tool.tool(getSDK(), ctx);

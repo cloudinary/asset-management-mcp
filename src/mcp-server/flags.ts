@@ -4,6 +4,7 @@
  */
 
 import { SDKOptions } from "../lib/config.js";
+import type { McpApp } from "./apps/config.js";
 import { MCPScope } from "./scopes.js";
 
 /**
@@ -23,4 +24,5 @@ export interface MCPServerFlags {
   readonly "server-index"?: SDKOptions["serverIdx"];
   readonly region?: SDKOptions["region"];
   readonly "api-host"?: SDKOptions["host"];
+  readonly "mcp-apps"?: McpApp[] | undefined;
 }

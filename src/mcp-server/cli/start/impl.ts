@@ -7,6 +7,7 @@ import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import express from "express";
 import { LocalContext } from "../../cli.js";
+import { resolveMcpApps } from "../../apps/config.js";
 import {
   ConsoleLoggerLevel,
   createConsoleLogger,
@@ -70,6 +71,7 @@ async function startStdio(flags: StartCommandFlags) {
     serverIdx: flags["server-index"],
     region: flags.region,
     host: flags["api-host"],
+    mcpApps: resolveMcpApps(flags["mcp-apps"]),
   });
   await server.connect(transport);
 
@@ -135,6 +137,7 @@ async function startSSE(cliFlags: StartCommandFlags) {
       serverIdx: flags["server-index"],
       region: flags.region,
       host: flags["api-host"],
+      mcpApps: resolveMcpApps(flags["mcp-apps"]),
     });
 
     // Message path includes session ID for routing
