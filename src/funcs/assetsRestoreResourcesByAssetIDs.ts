@@ -20,9 +20,9 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  RestoreResourcesByAssetIDsRequest,
-  RestoreResourcesByAssetIDsRequest$zodSchema,
-} from "../models/restoreresourcesbyassetidsop.js";
+  RestoreRequest,
+  RestoreRequest$zodSchema,
+} from "../models/restorerequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsRestoreResourcesByAssetIDs(
   client$: CloudinaryAssetMgmtCore,
-  request: RestoreResourcesByAssetIDsRequest,
+  request: RestoreRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -57,7 +57,7 @@ export function assetsRestoreResourcesByAssetIDs(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  request: RestoreResourcesByAssetIDsRequest,
+  request: RestoreRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -76,7 +76,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => RestoreResourcesByAssetIDsRequest$zodSchema.parse(value$),
+    (value$) => RestoreRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

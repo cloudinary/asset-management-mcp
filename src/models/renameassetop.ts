@@ -6,7 +6,10 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import { StorageType, StorageType$zodSchema } from "./storagetype.js";
+import {
+  UploadDeliveryType,
+  UploadDeliveryType$zodSchema,
+} from "./uploaddeliverytype.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
 export type RenameAssetGlobals = { cloud_name?: string | undefined };
@@ -18,57 +21,48 @@ export const RenameAssetGlobals$zodSchema: z.ZodType<RenameAssetGlobals> = z
     ).optional(),
   });
 
+/**
+ * The rename request parameters.
+ */
 export type RenameAssetRequestBody = {
-  api_key?: string | undefined;
-  timestamp?: number | undefined;
-  signature?: string | undefined;
   from_public_id: string;
   to_public_id: string;
-  type?: StorageType | undefined;
-  to_type?: StorageType | undefined;
+  type?: UploadDeliveryType | undefined;
+  to_type?: UploadDeliveryType | undefined;
   overwrite?: boolean | undefined;
   invalidate?: boolean | undefined;
-  context?: string | undefined;
-  metadata?: string | undefined;
+  context?: boolean | undefined;
+  metadata?: boolean | undefined;
   notification_url?: string | undefined;
 };
 
 export const RenameAssetRequestBody$zodSchema: z.ZodType<
   RenameAssetRequestBody
 > = z.object({
-  api_key: z.string().optional().describe(
-    "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
-  ),
-  context: z.string().optional().describe(
-    "Context metadata to update during rename.",
+  context: z.boolean().default(false).describe(
+    "Whether to include contextual metadata in the response. Default is false.",
   ),
   from_public_id: z.string().describe("The public ID of the asset to rename."),
-  invalidate: z.boolean().optional().describe(
-    "Whether to invalidate the CDN cache for the renamed asset.",
+  invalidate: z.boolean().default(false).describe(
+    "Whether to invalidate CDN cache copies of the renamed asset. Default is false.",
   ),
-  metadata: z.string().optional().describe(
-    "Structured metadata to update during rename.",
+  metadata: z.boolean().default(false).describe(
+    "Whether to include structured metadata in the response. Default is false.",
   ),
   notification_url: z.string().optional().describe(
     "URL to notify when the operation is complete.",
   ),
-  overwrite: z.boolean().optional().describe(
-    "Whether to overwrite the target asset if it already exists.",
-  ),
-  signature: z.string().optional().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
-  ),
-  timestamp: z.int().optional().describe(
-    "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
+  overwrite: z.boolean().default(false).describe(
+    "Whether to overwrite the target asset if it already exists. Default is false.",
   ),
   to_public_id: z.string().describe("The new public ID for the asset."),
-  to_type: StorageType$zodSchema.optional().describe(
-    "The storage type of the resource.",
+  to_type: UploadDeliveryType$zodSchema.optional().describe(
+    "The target delivery type for the renamed asset. If omitted, the delivery type remains unchanged.",
   ),
-  type: StorageType$zodSchema.optional().describe(
-    "The storage type of the resource.",
+  type: UploadDeliveryType$zodSchema.optional().describe(
+    "The current delivery type of the asset.",
   ),
-});
+}).describe("The rename request parameters.");
 
 export type RenameAssetRequest = {
   resource_type: ResourceType;
@@ -77,8 +71,12 @@ export type RenameAssetRequest = {
 
 export const RenameAssetRequest$zodSchema: z.ZodType<RenameAssetRequest> = z
   .object({
-    RequestBody: z.lazy(() => RenameAssetRequestBody$zodSchema),
-    resource_type: ResourceType$zodSchema.describe("The type of resource."),
+    RequestBody: z.lazy(() => RenameAssetRequestBody$zodSchema).describe(
+      "The rename request parameters.",
+    ),
+    resource_type: ResourceType$zodSchema.describe(
+      "The type of resource (image, video, or raw).",
+    ),
   });
 
 export type RenameAssetResponse = ApiError | UploadResponse;

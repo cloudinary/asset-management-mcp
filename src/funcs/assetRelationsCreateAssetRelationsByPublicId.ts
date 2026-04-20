@@ -13,8 +13,8 @@ import { pathToFunc } from "../lib/url.js";
 import {
   CreateAssetRelationsByPublicIdRequest,
   CreateAssetRelationsByPublicIdRequest$zodSchema,
-  CreateAssetRelationsByPublicIdRequestBody,
 } from "../models/createassetrelationsbypublicidop.js";
+import { DeliveryType } from "../models/deliverytype.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -24,8 +24,8 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { RelateAssetsByPublicIdRequest } from "../models/relateassetsbypublicidrequest.js";
 import { ResourceType } from "../models/resourcetype.js";
-import { StorageTypeParameter } from "../models/storagetypeparameter.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -38,9 +38,9 @@ import { Result } from "../types/fp.js";
 export function assetRelationsCreateAssetRelationsByPublicId(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: StorageTypeParameter | undefined,
+  type: DeliveryType | undefined,
   public_id: string,
-  RequestBody: CreateAssetRelationsByPublicIdRequestBody,
+  relate_assets_by_public_id_request: RelateAssetsByPublicIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function assetRelationsCreateAssetRelationsByPublicId(
     resource_type,
     type,
     public_id,
-    RequestBody,
+    relate_assets_by_public_id_request,
     options,
   ));
 }
@@ -67,9 +67,9 @@ export function assetRelationsCreateAssetRelationsByPublicId(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: StorageTypeParameter | undefined,
+  type: DeliveryType | undefined,
   public_id: string,
-  RequestBody: CreateAssetRelationsByPublicIdRequestBody,
+  relate_assets_by_public_id_request: RelateAssetsByPublicIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -90,7 +90,7 @@ async function $do(
     resource_type: resource_type,
     type: type,
     public_id: public_id,
-    RequestBody: RequestBody,
+    relate_assets_by_public_id_request: relate_assets_by_public_id_request,
   };
 
   const parsed$ = safeParse(
@@ -102,7 +102,11 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON(
+    "body",
+    payload$.relate_assets_by_public_id_request,
+    { explode: true },
+  );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

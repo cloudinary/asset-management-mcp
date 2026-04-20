@@ -6,6 +6,10 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
+import {
+  TagsListResponse,
+  TagsListResponse$zodSchema,
+} from "./tagslistresponse.js";
 
 export type ListResourceTagsGlobals = { cloud_name?: string | undefined };
 
@@ -30,31 +34,18 @@ export const ListResourceTagsRequest$zodSchema: z.ZodType<
     .optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
   prefix: z.string().describe(
-    "The prefix to use if you want to limit the returned tags to those that start with the specified prefix.",
+    "Limit the returned tags to those that start with the specified prefix.",
   ).optional(),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
+  ),
 });
 
-/**
- * List of tags retrieved
- */
-export type ListResourceTagsResponseBody = {
-  tags?: Array<string> | undefined;
-  next_cursor?: string | null | undefined;
-};
-
-export const ListResourceTagsResponseBody$zodSchema: z.ZodType<
-  ListResourceTagsResponseBody
-> = z.object({
-  next_cursor: z.string().nullable().optional(),
-  tags: z.array(z.string()).optional(),
-}).describe("List of tags retrieved");
-
-export type ListResourceTagsResponse = ApiError | ListResourceTagsResponseBody;
+export type ListResourceTagsResponse = ApiError | TagsListResponse;
 
 export const ListResourceTagsResponse$zodSchema: z.ZodType<
   ListResourceTagsResponse
 > = z.union([
   ApiError$zodSchema,
-  z.lazy(() => ListResourceTagsResponseBody$zodSchema),
+  TagsListResponse$zodSchema,
 ]);

@@ -9,9 +9,11 @@ import { ResourceType$zodSchema } from "../../models/resourcetype.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  resource_type: ResourceType$zodSchema.describe(`The type of resource.`),
+  resource_type: ResourceType$zodSchema.describe(
+    `The type of resource (image, video, or raw).`,
+  ),
   prefix: z.string().describe(
-    "The prefix to use if you want to limit the returned tags to those that start with the specified prefix.",
+    "Limit the returned tags to those that start with the specified prefix.",
   ).optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
   max_results: z.int().describe("Maximum number of results to return (1-500).")

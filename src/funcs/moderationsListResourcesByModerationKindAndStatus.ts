@@ -10,7 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { Direction } from "../models/direction.js";
+import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -20,13 +20,13 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { FieldsSpec } from "../models/fieldsspec.js";
+import { Fields } from "../models/fields.js";
 import {
-  ListResourcesByModerationKindAndStatusModerationStatus,
   ListResourcesByModerationKindAndStatusRequest,
   ListResourcesByModerationKindAndStatusRequest$zodSchema,
-  ModerationKind,
 } from "../models/listresourcesbymoderationkindandstatusop.js";
+import { ModerationKind } from "../models/moderationkind.js";
+import { ModerationStatusParameter } from "../models/moderationstatusparameter.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -41,11 +41,11 @@ export function moderationsListResourcesByModerationKindAndStatus(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
   moderation_kind: ModerationKind,
-  moderation_status: ListResourcesByModerationKindAndStatusModerationStatus,
-  fields?: Array<FieldsSpec> | undefined,
+  moderation_status: ModerationStatusParameter,
+  fields?: Fields | undefined,
   next_cursor?: string | undefined,
   max_results?: number | undefined,
-  direction?: Direction | undefined,
+  direction?: DirectionEnum | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -76,11 +76,11 @@ async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
   moderation_kind: ModerationKind,
-  moderation_status: ListResourcesByModerationKindAndStatusModerationStatus,
-  fields?: Array<FieldsSpec> | undefined,
+  moderation_status: ModerationStatusParameter,
+  fields?: Fields | undefined,
   next_cursor?: string | undefined,
   max_results?: number | undefined,
-  direction?: Direction | undefined,
+  direction?: DirectionEnum | undefined,
   options?: RequestOptions,
 ): Promise<
   [

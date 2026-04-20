@@ -8,7 +8,9 @@ import { VisualSearchParametersUnion$zodSchema } from "../../models/visualsearch
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: VisualSearchParametersUnion$zodSchema,
+  request: VisualSearchParametersUnion$zodSchema.describe(
+    `The visual search parameters.`,
+  ),
 };
 
 export const tool$searchVisualSearchAssets: ToolDefinition<typeof args> = {
@@ -18,7 +20,7 @@ export const tool$searchVisualSearchAssets: ToolDefinition<typeof args> = {
 
 Returns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:
 - Provide a URL of an image
-- Specify the public ID or asset ID of an existing image
+- Specify the asset ID of an existing image
 - Provide a textual description
 `,
   scopes: ["librarian"],

@@ -9,8 +9,12 @@ import { ResourceType$zodSchema } from "../../models/resourcetype.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  resource_type: ResourceType$zodSchema.describe(`The type of resource.`),
-  RequestBody: RenameAssetRequestBody$zodSchema,
+  resource_type: ResourceType$zodSchema.describe(
+    `The type of resource (image, video, or raw).`,
+  ),
+  RequestBody: RenameAssetRequestBody$zodSchema.describe(
+    `The rename request parameters.`,
+  ),
 };
 
 export const tool$assetsRenameAsset: ToolDefinition<typeof args> = {

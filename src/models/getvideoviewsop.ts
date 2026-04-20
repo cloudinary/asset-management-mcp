@@ -6,6 +6,10 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  VideoViewsResponse,
+  VideoViewsResponse$zodSchema,
+} from "./videoviewsresponse.js";
 
 export type GetVideoViewsGlobals = { cloud_name?: string | undefined };
 
@@ -66,71 +70,10 @@ export const GetVideoViewsRequest$zodSchema: z.ZodType<GetVideoViewsRequest> = z
     ),
   });
 
-export type Data = {
-  video_public_id?: string | undefined;
-  video_duration?: number | null | undefined;
-  video_transformation?: string | null | undefined;
-  video_extension?: string | null | undefined;
-  viewer_application_name?: string | null | undefined;
-  viewer_location_country_code?: string | null | undefined;
-  viewer_os_identifier?: string | null | undefined;
-  view_watch_time?: number | null | undefined;
-  view_ended_at?: string | undefined;
-};
-
-export const Data$zodSchema: z.ZodType<Data> = z.object({
-  video_duration: z.number().nullable().optional().describe(
-    "The duration in seconds of the video",
-  ),
-  video_extension: z.string().nullable().optional().describe(
-    "The file extension of the video",
-  ),
-  video_public_id: z.string().optional().describe(
-    "The full public ID of the video",
-  ),
-  video_transformation: z.string().nullable().optional().describe(
-    "The transformation applied to the video",
-  ),
-  view_ended_at: z.iso.datetime({ offset: true }).optional().describe(
-    "The date when the video view ended",
-  ),
-  view_watch_time: z.number().nullable().optional().describe(
-    "The length of time the video was viewed",
-  ),
-  viewer_application_name: z.string().nullable().optional().describe(
-    "The application used to view the video",
-  ),
-  viewer_location_country_code: z.string().nullable().optional().describe(
-    "The 2-digit ISO country code of the viewer location",
-  ),
-  viewer_os_identifier: z.string().nullable().optional().describe(
-    "The full identifier for the viewer's operating system",
-  ),
-});
-
-/**
- * List of video views retrieved
- */
-export type GetVideoViewsResponseBody = {
-  request_id?: string | undefined;
-  next_cursor?: string | undefined;
-  data?: Array<Data> | undefined;
-};
-
-export const GetVideoViewsResponseBody$zodSchema: z.ZodType<
-  GetVideoViewsResponseBody
-> = z.object({
-  data: z.array(z.lazy(() => Data$zodSchema)).optional(),
-  next_cursor: z.string().optional().describe("Cursor value for pagination"),
-  request_id: z.string().optional().describe(
-    "Unique identifier for the request",
-  ),
-}).describe("List of video views retrieved");
-
-export type GetVideoViewsResponse = ApiError | GetVideoViewsResponseBody;
+export type GetVideoViewsResponse = ApiError | VideoViewsResponse;
 
 export const GetVideoViewsResponse$zodSchema: z.ZodType<GetVideoViewsResponse> =
   z.union([
     ApiError$zodSchema,
-    z.lazy(() => GetVideoViewsResponseBody$zodSchema),
+    VideoViewsResponse$zodSchema,
   ]);

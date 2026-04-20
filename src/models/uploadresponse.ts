@@ -4,6 +4,14 @@
  */
 
 import * as z from "zod";
+import {
+  ContextFullResponse,
+  ContextFullResponse$zodSchema,
+} from "./contextfullresponse.js";
+import {
+  CoordinatesResponse,
+  CoordinatesResponse$zodSchema,
+} from "./coordinatesresponse.js";
 
 /**
  * The image metadata of the uploaded file.
@@ -47,7 +55,9 @@ export type UploadResponse = {
   format?: string | undefined;
   resource_type?: string | undefined;
   created_at?: string | undefined;
-  tags?: Array<string> | undefined;
+  tags?: Array<string> | null | undefined;
+  context?: ContextFullResponse | null | undefined;
+  metadata?: { [k: string]: any } | undefined;
   pages?: number | undefined;
   bytes?: number | undefined;
   type?: string | undefined;
@@ -58,7 +68,11 @@ export type UploadResponse = {
   illustration_score?: number | undefined;
   semi_transparent?: boolean | undefined;
   grayscale?: boolean | undefined;
+  faces?: Array<Array<number>> | null | undefined;
+  coordinates?: CoordinatesResponse | null | undefined;
   eager?: Array<Eager> | undefined;
+  asset_folder?: string | null | undefined;
+  display_name?: string | undefined;
   api_key?: string | undefined;
 };
 
@@ -66,15 +80,30 @@ export const UploadResponse$zodSchema: z.ZodType<UploadResponse> = z.object({
   api_key: z.string().optional().describe(
     "The API key used to upload the file.",
   ),
+  asset_folder: z.string().nullable().optional().describe(
+    "The asset folder where the file is stored.",
+  ),
   asset_id: z.string().optional().describe(
-    "The asset ID of the uploaded file. This is the ID of the uploaded file in the Cloudinary database.",
+    "A 32-character hexadecimal asset ID.",
   ),
   bytes: z.int().optional().describe("The size of the uploaded file in bytes."),
-  created_at: z.string().optional().describe(
+  context: ContextFullResponse$zodSchema.nullable().optional().describe(
+    "Contextual metadata grouped by kind. Custom user context appears under the 'custom' key. Other context kinds may also appear as additional keys.",
+  ),
+  coordinates: CoordinatesResponse$zodSchema.nullable().optional().describe(
+    "Coordinate data for faces and custom regions.",
+  ),
+  created_at: z.iso.datetime({ offset: true }).optional().describe(
     "The date and time the file was uploaded.",
+  ),
+  display_name: z.string().optional().describe(
+    "The display name of the uploaded file.",
   ),
   eager: z.array(z.lazy(() => Eager$zodSchema)).optional(),
   etag: z.string().optional().describe("The ETag of the uploaded file."),
+  faces: z.array(z.array(z.int())).nullable().optional().describe(
+    "Detected face coordinate rectangles [x, y, width, height].",
+  ),
   format: z.string().optional().describe("The format of the uploaded file."),
   grayscale: z.boolean().optional().describe(
     "Whether the uploaded file is grayscale.",
@@ -85,6 +114,9 @@ export const UploadResponse$zodSchema: z.ZodType<UploadResponse> = z.object({
   ),
   image_metadata: z.lazy(() => UploadResponseImageMetadata$zodSchema).optional()
     .describe("The image metadata of the uploaded file."),
+  metadata: z.record(z.string(), z.any()).optional().describe(
+    "Structured metadata associated with the uploaded file.",
+  ),
   original_filename: z.string().optional().describe(
     "The original filename of the uploaded file.",
   ),
@@ -109,14 +141,14 @@ export const UploadResponse$zodSchema: z.ZodType<UploadResponse> = z.object({
   signature: z.string().optional().describe(
     "The signature of the uploaded file.",
   ),
-  tags: z.array(z.string()).optional().describe(
-    "The tags of the uploaded file.",
+  tags: z.array(z.string()).nullable().optional().describe(
+    "Tag names assigned to the asset.",
   ),
   type: z.string().optional().describe("The type of the uploaded file."),
   url: z.string().optional().describe("The URL of the uploaded file."),
   version: z.int().optional().describe("The version of the uploaded file."),
   version_id: z.string().optional().describe(
-    "The version ID of the uploaded file.",
+    "Hexadecimal version ID; length is a positive multiple of 32 (typically 32 or 64).",
   ),
   width: z.int().optional().describe("The width of the uploaded file."),
 });
