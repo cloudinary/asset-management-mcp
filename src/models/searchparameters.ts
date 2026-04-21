@@ -104,7 +104,7 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
       z.array(z.lazy(() => Aggregate$zodSchema)),
     ]).optional().describe("Fields or ranges to aggregate search results by."),
     expression: z.string().optional().describe(
-      "The search expression. Supports exact match, wildcard match, presence, greater/less than, and range. For details on building expressions, see the Search API documentation.",
+      "The Lucene-like search expression. Supports exact match (`=`), tokenized match (`:`), presence, wildcards (`*`, `?`), range queries (`[a TO b]`, `{a TO b}`), and comparison operators (`>`, `<`, `>=`, `<=`). Combine terms with uppercase `AND`, `OR`, `NOT`, or the shorthand `+`/`-`. Group with parentheses.\n\nQuoting: wrap any value containing a space, colon, or other reserved character (`! ( ) { } [ ] ^ ~ ?  \\ = & < > |`) in double quotes, e.g. `tags:\"service:mantels\"`, `aspect_ratio:\"16:9\"`. Do not HTML-encode operators — send `<` not `&lt;`.\n\nDate values may be ISO-8601 (in quotes) or relative shorthand: `1h`, `1d`, `1w`, `1m`, `1y`, e.g. `uploaded_at>1d`, `created_at:[4w TO 1w]`.\n\nSupported field names include `public_id`, `asset_id`, `filename`, `folder`, `asset_folder` (use the singular `folder`, not `folders`), `tags`, `context.<key>`, `metadata.<external_id>`, `resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `uploaded_at`, `created_at`. Fields under `image_metadata.*`, `image_analysis.*`, `quality_analysis.*`, and `accessibility_analysis.*` also require the matching `with_field` to be returned in the response.\n\nSee the [search expressions guide](https://cloudinary.com/documentation/search_expressions.md) for the full reference.\n",
     ),
     fields: z.string().optional().describe(
       "A comma-separated list of fields to include in the response.\nNotes:\n- This parameter takes precedence over the with_field parameter, so if you want any additional asset attributes returned, make sure to also include them in this list (e.g., tags or context).\n- The following fields are always included in the response: public_id, asset_id, asset_folder, created_at, status, type, and resource_type.\n",
@@ -120,7 +120,7 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
         "An array of single-key objects mapping a field to a sort direction. Each object must contain exactly one field name mapped to 'asc' or 'desc'.\nDefault: [{\"created_at\": \"desc\"}].\n",
       ),
     with_field: z.array(WithField$zodSchema).optional().describe(
-      "The additional fields to include in the response. Note that the fields parameter takes precedence over this parameter.",
+      "The additional asset attributes to include in each search result. Only the listed values are accepted; requesting any other value returns a 400. Note that the `fields` parameter takes precedence over this parameter.\n",
     ),
   },
 ).describe("Common parameters for resource search operations.");

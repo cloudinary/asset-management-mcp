@@ -32,9 +32,31 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns a list of resources matching the specified search criteria.
  *
- * Uses Lucene-like query language to search by descriptive attributes (public_id, filename, folder, tags, context), file details (resource_type, format, bytes, width, height), embedded data (image_metadata), and analyzed data (face_count, colors, quality_score). Supports aggregate counts and complex Boolean expressions.
+ * Uses a Lucene-like query language to filter assets by descriptive attributes (`public_id`, `filename`, `folder`, `asset_folder`, `tags`, `context.<key>`), file details (`resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`), lifecycle dates (`uploaded_at`, `created_at`), embedded data (`image_metadata.*`), structured metadata (`metadata.<external_id>`), and analysis fields (`face_count`, `colors`, `quality_score`, `accessibility_analysis.*`). Supports sorting, aggregate counts, and complex boolean expressions.
  *
- * Examples: tags:shirt AND uploaded_at>1d, resource_type:image AND bytes>1mb, folder:products OR context.category:electronics
+ * ## Expression syntax
+ *
+ * - **Field match**: `field:value` (tokenized match, wildcards allowed) or `field=value` (exact match). Examples: `tags:shirt`, `tags=cotton`.
+ * - **Comparisons**: `>`, `<`, `>=`, `<=` for numbers and dates. Example: `bytes>10000000`.
+ * - **Ranges**: `field:[from TO to]` inclusive, `field:{from TO to}` exclusive. Example: `width:{200 TO 1028}`.
+ * - **Booleans**: `AND`, `OR`, `NOT` (must be uppercase), or `+` (must), `-` (must not). Group with parentheses: `(shirt OR pants) AND clothes`.
+ * - **Wildcards**: `*` (zero or more chars) and `?` (single char) inside values. Example: `public_id:shoes_*`.
+ * - **Dates**: ISO-8601 (`uploaded_at>"2024-01-15"`) or relative shorthand `Nd`, `Nh`, `Nw`, `Nm`, `Ny` (`uploaded_at>1d`, `created_at:[4w TO 1w]`). Do not URL- or HTML-encode operators: send a raw `<`, never `&lt;`.
+ * - **Quoting**: If a value contains a space, colon, or other reserved character (`! ( ) { } [ ] ^ ~ ?  \ = & < > |`), wrap it in double quotes or escape each character with `\`. Examples: `tags:"service:mantels"`, `aspect_ratio:"16:9"`, `folder:"My Folder"`.
+ *
+ * ## Common mistakes
+ *
+ * - Use `folder:` (singular). `folders:` is not a valid field.
+ * - `tags=service:mantels` fails because the unquoted colon is parsed as a field separator. Use `tags="service:mantels"` or `tags=service\:mantels`.
+ * - Dates and other reserved tokens must not be HTML-escaped. Send `uploaded_at<1h`, not `uploaded_at&lt;1h`.
+ * - Do not leave an operand empty (e.g. `tags: AND -tags:foo`). Omit the empty clause entirely.
+ *
+ * ## Examples
+ *
+ * - `tags:shirt AND uploaded_at>1d`
+ * - `resource_type:image AND bytes>1000000 AND (format:png OR format:jpg)`
+ * - `folder:products AND context.category:electronics`
+ * - `tags:"service:mantels" AND -tags:discontinued`
  */
 export function searchSearchAssets(
   client$: CloudinaryAssetMgmtCore,
