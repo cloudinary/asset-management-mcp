@@ -23,20 +23,30 @@ export const Type$zodSchema = z.enum([
 ]);
 
 export type SearchParametersRange = {
+  key: string;
   from?: number | undefined;
   to?: number | undefined;
 };
 
 export const SearchParametersRange$zodSchema: z.ZodType<SearchParametersRange> =
   z.object({
-    from: z.number().optional().describe("Start of the range (inclusive)"),
-    to: z.number().optional().describe("End of the range (exclusive)"),
+    from: z.number().optional().describe(
+      "Start of the range (inclusive). At least one of `from` / `to` is required.",
+    ),
+    key: z.string().describe(
+      "A label for the bucket, returned in the aggregation response. 1–20 chars, alphanumeric plus `-` and `_`.",
+    ),
+    to: z.number().optional().describe(
+      "End of the range (exclusive). At least one of `from` / `to` is required.",
+    ),
   });
 
 export type Aggregate = { type: Type; ranges: Array<SearchParametersRange> };
 
 export const Aggregate$zodSchema: z.ZodType<Aggregate> = z.object({
-  ranges: z.array(z.lazy(() => SearchParametersRange$zodSchema)),
+  ranges: z.array(z.lazy(() => SearchParametersRange$zodSchema)).describe(
+    "One or more ranges for the numeric field. Each range must include a `key` label and at least one of `from` / `to`.\n",
+  ),
   type: Type$zodSchema,
 });
 
@@ -54,14 +64,18 @@ export const AggregateEnum$zodSchema = z.enum([
 ]);
 
 /**
- * Fields or ranges to aggregate search results by.
+ * Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.
+ *
+ * @remarks
  */
 export type AggregateUnion = Array<AggregateEnum> | Array<Aggregate>;
 
 export const AggregateUnion$zodSchema: z.ZodType<AggregateUnion> = z.union([
   z.array(AggregateEnum$zodSchema),
   z.array(z.lazy(() => Aggregate$zodSchema)),
-]).describe("Fields or ranges to aggregate search results by.");
+]).describe(
+  "Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.\n",
+);
 
 export const WithField = {
   Context: "context",
@@ -102,15 +116,17 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
     aggregate: z.union([
       z.array(AggregateEnum$zodSchema),
       z.array(z.lazy(() => Aggregate$zodSchema)),
-    ]).optional().describe("Fields or ranges to aggregate search results by."),
+    ]).optional().describe(
+      "Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.\n",
+    ),
     expression: z.string().optional().describe(
-      "The Lucene-like search expression. Supports token match (`:`), exact match (`=`), trailing `*` for prefix match, ranges (`[a TO b]`, `{a TO b}`), and comparisons (`>`, `<`, `>=`, `<=`). Combine terms with uppercase `AND`, `OR`, `NOT`, or `+`/`-`. Group with parentheses.\n\nWrap values containing spaces, colons, or other reserved characters (`! ( ) { } [ ] ^ ~ ?  \\ = & < > |`) in double quotes, e.g. `tags:\"service:mantels\"`, `aspect_ratio:\"16:9\"`. Send raw `<`/`>`, never HTML-escaped.\n\nDates: ISO-8601 in quotes, or relative shorthand `1h`, `1d`, `1w`, `1m`, `1y` (`uploaded_at>1d`, `created_at:[4w TO 1w]`).\n\nSupported fields: `public_id`, `asset_id`, `filename`, `display_name`, `folder` / `asset_folder` (singular, not `folders`), `tags`, `context.<key>`, `metadata.<external_id>`, `resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `pages`, `aspect_ratio`, `transparent`, `grayscale`, `status`, `moderation_status`, `moderation_kind`, `uploaded_at`, `created_at`, `taken_at`, `updated_at`, `last_updated.<kind>`, `face_count`, `illustration_score`, `quality_score`. Fields under `image_metadata.*`, `image_analysis.*`, `quality_analysis.*`, and `accessibility_analysis.*` also require the matching `with_field` to be returned in the response.\n\nSee the [search expressions guide](https://cloudinary.com/documentation/search_expressions.md) for the full reference.\n",
+      "The Lucene-like search expression. Supports token match (`:`), exact match (`=`), trailing `*` for prefix match, ranges (`[a TO b]`, `{a TO b}`), and comparisons (`>`, `<`, `>=`, `<=`). Combine terms with uppercase `AND`, `OR`, `NOT`, or `+`/`-`. `NOT` must appear between clauses — a leading `NOT` is a parse error; use `-field:value` to negate the first clause. Group with parentheses.\n\nWrap values containing spaces, colons, or other reserved characters (`! ( ) { } [ ] ^ ~ ?  \\ = & < > |`) in double quotes, e.g. `tags:\"service:mantels\"`, `aspect_ratio:\"16:9\"`. Send raw `<`/`>`, never HTML-escaped.\n\nWildcards are prefix-only (trailing `*`). A bare `*` (e.g. `folder:*`, `context.alt:*`) is a parse error — it cannot be used as a \"field is present\" probe.\n\nDates: ISO-8601 in quotes, or relative shorthand `1h`, `1d`, `1w`, `1m`, `1y` (`uploaded_at>1d`, `created_at:[4w TO 1w]`).\n\nSupported fields: `public_id`, `asset_id`, `filename`, `display_name`, `folder` / `asset_folder` (singular, not `folders`), `tags`, `context.<key>`, `metadata.<external_id>`, `resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `pages`, `aspect_ratio`, `transparent`, `grayscale`, `status`, `moderation_status`, `moderation_kind`, `uploaded_at`, `created_at`, `taken_at`, `updated_at`, `last_updated.<kind>`, `face_count`, `illustration_score`, `quality_score`. Fields under `image_metadata.*`, `image_analysis.*`, `quality_analysis.*`, and `accessibility_analysis.*` also require the matching `with_field` to be returned in the response.\n\nSee the [search expressions guide](https://cloudinary.com/documentation/search_expressions.md) for the full reference.\n",
     ),
     fields: z.string().optional().describe(
       "A comma-separated list of fields to include in the response.\nNotes:\n- This parameter takes precedence over the with_field parameter, so if you want any additional asset attributes returned, make sure to also include them in this list (e.g., tags or context).\n- The following fields are always included in the response: public_id, asset_id, asset_folder, created_at, status, type, and resource_type.\n",
     ),
     max_results: z.int().optional().describe(
-      "The maximum number of results to return. Default - 50. Maximum - 500.",
+      "The maximum number of results to return. Default - 50. Maximum - 500.\nSet to `0` to get only `total_count` and `aggregations` without any resources in the response — useful for counting or aggregation-only queries.\n",
     ),
     next_cursor: z.string().optional().describe(
       "The cursor value to get the next page of results. Available when a previous search returned more results than max_results.",
@@ -120,7 +136,7 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
         "An array of single-key objects mapping a field to a sort direction. Each object must contain exactly one field name mapped to 'asc' or 'desc'.\nDefault: [{\"created_at\": \"desc\"}].\n",
       ),
     with_field: z.array(WithField$zodSchema).optional().describe(
-      "The additional asset attributes to include in each search result. Only the listed values are accepted; requesting any other value returns a 400. Note that the `fields` parameter takes precedence over this parameter.\n",
+      "The additional asset attributes to include in each search result. Only the listed values are accepted; requesting any other value returns a 400. Note that the `fields` parameter takes precedence over this parameter. `image_metadata`, `image_analysis`, and `metadata` require a Tier 2 search plan.\n",
     ),
   },
 ).describe("Common parameters for resource search operations.");

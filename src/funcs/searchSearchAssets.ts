@@ -32,26 +32,34 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns a list of resources matching the specified search criteria.
  *
- * Uses a Lucene-like query language to filter assets by descriptive attributes (`public_id`, `asset_id`, `filename`, `display_name`, `folder` / `asset_folder`, `tags`, `context.<key>`), file details (`resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `pages`, `aspect_ratio`, `transparent`, `grayscale`), lifecycle dates (`uploaded_at`, `created_at`, `taken_at`, `updated_at`, `last_updated.<kind>`), moderation and lifecycle state (`status`, `moderation_status`, `moderation_kind`), embedded data (`image_metadata.*`), structured metadata (`metadata.<external_id>`), and analysis fields (`face_count`, `colors`, `quality_score`, `illustration_score`, `accessibility_analysis.*`). Supports sorting, aggregate counts, and complex boolean expressions.
+ * Uses a Lucene-like query language to filter assets by descriptive attributes (`public_id`, `asset_id`, `filename`, `display_name`, `folder` / `asset_folder`, `tags`, `context.<key>`), file details (`resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `pages`, `aspect_ratio`, `transparent`, `grayscale`), lifecycle dates (`uploaded_at`, `created_at`, `taken_at`, `updated_at`, `last_updated.<kind>`), moderation and lifecycle state (`status`, `moderation_status`, `moderation_kind`), embedded data (`image_metadata.*`), structured metadata (`metadata.<external_id>`), and analysis fields (`face_count`, `colors`, `quality_score`, `illustration_score`, `accessibility_analysis.*`). Supports sorting, aggregate counts, and complex boolean expressions. See the `expression` parameter for the full field reference.
  *
  * ## Expression syntax
  *
  * - **Match**: `field:value` (token match) or `field=value` (exact match). Examples: `tags:shirt`, `tags=cotton`.
  * - **Comparisons**: `>`, `<`, `>=`, `<=` for numbers and dates. Example: `bytes>10000000`.
  * - **Ranges**: `field:[from TO to]` inclusive, `field:{from TO to}` exclusive. Example: `width:{200 TO 1028}`.
- * - **Booleans**: `AND`, `OR`, `NOT` (uppercase), or `+` (must), `-` (must not). Group with parentheses: `(shirt OR pants) AND clothes`.
- * - **Wildcards**: trailing `*` only, for prefix match (`public_id:shoes_*`, `format:jp*`, `tags:shirt*`). Not supported on `folder`, `asset_folder`, `resource_type`, or `type`. Leading `*`, middle `*`, and `?` are not supported.
- * - **Tokenized vs exact fields**: `tags`, `filename`, `display_name`, `context.<key>`, and `metadata.<id>` match on tokens split by whitespace and punctuation — `tags:analysis` matches the tag `full-analysis`. `public_id`, `folder`, `asset_folder`, and `format` match the whole value — `public_id:dog` will not match `dog_pldcwy`; use `public_id="dog_pldcwy"` (exact) or `public_id:dog*` (prefix).
+ * - **Booleans**: `AND`, `OR`, `NOT` (uppercase), or `+` (must), `-` (must not). `NOT` must appear between clauses — a bare leading `NOT` is a parse error; use `-field:value` to negate the first clause. Group with parentheses: `(shirt OR pants) AND clothes`.
+ * - **Wildcards**: trailing `*` only, for prefix match (`public_id:shoes_*`, `format:jp*`, `tags:shirt*`). Not supported on `folder`, `asset_folder`, `resource_type`, or `type`. Leading `*`, middle `*`, `?`, and bare `*` (`folder:*`, `context.alt:*`) are all parse errors — wildcards cannot be used as a "field is present" probe.
+ * - **Tokenized vs exact fields**: `tags`, `filename`, `display_name`, `context.<key>`, and `metadata.<id>` match on tokens split by whitespace and punctuation — `tags:analysis` matches the tag `full-analysis`. `public_id`, `folder`, `asset_folder`, and `format` match the whole value — `public_id:dog` will not match `dog_pldcwy`; use `public_id="dog_pldcwy"` (exact) or `public_id:dog*` (prefix). These exact-match fields still accept a trailing `*` for prefix match (except `folder` / `asset_folder`, where wildcards are ignored).
  * - **Dates**: ISO-8601 in quotes (`uploaded_at>"2024-01-15"`) or relative shorthand `Nh`, `Nd`, `Nw`, `Nm`, `Ny` (`uploaded_at>1d`, `created_at:[4w TO 1w]`). Send raw `<`/`>`, never HTML-escaped.
  * - **Quoting**: wrap any value containing a space, colon, or other reserved character (`! ( ) { } [ ] ^ ~ ?  \ = & < > |`) in double quotes, or escape each character with `\`. Examples: `tags:"service:mantels"`, `aspect_ratio:"16:9"`, `folder:"My Folder"`.
  *
  * ## Common mistakes
  *
  * - Use `folder:` or `asset_folder:` (singular); `folders:` is not a valid field. Pass the exact folder name — wildcards do not apply here.
+ * - Bare `*` as a presence probe (`folder:*`, `context.alt:*`) is a parse error. Every wildcard must have at least one preceding character.
+ * - `NOT foo AND bar` is a parse error. Write it as `bar AND NOT foo` or `-foo AND bar`.
  * - `public_id:dog` will not match `dog_pldcwy`. Use `public_id="dog_pldcwy"` (exact) or `public_id:dog*` (prefix).
  * - `tags=service:mantels` fails because the unquoted colon is parsed as a field separator. Use `tags="service:mantels"` or `tags=service\:mantels`.
  * - Do not HTML-escape operators. Send `uploaded_at<1h`, not `uploaded_at&lt;1h`.
  * - Do not leave an operand empty (e.g. `tags: AND -tags:foo`). Omit the empty clause entirely.
+ *
+ * ## Tips
+ *
+ * - Set `max_results: 0` to return only `total_count` and `aggregations` without any resource payload — useful for counts and aggregation-only queries.
+ * - `aggregate` (both simple and range variants) and the `metadata`, `image_metadata`, `image_analysis` values of `with_field` require a Tier 2 search plan.
+ * - Range aggregations require each range to include a `key` label (1–20 chars, `[a-zA-Z0-9_-]+`) and at least one of `from` / `to`.
  *
  * ## Examples
  *
