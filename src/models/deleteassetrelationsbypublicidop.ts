@@ -9,11 +9,12 @@ import {
   AssetRelationsDeleteResponse,
   AssetRelationsDeleteResponse$zodSchema,
 } from "./assetrelationsdeleteresponse.js";
+import { DeliveryType, DeliveryType$zodSchema } from "./deliverytype.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import {
-  StorageTypeParameter,
-  StorageTypeParameter$zodSchema,
-} from "./storagetypeparameter.js";
+  UnrelateAssetsByPublicIdRequest,
+  UnrelateAssetsByPublicIdRequest$zodSchema,
+} from "./unrelateassetsbypublicidrequest.js";
 
 export type DeleteAssetRelationsByPublicIdGlobals = {
   cloud_name?: string | undefined;
@@ -26,36 +27,27 @@ export const DeleteAssetRelationsByPublicIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DeleteAssetRelationsByPublicIdRequestBody = {
-  assets_to_unrelate: Array<string>;
-};
-
-export const DeleteAssetRelationsByPublicIdRequestBody$zodSchema: z.ZodType<
-  DeleteAssetRelationsByPublicIdRequestBody
-> = z.object({
-  assets_to_unrelate: z.array(z.string()).describe(
-    "Unrelates the asset from all the assets specified in this array of assets, specified as resource_type/type/public_id.",
-  ),
-});
-
 export type DeleteAssetRelationsByPublicIdRequest = {
   resource_type: ResourceType;
-  type?: StorageTypeParameter | undefined;
+  type?: DeliveryType | undefined;
   public_id: string;
-  RequestBody: DeleteAssetRelationsByPublicIdRequestBody;
+  unrelate_assets_by_public_id_request: UnrelateAssetsByPublicIdRequest;
 };
 
 export const DeleteAssetRelationsByPublicIdRequest$zodSchema: z.ZodType<
   DeleteAssetRelationsByPublicIdRequest
 > = z.object({
-  RequestBody: z.lazy(() =>
-    DeleteAssetRelationsByPublicIdRequestBody$zodSchema
-  ),
   public_id: z.string().describe("The public ID of the asset."),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
-  type: StorageTypeParameter$zodSchema.default("upload").describe(
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
+  ),
+  type: DeliveryType$zodSchema.default("upload").describe(
     "The delivery type of the asset.",
   ),
+  unrelate_assets_by_public_id_request:
+    UnrelateAssetsByPublicIdRequest$zodSchema.describe(
+      "The assets to unrelate by public ID.",
+    ),
 });
 
 export type DeleteAssetRelationsByPublicIdResponse =

@@ -6,11 +6,11 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 import {
-  ParametersDirection,
-  ParametersDirection$zodSchema,
-} from "./parametersdirection.js";
-import { PersonDetails, PersonDetails$zodSchema } from "./persondetails.js";
+  PeopleListResponse,
+  PeopleListResponse$zodSchema,
+} from "./peoplelistresponse.js";
 import { PersonStatus, PersonStatus$zodSchema } from "./personstatus.js";
 
 export type ListPeopleGlobals = { cloud_name?: string | undefined };
@@ -71,12 +71,12 @@ export type ListPeopleRequest = {
   name_prefix?: string | undefined;
   status?: PersonStatus | undefined;
   sort_by?: ListPeopleSortBy | undefined;
-  direction?: ParametersDirection | undefined;
+  direction?: DirectionEnum | undefined;
 };
 
 export const ListPeopleRequest$zodSchema: z.ZodType<ListPeopleRequest> = z
   .object({
-    direction: ParametersDirection$zodSchema.optional().describe(
+    direction: DirectionEnum$zodSchema.optional().describe(
       "The sort direction for the results. Default is \"desc\".",
     ),
     max_results: z.int().default(50).describe(
@@ -99,29 +99,10 @@ export const ListPeopleRequest$zodSchema: z.ZodType<ListPeopleRequest> = z
     ),
   });
 
-/**
- * People retrieved successfully
- */
-export type ListPeopleResponseBody = {
-  people?: Array<PersonDetails> | undefined;
-  next_cursor?: string | undefined;
-};
-
-export const ListPeopleResponseBody$zodSchema: z.ZodType<
-  ListPeopleResponseBody
-> = z.object({
-  next_cursor: z.string().optional().describe(
-    "The cursor to use for the next page of results.",
-  ),
-  people: z.array(PersonDetails$zodSchema).optional().describe(
-    "A list of recognized person objects.",
-  ),
-}).describe("People retrieved successfully");
-
-export type ListPeopleResponse = ApiError | ListPeopleResponseBody;
+export type ListPeopleResponse = ApiError | PeopleListResponse;
 
 export const ListPeopleResponse$zodSchema: z.ZodType<ListPeopleResponse> = z
   .union([
     ApiError$zodSchema,
-    z.lazy(() => ListPeopleResponseBody$zodSchema),
+    PeopleListResponse$zodSchema,
   ]);

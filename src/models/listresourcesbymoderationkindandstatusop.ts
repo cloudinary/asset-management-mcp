@@ -4,11 +4,15 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { Direction, Direction$zodSchema } from "./direction.js";
-import { FieldsSpec, FieldsSpec$zodSchema } from "./fieldsspec.js";
+import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
+import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
+import { ModerationKind, ModerationKind$zodSchema } from "./moderationkind.js";
+import {
+  ModerationStatusParameter,
+  ModerationStatusParameter$zodSchema,
+} from "./moderationstatusparameter.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
 export type ListResourcesByModerationKindAndStatusGlobals = {
@@ -22,69 +26,37 @@ export const ListResourcesByModerationKindAndStatusGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export const ModerationKind = {
-  Manual: "manual",
-  Webpurify: "webpurify",
-  AwsRek: "aws_rek",
-  AwsRekVideo: "aws_rek_video",
-  PerceptionPoint: "perception_point",
-  GoogleVideoModeration: "google_video_moderation",
-  Duplicate: "duplicate",
-} as const;
-export type ModerationKind = ClosedEnum<typeof ModerationKind>;
-
-export const ModerationKind$zodSchema = z.enum([
-  "manual",
-  "webpurify",
-  "aws_rek",
-  "aws_rek_video",
-  "perception_point",
-  "google_video_moderation",
-  "duplicate",
-]);
-
-export const ListResourcesByModerationKindAndStatusModerationStatus = {
-  Approved: "approved",
-  Rejected: "rejected",
-  Pending: "pending",
-  Queued: "queued",
-  Aborted: "aborted",
-} as const;
-export type ListResourcesByModerationKindAndStatusModerationStatus = ClosedEnum<
-  typeof ListResourcesByModerationKindAndStatusModerationStatus
->;
-
-export const ListResourcesByModerationKindAndStatusModerationStatus$zodSchema =
-  z.enum([
-    "approved",
-    "rejected",
-    "pending",
-    "queued",
-    "aborted",
-  ]);
-
 export type ListResourcesByModerationKindAndStatusRequest = {
   resource_type: ResourceType;
   moderation_kind: ModerationKind;
-  moderation_status: ListResourcesByModerationKindAndStatusModerationStatus;
-  fields?: Array<FieldsSpec> | undefined;
+  moderation_status: ModerationStatusParameter;
+  fields?: Fields | undefined;
   next_cursor?: string | undefined;
   max_results?: number | undefined;
-  direction?: Direction | undefined;
+  direction?: DirectionEnum | undefined;
 };
 
 export const ListResourcesByModerationKindAndStatusRequest$zodSchema: z.ZodType<
   ListResourcesByModerationKindAndStatusRequest
 > = z.object({
-  direction: Direction$zodSchema.optional().describe("Sort direction."),
-  fields: z.array(FieldsSpec$zodSchema).optional(),
+  direction: DirectionEnum$zodSchema.optional().describe(
+    "The sort direction for the results. Default is \"desc\".",
+  ),
+  fields: Fields$zodSchema.optional().describe(
+    "Additional fields to include in the response. The fields public_id and asset_id are always included.",
+  ),
   max_results: z.int().describe("Maximum number of results to return (1-500).")
     .optional(),
-  moderation_kind: ModerationKind$zodSchema,
-  moderation_status:
-    ListResourcesByModerationKindAndStatusModerationStatus$zodSchema,
+  moderation_kind: ModerationKind$zodSchema.describe(
+    "The type of moderation to filter by.",
+  ),
+  moderation_status: ModerationStatusParameter$zodSchema.describe(
+    "The moderation status to filter by.",
+  ),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
+  ),
 });
 
 export type ListResourcesByModerationKindAndStatusResponse =

@@ -5,7 +5,7 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { FieldsSpec, FieldsSpec$zodSchema } from "./fieldsspec.js";
+import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
@@ -23,7 +23,7 @@ export const ListResourcesByAssetIDsGlobals$zodSchema: z.ZodType<
 export type ListResourcesByAssetIDsRequest = {
   asset_ids: Array<string>;
   resource_type?: ResourceType | undefined;
-  fields?: Array<FieldsSpec> | undefined;
+  fields?: Fields | undefined;
 };
 
 export const ListResourcesByAssetIDsRequest$zodSchema: z.ZodType<
@@ -32,9 +32,11 @@ export const ListResourcesByAssetIDsRequest$zodSchema: z.ZodType<
   asset_ids: z.array(z.string()).describe(
     "List of asset IDs to retrieve (max 100).",
   ),
-  fields: z.array(FieldsSpec$zodSchema).optional(),
+  fields: Fields$zodSchema.optional().describe(
+    "Additional fields to include in the response. The fields public_id and asset_id are always included.",
+  ),
   resource_type: ResourceType$zodSchema.optional().describe(
-    "Resource type (optional, can sometimes disambiguate).",
+    "Resource type filter.",
   ),
 });
 

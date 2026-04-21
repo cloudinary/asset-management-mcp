@@ -10,9 +10,11 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   resource_type: ArchiveResourceType$zodSchema.describe(
-    `The type of resources to include in the archive. "image" for images, "video" for videos, "raw" for non-media files, or "all" for mixed types.`,
+    `The type of resource for archive generation (image, video, or raw).`,
   ),
-  RequestBody: GenerateArchiveRequestBody$zodSchema,
+  RequestBody: GenerateArchiveRequestBody$zodSchema.describe(
+    `The archive generation parameters.`,
+  ),
 };
 
 export const tool$assetsGenerateArchive: ToolDefinition<typeof args> = {

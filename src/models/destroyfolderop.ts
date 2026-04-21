@@ -5,6 +5,10 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  DeleteFolderResponse,
+  DeleteFolderResponse$zodSchema,
+} from "./deletefolderresponse.js";
 
 export type DestroyFolderGlobals = { cloud_name?: string | undefined };
 
@@ -19,24 +23,15 @@ export type DestroyFolderRequest = { folder: string };
 
 export const DestroyFolderRequest$zodSchema: z.ZodType<DestroyFolderRequest> = z
   .object({
-    folder: z.string(),
+    folder: z.string().describe(
+      "The full path of the folder, including any nested folders. Must not be empty, and must not contain double slashes or leading/trailing slashes.",
+    ),
   });
 
-/**
- * Folder deleted successfully
- */
-export type DestroyFolderResponseBody = { deleted: Array<string> };
-
-export const DestroyFolderResponseBody$zodSchema: z.ZodType<
-  DestroyFolderResponseBody
-> = z.object({
-  deleted: z.array(z.string()).describe("List of deleted folder paths"),
-}).describe("Folder deleted successfully");
-
-export type DestroyFolderResponse = DestroyFolderResponseBody | ApiError;
+export type DestroyFolderResponse = DeleteFolderResponse | ApiError;
 
 export const DestroyFolderResponse$zodSchema: z.ZodType<DestroyFolderResponse> =
   z.union([
-    z.lazy(() => DestroyFolderResponseBody$zodSchema),
+    DeleteFolderResponse$zodSchema,
     ApiError$zodSchema,
   ]);

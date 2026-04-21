@@ -9,6 +9,10 @@ import {
   AssetRelationsDeleteResponse,
   AssetRelationsDeleteResponse$zodSchema,
 } from "./assetrelationsdeleteresponse.js";
+import {
+  UnrelateAssetsByAssetIdRequest,
+  UnrelateAssetsByAssetIdRequest$zodSchema,
+} from "./unrelateassetsbyassetidrequest.js";
 
 export type DeleteAssetRelationsByAssetIdGlobals = {
   cloud_name?: string | undefined;
@@ -21,30 +25,19 @@ export const DeleteAssetRelationsByAssetIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DeleteAssetRelationsByAssetIdRequestBody = {
-  assets_to_unrelate: Array<string>;
-};
-
-export const DeleteAssetRelationsByAssetIdRequestBody$zodSchema: z.ZodType<
-  DeleteAssetRelationsByAssetIdRequestBody
-> = z.object({
-  assets_to_unrelate: z.array(z.string()).describe(
-    "Unrelates the asset from all the assets specified in this array of assets, specified by their asset IDs.",
-  ),
-});
-
 export type DeleteAssetRelationsByAssetIdRequest = {
   asset_id: string;
-  RequestBody: DeleteAssetRelationsByAssetIdRequestBody;
+  unrelate_assets_by_asset_id_request: UnrelateAssetsByAssetIdRequest;
 };
 
 export const DeleteAssetRelationsByAssetIdRequest$zodSchema: z.ZodType<
   DeleteAssetRelationsByAssetIdRequest
 > = z.object({
-  RequestBody: z.lazy(() => DeleteAssetRelationsByAssetIdRequestBody$zodSchema),
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
+  unrelate_assets_by_asset_id_request: UnrelateAssetsByAssetIdRequest$zodSchema
+    .describe("The asset IDs to unrelate."),
 });
 
 export type DeleteAssetRelationsByAssetIdResponse =

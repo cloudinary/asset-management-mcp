@@ -9,74 +9,50 @@ import {
   AccessControlItem,
   AccessControlItem$zodSchema,
 } from "./accesscontrolitem.js";
+import {
+  ResponsiveBreakpoint,
+  ResponsiveBreakpoint$zodSchema,
+} from "./responsivebreakpoint.js";
+import {
+  StructuredMetadataParam,
+  StructuredMetadataParam$zodSchema,
+} from "./structuredmetadataparam.js";
+import { TagsParam, TagsParam$zodSchema } from "./tagsparam.js";
+import {
+  UploadDeliveryType,
+  UploadDeliveryType$zodSchema,
+} from "./uploaddeliverytype.js";
 
 /**
  * Configuration object for automatic video transcription with translation options.
  */
-export type AutoTranscription = { translate?: Array<string> | undefined };
-
-export const AutoTranscription$zodSchema: z.ZodType<AutoTranscription> = z
-  .object({
-    translate: z.array(z.string()).optional().describe(
-      "Array of target language codes for transcription translation.",
-    ),
-  }).describe(
-    "Configuration object for automatic video transcription with translation options.",
-  );
-
-export type AutoTranscriptionUnion = boolean | AutoTranscription;
-
-export const AutoTranscriptionUnion$zodSchema: z.ZodType<
-  AutoTranscriptionUnion
-> = z.union([
-  z.boolean(),
-  z.lazy(() => AutoTranscription$zodSchema),
-]);
-
-export type ResponsiveBreakpoint = {
-  create_derived?: boolean | undefined;
-  max_width?: number | undefined;
-  min_width?: number | undefined;
-  bytes_step?: number | undefined;
-  max_images?: number | undefined;
-  transformation?: string | undefined;
+export type UploadRequestAutoTranscription = {
+  translate?: Array<string> | undefined;
 };
 
-export const ResponsiveBreakpoint$zodSchema: z.ZodType<ResponsiveBreakpoint> = z
-  .object({
-    bytes_step: z.int().optional(),
-    create_derived: z.boolean().optional(),
-    max_images: z.int().optional(),
-    max_width: z.int().optional(),
-    min_width: z.int().optional(),
-    transformation: z.string().optional(),
-  });
-
-/**
- * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
- */
-export const UploadRequestType = {
-  Upload: "upload",
-  Authenticated: "authenticated",
-  Private: "private",
-  Asset: "asset",
-} as const;
-/**
- * The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.
- */
-export type UploadRequestType = ClosedEnum<typeof UploadRequestType>;
-
-export const UploadRequestType$zodSchema = z.enum([
-  "upload",
-  "authenticated",
-  "private",
-  "asset",
-]).describe(
-  "The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.",
+export const UploadRequestAutoTranscription$zodSchema: z.ZodType<
+  UploadRequestAutoTranscription
+> = z.object({
+  translate: z.array(z.string()).optional().describe(
+    "Array of target language codes for transcription translation.",
+  ),
+}).describe(
+  "Configuration object for automatic video transcription with translation options.",
 );
 
+export type UploadRequestAutoTranscriptionUnion =
+  | boolean
+  | UploadRequestAutoTranscription;
+
+export const UploadRequestAutoTranscriptionUnion$zodSchema: z.ZodType<
+  UploadRequestAutoTranscriptionUnion
+> = z.union([
+  z.boolean(),
+  z.lazy(() => UploadRequestAutoTranscription$zodSchema),
+]);
+
 /**
- * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
+ * Deprecated. Use access_control instead. Allows the asset to behave as if it's of the authenticated delivery type while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs.
  *
  * @remarks
  *
@@ -87,7 +63,7 @@ export const UploadRequestAccessMode = {
   Authenticated: "authenticated",
 } as const;
 /**
- * Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.
+ * Deprecated. Use access_control instead. Allows the asset to behave as if it's of the authenticated delivery type while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs.
  *
  * @remarks
  *
@@ -101,70 +77,109 @@ export const UploadRequestAccessMode$zodSchema = z.enum([
   "public",
   "authenticated",
 ]).describe(
-  "Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.\n",
+  "Deprecated. Use access_control instead. Allows the asset to behave as if it's of the authenticated delivery type while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs.\n",
 );
 
+/**
+ * Named region coordinate groups for cropping with region gravity.
+ *
+ * @remarks
+ * Can be a JSON-encoded string or an object. Each region name may contain
+ * only letters, numbers, or hyphens, and must have at least two coordinate pairs.
+ */
+export type UploadRequestRegions = string | {
+  [k: string]: Array<Array<number>>;
+};
+
+export const UploadRequestRegions$zodSchema: z.ZodType<UploadRequestRegions> = z
+  .union([
+    z.string(),
+    z.record(z.string(), z.array(z.array(z.int()))),
+  ]).describe(
+    "Named region coordinate groups for cropping with region gravity.\nCan be a JSON-encoded string or an object. Each region name may contain\nonly letters, numbers, or hyphens, and must have at least two coordinate pairs.\n",
+  );
+
+/**
+ * Settings to automatically generate breakpoints for responsive images.
+ */
+export type UploadRequestResponsiveBreakpoints =
+  | Array<ResponsiveBreakpoint>
+  | ResponsiveBreakpoint;
+
+export const UploadRequestResponsiveBreakpoints$zodSchema: z.ZodType<
+  UploadRequestResponsiveBreakpoints
+> = z.union([
+  z.array(ResponsiveBreakpoint$zodSchema),
+  ResponsiveBreakpoint$zodSchema,
+]).describe(
+  "Settings to automatically generate breakpoints for responsive images.",
+);
+
+/**
+ * Parameters for configuring asset uploads, including transformation, tagging, metadata, and delivery options.
+ */
 export type UploadRequest = {
-  api_key?: string | undefined;
-  timestamp?: number | undefined;
-  signature?: string | undefined;
   accessibility_analysis?: boolean | undefined;
   asset_folder?: string | undefined;
   async?: boolean | undefined;
   auto_chaptering?: boolean | undefined;
-  auto_transcription?: boolean | AutoTranscription | undefined;
+  auto_tagging?: number | undefined;
+  auto_transcription?: boolean | UploadRequestAutoTranscription | undefined;
+  access_control?: Array<AccessControlItem> | undefined;
+  access_mode?: UploadRequestAccessMode | undefined;
+  backup?: boolean | undefined;
+  background_removal?: string | undefined;
+  callback?: string | undefined;
+  categorization?: string | undefined;
   cinemagraph_analysis?: boolean | undefined;
   colors?: boolean | undefined;
-  context?: string | undefined;
-  custom_coordinates?: string | undefined;
+  detection?: string | undefined;
+  discard_original_filename?: boolean | undefined;
   display_name?: string | undefined;
-  eager?: string | undefined;
   eager_async?: boolean | undefined;
   eager_notification_url?: string | undefined;
-  face_coordinates?: string | undefined;
+  eval?: string | undefined;
   faces?: boolean | undefined;
-  headers?: string | undefined;
+  filename_override?: string | undefined;
+  folder?: string | undefined;
+  format?: string | undefined;
   invalidate?: boolean | undefined;
   media_metadata?: boolean | undefined;
-  metadata?: string | undefined;
+  metadata?: StructuredMetadataParam | undefined;
+  clear_invalid?: boolean | undefined;
   moderation?: string | undefined;
   notification_url?: string | undefined;
-  phash?: boolean | undefined;
-  quality_analysis?: boolean | undefined;
-  regions?: string | undefined;
-  responsive_breakpoints?: Array<ResponsiveBreakpoint> | undefined;
-  tags?: string | undefined;
-  callback?: string | undefined;
-  backup?: boolean | undefined;
-  discard_original_filename?: boolean | undefined;
-  overwrite?: boolean | undefined;
-  return_delete_token?: boolean | undefined;
-  type?: UploadRequestType | undefined;
-  access_mode?: UploadRequestAccessMode | undefined;
-  categorization?: string | undefined;
   ocr?: string | undefined;
-  raw_convert?: string | undefined;
-  background_removal?: string | undefined;
-  public_id?: string | undefined;
-  transformation?: string | undefined;
-  format?: string | undefined;
-  proxy?: string | undefined;
-  folder?: string | undefined;
-  allowed_formats?: string | undefined;
-  auto_tagging?: number | undefined;
-  access_control?: Array<AccessControlItem> | undefined;
-  eval?: string | undefined;
-  detection?: string | undefined;
-  filename_override?: string | undefined;
-  public_id_prefix?: string | undefined;
-  use_asset_folder_as_public_id_prefix?: boolean | undefined;
-  unique_display_name?: boolean | undefined;
-  visual_search?: boolean | undefined;
-  use_filename_as_display_name?: boolean | undefined;
-  use_filename?: boolean | undefined;
-  unique_filename?: boolean | undefined;
-  upload_preset?: string | undefined;
   on_success?: string | undefined;
+  overwrite?: boolean | undefined;
+  phash?: boolean | undefined;
+  proxy?: string | undefined;
+  public_id?: string | undefined;
+  public_id_prefix?: string | undefined;
+  quality_analysis?: boolean | undefined;
+  raw_convert?: string | undefined;
+  regions?: string | { [k: string]: Array<Array<number>> } | undefined;
+  responsive_breakpoints?:
+    | Array<ResponsiveBreakpoint>
+    | ResponsiveBreakpoint
+    | undefined;
+  return_delete_token?: boolean | undefined;
+  upload_preset?: string | undefined;
+  use_asset_folder_as_public_id_prefix?: boolean | undefined;
+  use_filename?: boolean | undefined;
+  use_filename_as_display_name?: boolean | undefined;
+  unique_display_name?: boolean | undefined;
+  unique_filename?: boolean | undefined;
+  visual_search?: boolean | undefined;
+  tags?: TagsParam | undefined;
+  context?: string | undefined;
+  eager?: string | undefined;
+  transformation?: string | undefined;
+  allowed_formats?: string | undefined;
+  headers?: string | undefined;
+  face_coordinates?: string | undefined;
+  custom_coordinates?: string | undefined;
+  type?: UploadDeliveryType | undefined;
   file: string;
 };
 
@@ -173,16 +188,13 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
     "Restricts access to the asset by specifying one or more access types.\nThe asset is restricted unless at least one listed access type is valid.\n",
   ),
   access_mode: UploadRequestAccessMode$zodSchema.optional().describe(
-    "Allows the asset to behave as if it's of the authenticated 'type' (see above) while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs. Valid values: public, and authenticated.\n",
+    "Deprecated. Use access_control instead. Allows the asset to behave as if it's of the authenticated delivery type while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs.\n",
   ),
   accessibility_analysis: z.boolean().optional().describe(
-    "Whether to return return accessibility analysis values for the image.",
+    "Whether to return accessibility analysis values for the image.",
   ),
   allowed_formats: z.string().optional().describe(
-    "A comma-separated list of file formats that are allowed for uploading. Files of other types will be rejected. The formats can be any combination of image types, video formats or raw file extensions.\nNote: You can also add the `format` parameter to convert other file types instead of rejecting them. In this case, only files that would normally be rejected are converted, any file format allowed for upload wont be converted.\n",
-  ),
-  api_key: z.string().optional().describe(
-    "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
+    "A comma-separated list of file formats that are allowed for uploading. Files of other types will be rejected. The formats can be any combination of image types, video formats or raw file extensions.\nNote: You can also add the `format` parameter to convert other file types instead of rejecting them. In this case, only files that would normally be rejected are converted, any file format allowed for upload won't be converted.\n",
   ),
   asset_folder: z.string().optional().describe(
     "The asset folder to assign to the asset.",
@@ -198,7 +210,7 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
   ),
   auto_transcription: z.union([
     z.boolean(),
-    z.lazy(() => AutoTranscription$zodSchema),
+    z.lazy(() => UploadRequestAutoTranscription$zodSchema),
   ]).optional(),
   background_removal: z.string().optional().describe(
     "Automatically remove the background of an image using an add-on.\n- Set to cloudinary_ai to use the deep-learning based Cloudinary AI Background Removal add-on.\n  Optionally append a template suffix (e.g., cloudinary_ai:fine_edges).\n- Note: this feature has been superseded by background removal on the fly.\n- Set to pixelz to use the human-powered Pixelz Remove-The-Background Editing add-on service.\nRelevant for images only.\n",
@@ -215,14 +227,17 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
   cinemagraph_analysis: z.boolean().optional().describe(
     "Whether to return a cinemagraph analysis value for the media asset between 0 and 1, where 0 means the asset is not a cinemagraph and 1 means the asset is a cinemagraph. Relevant for animated images and video only. A static image will return 0.",
   ),
+  clear_invalid: z.boolean().default(false).describe(
+    "Whether to clear metadata field values that have become invalid due to a change in metadata rules. If false, the API returns an error if any existing metadata value is no longer valid. Default: false.",
+  ),
   colors: z.boolean().default(false).describe(
     "Whether to retrieve predominant colors & color histogram of the uploaded image. Note: If all returned colors are opaque, then 6-digit RGB hex values are returned. If one or more colors contain an alpha channel, then 8-digit RGBA hex quadruplet values are returned.",
   ),
   context: z.string().optional().describe(
-    "Key-value pairs of general textual context metadata to attach to the asset.",
+    "A pipe-separated list of key-value pairs of general textual context metadata to attach to the asset (e.g., \"alt=My image|caption=Nice photo\"). The =, \", and | characters can be escaped with a prepending backslash (\\).",
   ),
   custom_coordinates: z.string().optional().describe(
-    "An array of coordinates for custom cropping.",
+    "Custom coordinates as comma-separated values, with multiple coordinates separated by pipes.",
   ),
   detection: z.string().optional().describe(
     "Invokes the relevant add-on to return a list of detected content.\nSet to:\n- <content-aware model>_[<version>] (e.g. coco_v2) to return a list of detected content using the Cloudinary AI Content Analysis add-on. Can be used together with the auto_tagging parameter to apply tags automatically.\n- captioning to analyze an image and suggest a caption based on the image's contents.\n- iqa to analyze the quality of an image.\n- watermark-detection to detect watermarks in an image.\n- adv_face to return a list of facial attributes using the Advanced Facial Attribute Detection add-on.\n- aws_rek_face to return a list of detected celebrities and facial attributes using the Amazon Rekognition Celebrity Detection add-on. Can be used together with the auto_tagging parameter to apply tags automatically.\n",
@@ -244,7 +259,7 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
     "Allows you to modify upload parameters by specifying custom logic with JavaScript. This can be useful for conditionally adding tags, contextual metadata, structured metadata or eager transformations depending on specific criteria of the uploaded file.",
   ),
   face_coordinates: z.string().optional().describe(
-    "An array of coordinates representing detected faces in the asset, used for custom cropping or overlays.",
+    "Face coordinates as comma-separated values, with multiple faces separated by pipes.",
   ),
   faces: z.boolean().optional().describe(
     "Whether to detect faces in the asset.",
@@ -270,8 +285,8 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
   media_metadata: z.boolean().optional().describe(
     "Whether to return IPTC, XMP, and detailed Exif metadata of the uploaded asset in the response.\nSupported for images, video, and audio.\n- Returned metadata for images includes: PixelsPerUnitX, PixelsPerUnitY, PixelUnits, Colorspace, and DPI.\n- Returned metadata for audio and video includes: audio_codec, audio_bit_rate, audio_frequency, channels, channel_layout.\n- Additional metadata for video includes: pix_format, codec, level, profile, video_bit_rate, dar.\n",
   ),
-  metadata: z.string().optional().describe(
-    "Structured metadata to attach to the asset based on the metadata fields defined for your account.",
+  metadata: StructuredMetadataParam$zodSchema.optional().describe(
+    "A pipe-separated list or a map of custom metadata fields (by external_id) and the values to assign to each of them. The = \" and | characters can be supported as values when escaped with a prepended backslash (\\). For a multi-select field, you can set a maximum of 3000 different metadata values on an asset.\n",
   ),
   moderation: z.string().optional().describe(
     "For all asset types, set to:\n- manual to add the uploaded asset to a list of pending assets that can be moderated using the Admin API or the Cloudinary Console.\n- perception_point to automatically moderate the uploaded asset using the Perception Point Malware Detection add-on.\n\nFor images only, set to:\n- webpurify to automatically moderate the uploaded image using the WebPurify Image Moderation add-on.\n- aws_rek to automatically moderate the uploaded image using the Amazon Rekognition AI Moderation add-on.\n- duplicate:<threshold> to detect if the same or a similar image already exists using the Cloudinary Duplicate Image Detection add-on. Set threshold to a float greater than 0 and less than or equal to 1.0 to specify how similar an image needs to be in order to be considered a duplicate. Set threshold to 0 to add an image to the index of images that are searched when duplicate detection is invoked for another image.\n\nFor videos only, set to:\n- aws_rek_video to automatically moderate the uploaded video using the Amazon Rekognition Video Moderation add-on.\n- google_video_moderation automatically moderate the uploaded video using the Google AI Video Moderation add-on.\n\nTo request multiple moderations in a single API call:\n- Send the desired list of moderations as a pipe-separated string with manual moderation, if relevant, being last.\n\nNote: Rejected assets are automatically invalidated on the CDN within approximately ten minutes.\n",
@@ -306,28 +321,29 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
   raw_convert: z.string().optional().describe(
     "Generates a related file based on the uploaded file.\n- Set to aspose to automatically create a PDF or other image format from a raw Office document using the Aspose Document Conversion add-on. (Asynchronous)\n- Set to google_speech to instruct the Google AI Video Transcription add-on to generate an automatic transcript raw file from an uploaded video. (Asynchronous)\n- Set to extract_text to extract all the text from a PDF file and store it in a raw JSON file with a public ID in the format: [pdf_public_id].extract_text.json. The full URL of the generated JSON file is included in the API response. Unlike the above raw_convert options, this option doesn't require registering for an add-on.(Synchronous)\n- Set to azure_video_indexer to generate AI-powered video insights from Microsoft Azure. (Asynchronous)\n",
   ),
-  regions: z.string().optional().describe("Regions to detect in the asset."),
-  responsive_breakpoints: z.array(z.lazy(() => ResponsiveBreakpoint$zodSchema))
-    .optional().describe(
-      "Settings to automatically generate breakpoints for responsive images.",
-    ),
+  regions: z.union([
+    z.string(),
+    z.record(z.string(), z.array(z.array(z.int()))),
+  ]).optional().describe(
+    "Named region coordinate groups for cropping with region gravity.\nCan be a JSON-encoded string or an object. Each region name may contain\nonly letters, numbers, or hyphens, and must have at least two coordinate pairs.\n",
+  ),
+  responsive_breakpoints: z.union([
+    z.array(ResponsiveBreakpoint$zodSchema),
+    ResponsiveBreakpoint$zodSchema,
+  ]).optional().describe(
+    "Settings to automatically generate breakpoints for responsive images.",
+  ),
   return_delete_token: z.boolean().optional().describe(
     "Whether to return a deletion token in the upload response. The token can be used to delete the uploaded asset within approximately 10 minutes using an unauthenticated API call.",
   ),
-  signature: z.string().optional().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
-  ),
-  tags: z.string().optional().describe(
-    "A comma-separated list of tag names to assign to the asset.",
-  ),
-  timestamp: z.int().optional().describe(
-    "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
+  tags: TagsParam$zodSchema.optional().describe(
+    "A comma-separated list of tag names, or an array of tag names.",
   ),
   transformation: z.string().optional().describe(
     "An incoming transformation to run on the uploaded asset before its storage. In contrast to eager, this parameter is applied before the file is stored.",
   ),
-  type: UploadRequestType$zodSchema.optional().describe(
-    "The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload). Possible values are upload, authenticated, private or asset.",
+  type: UploadDeliveryType$zodSchema.optional().describe(
+    "The delivery type that defines if and how the uploaded asset is available for public delivery. By default, all uploaded assets are public (upload).",
   ),
   unique_display_name: z.boolean().optional().describe(
     "Whether the display name should be unique.",
@@ -350,4 +366,6 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
   visual_search: z.boolean().optional().describe(
     "Whether to index the image for use with visual searches. Relevant for images only.",
   ),
-});
+}).describe(
+  "Parameters for configuring asset uploads, including transformation, tagging, metadata, and delivery options.",
+);
