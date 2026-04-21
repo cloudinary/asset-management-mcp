@@ -47,9 +47,9 @@ import { Result } from "../types/fp.js";
  *
  * ## Common mistakes
  *
- * - Use `folder:` or `asset_folder:` (singular); `folders:` is not a valid field. Pass the exact folder name — wildcards do not apply here.
- * - Bare `*` as a presence probe (`folder:*`, `context.alt:*`) is a parse error. Every wildcard must have at least one preceding character.
- * - `NOT foo AND bar` is a parse error. Write it as `bar AND NOT foo` or `-foo AND bar`.
+ * - Use `folder:` or `asset_folder:` (singular); `folders:`, `asset_folder_id:`, and other invented variants are not valid fields. Pass the exact folder name — wildcards do not apply here.
+ * - There is no "has any value" / presence probe. `folder:*`, `metadata.alt:*`, `context.key:*`, `tags:*`, and `-tags:*` are all parse errors. See *"Which assets have any value for `metadata.<id>`?"* under **Common tasks** for workarounds.
+ * - `NOT foo AND bar` is a parse error. Write it as `bar AND NOT foo` or `-foo AND bar`, and keep every `NOT` between two clauses (`a AND NOT b AND NOT c` is fine; `NOT b AND NOT c …` is not).
  * - `public_id:dog` will not match `dog_pldcwy`. Use `public_id="dog_pldcwy"` (exact) or `public_id:dog*` (prefix).
  * - `tags=service:mantels` fails because the unquoted colon is parsed as a field separator. Use `tags="service:mantels"` or `tags=service\:mantels`.
  * - Do not HTML-escape operators. Send `uploaded_at<1h`, not `uploaded_at&lt;1h`.
@@ -58,8 +58,20 @@ import { Result } from "../types/fp.js";
  * ## Tips
  *
  * - Set `max_results: 0` to return only `total_count` and `aggregations` without any resource payload — useful for counts and aggregation-only queries.
+ * - `total_count` is always present in the response; prefer it over running an aggregation just to get a count.
  * - `aggregate` (both simple and range variants) and the `metadata`, `image_metadata`, `image_analysis` values of `with_field` require a Tier 2 search plan.
  * - Range aggregations require each range to include a `key` label (1–20 chars, `[a-zA-Z0-9_-]+`) and at least one of `from` / `to`.
+ *
+ * ## Common tasks
+ *
+ * - **Count matching assets** — put the filter in `expression` with `max_results: 0` and read `total_count` from the response. Works on every tier; no `aggregate` needed.
+ * - **Preview one matching asset** — set `max_results: 1`; add `with_field: ["tags", "context"]` (or `metadata`, Tier 2) to inspect values. Prefer this over fetching and scanning a full page.
+ * - **Distribution of values for a field** — Tier 2: `aggregate: [format|resource_type|type]` for enum counts, or range aggregations on `bytes`, `image_pixels`, `video_pixels`, or `duration`. Tier 1 fallback: run N small queries with `max_results: 0`, one per candidate value, and read `total_count` from each.
+ * - **"Which assets have any value for `metadata.<id>`?"** — not expressible directly (`metadata.X:*` is a parse error; there is no presence probe). Workarounds: (a) if the field has a known value set, enumerate — `metadata.region:(apac OR emea OR amer)`; (b) query broadly with `with_field: ["metadata"]` (Tier 2) and filter client-side for entries where the field is set; (c) at ingest time, attach a sentinel tag whenever the field is set, then search by that tag.
+ * - **Newest / largest N** — keep the filter in `expression` and sort explicitly: `sort_by: [{uploaded_at: "desc"}]` with `max_results: 10`.
+ * - **Filter by folder** — both `asset_folder:"parent/child"` and `folder:"parent/child"` match an exact folder path; there is no wildcard or "contains". To query across multiple folders, enumerate: `asset_folder:("campaigns/2024" OR "campaigns/2025")`.
+ * - **Filter by metadata when you only know the label** — first call `list-metadata-fields` to resolve the label to an `external_id`, then query `metadata.<external_id>:value`.
+ * - **Multiple independent filters in one turn** — prefer one `expression` with `OR` / parentheses over firing many parallel calls: `metadata.region:apac OR metadata.region:emea` in a single request is faster and more reliable than two parallel requests.
  *
  * ## Examples
  *
