@@ -40,7 +40,7 @@ import { Result } from "../types/fp.js";
  * - **Comparisons**: `>`, `<`, `>=`, `<=` for numbers and dates. Example: `bytes>10000000`.
  * - **Ranges**: `field:[from TO to]` inclusive, `field:{from TO to}` exclusive. Example: `width:{200 TO 1028}`.
  * - **Booleans**: `AND`, `OR`, `NOT` (must be uppercase), or `+` (must), `-` (must not). Group with parentheses: `(shirt OR pants) AND clothes`.
- * - **Wildcards**: `*` (zero or more chars) and `?` (single char) inside values. Example: `public_id:shoes_*`.
+ * - **Wildcards**: only a trailing `*` is supported and runs a prefix match. Examples: `public_id:shoes_*`, `asset_folder:mcp*`. Leading wildcards (`*shoes`) and middle wildcards (`sh*es`) are parse errors. `?` is a reserved character, not a single-character wildcard. Text fields (`tags`, `filename`, `display_name`, `public_id`, `context.<key>`, `metadata.<id>`) are tokenized on whitespace and punctuation, so plain tokenized match (`filename:report`) already matches any token-sized suffix without needing a wildcard.
  * - **Dates**: ISO-8601 (`uploaded_at>"2024-01-15"`) or relative shorthand `Nd`, `Nh`, `Nw`, `Nm`, `Ny` (`uploaded_at>1d`, `created_at:[4w TO 1w]`). Do not URL- or HTML-encode operators: send a raw `<`, never `&lt;`.
  * - **Quoting**: If a value contains a space, colon, or other reserved character (`! ( ) { } [ ] ^ ~ ?  \ = & < > |`), wrap it in double quotes or escape each character with `\`. Examples: `tags:"service:mantels"`, `aspect_ratio:"16:9"`, `folder:"My Folder"`.
  *
@@ -50,6 +50,7 @@ import { Result } from "../types/fp.js";
  * - `tags=service:mantels` fails because the unquoted colon is parsed as a field separator. Use `tags="service:mantels"` or `tags=service\:mantels`.
  * - Dates and other reserved tokens must not be HTML-escaped. Send `uploaded_at<1h`, not `uploaded_at&lt;1h`.
  * - Do not leave an operand empty (e.g. `tags: AND -tags:foo`). Omit the empty clause entirely.
+ * - Leading/middle wildcards (`asset_folder:*mcp`, `folder:pro*ucts`) are rejected. Anchor `*` to the end for a prefix match (`asset_folder:mcp*`), or rely on tokenized match for "contains" semantics.
  *
  * ## Examples
  *
