@@ -14,15 +14,6 @@ const args = {
   version_id: z.string().describe(
     "The version ID of the backup to download. Must be a 32-character hexadecimal string.",
   ),
-  api_key: z.string().describe(
-    "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
-  ).optional(),
-  signature: z.string().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
-  ).optional(),
-  timestamp: z.int().describe(
-    "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
-  ).optional(),
 };
 
 export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
@@ -31,7 +22,7 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
   annotations: {
     "title": "Download Asset Backup",
     "destructiveHint": false,
-    "idempotentHint": false,
+    "idempotentHint": true,
     "openWorldHint": false,
     "readOnlyHint": true,
   },
@@ -41,9 +32,6 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
       client,
       args.asset_id,
       args.version_id,
-      args.api_key,
-      args.signature,
-      args.timestamp,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

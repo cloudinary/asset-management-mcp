@@ -11,9 +11,9 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DestroyRequest,
-  DestroyRequest$zodSchema,
-} from "../models/destroyrequest.js";
+  ComponentsDestroyRequest,
+  ComponentsDestroyRequest$zodSchema,
+} from "../models/componentsdestroyrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -27,15 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete asset by asset-id
+ * Delete asset by asset ID
  *
  * @remarks
- * Deletes an asset using its asset ID. This endpoint replaces the legacy /resources/by_asset_id endpoint.
- * Returns the deletion status and asset folder information when folder decoupling is enabled.
+ * Deletes an asset using its immutable asset ID.
  */
 export function assetsDestroyByAssetId(
   client$: CloudinaryAssetMgmtCore,
-  request: DestroyRequest,
+  request: ComponentsDestroyRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +57,7 @@ export function assetsDestroyByAssetId(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  request: DestroyRequest,
+  request: ComponentsDestroyRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -77,7 +76,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => DestroyRequest$zodSchema.parse(value$),
+    (value$) => ComponentsDestroyRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

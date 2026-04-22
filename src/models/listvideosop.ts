@@ -5,13 +5,13 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { Direction, Direction$zodSchema } from "./direction.js";
-import { FieldsSpec, FieldsSpec$zodSchema } from "./fieldsspec.js";
-import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 import {
-  ListStorageType,
-  ListStorageType$zodSchema,
-} from "./liststoragetype.js";
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
+import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
+import { Fields, Fields$zodSchema } from "./fields.js";
+import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 
 export type ListVideosGlobals = { cloud_name?: string | undefined };
 
@@ -23,39 +23,43 @@ export const ListVideosGlobals$zodSchema: z.ZodType<ListVideosGlobals> = z
   });
 
 export type ListVideosRequest = {
-  type?: ListStorageType | undefined;
+  type?: DeliveryTypeAll | undefined;
   prefix?: string | undefined;
   public_ids?: Array<string> | undefined;
   tags?: boolean | undefined;
   next_cursor?: string | undefined;
   max_results?: number | undefined;
-  direction?: Direction | undefined;
+  direction?: DirectionEnum | undefined;
   start_at?: string | undefined;
-  fields?: Array<FieldsSpec> | undefined;
+  fields?: Fields | undefined;
 };
 
 export const ListVideosRequest$zodSchema: z.ZodType<ListVideosRequest> = z
   .object({
-    direction: Direction$zodSchema.optional().describe("Sort direction."),
-    fields: z.array(FieldsSpec$zodSchema).optional(),
+    direction: DirectionEnum$zodSchema.optional().describe(
+      "The sort direction for the results. Default is \"desc\".",
+    ),
+    fields: Fields$zodSchema.optional().describe(
+      "Additional fields to include in the response. The fields public_id and asset_id are always included.",
+    ),
     max_results: z.int().describe(
       "Maximum number of results to return (1-500).",
     ).optional(),
     next_cursor: z.string().describe("Cursor for pagination.").optional(),
     prefix: z.string().describe(
-      "A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.",
+      "A public_id prefix. When specified, all assets with that prefix are returned.",
     ).optional(),
     public_ids: z.array(z.string()).describe(
       "An array of public IDs to return.",
     ).optional(),
     start_at: z.iso.datetime({ offset: true }).describe(
-      "An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.",
+      "An ISO-8601 formatted timestamp. When specified, returns resources created since that timestamp. Supported only if neither `prefix` nor `public_ids` were passed.",
     ).optional(),
-    tags: z.boolean().describe(
-      "Whether to include the list of tag names assigned to each asset. Default: false",
-    ).optional(),
-    type: ListStorageType$zodSchema.optional().describe(
-      "The delivery type. Necessary for prefix filtering.",
+    tags: z.boolean().default(false).describe(
+      "Whether to include the list of tag names assigned to each asset. Default is false.",
+    ),
+    type: DeliveryTypeAll$zodSchema.optional().describe(
+      "The delivery type to filter by. When omitted, returns assets of all delivery types.",
     ),
   });
 

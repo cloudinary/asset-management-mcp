@@ -6,7 +6,10 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import { StorageType, StorageType$zodSchema } from "./storagetype.js";
+import {
+  UploadDeliveryType,
+  UploadDeliveryType$zodSchema,
+} from "./uploaddeliverytype.js";
 
 /**
  * The status of the asynchronous upload. Will be 'pending' for async uploads.
@@ -33,7 +36,7 @@ export const AsyncUploadResponseStatus$zodSchema = z.enum([
 export type AsyncUploadResponse = {
   status: AsyncUploadResponseStatus;
   resource_type?: ResourceType | undefined;
-  type: StorageType;
+  type: UploadDeliveryType;
   public_id?: string | undefined;
   batch_id: string;
   requester_ip?: string | undefined;
@@ -56,7 +59,9 @@ export const AsyncUploadResponse$zodSchema: z.ZodType<AsyncUploadResponse> = z
     status: AsyncUploadResponseStatus$zodSchema.describe(
       "The status of the asynchronous upload. Will be 'pending' for async uploads.",
     ),
-    type: StorageType$zodSchema.describe("The storage type of the resource."),
+    type: UploadDeliveryType$zodSchema.describe(
+      "Delivery types accepted by upload and rename operations.",
+    ),
   }).describe(
     "Response returned when an upload is processed asynchronously (async=true)",
   );

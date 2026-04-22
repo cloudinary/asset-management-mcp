@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Updates an existing asset's metadata, tags, and other attributes using its asset ID
  *
  * @remarks
- * Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. Note that you can also update many attributes of an existing asset using the explicit method, which is not rate-limited.
+ * Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. Note that you can also update attributes of an existing asset using the explicit API endpoint.
  */
 export function assetsUpdateResourceByAssetId(
   client$: CloudinaryAssetMgmtCore,

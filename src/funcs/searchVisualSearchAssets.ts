@@ -32,7 +32,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:
  * - Provide a URL of an image
- * - Specify the public ID or asset ID of an existing image
+ * - Specify the asset ID of an existing image
  * - Provide a textual description
  */
 export function searchVisualSearchAssets(

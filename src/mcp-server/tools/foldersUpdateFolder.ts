@@ -5,12 +5,16 @@
 
 import * as z from "zod";
 import { foldersUpdateFolder } from "../../funcs/foldersUpdateFolder.js";
-import { UpdateFolderRequestBody$zodSchema } from "../../models/updatefolderop.js";
+import { MoveFolderRequest$zodSchema } from "../../models/movefolderrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  folder: z.string(),
-  RequestBody: UpdateFolderRequestBody$zodSchema,
+  folder: z.string().describe(
+    "The full path of the folder, including any nested folders. Must not be empty, and must not contain double slashes or leading/trailing slashes.",
+  ),
+  move_folder_request: MoveFolderRequest$zodSchema.describe(
+    `The new folder path.`,
+  ),
 };
 
 export const tool$foldersUpdateFolder: ToolDefinition<typeof args> = {
@@ -32,7 +36,7 @@ Renames or moves an entire folder (along with all assets it contains) to a new l
     const [result] = await foldersUpdateFolder(
       client,
       args.folder,
-      args.RequestBody,
+      args.move_folder_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

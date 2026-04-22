@@ -31,7 +31,9 @@ export type AssignFolderRolesRequestRequest = {
 export const AssignFolderRolesRequestRequest$zodSchema: z.ZodType<
   AssignFolderRolesRequestRequest
 > = z.object({
-  assign_folder_roles_request: AssignFolderRolesRequest$zodSchema,
+  assign_folder_roles_request: AssignFolderRolesRequest$zodSchema.describe(
+    "The folder role assignments.",
+  ),
   folder_id: z.string().describe(
     "The immutable identifier of the folder, returned by the Get root folders and Get subfolders endpoints.",
   ),

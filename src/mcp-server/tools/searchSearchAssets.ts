@@ -8,7 +8,7 @@ import { SearchParameters$zodSchema } from "../../models/searchparameters.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: SearchParameters$zodSchema,
+  request: SearchParameters$zodSchema.describe(`The search query parameters.`),
 };
 
 export const tool$searchSearchAssets: ToolDefinition<typeof args> = {

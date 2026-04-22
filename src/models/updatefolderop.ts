@@ -5,6 +5,14 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  MoveFolderRequest,
+  MoveFolderRequest$zodSchema,
+} from "./movefolderrequest.js";
+import {
+  MoveFolderResponse,
+  MoveFolderResponse$zodSchema,
+} from "./movefolderresponse.js";
 
 export type UpdateFolderGlobals = { cloud_name?: string | undefined };
 
@@ -15,55 +23,25 @@ export const UpdateFolderGlobals$zodSchema: z.ZodType<UpdateFolderGlobals> = z
     ).optional(),
   });
 
-export type UpdateFolderRequestBody = { to_folder: string };
-
-export const UpdateFolderRequestBody$zodSchema: z.ZodType<
-  UpdateFolderRequestBody
-> = z.object({
-  to_folder: z.string().describe("The new path for the folder."),
-});
-
 export type UpdateFolderRequest = {
   folder: string;
-  RequestBody: UpdateFolderRequestBody;
+  move_folder_request: MoveFolderRequest;
 };
 
 export const UpdateFolderRequest$zodSchema: z.ZodType<UpdateFolderRequest> = z
   .object({
-    RequestBody: z.lazy(() => UpdateFolderRequestBody$zodSchema),
-    folder: z.string(),
+    folder: z.string().describe(
+      "The full path of the folder, including any nested folders. Must not be empty, and must not contain double slashes or leading/trailing slashes.",
+    ),
+    move_folder_request: MoveFolderRequest$zodSchema.describe(
+      "The new folder path.",
+    ),
   });
 
-export type From = { name: string; path: string };
-
-export const From$zodSchema: z.ZodType<From> = z.object({
-  name: z.string().describe("The name of the source folder."),
-  path: z.string().describe("The full path of the source folder."),
-});
-
-export type To = { name: string; path: string };
-
-export const To$zodSchema: z.ZodType<To> = z.object({
-  name: z.string().describe("The name of the target folder."),
-  path: z.string().describe("The full path of the target folder."),
-});
-
-/**
- * Folder renamed successfully
- */
-export type UpdateFolderResponseBody = { from: From; to: To };
-
-export const UpdateFolderResponseBody$zodSchema: z.ZodType<
-  UpdateFolderResponseBody
-> = z.object({
-  from: z.lazy(() => From$zodSchema),
-  to: z.lazy(() => To$zodSchema),
-}).describe("Folder renamed successfully");
-
-export type UpdateFolderResponse = UpdateFolderResponseBody | ApiError;
+export type UpdateFolderResponse = MoveFolderResponse | ApiError;
 
 export const UpdateFolderResponse$zodSchema: z.ZodType<UpdateFolderResponse> = z
   .union([
-    z.lazy(() => UpdateFolderResponseBody$zodSchema),
+    MoveFolderResponse$zodSchema,
     ApiError$zodSchema,
   ]);
