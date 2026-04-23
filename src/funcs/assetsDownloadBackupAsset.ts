@@ -41,9 +41,6 @@ export function assetsDownloadBackupAsset(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
   version_id: string,
-  api_key?: string | undefined,
-  signature?: string | undefined,
-  timestamp?: number | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,9 +58,6 @@ export function assetsDownloadBackupAsset(
     client$,
     asset_id,
     version_id,
-    api_key,
-    signature,
-    timestamp,
     options,
   ));
 }
@@ -72,9 +66,6 @@ async function $do(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
   version_id: string,
-  api_key?: string | undefined,
-  signature?: string | undefined,
-  timestamp?: number | undefined,
   options?: RequestOptions & {
     acceptHeaderOverride?: DownloadBackupAssetAcceptEnum;
   },
@@ -96,9 +87,6 @@ async function $do(
   const input$: DownloadBackupAssetRequest = {
     asset_id: asset_id,
     version_id: version_id,
-    api_key: api_key,
-    signature: signature,
-    timestamp: timestamp,
   };
 
   const parsed$ = safeParse(
@@ -122,10 +110,7 @@ async function $do(
     pathParams$,
   );
   const query$ = encodeFormQuery({
-    "api_key": payload$.api_key,
     "asset_id": payload$.asset_id,
-    "signature": payload$.signature,
-    "timestamp": payload$.timestamp,
     "version_id": payload$.version_id,
   });
 

@@ -4,7 +4,10 @@
  */
 
 import * as z from "zod";
-import { StorageType, StorageType$zodSchema } from "./storagetype.js";
+import {
+  UploadDeliveryType,
+  UploadDeliveryType$zodSchema,
+} from "./uploaddeliverytype.js";
 
 /**
  * Status information returned for in-progress chunked uploads.
@@ -15,7 +18,7 @@ import { StorageType, StorageType$zodSchema } from "./storagetype.js";
 export type NonFinalChunkUploadResponse = {
   done: boolean;
   bytes: number;
-  kind?: StorageType | undefined;
+  kind?: UploadDeliveryType | undefined;
   resource_type?: string | undefined;
   public_id?: string | undefined;
 };
@@ -27,8 +30,8 @@ export const NonFinalChunkUploadResponse$zodSchema: z.ZodType<
   done: z.boolean().describe(
     "Whether the upload is complete. Will be false for all but the last chunk.",
   ),
-  kind: StorageType$zodSchema.optional().describe(
-    "The storage type of the resource.",
+  kind: UploadDeliveryType$zodSchema.optional().describe(
+    "Delivery types accepted by upload and rename operations.",
   ),
   public_id: z.string().optional().describe(
     "The public ID assigned to the upload. May be omitted in early chunks if it will be auto-generated upon completion.",

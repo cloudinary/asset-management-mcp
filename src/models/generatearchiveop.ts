@@ -12,9 +12,13 @@ import {
   ArchiveResourceType$zodSchema,
 } from "./archiveresourcetype.js";
 import {
-  ArchiveStorageType,
-  ArchiveStorageType$zodSchema,
-} from "./archivestoragetype.js";
+  DeliveryTypeAll,
+  DeliveryTypeAll$zodSchema,
+} from "./deliverytypeall.js";
+import {
+  GenerateArchiveResponse,
+  GenerateArchiveResponse$zodSchema,
+} from "./generatearchiveresponse.js";
 
 export type GenerateArchiveGlobals = { cloud_name?: string | undefined };
 
@@ -26,26 +30,34 @@ export const GenerateArchiveGlobals$zodSchema: z.ZodType<
 });
 
 /**
- * The method for generating and delivering the archive. Only "create" is supported:
+ * The method for generating and delivering the archive. Options:
  *
  * @remarks
+ * download - Generates and delivers the archive file without storing it
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
+ * create_and_download - Creates, stores, and delivers the archive file
  */
 export const Mode = {
+  Download: "download",
   Create: "create",
+  CreateAndDownload: "create_and_download",
 } as const;
 /**
- * The method for generating and delivering the archive. Only "create" is supported:
+ * The method for generating and delivering the archive. Options:
  *
  * @remarks
+ * download - Generates and delivers the archive file without storing it
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
+ * create_and_download - Creates, stores, and delivers the archive file
  */
 export type Mode = ClosedEnum<typeof Mode>;
 
 export const Mode$zodSchema = z.enum([
+  "download",
   "create",
+  "create_and_download",
 ]).describe(
-  "The method for generating and delivering the archive. Only \"create\" is supported:\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\n",
+  "The method for generating and delivering the archive. Options:\ndownload - Generates and delivers the archive file without storing it\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\ncreate_and_download - Creates, stores, and delivers the archive file\n",
 );
 
 /**
@@ -65,14 +77,26 @@ export const TargetFormat$zodSchema = z.enum([
   "tgz",
 ]).describe("The format of the generated archive.");
 
+/**
+ * A list of asset folder paths to include in the archive, or a single folder path string. Only available when asset folders are enabled for your account.
+ */
+export type AssetFolders = Array<string> | string;
+
+export const AssetFolders$zodSchema: z.ZodType<AssetFolders> = z.union([
+  z.array(z.string()),
+  z.string(),
+]).describe(
+  "A list of asset folder paths to include in the archive, or a single folder path string. Only available when asset folders are enabled for your account.",
+);
+
+/**
+ * The archive generation parameters.
+ */
 export type GenerateArchiveRequestBody = {
-  api_key?: string | undefined;
-  timestamp?: number | undefined;
-  signature?: string | undefined;
   public_ids?: Array<string> | undefined;
   tags?: Array<string> | undefined;
   prefixes?: Array<string> | undefined;
-  type?: ArchiveStorageType | undefined;
+  type?: DeliveryTypeAll | undefined;
   transformations?: string | undefined;
   mode?: Mode | undefined;
   target_format?: TargetFormat | undefined;
@@ -88,6 +112,10 @@ export type GenerateArchiveRequestBody = {
   notification_url?: string | undefined;
   target_tags?: Array<string> | undefined;
   keep_derived?: boolean | undefined;
+  fully_qualified_public_ids?: Array<string> | undefined;
+  search_expression?: string | undefined;
+  target_filename?: string | undefined;
+  asset_folders?: Array<string> | string | undefined;
 };
 
 export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
@@ -96,8 +124,11 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
   allow_missing: z.boolean().default(false).describe(
     "Whether to allow missing assets in the archive. If false, the operation will fail if any asset is not found.",
   ),
-  api_key: z.string().optional().describe(
-    "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
+  asset_folders: z.union([
+    z.array(z.string()),
+    z.string(),
+  ]).optional().describe(
+    "A list of asset folder paths to include in the archive, or a single folder path string. Only available when asset folders are enabled for your account.",
   ),
   async: z.boolean().default(false).describe(
     "(\"create\" mode only), specifies whether to generate the archive asynchronously.",
@@ -111,32 +142,38 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
   flatten_transformations: z.boolean().default(false).describe(
     "Whether to flatten the folder structure of the derived assets.",
   ),
+  fully_qualified_public_ids: z.array(z.string()).optional().describe(
+    "A list of fully qualified public IDs (resource_type/type/public_id) to include in the archive.",
+  ),
   keep_derived: z.boolean().default(false).describe(
     "Whether to keep the derived assets used for generating the archive.",
   ),
   mode: Mode$zodSchema.default("create").describe(
-    "The method for generating and delivering the archive. Only \"create\" is supported:\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\n",
+    "The method for generating and delivering the archive. Options:\ndownload - Generates and delivers the archive file without storing it\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\ncreate_and_download - Creates, stores, and delivers the archive file\n",
   ),
   notification_url: z.string().optional().describe(
     "(\"create\" mode only), specifies the URL to notify when the archive generation is complete.",
   ),
   prefixes: z.array(z.string()).optional().describe(
-    "Select all assets where the public ID starts with this prefix. Up to 20 prefixes are supported.",
+    "Select all assets where the public ID starts with this prefix.",
   ),
   public_ids: z.array(z.string()).optional().describe(
-    "The list of public IDs to include in the archive. Up to 1000 public IDs are supported.",
+    "The list of public IDs to include in the archive.",
   ),
-  signature: z.string().optional().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
+  search_expression: z.string().optional().describe(
+    "A search expression to select assets to include in the archive.",
   ),
   skip_transformation_name: z.boolean().default(false).describe(
     "Whether to skip adding the transformation details to the file names in the archive.",
   ),
   tags: z.array(z.string()).optional().describe(
-    "A tag to use for selecting assets to include in the archive. Up to 20 tags are supported.",
+    "Tags to filter which assets to include in the archive. Assets matching any of the specified tags are included.",
   ),
   target_asset_folder: z.string().optional().describe(
     "The folder in your product environment where the generated archive should be stored.",
+  ),
+  target_filename: z.string().optional().describe(
+    "The filename for the downloaded archive file. Extension must match target_format (zip or tgz).",
   ),
   target_format: TargetFormat$zodSchema.default("zip").describe(
     "The format of the generated archive.",
@@ -147,19 +184,16 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
   target_tags: z.array(z.string()).optional().describe(
     "A list of tag names to assign to the generated archive.",
   ),
-  timestamp: z.int().optional().describe(
-    "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
-  ),
   transformations: z.string().optional().describe(
     "The transformations to apply to the assets before including them in the archive (separated by \"|\").",
   ),
-  type: ArchiveStorageType$zodSchema.optional().describe(
-    "The storage type of resources to include in the archive.",
+  type: DeliveryTypeAll$zodSchema.optional().describe(
+    "All supported delivery types.",
   ),
   use_original_filename: z.boolean().default(false).describe(
     "Whether to use the original filenames of the assets in the archive instead of public IDs (when available).",
   ),
-});
+}).describe("The archive generation parameters.");
 
 export type GenerateArchiveRequest = {
   resource_type: ArchiveResourceType;
@@ -169,111 +203,26 @@ export type GenerateArchiveRequest = {
 export const GenerateArchiveRequest$zodSchema: z.ZodType<
   GenerateArchiveRequest
 > = z.object({
-  RequestBody: z.lazy(() => GenerateArchiveRequestBody$zodSchema),
+  RequestBody: z.lazy(() => GenerateArchiveRequestBody$zodSchema).describe(
+    "The archive generation parameters.",
+  ),
   resource_type: ArchiveResourceType$zodSchema.describe(
-    "The type of resources to include in the archive. \"image\" for images, \"video\" for videos, \"raw\" for non-media files, or \"all\" for mixed types.",
+    "The type of resource for archive generation (image, video, or raw).",
   ),
 });
 
-/**
- * Archive successfully generated or downloaded
- */
-export type GenerateArchiveResponseBody = {
-  asset_id?: string | undefined;
-  public_id?: string | undefined;
-  version?: number | undefined;
-  version_id?: string | undefined;
-  resource_type?: string | undefined;
-  created_at?: string | undefined;
-  tags?: Array<string> | undefined;
-  bytes?: number | undefined;
-  type?: string | undefined;
-  url?: string | undefined;
-  secure_url?: string | undefined;
-  folder?: string | undefined;
-  resource_count?: number | undefined;
-  file_count?: number | undefined;
-  asset_folder?: string | undefined;
-  display_name?: string | undefined;
-  missing_public_ids?: Array<string> | undefined;
-  empty_tags?: Array<string> | undefined;
-  empty_prefixes?: Array<string> | undefined;
-};
-
-export const GenerateArchiveResponseBody$zodSchema: z.ZodType<
-  GenerateArchiveResponseBody
-> = z.object({
-  asset_folder: z.string().optional().describe(
-    "The folder in your product environment where the archive is stored.",
-  ),
-  asset_id: z.string().optional().describe(
-    "The unique identifier of the generated archive in the Cloudinary system.",
-  ),
-  bytes: z.int().optional().describe(
-    "The size of the generated archive in bytes.",
-  ),
-  created_at: z.iso.datetime({ offset: true }).optional().describe(
-    "The timestamp when the archive was generated.",
-  ),
-  display_name: z.string().optional().describe(
-    "The display name of the generated archive.",
-  ),
-  empty_prefixes: z.array(z.string()).optional().describe(
-    "The list of prefixes that were requested but returned no results.",
-  ),
-  empty_tags: z.array(z.string()).optional().describe(
-    "The list of tags that were requested but returned no results.",
-  ),
-  file_count: z.int().optional().describe(
-    "The total number of files in the archive.",
-  ),
-  folder: z.string().optional().describe(
-    "The folder where the archive is stored (only for product environments with Dynamic Folders disabled)",
-  ),
-  missing_public_ids: z.array(z.string()).optional().describe(
-    "The list of public IDs that were requested but not found.",
-  ),
-  public_id: z.string().optional().describe(
-    "The public ID of the generated archive.",
-  ),
-  resource_count: z.int().optional().describe(
-    "The number of unique resources included in the archive.",
-  ),
-  resource_type: z.string().optional().describe(
-    "The type of resource. Always \"raw\" for generated archives.",
-  ),
-  secure_url: z.string().optional().describe(
-    "The HTTPS URL for downloading the generated archive.",
-  ),
-  tags: z.array(z.string()).optional().describe(
-    "The tags assigned to the generated archive.",
-  ),
-  type: z.string().optional().describe(
-    "The resource type of the generated archive.",
-  ),
-  url: z.string().optional().describe(
-    "The HTTP URL for downloading the generated archive.",
-  ),
-  version: z.int().optional().describe(
-    "The version number of the generated archive.",
-  ),
-  version_id: z.string().optional().describe(
-    "The unique identifier of this version of the generated archive.",
-  ),
-}).describe("Archive successfully generated or downloaded");
-
-export type GenerateArchiveResponse =
+export type GenerateArchiveResponseResponse =
   | ApiError
   | Uint8Array
   | string
-  | GenerateArchiveResponseBody;
+  | GenerateArchiveResponse;
 
-export const GenerateArchiveResponse$zodSchema: z.ZodType<
-  GenerateArchiveResponse
+export const GenerateArchiveResponseResponse$zodSchema: z.ZodType<
+  GenerateArchiveResponseResponse
 > = z.union([
   ApiError$zodSchema,
   z.string().describe("Base64-encoded binary content").transform(
     b64$.bytesFromBase64,
   ),
-  z.lazy(() => GenerateArchiveResponseBody$zodSchema),
+  GenerateArchiveResponse$zodSchema,
 ]);

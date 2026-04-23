@@ -11,10 +11,10 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DeleteBackupVersionsRequest,
-  DeleteBackupVersionsRequest$zodSchema,
-  DeleteBackupVersionsRequestBody,
+  DeleteBackupVersionsRequestRequest,
+  DeleteBackupVersionsRequestRequest$zodSchema,
 } from "../models/deletebackupversionsop.js";
+import { DeleteBackupVersionsRequest } from "../models/deletebackupversionsrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
 export function backupsDeleteBackupVersions(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
-  RequestBody: DeleteBackupVersionsRequestBody,
+  delete_backup_versions_request: DeleteBackupVersionsRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +54,7 @@ export function backupsDeleteBackupVersions(
   return new APIPromise($do(
     client$,
     asset_id,
-    RequestBody,
+    delete_backup_versions_request,
     options,
   ));
 }
@@ -62,7 +62,7 @@ export function backupsDeleteBackupVersions(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
-  RequestBody: DeleteBackupVersionsRequestBody,
+  delete_backup_versions_request: DeleteBackupVersionsRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,21 +79,23 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: DeleteBackupVersionsRequest = {
+  const input$: DeleteBackupVersionsRequestRequest = {
     asset_id: asset_id,
-    RequestBody: RequestBody,
+    delete_backup_versions_request: delete_backup_versions_request,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => DeleteBackupVersionsRequest$zodSchema.parse(value$),
+    (value$) => DeleteBackupVersionsRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.delete_backup_versions_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     asset_id: encodeSimple("asset_id", payload$.asset_id, {

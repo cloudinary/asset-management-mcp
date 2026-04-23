@@ -5,38 +5,42 @@
 
 import * as z from "zod";
 import { assetsListVideos } from "../../funcs/assetsListVideos.js";
-import { Direction$zodSchema } from "../../models/direction.js";
-import { FieldsSpec$zodSchema } from "../../models/fieldsspec.js";
-import { ListStorageType$zodSchema } from "../../models/liststoragetype.js";
+import { DeliveryTypeAll$zodSchema } from "../../models/deliverytypeall.js";
+import { DirectionEnum$zodSchema } from "../../models/directionenum.js";
+import { Fields$zodSchema } from "../../models/fields.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  type: ListStorageType$zodSchema.optional().describe(
-    `The delivery type. Necessary for prefix filtering.`,
+  type: DeliveryTypeAll$zodSchema.optional().describe(
+    `The delivery type to filter by. When omitted, returns assets of all delivery types.`,
   ),
   prefix: z.string().describe(
-    "A public_id prefix. When specified, all assets with that prefix are returned. When using this, the `type` parameter must also be specified.",
+    "A public_id prefix. When specified, all assets with that prefix are returned.",
   ).optional(),
   public_ids: z.array(z.string()).describe("An array of public IDs to return.")
     .optional(),
-  tags: z.boolean().describe(
-    "Whether to include the list of tag names assigned to each asset. Default: false",
-  ).optional(),
+  tags: z.boolean().default(false).describe(
+    "Whether to include the list of tag names assigned to each asset. Default is false.",
+  ),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
   max_results: z.int().describe("Maximum number of results to return (1-500).")
     .optional(),
-  direction: Direction$zodSchema.optional().describe(`Sort direction.`),
+  direction: DirectionEnum$zodSchema.optional().describe(
+    `The sort direction for the results. Default is "desc".`,
+  ),
   start_at: z.iso.datetime({ offset: true }).describe(
-    "An ISO-8601 formatted timestamp. When specified, assets created since that timestamp are returned.  Supported only if neither `prefix` nor `public_ids` were passed.",
+    "An ISO-8601 formatted timestamp. When specified, returns resources created since that timestamp. Supported only if neither `prefix` nor `public_ids` were passed.",
   ).optional(),
-  fields: z.array(FieldsSpec$zodSchema).optional(),
+  fields: Fields$zodSchema.optional().describe(
+    `Additional fields to include in the response. The fields public_id and asset_id are always included.`,
+  ),
 };
 
 export const tool$assetsListVideos: ToolDefinition<typeof args> = {
   name: "list-videos",
   description: `Get video assets
 
-Retrieves a list of video assets. Results can be filtered by various criteria like tags, moderation status, prefix, or specific public IDs.
+Retrieves a list of video assets. Results can be filtered by various criteria like tags, prefix, or specific public IDs.
 `,
   scopes: ["librarian"],
   annotations: {

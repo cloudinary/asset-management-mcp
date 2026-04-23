@@ -13,7 +13,6 @@ import { pathToFunc } from "../lib/url.js";
 import {
   CreateAssetRelationsByAssetIdRequest,
   CreateAssetRelationsByAssetIdRequest$zodSchema,
-  CreateAssetRelationsByAssetIdRequestBody,
 } from "../models/createassetrelationsbyassetidop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -24,6 +23,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { RelateAssetsByAssetIdRequest } from "../models/relateassetsbyassetidrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -31,12 +31,12 @@ import { Result } from "../types/fp.js";
  * Add related assets by asset ID
  *
  * @remarks
- * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
+ * Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.
  */
 export function assetRelationsCreateAssetRelationsByAssetId(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
-  RequestBody: CreateAssetRelationsByAssetIdRequestBody,
+  relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -53,7 +53,7 @@ export function assetRelationsCreateAssetRelationsByAssetId(
   return new APIPromise($do(
     client$,
     asset_id,
-    RequestBody,
+    relate_assets_by_asset_id_request,
     options,
   ));
 }
@@ -61,7 +61,7 @@ export function assetRelationsCreateAssetRelationsByAssetId(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   asset_id: string,
-  RequestBody: CreateAssetRelationsByAssetIdRequestBody,
+  relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,7 @@ async function $do(
 > {
   const input$: CreateAssetRelationsByAssetIdRequest = {
     asset_id: asset_id,
-    RequestBody: RequestBody,
+    relate_assets_by_asset_id_request: relate_assets_by_asset_id_request,
   };
 
   const parsed$ = safeParse(
@@ -92,7 +92,9 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.relate_assets_by_asset_id_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     asset_id: encodeSimple("asset_id", payload$.asset_id, {

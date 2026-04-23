@@ -5,11 +5,9 @@
 
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
-import {
-  AccessControlItem,
-  AccessControlItem$zodSchema,
-} from "./accesscontrolitem.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import { TextRequest, TextRequest$zodSchema } from "./textrequest.js";
+import { TextResponse, TextResponse$zodSchema } from "./textresponse.js";
 
 export type TextGlobals = { cloud_name?: string | undefined };
 
@@ -35,257 +33,25 @@ export const TextResourceType$zodSchema = z.enum([
   "The type of resource to create. Must be \"image\" for text generation.",
 );
 
-/**
- * Text alignment (left, center, right, justify).
- */
-export const TextAlign = {
-  Left: "left",
-  Center: "center",
-  Right: "right",
-  Justify: "justify",
-} as const;
-/**
- * Text alignment (left, center, right, justify).
- */
-export type TextAlign = ClosedEnum<typeof TextAlign>;
-
-export const TextAlign$zodSchema = z.enum([
-  "left",
-  "center",
-  "right",
-  "justify",
-]).describe("Text alignment (left, center, right, justify).");
-
-/**
- * Whether to use a normal or bold font.
- */
-export const FontWeight = {
-  Normal: "normal",
-  Bold: "bold",
-} as const;
-/**
- * Whether to use a normal or bold font.
- */
-export type FontWeight = ClosedEnum<typeof FontWeight>;
-
-export const FontWeight$zodSchema = z.enum([
-  "normal",
-  "bold",
-]).describe("Whether to use a normal or bold font.");
-
-/**
- * Whether to use a normal or italic font.
- */
-export const FontStyle = {
-  Normal: "normal",
-  Italic: "italic",
-} as const;
-/**
- * Whether to use a normal or italic font.
- */
-export type FontStyle = ClosedEnum<typeof FontStyle>;
-
-export const FontStyle$zodSchema = z.enum([
-  "normal",
-  "italic",
-]).describe("Whether to use a normal or italic font.");
-
-/**
- * Text decoration style.
- */
-export const TextDecoration = {
-  None: "none",
-  Underline: "underline",
-} as const;
-/**
- * Text decoration style.
- */
-export type TextDecoration = ClosedEnum<typeof TextDecoration>;
-
-export const TextDecoration$zodSchema = z.enum([
-  "none",
-  "underline",
-]).describe("Text decoration style.");
-
-export type TextRequestBody = {
-  text: string;
-  public_id?: string | undefined;
-  font_family?: string | undefined;
-  font_size?: number | undefined;
-  font_color?: string | undefined;
-  text_align?: TextAlign | undefined;
-  font_weight?: FontWeight | undefined;
-  font_style?: FontStyle | undefined;
-  background?: string | undefined;
-  opacity?: number | undefined;
-  text_decoration?: TextDecoration | undefined;
-  line_spacing?: number | undefined;
-};
-
-export const TextRequestBody$zodSchema: z.ZodType<TextRequestBody> = z.object({
-  background: z.string().default("transparent").describe(
-    "Name or RGB representation of the background color (e.g., red or",
-  ),
-  font_color: z.string().default("black").describe(
-    "Name or RGB representation of the font's color (e.g., red or",
-  ),
-  font_family: z.string().optional().describe("The name of the font family."),
-  font_size: z.int().default(12).describe("Font size in points."),
-  font_style: FontStyle$zodSchema.default("normal").describe(
-    "Whether to use a normal or italic font.",
-  ),
-  font_weight: FontWeight$zodSchema.default("normal").describe(
-    "Whether to use a normal or bold font.",
-  ),
-  line_spacing: z.int().optional().describe(
-    "The spacing between lines of text in pixels.",
-  ),
-  opacity: z.int().default(100).describe(
-    "Text opacity value between 0 (invisible) and 100.",
-  ),
-  public_id: z.string().optional().describe(
-    "The identifier that is used for accessing the generated image. If not specified, a unique identifier is generated.",
-  ),
-  text: z.string().describe("The text string to generate an image for."),
-  text_align: TextAlign$zodSchema.optional().describe(
-    "Text alignment (left, center, right, justify).",
-  ),
-  text_decoration: TextDecoration$zodSchema.default("none").describe(
-    "Text decoration style.",
-  ),
-});
-
-export type TextRequest = {
+export type TextRequestRequest = {
   resource_type: TextResourceType;
-  RequestBody: TextRequestBody;
+  text_request: TextRequest;
 };
 
-export const TextRequest$zodSchema: z.ZodType<TextRequest> = z.object({
-  RequestBody: z.lazy(() => TextRequestBody$zodSchema),
-  resource_type: TextResourceType$zodSchema.describe(
-    "The type of resource to create. Must be \"image\" for text generation.",
-  ),
-});
+export const TextRequestRequest$zodSchema: z.ZodType<TextRequestRequest> = z
+  .object({
+    resource_type: TextResourceType$zodSchema.describe(
+      "The type of resource to create. Must be \"image\" for text generation.",
+    ),
+    text_request: TextRequest$zodSchema.describe(
+      "The text content and styling parameters for image generation.",
+    ),
+  });
 
-export type Region = {};
+export type TextResponseResponse = ApiError | TextResponse;
 
-export const Region$zodSchema: z.ZodType<Region> = z.object({});
-
-/**
- * Moderation information for the asset.
- */
-export type TextModeration = {};
-
-export const TextModeration$zodSchema: z.ZodType<TextModeration> = z.object({})
-  .describe("Moderation information for the asset.");
-
-/**
- * Additional information about the asset.
- */
-export type TextInfo = {};
-
-export const TextInfo$zodSchema: z.ZodType<TextInfo> = z.object({}).describe(
-  "Additional information about the asset.",
-);
-
-/**
- * Text image created successfully
- */
-export type TextResponseBody = {
-  asset_id?: string | undefined;
-  public_id?: string | undefined;
-  version?: number | undefined;
-  version_id?: string | undefined;
-  signature?: string | undefined;
-  width?: number | undefined;
-  height?: number | undefined;
-  format?: string | undefined;
-  resource_type?: string | undefined;
-  created_at?: string | undefined;
-  tags?: Array<string> | undefined;
-  pages?: number | undefined;
-  bytes?: number | undefined;
-  type?: string | undefined;
-  etag?: string | undefined;
-  placeholder?: boolean | undefined;
-  url?: string | undefined;
-  secure_url?: string | undefined;
-  display_name?: string | undefined;
-  access_mode?: string | undefined;
-  access_control?: Array<AccessControlItem> | undefined;
-  regions?: Array<Region> | undefined;
-  moderation?: TextModeration | undefined;
-  info?: TextInfo | undefined;
-};
-
-export const TextResponseBody$zodSchema: z.ZodType<TextResponseBody> = z.object(
-  {
-    access_control: z.array(AccessControlItem$zodSchema).optional().describe(
-      "Restricts access to the asset by specifying one or more access types.\nThe asset is restricted unless at least one listed access type is valid.\n",
-    ),
-    access_mode: z.string().optional().describe(
-      "The access mode of the asset.",
-    ),
-    asset_id: z.string().optional().describe(
-      "The unique identifier of the asset.",
-    ),
-    bytes: z.int().optional().describe("Size of the asset in bytes."),
-    created_at: z.iso.datetime({ offset: true }).optional().describe(
-      "The creation timestamp.",
-    ),
-    display_name: z.string().optional().describe(
-      "The display name of the asset.",
-    ),
-    etag: z.string().optional().describe("The ETag of the asset."),
-    format: z.string().optional().describe(
-      "The format of the generated image.",
-    ),
-    height: z.int().optional().describe(
-      "The height of the generated image in pixels.",
-    ),
-    info: z.lazy(() => TextInfo$zodSchema).optional().describe(
-      "Additional information about the asset.",
-    ),
-    moderation: z.lazy(() => TextModeration$zodSchema).optional().describe(
-      "Moderation information for the asset.",
-    ),
-    pages: z.int().optional().describe("Number of pages in the asset."),
-    placeholder: z.boolean().optional().describe(
-      "Whether the asset is a placeholder.",
-    ),
-    public_id: z.string().optional().describe(
-      "The public identifier of the asset.",
-    ),
-    regions: z.array(z.lazy(() => Region$zodSchema)).optional().describe(
-      "Region information for the asset.",
-    ),
-    resource_type: z.string().optional().describe(
-      "The type of resource (image).",
-    ),
-    secure_url: z.string().optional().describe(
-      "The HTTPS URL for accessing the asset.",
-    ),
-    signature: z.string().optional().describe("The signature for the asset."),
-    tags: z.array(z.string()).optional().describe(
-      "Array of tags assigned to the asset.",
-    ),
-    type: z.string().optional().describe("The storage type of the asset."),
-    url: z.string().optional().describe(
-      "The HTTP URL for accessing the asset.",
-    ),
-    version: z.int().optional().describe("The version number of the asset."),
-    version_id: z.string().optional().describe(
-      "The version identifier of the asset.",
-    ),
-    width: z.int().optional().describe(
-      "The width of the generated image in pixels.",
-    ),
-  },
-).describe("Text image created successfully");
-
-export type TextResponse = ApiError | TextResponseBody;
-
-export const TextResponse$zodSchema: z.ZodType<TextResponse> = z.union([
-  ApiError$zodSchema,
-  z.lazy(() => TextResponseBody$zodSchema),
-]);
+export const TextResponseResponse$zodSchema: z.ZodType<TextResponseResponse> = z
+  .union([
+    ApiError$zodSchema,
+    TextResponse$zodSchema,
+  ]);

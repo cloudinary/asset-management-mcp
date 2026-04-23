@@ -5,14 +5,15 @@
 
 import * as z from "zod";
 import { assetRelationsDeleteAssetRelationsByAssetId } from "../../funcs/assetRelationsDeleteAssetRelationsByAssetId.js";
-import { DeleteAssetRelationsByAssetIdRequestBody$zodSchema } from "../../models/deleteassetrelationsbyassetidop.js";
+import { UnrelateAssetsByAssetIdRequest$zodSchema } from "../../models/unrelateassetsbyassetidrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
-  RequestBody: DeleteAssetRelationsByAssetIdRequestBody$zodSchema,
+  unrelate_assets_by_asset_id_request: UnrelateAssetsByAssetIdRequest$zodSchema
+    .describe(`The asset IDs to unrelate.`),
 };
 
 export const tool$assetRelationsDeleteAssetRelationsByAssetId: ToolDefinition<
@@ -21,7 +22,7 @@ export const tool$assetRelationsDeleteAssetRelationsByAssetId: ToolDefinition<
   name: "delete-asset-relations",
   description: `Delete asset relations by asset ID
 
-Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.`,
+Unrelates the asset from other assets, specified by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be removed as a related_asset from all the other assets specified.`,
   scopes: ["librarian"],
   annotations: {
     "title": "Delete Asset Relations",
@@ -35,7 +36,7 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
     const [result] = await assetRelationsDeleteAssetRelationsByAssetId(
       client,
       args.asset_id,
-      args.RequestBody,
+      args.unrelate_assets_by_asset_id_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 

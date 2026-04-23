@@ -9,6 +9,10 @@ import {
   AssetRelationsResponse,
   AssetRelationsResponse$zodSchema,
 } from "./assetrelationsresponse.js";
+import {
+  RelateAssetsByAssetIdRequest,
+  RelateAssetsByAssetIdRequest$zodSchema,
+} from "./relateassetsbyassetidrequest.js";
 
 export type CreateAssetRelationsByAssetIdGlobals = {
   cloud_name?: string | undefined;
@@ -21,30 +25,19 @@ export const CreateAssetRelationsByAssetIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type CreateAssetRelationsByAssetIdRequestBody = {
-  assets_to_relate: Array<string>;
-};
-
-export const CreateAssetRelationsByAssetIdRequestBody$zodSchema: z.ZodType<
-  CreateAssetRelationsByAssetIdRequestBody
-> = z.object({
-  assets_to_relate: z.array(z.string()).describe(
-    "Relates the asset to all the assets specified in this array of up to 10 assets, specified by their asset IDs.",
-  ),
-});
-
 export type CreateAssetRelationsByAssetIdRequest = {
   asset_id: string;
-  RequestBody: CreateAssetRelationsByAssetIdRequestBody;
+  relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest;
 };
 
 export const CreateAssetRelationsByAssetIdRequest$zodSchema: z.ZodType<
   CreateAssetRelationsByAssetIdRequest
 > = z.object({
-  RequestBody: z.lazy(() => CreateAssetRelationsByAssetIdRequestBody$zodSchema),
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
+  relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest$zodSchema
+    .describe("The asset IDs to relate."),
 });
 
 export type CreateAssetRelationsByAssetIdResponse =
