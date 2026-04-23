@@ -42,9 +42,11 @@ export const UploadChunkRequest$zodSchema: z.ZodType<UploadChunkRequest> = z
       "The range of bytes being uploaded in the current chunk, in the format \"bytes start-end/total\". For example, \"bytes 0-999999/3000000\" indicates the first 1MB chunk of a 3MB file.",
     ),
     resource_type: UploadResourceType$zodSchema.default("auto").describe(
-      "The type of resource to upload:\n- \"image\" for uploading strictly images\n- \"video\" for uploading strictly videos\n- \"raw\" for uploading non-media files\n- \"auto\" for allowing Cloudinary to automatically detect the type of the uploaded file\n",
+      "The type of resource (image, video, raw, or auto).",
     ),
-    upload_request: UploadRequest$zodSchema,
+    upload_request: UploadRequest$zodSchema.describe(
+      "The file to upload and associated parameters.",
+    ),
     xUniqueUploadId: z.string().describe(
       "A unique identifier for the upload. Must be the same for all chunks of the same file.",
     ),

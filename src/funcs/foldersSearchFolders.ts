@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -20,7 +21,6 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  ExpressionUnion,
   SearchFoldersRequest,
   SearchFoldersRequest$zodSchema,
 } from "../models/searchfoldersop.js";
@@ -35,8 +35,8 @@ import { Result } from "../types/fp.js";
  */
 export function foldersSearchFolders(
   client$: CloudinaryAssetMgmtCore,
-  expression?: ExpressionUnion | undefined,
-  sort_by?: Array<string> | undefined,
+  expression?: string | undefined,
+  sort_by?: Array<{ [k: string]: DirectionEnum }> | undefined,
   max_results?: number | undefined,
   next_cursor?: string | undefined,
   options?: RequestOptions,
@@ -64,8 +64,8 @@ export function foldersSearchFolders(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  expression?: ExpressionUnion | undefined,
-  sort_by?: Array<string> | undefined,
+  expression?: string | undefined,
+  sort_by?: Array<{ [k: string]: DirectionEnum }> | undefined,
   max_results?: number | undefined,
   next_cursor?: string | undefined,
   options?: RequestOptions,

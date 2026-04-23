@@ -5,7 +5,14 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { PersonStatus, PersonStatus$zodSchema } from "./personstatus.js";
+import {
+  UpdatePersonRequest,
+  UpdatePersonRequest$zodSchema,
+} from "./updatepersonrequest.js";
+import {
+  UpdatePersonResponse,
+  UpdatePersonResponse$zodSchema,
+} from "./updatepersonresponse.js";
 
 export type UpdatePersonGlobals = { cloud_name?: string | undefined };
 
@@ -16,58 +23,25 @@ export const UpdatePersonGlobals$zodSchema: z.ZodType<UpdatePersonGlobals> = z
     ).optional(),
   });
 
-export type UpdatePersonRequestBody = {
-  name?: string | undefined;
-  status?: PersonStatus | undefined;
-  thumbnail_asset_id?: string | undefined;
+export type UpdatePersonRequestRequest = {
+  person_id: string;
+  update_person_request: UpdatePersonRequest;
 };
 
-export const UpdatePersonRequestBody$zodSchema: z.ZodType<
-  UpdatePersonRequestBody
+export const UpdatePersonRequestRequest$zodSchema: z.ZodType<
+  UpdatePersonRequestRequest
 > = z.object({
-  name: z.string().optional().describe(
-    "The display name for the person. Maximum 255 characters.",
-  ),
-  status: PersonStatus$zodSchema.optional().describe("The status of a person."),
-  thumbnail_asset_id: z.string().optional().describe(
-    "The external ID of an asset containing this person's face to use as the thumbnail.",
+  person_id: z.string().describe("The unique identifier of the person."),
+  update_person_request: UpdatePersonRequest$zodSchema.describe(
+    "The updated person attributes.",
   ),
 });
 
-export type UpdatePersonRequest = {
-  person_id: string;
-  RequestBody: UpdatePersonRequestBody;
-};
+export type UpdatePersonResponseResponse = ApiError | UpdatePersonResponse;
 
-export const UpdatePersonRequest$zodSchema: z.ZodType<UpdatePersonRequest> = z
-  .object({
-    RequestBody: z.lazy(() => UpdatePersonRequestBody$zodSchema),
-    person_id: z.string().describe("The unique identifier of the person."),
-  });
-
-/**
- * Person updated successfully
- */
-export type UpdatePersonResponseBody = {
-  person_id?: string | undefined;
-  name?: string | undefined;
-  status?: PersonStatus | undefined;
-};
-
-export const UpdatePersonResponseBody$zodSchema: z.ZodType<
-  UpdatePersonResponseBody
-> = z.object({
-  name: z.string().optional().describe("The display name of the person."),
-  person_id: z.string().optional().describe(
-    "The unique identifier of the person.",
-  ),
-  status: PersonStatus$zodSchema.optional().describe("The status of a person."),
-}).describe("Person updated successfully");
-
-export type UpdatePersonResponse = ApiError | UpdatePersonResponseBody;
-
-export const UpdatePersonResponse$zodSchema: z.ZodType<UpdatePersonResponse> = z
-  .union([
-    ApiError$zodSchema,
-    z.lazy(() => UpdatePersonResponseBody$zodSchema),
-  ]);
+export const UpdatePersonResponseResponse$zodSchema: z.ZodType<
+  UpdatePersonResponseResponse
+> = z.union([
+  ApiError$zodSchema,
+  UpdatePersonResponse$zodSchema,
+]);

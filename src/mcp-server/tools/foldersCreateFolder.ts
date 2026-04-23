@@ -8,7 +8,9 @@ import { foldersCreateFolder } from "../../funcs/foldersCreateFolder.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  folder: z.string(),
+  folder: z.string().describe(
+    "The full path of the folder, including any nested folders. Must not be empty, and must not contain double slashes or leading/trailing slashes.",
+  ),
 };
 
 export const tool$foldersCreateFolder: ToolDefinition<typeof args> = {

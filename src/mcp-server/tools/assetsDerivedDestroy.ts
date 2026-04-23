@@ -8,7 +8,9 @@ import { DerivedDestroyRequest$zodSchema } from "../../models/deriveddestroyrequ
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: DerivedDestroyRequest$zodSchema,
+  request: DerivedDestroyRequest$zodSchema.describe(
+    `The derived resource IDs to delete.`,
+  ),
 };
 
 export const tool$assetsDerivedDestroy: ToolDefinition<typeof args> = {

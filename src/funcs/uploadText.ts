@@ -20,11 +20,11 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  TextRequest,
-  TextRequest$zodSchema,
-  TextRequestBody,
+  TextRequestRequest,
+  TextRequestRequest$zodSchema,
   TextResourceType,
 } from "../models/textop.js";
+import { TextRequest } from "../models/textrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -37,7 +37,7 @@ import { Result } from "../types/fp.js";
 export function uploadText(
   client$: CloudinaryAssetMgmtCore,
   resource_type: TextResourceType,
-  RequestBody: TextRequestBody,
+  text_request: TextRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +54,7 @@ export function uploadText(
   return new APIPromise($do(
     client$,
     resource_type,
-    RequestBody,
+    text_request,
     options,
   ));
 }
@@ -62,7 +62,7 @@ export function uploadText(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: TextResourceType,
-  RequestBody: TextRequestBody,
+  text_request: TextRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,21 +79,21 @@ async function $do(
     APICall,
   ]
 > {
-  const input$: TextRequest = {
+  const input$: TextRequestRequest = {
     resource_type: resource_type,
-    RequestBody: RequestBody,
+    text_request: text_request,
   };
 
   const parsed$ = safeParse(
     input$,
-    (value$) => TextRequest$zodSchema.parse(value$),
+    (value$) => TextRequestRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.text_request, { explode: true });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

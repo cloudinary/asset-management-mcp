@@ -21,26 +21,6 @@ export const RestoreResourcesByAssetIDsGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type RestoreResourcesByAssetIDsRequest = {
-  asset_ids: Array<string>;
-  versions?: Array<string> | undefined;
-  notification_url?: string | undefined;
-};
-
-export const RestoreResourcesByAssetIDsRequest$zodSchema: z.ZodType<
-  RestoreResourcesByAssetIDsRequest
-> = z.object({
-  asset_ids: z.array(z.string()).describe(
-    "The unique and immutable asset IDs of backed up assets to restore.",
-  ),
-  notification_url: z.string().optional().describe(
-    "The URL that will receive notification when restore is complete.",
-  ),
-  versions: z.array(z.string()).optional().describe(
-    "If you specify versions, the number of versions in the array must exactly match the number of asset_ids.",
-  ),
-});
-
 export type RestoreResourcesByAssetIDsResponse = ApiError | {
   [k: string]: RestoreResponseUnion;
 };

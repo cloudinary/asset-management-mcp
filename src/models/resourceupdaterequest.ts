@@ -9,37 +9,47 @@ import {
   AccessControlItem,
   AccessControlItem$zodSchema,
 } from "./accesscontrolitem.js";
+import {
+  StructuredMetadataParam,
+  StructuredMetadataParam$zodSchema,
+} from "./structuredmetadataparam.js";
+import { TagsParam, TagsParam$zodSchema } from "./tagsparam.js";
 
 /**
  * The moderation status of the resource.
  */
-export const ModerationStatus = {
+export const ResourceUpdateRequestModerationStatus = {
   Approved: "approved",
   Rejected: "rejected",
 } as const;
 /**
  * The moderation status of the resource.
  */
-export type ModerationStatus = ClosedEnum<typeof ModerationStatus>;
+export type ResourceUpdateRequestModerationStatus = ClosedEnum<
+  typeof ResourceUpdateRequestModerationStatus
+>;
 
-export const ModerationStatus$zodSchema = z.enum([
+export const ResourceUpdateRequestModerationStatus$zodSchema = z.enum([
   "approved",
   "rejected",
 ]).describe("The moderation status of the resource.");
 
+/**
+ * The resource properties to update.
+ */
 export type ResourceUpdateRequest = {
   display_name?: string | undefined;
   unique_display_name?: boolean | undefined;
   asset_folder?: string | undefined;
-  tags?: string | undefined;
+  tags?: TagsParam | undefined;
   context?: string | undefined;
-  metadata?: string | undefined;
+  metadata?: StructuredMetadataParam | undefined;
   clear_invalid?: boolean | undefined;
   face_coordinates?: string | undefined;
   custom_coordinates?: string | undefined;
   regions?: string | undefined;
   quality_override?: string | undefined;
-  moderation_status?: ModerationStatus | undefined;
+  moderation_status?: ResourceUpdateRequestModerationStatus | undefined;
   auto_tagging?: number | undefined;
   detection?: string | undefined;
   ocr?: string | undefined;
@@ -71,7 +81,7 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
       "Whether to clear invalid metadata fields. If false, invalid fields will be preserved. Default: false",
     ),
     context: z.string().optional().describe(
-      "A pipe-separated list of key-value pairs of contextual metadata.",
+      "A pipe-separated list of key-value pairs of general textual context metadata to attach to the asset (e.g., \"alt=My image|caption=Nice photo\"). The =, \", and | characters can be escaped with a prepending backslash (\\).",
     ),
     custom_coordinates: z.string().optional().describe(
       "Custom coordinates as comma-separated values, with multiple coordinates separated by pipes.",
@@ -85,12 +95,11 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
     face_coordinates: z.string().optional().describe(
       "Face coordinates as comma-separated values, with multiple faces separated by pipes.",
     ),
-    metadata: z.string().optional().describe(
-      "A pipe-separated list of custom metadata fields (by external_id) and their values.",
+    metadata: StructuredMetadataParam$zodSchema.optional().describe(
+      "A pipe-separated list or a map of custom metadata fields (by external_id) and the values to assign to each of them. The = \" and | characters can be supported as values when escaped with a prepended backslash (\\). For a multi-select field, you can set a maximum of 3000 different metadata values on an asset.\n",
     ),
-    moderation_status: ModerationStatus$zodSchema.optional().describe(
-      "The moderation status of the resource.",
-    ),
+    moderation_status: ResourceUpdateRequestModerationStatus$zodSchema
+      .optional().describe("The moderation status of the resource."),
     ocr: z.string().optional().describe(
       "The type of OCR to perform on the resource. Set to adv_ocr, optionally with options (e.g., adv_ocr:document).",
     ),
@@ -101,10 +110,10 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
       "The conversion to apply for raw files (e.g., aspose, google_speech, extract_text).",
     ),
     regions: z.string().optional().describe(
-      "Named groups of coordinate pairs representing regions.",
+      "A JSON-encoded object of named groups of coordinate pairs representing regions. Each region name may contain only letters, numbers, or hyphens, and must have at least two coordinate pairs.",
     ),
-    tags: z.string().optional().describe(
-      "A comma-separated list of tags to assign to the resource.",
+    tags: TagsParam$zodSchema.optional().describe(
+      "A comma-separated list of tag names, or an array of tag names.",
     ),
     unique_display_name: z.boolean().default(false).describe(
       "Whether to ensure the display name is unique across all resources. If false, the operation will fail if a resource with the same display name exists. Default: false",
@@ -112,4 +121,4 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
     visual_search: z.boolean().optional().describe(
       "Whether to index the resource with visual search. If true, the resource will be indexed for visual search capabilities. Default: false",
     ),
-  });
+  }).describe("The resource properties to update.");

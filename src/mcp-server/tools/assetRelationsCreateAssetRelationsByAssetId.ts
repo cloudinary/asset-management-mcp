@@ -5,14 +5,15 @@
 
 import * as z from "zod";
 import { assetRelationsCreateAssetRelationsByAssetId } from "../../funcs/assetRelationsCreateAssetRelationsByAssetId.js";
-import { CreateAssetRelationsByAssetIdRequestBody$zodSchema } from "../../models/createassetrelationsbyassetidop.js";
+import { RelateAssetsByAssetIdRequest$zodSchema } from "../../models/relateassetsbyassetidrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
-  RequestBody: CreateAssetRelationsByAssetIdRequestBody$zodSchema,
+  relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest$zodSchema
+    .describe(`The asset IDs to relate.`),
 };
 
 export const tool$assetRelationsCreateAssetRelationsByAssetId: ToolDefinition<
@@ -21,7 +22,7 @@ export const tool$assetRelationsCreateAssetRelationsByAssetId: ToolDefinition<
   name: "create-asset-relations",
   description: `Add related assets by asset ID
 
-Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.`,
+Relates an asset to other assets by their asset IDs, an immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. This is a bidirectional process, meaning that the asset will also be added as a related_asset to all the other assets specified. The relation is also a one to many relationship, where the asset is related to all the assets specified, but those assets aren't also related to each other.`,
   scopes: ["librarian"],
   annotations: {
     "title": "Create Asset Relations",
@@ -35,7 +36,7 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
     const [result] = await assetRelationsCreateAssetRelationsByAssetId(
       client,
       args.asset_id,
-      args.RequestBody,
+      args.relate_assets_by_asset_id_request,
       { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
