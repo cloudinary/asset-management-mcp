@@ -30,7 +30,9 @@ export type UpdateResourceByAssetIdRequest = {
 export const UpdateResourceByAssetIdRequest$zodSchema: z.ZodType<
   UpdateResourceByAssetIdRequest
 > = z.object({
-  ResourceUpdateRequest: ResourceUpdateRequest$zodSchema,
+  ResourceUpdateRequest: ResourceUpdateRequest$zodSchema.describe(
+    "The asset attributes to update.",
+  ),
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),

@@ -19,7 +19,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { FieldsSpec } from "../models/fieldsspec.js";
+import { Fields } from "../models/fields.js";
 import {
   ListResourcesByAssetIDsRequest,
   ListResourcesByAssetIDsRequest$zodSchema,
@@ -38,7 +38,7 @@ export function assetsListResourcesByAssetIDs(
   client$: CloudinaryAssetMgmtCore,
   asset_ids: Array<string>,
   resource_type?: ResourceType | undefined,
-  fields?: Array<FieldsSpec> | undefined,
+  fields?: Fields | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -65,7 +65,7 @@ async function $do(
   client$: CloudinaryAssetMgmtCore,
   asset_ids: Array<string>,
   resource_type?: ResourceType | undefined,
-  fields?: Array<FieldsSpec> | undefined,
+  fields?: Fields | undefined,
   options?: RequestOptions,
 ): Promise<
   [

@@ -6,7 +6,14 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { StorageType, StorageType$zodSchema } from "./storagetype.js";
+import {
+  ExplodeResponse,
+  ExplodeResponse$zodSchema,
+} from "./exploderesponse.js";
+import {
+  ManagedDeliveryType,
+  ManagedDeliveryType$zodSchema,
+} from "./manageddeliverytype.js";
 
 export type ExplodeResourceGlobals = { cloud_name?: string | undefined };
 
@@ -34,23 +41,20 @@ export const ExplodeResourceResourceType$zodSchema = z.enum([
   "image",
 ]).describe("The type of resource to explode. Only \"image\" is supported.");
 
+/**
+ * The explode operation parameters.
+ */
 export type ExplodeResourceRequestBody = {
-  api_key?: string | undefined;
-  timestamp?: number | undefined;
-  signature?: string | undefined;
   public_id: string;
   format?: string | undefined;
   transformation: string;
   notification_url?: string | undefined;
-  type?: StorageType | undefined;
+  type?: ManagedDeliveryType | undefined;
 };
 
 export const ExplodeResourceRequestBody$zodSchema: z.ZodType<
   ExplodeResourceRequestBody
 > = z.object({
-  api_key: z.string().optional().describe(
-    "The API key to use for the request. This is automatically computed by the Cloudinary's SDKs.",
-  ),
   format: z.string().optional().describe(
     "The format for the generated derived images. Default: png",
   ),
@@ -60,19 +64,13 @@ export const ExplodeResourceRequestBody$zodSchema: z.ZodType<
   public_id: z.string().describe(
     "The public ID of the PDF or animated image to generate from.",
   ),
-  signature: z.string().optional().describe(
-    "(Required for signed REST API calls) Used to authenticate the request and based on the parameters you use in the request. When using the Cloudinary SDKs for signed requests, the signature is automatically generated and added to the request. If you manually generate your own signed POST request, you need to manually generate the signature parameter and add it to the request together with the api_key and timestamp parameters.\n",
-  ),
-  timestamp: z.int().optional().describe(
-    "The timestamp to use for the request in unix time. This is automatically computed by the Cloudinary's SDKs.",
-  ),
   transformation: z.string().describe(
     "The transformation to apply. Must contain exactly one pg_all transformation parameter.",
   ),
-  type: StorageType$zodSchema.optional().describe(
-    "The storage type of the resource.",
+  type: ManagedDeliveryType$zodSchema.optional().describe(
+    "Managed delivery types for assets uploaded and stored by Cloudinary.",
   ),
-});
+}).describe("The explode operation parameters.");
 
 export type ExplodeResourceRequest = {
   resource_type: ExplodeResourceResourceType;
@@ -82,49 +80,19 @@ export type ExplodeResourceRequest = {
 export const ExplodeResourceRequest$zodSchema: z.ZodType<
   ExplodeResourceRequest
 > = z.object({
-  RequestBody: z.lazy(() => ExplodeResourceRequestBody$zodSchema),
+  RequestBody: z.lazy(() => ExplodeResourceRequestBody$zodSchema).describe(
+    "The explode operation parameters.",
+  ),
   resource_type: ExplodeResourceResourceType$zodSchema.describe(
     "The type of resource to explode. Only \"image\" is supported.",
   ),
 });
 
-/**
- * The status of the explode operation.
- */
-export const ExplodeResourceStatus = {
-  Processing: "processing",
-} as const;
-/**
- * The status of the explode operation.
- */
-export type ExplodeResourceStatus = ClosedEnum<typeof ExplodeResourceStatus>;
-
-export const ExplodeResourceStatus$zodSchema = z.enum([
-  "processing",
-]).describe("The status of the explode operation.");
-
-/**
- * Explode operation started successfully
- */
-export type ExplodeResourceResponseBody = {
-  status?: ExplodeResourceStatus | undefined;
-  batch_id?: string | undefined;
-};
-
-export const ExplodeResourceResponseBody$zodSchema: z.ZodType<
-  ExplodeResourceResponseBody
-> = z.object({
-  batch_id: z.string().optional().describe("The ID of the batch operation."),
-  status: ExplodeResourceStatus$zodSchema.optional().describe(
-    "The status of the explode operation.",
-  ),
-}).describe("Explode operation started successfully");
-
-export type ExplodeResourceResponse = ApiError | ExplodeResourceResponseBody;
+export type ExplodeResourceResponse = ApiError | ExplodeResponse;
 
 export const ExplodeResourceResponse$zodSchema: z.ZodType<
   ExplodeResourceResponse
 > = z.union([
   ApiError$zodSchema,
-  z.lazy(() => ExplodeResourceResponseBody$zodSchema),
+  ExplodeResponse$zodSchema,
 ]);

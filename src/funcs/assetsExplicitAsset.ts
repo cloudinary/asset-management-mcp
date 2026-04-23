@@ -22,8 +22,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   ExplicitAssetRequest,
   ExplicitAssetRequest$zodSchema,
-  ExplicitAssetRequestBody,
 } from "../models/explicitassetop.js";
+import { ExplicitRequest } from "../models/explicitrequest.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -40,7 +40,7 @@ import { Result } from "../types/fp.js";
 export function assetsExplicitAsset(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  RequestBody: ExplicitAssetRequestBody,
+  explicit_request: ExplicitRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -57,7 +57,7 @@ export function assetsExplicitAsset(
   return new APIPromise($do(
     client$,
     resource_type,
-    RequestBody,
+    explicit_request,
     options,
   ));
 }
@@ -65,7 +65,7 @@ export function assetsExplicitAsset(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  RequestBody: ExplicitAssetRequestBody,
+  explicit_request: ExplicitRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -84,7 +84,7 @@ async function $do(
 > {
   const input$: ExplicitAssetRequest = {
     resource_type: resource_type,
-    RequestBody: RequestBody,
+    explicit_request: explicit_request,
   };
 
   const parsed$ = safeParse(
@@ -96,7 +96,9 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.explicit_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

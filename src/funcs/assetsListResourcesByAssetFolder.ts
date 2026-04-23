@@ -10,7 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import { Direction } from "../models/direction.js";
+import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -20,7 +20,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { FieldsSpec } from "../models/fieldsspec.js";
+import { Fields } from "../models/fields.js";
 import {
   ListResourcesByAssetFolderRequest,
   ListResourcesByAssetFolderRequest$zodSchema,
@@ -41,8 +41,8 @@ export function assetsListResourcesByAssetFolder(
   resource_type?: ResourceType | undefined,
   next_cursor?: string | undefined,
   max_results?: number | undefined,
-  direction?: Direction | undefined,
-  fields?: Array<FieldsSpec> | undefined,
+  direction?: DirectionEnum | undefined,
+  fields?: Fields | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -74,8 +74,8 @@ async function $do(
   resource_type?: ResourceType | undefined,
   next_cursor?: string | undefined,
   max_results?: number | undefined,
-  direction?: Direction | undefined,
-  fields?: Array<FieldsSpec> | undefined,
+  direction?: DirectionEnum | undefined,
+  fields?: Fields | undefined,
   options?: RequestOptions,
 ): Promise<
   [

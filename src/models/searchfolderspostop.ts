@@ -19,30 +19,6 @@ export const SearchFoldersPostGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type SearchFoldersPostRequest = {
-  expression?: string | undefined;
-  sort_by?: Array<string> | undefined;
-  max_results?: number | undefined;
-  next_cursor?: string | undefined;
-};
-
-export const SearchFoldersPostRequest$zodSchema: z.ZodType<
-  SearchFoldersPostRequest
-> = z.object({
-  expression: z.string().optional().describe(
-    "The (Lucene-like) string expression specifying the search query.",
-  ),
-  max_results: z.int().default(50).describe(
-    "Maximum number of folders to return (max 500, default 50).",
-  ),
-  next_cursor: z.string().optional().describe(
-    "When more results are available, use the next_cursor value from the previous response.",
-  ),
-  sort_by: z.array(z.string()).optional().describe(
-    "An array of key-value pairs for sorting. Each value is a key and direction (asc/desc).",
-  ),
-});
-
 export type SearchFoldersPostResponse = FoldersSearchResponse | ApiError;
 
 export const SearchFoldersPostResponse$zodSchema: z.ZodType<
