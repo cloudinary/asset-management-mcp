@@ -7,30 +7,26 @@ import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * The result of the deletion operation.
+ * Result of the deletion operation.
  */
-export const Result = {
+export const DestroyResponseResult = {
   Ok: "ok",
   NotFound: "not found",
 } as const;
 /**
- * The result of the deletion operation.
+ * Result of the deletion operation.
  */
-export type Result = ClosedEnum<typeof Result>;
+export type DestroyResponseResult = ClosedEnum<typeof DestroyResponseResult>;
 
-export const Result$zodSchema = z.enum([
+export const DestroyResponseResult$zodSchema = z.enum([
   "ok",
   "not found",
-]).describe("The result of the deletion operation.");
+]).describe("Result of the deletion operation.");
 
-export type DestroyResponse = {
-  result: Result;
-  asset_folder?: string | undefined;
-};
+export type DestroyResponse = { result?: DestroyResponseResult | undefined };
 
 export const DestroyResponse$zodSchema: z.ZodType<DestroyResponse> = z.object({
-  asset_folder: z.string().optional().describe(
-    "The asset folder path. Only included when folder decoupling is enabled.",
+  result: DestroyResponseResult$zodSchema.optional().describe(
+    "Result of the deletion operation.",
   ),
-  result: Result$zodSchema.describe("The result of the deletion operation."),
 });

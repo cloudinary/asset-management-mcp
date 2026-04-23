@@ -24,13 +24,37 @@ export const AccessType$zodSchema = z.enum([
 ]).describe("The type of access control to apply to the asset.");
 
 /**
+ * The start date and time when anonymous access becomes available. Accepts ISO 8601 string or Unix timestamp.
+ */
+export type Start = string | number;
+
+export const Start$zodSchema: z.ZodType<Start> = z.union([
+  z.string(),
+  z.int(),
+]).describe(
+  "The start date and time when anonymous access becomes available. Accepts ISO 8601 string or Unix timestamp.",
+);
+
+/**
+ * The end date and time when anonymous access expires. Accepts ISO 8601 string or Unix timestamp.
+ */
+export type End = string | number;
+
+export const End$zodSchema: z.ZodType<End> = z.union([
+  z.string(),
+  z.int(),
+]).describe(
+  "The end date and time when anonymous access expires. Accepts ISO 8601 string or Unix timestamp.",
+);
+
+/**
  * Access control rule that defines when and how the asset can be accessed.
  */
 export type AccessControlItem = {
   access_type: AccessType;
   key?: string | undefined;
-  start?: string | undefined;
-  end?: string | undefined;
+  start?: string | number | undefined;
+  end?: string | number | undefined;
 };
 
 export const AccessControlItem$zodSchema: z.ZodType<AccessControlItem> = z
@@ -38,14 +62,20 @@ export const AccessControlItem$zodSchema: z.ZodType<AccessControlItem> = z
     access_type: AccessType$zodSchema.describe(
       "The type of access control to apply to the asset.",
     ),
-    end: z.string().optional().describe(
-      "The end date and time when anonymous access expires (ISO 8601 format).",
+    end: z.union([
+      z.string(),
+      z.int(),
+    ]).optional().describe(
+      "The end date and time when anonymous access expires. Accepts ISO 8601 string or Unix timestamp.",
     ),
     key: z.string().optional().describe(
       "The authentication key identifier for token-based access. Default key is used if not specified or if set to 'default'.",
     ),
-    start: z.string().optional().describe(
-      "The start date and time when anonymous access becomes available (ISO 8601 format).",
+    start: z.union([
+      z.string(),
+      z.int(),
+    ]).optional().describe(
+      "The start date and time when anonymous access becomes available. Accepts ISO 8601 string or Unix timestamp.",
     ),
   }).describe(
     "Access control rule that defines when and how the asset can be accessed.",

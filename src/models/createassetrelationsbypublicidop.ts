@@ -9,11 +9,12 @@ import {
   AssetRelationsResponse,
   AssetRelationsResponse$zodSchema,
 } from "./assetrelationsresponse.js";
-import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
+import { DeliveryType, DeliveryType$zodSchema } from "./deliverytype.js";
 import {
-  StorageTypeParameter,
-  StorageTypeParameter$zodSchema,
-} from "./storagetypeparameter.js";
+  RelateAssetsByPublicIdRequest,
+  RelateAssetsByPublicIdRequest$zodSchema,
+} from "./relateassetsbypublicidrequest.js";
+import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
 export type CreateAssetRelationsByPublicIdGlobals = {
   cloud_name?: string | undefined;
@@ -26,34 +27,23 @@ export const CreateAssetRelationsByPublicIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type CreateAssetRelationsByPublicIdRequestBody = {
-  assets_to_relate: Array<string>;
-};
-
-export const CreateAssetRelationsByPublicIdRequestBody$zodSchema: z.ZodType<
-  CreateAssetRelationsByPublicIdRequestBody
-> = z.object({
-  assets_to_relate: z.array(z.string()).describe(
-    "Relates the asset to all the other assets specified in this array of up to 10 assets, specified as resource_type/type/public_id.",
-  ),
-});
-
 export type CreateAssetRelationsByPublicIdRequest = {
   resource_type: ResourceType;
-  type?: StorageTypeParameter | undefined;
+  type?: DeliveryType | undefined;
   public_id: string;
-  RequestBody: CreateAssetRelationsByPublicIdRequestBody;
+  relate_assets_by_public_id_request: RelateAssetsByPublicIdRequest;
 };
 
 export const CreateAssetRelationsByPublicIdRequest$zodSchema: z.ZodType<
   CreateAssetRelationsByPublicIdRequest
 > = z.object({
-  RequestBody: z.lazy(() =>
-    CreateAssetRelationsByPublicIdRequestBody$zodSchema
-  ),
   public_id: z.string().describe("The public ID of the asset."),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
-  type: StorageTypeParameter$zodSchema.default("upload").describe(
+  relate_assets_by_public_id_request: RelateAssetsByPublicIdRequest$zodSchema
+    .describe("The assets to relate by public ID."),
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
+  ),
+  type: DeliveryType$zodSchema.default("upload").describe(
     "The delivery type of the asset.",
   ),
 });

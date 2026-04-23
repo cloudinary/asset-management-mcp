@@ -8,7 +8,9 @@ import { usageGetUsage } from "../../funcs/usageGetUsage.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  date: z.string().date().optional(),
+  date: z.string().date().describe(
+    "The date for which to retrieve usage details (YYYY-MM-DD). If not specified, returns the current usage.",
+  ).optional(),
 };
 
 export const tool$usageGetUsage: ToolDefinition<typeof args> = {

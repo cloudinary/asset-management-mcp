@@ -5,8 +5,8 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import { Direction, Direction$zodSchema } from "./direction.js";
-import { FieldsSpec, FieldsSpec$zodSchema } from "./fieldsspec.js";
+import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
+import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
@@ -25,20 +25,26 @@ export type ListResourcesByContextRequest = {
   value?: string | undefined;
   next_cursor?: string | undefined;
   max_results?: number | undefined;
-  direction?: Direction | undefined;
-  fields?: Array<FieldsSpec> | undefined;
+  direction?: DirectionEnum | undefined;
+  fields?: Fields | undefined;
 };
 
 export const ListResourcesByContextRequest$zodSchema: z.ZodType<
   ListResourcesByContextRequest
 > = z.object({
-  direction: Direction$zodSchema.optional().describe("Sort direction."),
-  fields: z.array(FieldsSpec$zodSchema).optional(),
+  direction: DirectionEnum$zodSchema.optional().describe(
+    "The sort direction for the results. Default is \"desc\".",
+  ),
+  fields: Fields$zodSchema.optional().describe(
+    "Additional fields to include in the response. The fields public_id and asset_id are always included.",
+  ),
   key: z.string().describe("Context key to filter by."),
   max_results: z.int().describe("Maximum number of results to return (1-500).")
     .optional(),
   next_cursor: z.string().describe("Cursor for pagination.").optional(),
-  resource_type: ResourceType$zodSchema.describe("The type of resource."),
+  resource_type: ResourceType$zodSchema.describe(
+    "The type of resource (image, video, or raw).",
+  ),
   value: z.string().describe("Context value to filter by.").optional(),
 });
 

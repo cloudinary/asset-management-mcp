@@ -5,15 +5,15 @@
 
 import * as z from "zod";
 import { foldersSearchFolders } from "../../funcs/foldersSearchFolders.js";
-import { ExpressionUnion$zodSchema } from "../../models/searchfoldersop.js";
+import { DirectionEnum$zodSchema } from "../../models/directionenum.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  expression: ExpressionUnion$zodSchema.optional().describe(
-    `The (Lucene-like) string expression specifying the search query, or an object for advanced queries. If not passed, returns all folders (up to max_results).`,
-  ),
-  sort_by: z.array(z.string()).describe(
-    "An array of key-value pairs for sorting. Each value is a key and direction (asc/desc).",
+  expression: z.string().describe(
+    "The (Lucene-like) string expression specifying the search query. If not passed, returns all folders (up to max_results).",
+  ).optional(),
+  sort_by: z.array(z.record(z.string(), DirectionEnum$zodSchema)).describe(
+    "Sort order for the results. Each item maps a field name to a direction.",
   ).optional(),
   max_results: z.int().default(50).describe(
     "Maximum number of folders to return (max 500, default 50).",

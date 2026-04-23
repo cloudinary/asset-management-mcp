@@ -5,6 +5,18 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  DeleteBackupVersionsPartialResponse,
+  DeleteBackupVersionsPartialResponse$zodSchema,
+} from "./deletebackupversionspartialresponse.js";
+import {
+  DeleteBackupVersionsRequest,
+  DeleteBackupVersionsRequest$zodSchema,
+} from "./deletebackupversionsrequest.js";
+import {
+  DeleteBackupVersionsResponse,
+  DeleteBackupVersionsResponse$zodSchema,
+} from "./deletebackupversionsresponse.js";
 
 export type DeleteBackupVersionsGlobals = { cloud_name?: string | undefined };
 
@@ -15,91 +27,30 @@ export const DeleteBackupVersionsGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DeleteBackupVersionsRequestBody = { version_ids: Array<string> };
-
-export const DeleteBackupVersionsRequestBody$zodSchema: z.ZodType<
-  DeleteBackupVersionsRequestBody
-> = z.object({
-  version_ids: z.array(z.string()).describe(
-    "The list of version IDs to delete from backup.",
-  ),
-});
-
-export type DeleteBackupVersionsRequest = {
+export type DeleteBackupVersionsRequestRequest = {
   asset_id: string;
-  RequestBody: DeleteBackupVersionsRequestBody;
+  delete_backup_versions_request: DeleteBackupVersionsRequest;
 };
 
-export const DeleteBackupVersionsRequest$zodSchema: z.ZodType<
-  DeleteBackupVersionsRequest
+export const DeleteBackupVersionsRequestRequest$zodSchema: z.ZodType<
+  DeleteBackupVersionsRequestRequest
 > = z.object({
-  RequestBody: z.lazy(() => DeleteBackupVersionsRequestBody$zodSchema),
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
+  delete_backup_versions_request: DeleteBackupVersionsRequest$zodSchema
+    .describe("The asset IDs and version IDs to delete."),
 });
 
-export type Failure = {
-  version_id?: string | undefined;
-  error?: string | undefined;
-};
-
-export const Failure$zodSchema: z.ZodType<Failure> = z.object({
-  error: z.string().optional().describe(
-    "The error message explaining the failure.",
-  ),
-  version_id: z.string().optional().describe(
-    "The version ID that failed to delete.",
-  ),
-});
-
-/**
- * Multi-status - some versions deleted successfully, others failed
- */
-export type DeleteBackupVersionsResponseBody2 = {
-  asset_id: string;
-  deleted_version_ids: Array<string>;
-  failures?: Array<Failure> | undefined;
-};
-
-export const DeleteBackupVersionsResponseBody2$zodSchema: z.ZodType<
-  DeleteBackupVersionsResponseBody2
-> = z.object({
-  asset_id: z.string().describe("The asset ID of the resource."),
-  deleted_version_ids: z.array(z.string()).describe(
-    "The list of version IDs that were successfully deleted.",
-  ),
-  failures: z.array(z.lazy(() => Failure$zodSchema)).optional().describe(
-    "The list of version IDs that failed to delete with error messages.",
-  ),
-}).describe("Multi-status - some versions deleted successfully, others failed");
-
-/**
- * Backup versions successfully deleted
- */
-export type DeleteBackupVersionsResponseBody1 = {
-  asset_id: string;
-  deleted_version_ids: Array<string>;
-};
-
-export const DeleteBackupVersionsResponseBody1$zodSchema: z.ZodType<
-  DeleteBackupVersionsResponseBody1
-> = z.object({
-  asset_id: z.string().describe("The asset ID of the resource."),
-  deleted_version_ids: z.array(z.string()).describe(
-    "The list of version IDs that were successfully deleted.",
-  ),
-}).describe("Backup versions successfully deleted");
-
-export type DeleteBackupVersionsResponse =
-  | DeleteBackupVersionsResponseBody1
-  | DeleteBackupVersionsResponseBody2
+export type DeleteBackupVersionsResponseResponse =
+  | DeleteBackupVersionsResponse
+  | DeleteBackupVersionsPartialResponse
   | ApiError;
 
-export const DeleteBackupVersionsResponse$zodSchema: z.ZodType<
-  DeleteBackupVersionsResponse
+export const DeleteBackupVersionsResponseResponse$zodSchema: z.ZodType<
+  DeleteBackupVersionsResponseResponse
 > = z.union([
-  z.lazy(() => DeleteBackupVersionsResponseBody1$zodSchema),
-  z.lazy(() => DeleteBackupVersionsResponseBody2$zodSchema),
+  DeleteBackupVersionsResponse$zodSchema,
+  DeleteBackupVersionsPartialResponse$zodSchema,
   ApiError$zodSchema,
 ]);

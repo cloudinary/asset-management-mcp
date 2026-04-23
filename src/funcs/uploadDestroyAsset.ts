@@ -4,7 +4,7 @@
  */
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -13,6 +13,7 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DestroyAssetRequest,
   DestroyAssetRequest$zodSchema,
+  DestroyAssetRequestBody,
 } from "../models/destroyassetop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -33,8 +34,7 @@ import { Result } from "../types/fp.js";
 export function uploadDestroyAsset(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  public_id: string,
-  invalidate?: boolean | undefined,
+  RequestBody: DestroyAssetRequestBody,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -51,8 +51,7 @@ export function uploadDestroyAsset(
   return new APIPromise($do(
     client$,
     resource_type,
-    public_id,
-    invalidate,
+    RequestBody,
     options,
   ));
 }
@@ -60,8 +59,7 @@ export function uploadDestroyAsset(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  public_id: string,
-  invalidate?: boolean | undefined,
+  RequestBody: DestroyAssetRequestBody,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,8 +78,7 @@ async function $do(
 > {
   const input$: DestroyAssetRequest = {
     resource_type: resource_type,
-    public_id: public_id,
-    invalidate: invalidate,
+    RequestBody: RequestBody,
   };
 
   const parsed$ = safeParse(
@@ -93,7 +90,7 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = null;
+  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -108,12 +105,9 @@ async function $do(
   const path$ = pathToFunc("/v1_1/{cloud_name}/{resource_type}/destroy")(
     pathParams$,
   );
-  const query$ = encodeFormQuery({
-    "invalidate": payload$.invalidate,
-    "public_id": payload$.public_id,
-  });
 
   const headers$ = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
   const securityInput = await extractSecurity(client$._options.security);
@@ -144,7 +138,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
-    query: query$,
     body: body$,
     userAgent: client$._options.userAgent,
     timeoutMs: options?.timeoutMs || client$._options.timeoutMs

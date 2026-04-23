@@ -31,9 +31,11 @@ export type UploadRequestRequest = {
 export const UploadRequestRequest$zodSchema: z.ZodType<UploadRequestRequest> = z
   .object({
     resource_type: UploadResourceType$zodSchema.default("auto").describe(
-      "The type of resource to upload:\n- \"image\" for uploading strictly images\n- \"video\" for uploading strictly videos\n- \"raw\" for uploading non-media files\n- \"auto\" for allowing Cloudinary to automatically detect the type of the uploaded file\n",
+      "The type of resource (image, video, raw, or auto).",
     ),
-    upload_request: UploadRequest$zodSchema,
+    upload_request: UploadRequest$zodSchema.describe(
+      "The file to upload and associated parameters.",
+    ),
   });
 
 /**

@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -25,7 +26,6 @@ import {
   ListPeopleSortBy,
   NameStatus,
 } from "../models/listpeopleop.js";
-import { ParametersDirection } from "../models/parametersdirection.js";
 import { PersonStatus } from "../models/personstatus.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -45,7 +45,7 @@ export function peopleListPeople(
   name_prefix?: string | undefined,
   status?: PersonStatus | undefined,
   sort_by?: ListPeopleSortBy | undefined,
-  direction?: ParametersDirection | undefined,
+  direction?: DirectionEnum | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -80,7 +80,7 @@ async function $do(
   name_prefix?: string | undefined,
   status?: PersonStatus | undefined,
   sort_by?: ListPeopleSortBy | undefined,
-  direction?: ParametersDirection | undefined,
+  direction?: DirectionEnum | undefined,
   options?: RequestOptions,
 ): Promise<
   [
