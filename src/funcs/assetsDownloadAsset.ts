@@ -23,8 +23,8 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { ManagedDeliveryType } from "../models/manageddeliverytype.js";
 import { ResourceType } from "../models/resourcetype.js";
-import { StorageType } from "../models/storagetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -43,14 +43,11 @@ export function assetsDownloadAsset(
   resource_type: ResourceType,
   public_id: string,
   format?: string | undefined,
-  type?: StorageType | undefined,
+  type?: ManagedDeliveryType | undefined,
   expires_at?: number | undefined,
   attachment?: boolean | undefined,
   target_filename?: string | undefined,
   transformation?: string | undefined,
-  api_key?: string | undefined,
-  signature?: string | undefined,
-  timestamp?: number | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -74,9 +71,6 @@ export function assetsDownloadAsset(
     attachment,
     target_filename,
     transformation,
-    api_key,
-    signature,
-    timestamp,
     options,
   ));
 }
@@ -86,14 +80,11 @@ async function $do(
   resource_type: ResourceType,
   public_id: string,
   format?: string | undefined,
-  type?: StorageType | undefined,
+  type?: ManagedDeliveryType | undefined,
   expires_at?: number | undefined,
   attachment?: boolean | undefined,
   target_filename?: string | undefined,
   transformation?: string | undefined,
-  api_key?: string | undefined,
-  signature?: string | undefined,
-  timestamp?: number | undefined,
   options?: RequestOptions & { acceptHeaderOverride?: DownloadAssetAcceptEnum },
 ): Promise<
   [
@@ -119,9 +110,6 @@ async function $do(
     attachment: attachment,
     target_filename: target_filename,
     transformation: transformation,
-    api_key: api_key,
-    signature: signature,
-    timestamp: timestamp,
   };
 
   const parsed$ = safeParse(
@@ -149,14 +137,11 @@ async function $do(
     pathParams$,
   );
   const query$ = encodeFormQuery({
-    "api_key": payload$.api_key,
     "attachment": payload$.attachment,
     "expires_at": payload$.expires_at,
     "format": payload$.format,
     "public_id": payload$.public_id,
-    "signature": payload$.signature,
     "target_filename": payload$.target_filename,
-    "timestamp": payload$.timestamp,
     "transformation": payload$.transformation,
     "type": payload$.type,
   });

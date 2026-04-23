@@ -11,14 +11,11 @@ import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
   resource_type: UploadResourceType$zodSchema.default("auto").describe(
-    `The type of resource to upload:
-- "image" for uploading strictly images
-- "video" for uploading strictly videos
-- "raw" for uploading non-media files
-- "auto" for allowing Cloudinary to automatically detect the type of the uploaded file
-`,
+    `The type of resource (image, video, raw, or auto).`,
   ),
-  upload_request: UploadRequest$zodSchema,
+  upload_request: UploadRequest$zodSchema.describe(
+    `The file to upload and associated parameters.`,
+  ),
 };
 
 export const tool$uploadUpload: ToolDefinition<typeof args> = {

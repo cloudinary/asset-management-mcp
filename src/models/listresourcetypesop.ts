@@ -4,7 +4,10 @@
  */
 
 import * as z from "zod";
-import { ClosedEnum } from "../types/enums.js";
+import {
+  ResourceTypesResponse,
+  ResourceTypesResponse$zodSchema,
+} from "./resourcetypesresponse.js";
 
 export type ListResourceTypesGlobals = { cloud_name?: string | undefined };
 
@@ -32,52 +35,21 @@ export const ListResourceTypesError$zodSchema: z.ZodType<
 /**
  * Authentication failed.
  */
-export type ListResourceTypesUnauthorizedResponseBody = {
-  error: ListResourceTypesError;
-};
-
-export const ListResourceTypesUnauthorizedResponseBody$zodSchema: z.ZodType<
-  ListResourceTypesUnauthorizedResponseBody
-> = z.object({
-  error: z.lazy(() => ListResourceTypesError$zodSchema),
-}).describe("Authentication failed.");
-
-export const ListResourceTypesResourceType = {
-  Image: "image",
-  Raw: "raw",
-  Video: "video",
-} as const;
-export type ListResourceTypesResourceType = ClosedEnum<
-  typeof ListResourceTypesResourceType
->;
-
-export const ListResourceTypesResourceType$zodSchema = z.enum([
-  "image",
-  "raw",
-  "video",
-]);
-
-/**
- * The list of resource types.
- */
-export type ListResourceTypesResponseBody = {
-  resource_types?: Array<ListResourceTypesResourceType> | undefined;
-};
+export type ListResourceTypesResponseBody = { error: ListResourceTypesError };
 
 export const ListResourceTypesResponseBody$zodSchema: z.ZodType<
   ListResourceTypesResponseBody
 > = z.object({
-  resource_types: z.array(ListResourceTypesResourceType$zodSchema).optional()
-    .describe("The list of available resource types."),
-}).describe("The list of resource types.");
+  error: z.lazy(() => ListResourceTypesError$zodSchema),
+}).describe("Authentication failed.");
 
 export type ListResourceTypesResponse =
-  | ListResourceTypesUnauthorizedResponseBody
-  | ListResourceTypesResponseBody;
+  | ListResourceTypesResponseBody
+  | ResourceTypesResponse;
 
 export const ListResourceTypesResponse$zodSchema: z.ZodType<
   ListResourceTypesResponse
 > = z.union([
-  z.lazy(() => ListResourceTypesUnauthorizedResponseBody$zodSchema),
   z.lazy(() => ListResourceTypesResponseBody$zodSchema),
+  ResourceTypesResponse$zodSchema,
 ]);

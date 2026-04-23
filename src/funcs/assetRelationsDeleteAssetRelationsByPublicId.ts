@@ -13,8 +13,8 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DeleteAssetRelationsByPublicIdRequest,
   DeleteAssetRelationsByPublicIdRequest$zodSchema,
-  DeleteAssetRelationsByPublicIdRequestBody,
 } from "../models/deleteassetrelationsbypublicidop.js";
+import { DeliveryType } from "../models/deliverytype.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -25,7 +25,7 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { ResourceType } from "../models/resourcetype.js";
-import { StorageTypeParameter } from "../models/storagetypeparameter.js";
+import { UnrelateAssetsByPublicIdRequest } from "../models/unrelateassetsbypublicidrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -38,9 +38,9 @@ import { Result } from "../types/fp.js";
 export function assetRelationsDeleteAssetRelationsByPublicId(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: StorageTypeParameter | undefined,
+  type: DeliveryType | undefined,
   public_id: string,
-  RequestBody: DeleteAssetRelationsByPublicIdRequestBody,
+  unrelate_assets_by_public_id_request: UnrelateAssetsByPublicIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function assetRelationsDeleteAssetRelationsByPublicId(
     resource_type,
     type,
     public_id,
-    RequestBody,
+    unrelate_assets_by_public_id_request,
     options,
   ));
 }
@@ -67,9 +67,9 @@ export function assetRelationsDeleteAssetRelationsByPublicId(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: ResourceType,
-  type: StorageTypeParameter | undefined,
+  type: DeliveryType | undefined,
   public_id: string,
-  RequestBody: DeleteAssetRelationsByPublicIdRequestBody,
+  unrelate_assets_by_public_id_request: UnrelateAssetsByPublicIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -90,7 +90,7 @@ async function $do(
     resource_type: resource_type,
     type: type,
     public_id: public_id,
-    RequestBody: RequestBody,
+    unrelate_assets_by_public_id_request: unrelate_assets_by_public_id_request,
   };
 
   const parsed$ = safeParse(
@@ -102,7 +102,11 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON(
+    "body",
+    payload$.unrelate_assets_by_public_id_request,
+    { explode: true },
+  );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

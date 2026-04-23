@@ -19,10 +19,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import { MoveFolderRequest } from "../models/movefolderrequest.js";
 import {
   UpdateFolderRequest,
   UpdateFolderRequest$zodSchema,
-  UpdateFolderRequestBody,
 } from "../models/updatefolderop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -36,7 +36,7 @@ import { Result } from "../types/fp.js";
 export function foldersUpdateFolder(
   client$: CloudinaryAssetMgmtCore,
   folder: string,
-  RequestBody: UpdateFolderRequestBody,
+  move_folder_request: MoveFolderRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -53,7 +53,7 @@ export function foldersUpdateFolder(
   return new APIPromise($do(
     client$,
     folder,
-    RequestBody,
+    move_folder_request,
     options,
   ));
 }
@@ -61,7 +61,7 @@ export function foldersUpdateFolder(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   folder: string,
-  RequestBody: UpdateFolderRequestBody,
+  move_folder_request: MoveFolderRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,7 @@ async function $do(
 > {
   const input$: UpdateFolderRequest = {
     folder: folder,
-    RequestBody: RequestBody,
+    move_folder_request: move_folder_request,
   };
 
   const parsed$ = safeParse(
@@ -92,7 +92,9 @@ async function $do(
     return [parsed$, { status: "invalid" }];
   }
   const payload$ = parsed$.value;
-  const body$ = encodeJSON("body", payload$.RequestBody, { explode: true });
+  const body$ = encodeJSON("body", payload$.move_folder_request, {
+    explode: true,
+  });
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {

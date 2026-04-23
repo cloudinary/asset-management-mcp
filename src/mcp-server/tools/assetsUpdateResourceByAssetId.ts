@@ -12,7 +12,9 @@ const args = {
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
-  ResourceUpdateRequest: ResourceUpdateRequest$zodSchema,
+  ResourceUpdateRequest: ResourceUpdateRequest$zodSchema.describe(
+    `The asset attributes to update.`,
+  ),
 };
 
 export const tool$assetsUpdateResourceByAssetId: ToolDefinition<typeof args> = {
@@ -20,7 +22,7 @@ export const tool$assetsUpdateResourceByAssetId: ToolDefinition<typeof args> = {
   description:
     `Updates an existing asset's metadata, tags, and other attributes using its asset ID
 
-Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or deliver type. Note that you can also update many attributes of an existing asset using the explicit method, which is not rate-limited.
+Updates one or more attributes of a specified resource (asset) by its asset ID. This enables you to update details of an asset by its unique and immutable identifier, regardless of public ID, display name, asset folder, resource type or delivery type. Note that you can also update attributes of an existing asset using the explicit API endpoint.
 `,
   scopes: ["librarian"],
   annotations: {
