@@ -384,6 +384,8 @@ async function logResponse(
       break;
     case matchContentType(res, "application/jsonl")
       || jsonlLikeContentTypeRE.test(ct):
+      logger.log(await res.clone().text());
+      break;
     case matchContentType(res, "text/event-stream"):
       logger.log(`<${contentType}>`);
       break;

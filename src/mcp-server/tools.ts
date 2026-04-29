@@ -360,16 +360,16 @@ export function registerDynamicTools(
 
     return { content: [{ type: "text", text: parts.join("\n\n") }] };
   });
-  logger.debug("Registered dynamic meta-tool", { name: "describe_tool_input" });
+  logger.debug("Registered dynamic meta-tool", { name: "describe_tool" });
 
   // 3. execute_tool
   server.registerTool("execute_tool", {
     description:
-      "Execute a tool by name with its arguments. If executing a given tool for the first time, it is recommended to call describe_tool_input first to understand the expected `arguments` shape.",
+      "Execute a tool by name with the provided input parameters. If executing a given tool for the first time, it is recommended to call describe_tool_input first to understand the expected input schema.",
     inputSchema: {
-      name: z.string().describe("The name of the tool to execute"),
-      arguments: z.looseObject({}).optional().describe(
-        "Arguments for the target tool as a JSON object, matching the schema returned by describe_tool_input.",
+      tool_name: z.string().describe("The name of the tool to execute"),
+      input: z.record(z.string(), z.unknown()).optional().describe(
+        "Input parameters for the tool as a JSON object",
       ),
     },
     annotations: {
@@ -380,17 +380,17 @@ export function registerDynamicTools(
       openWorldHint: true,
     },
   }, async (args, ctx) => {
-    const def = toolMap.get(args.name);
+    const def = toolMap.get(args.tool_name);
     if (!def) {
       return {
-        content: [{ type: "text", text: `Unknown tool: ${args.name}` }],
+        content: [{ type: "text", text: `Unknown tool: ${args.tool_name}` }],
         isError: true,
       };
     }
 
     let validatedInput: Record<string, unknown> = {};
     if (def.args) {
-      const vres = z.object(def.args).safeParse(args.arguments ?? {});
+      const vres = z.object(def.args).safeParse(args.input ?? {});
       if (vres.success) {
         validatedInput = vres.data;
       } else {
@@ -400,7 +400,7 @@ export function registerDynamicTools(
           content: [{
             type: "text",
             text:
-              `Invalid input for tool ${args.name}:\n<issues>\n${issues}\n</issues>`,
+              `Invalid input for tool ${args.tool_name}:\n<issues>\n${issues}\n</issues>`,
           }],
           isError: true,
         };
@@ -418,7 +418,7 @@ export function registerDynamicTools(
       return {
         content: [{
           type: "text",
-          text: `Error executing tool ${args.name}: ${message}`,
+          text: `Error executing tool ${args.tool_name}: ${message}`,
         }],
         isError: true,
       };
