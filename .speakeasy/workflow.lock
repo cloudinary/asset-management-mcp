@@ -2,17 +2,17 @@ speakeasyVersion: 1.761.9
 sources:
     CloudinaryAssetMgmt-MCP-OAS:
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
-        sourceRevisionDigest: sha256:3ccfb0fc1b7ad767fd1b995bf907c90fcf9c471db907bd17d1a218373338d7ed
-        sourceBlobDigest: sha256:a19d90bd1c430ae13650c0a179a4df9f2fcf4863f8250246b4aa5b0d4704f191
+        sourceRevisionDigest: sha256:cb5d624b3bcfa34a539f6f8ec662006de9ed2a1b81b6dcd407cc946e7c54dbf4
+        sourceBlobDigest: sha256:87a4a861e087a792bd45388ce21f2cfa225cf11669e2b6a8a41961694a8ed29c
         tags:
             - latest
-            - 0.5.0
+            - 0.5.1
 targets:
     cloudinary-asset-mgmt-mcp:
         source: CloudinaryAssetMgmt-MCP-OAS
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
-        sourceRevisionDigest: sha256:3ccfb0fc1b7ad767fd1b995bf907c90fcf9c471db907bd17d1a218373338d7ed
-        sourceBlobDigest: sha256:a19d90bd1c430ae13650c0a179a4df9f2fcf4863f8250246b4aa5b0d4704f191
+        sourceRevisionDigest: sha256:cb5d624b3bcfa34a539f6f8ec662006de9ed2a1b81b6dcd407cc946e7c54dbf4
+        sourceBlobDigest: sha256:87a4a861e087a792bd45388ce21f2cfa225cf11669e2b6a8a41961694a8ed29c
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -28,6 +28,7 @@ workflow:
                 - location: https://cloudinary.github.io/api-schemas/overlays/signature-optional-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
                 - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/create-only-archive-mode-overlay.yml
+                - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/search-llm-guidance-overlay.yml
             registry:
                 location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-asset-mgmt-mcp-oas
     targets:
