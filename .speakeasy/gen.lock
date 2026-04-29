@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: a0b321a05b79df4a417772db00f6ab4f
-  docVersion: 0.5.0
+  docChecksum: 08fe379bf8a5cb5c838f7859262f9517
+  docVersion: 0.5.1
   speakeasyVersion: 1.761.9
   generationVersion: 2.881.4
-  releaseVersion: 0.9.0
-  configChecksum: 41ffdc054c884236a1825b898b3de0bc
+  releaseVersion: 0.9.1
+  configChecksum: b30fee6b7c835f4b9d4df0eaf42e3502
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 456e2c65-5386-44c8-927c-6be9db762b33
-  pristine_commit_hash: 9f3d1234b19061947309e401ce48e2f663fa4b66
-  pristine_tree_hash: 50d581b72b7b9a76d101dae983d625f5f8570213
+  generation_id: 249a641e-62a8-43c6-aae3-34be8a9e0f0c
+  pristine_commit_hash: 0a92ae368e6b5d2361c860df8938a87bac938b43
+  pristine_tree_hash: 1f6cf4ff3b52095e96c0a0407fd14d99a21086e3
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:652c697dbb2a93fe023af9d3872adfec9978fef9
-    pristine_git_object: a6411bd3ae99b90f364f0809930bc825f6090e7c
+    last_write_checksum: sha1:2bcf3ba494fa7ac6ca9dda36efeccf6ef46ed70e
+    pristine_git_object: bb6ac7d7944804dbac9300a365600de7ea5a8b53
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:740e469fd5ec50d19e97afbee8e04ac6724155d6
-    pristine_git_object: 3524d1a0f8a0effdd9a576b30b41372a76a14665
+    last_write_checksum: sha1:4d1b5b87a1ffd4f27d9464d60bf8924a3cfcbb4e
+    pristine_git_object: bf1808ed39dec407edc09142c837ac2db2d9efe5
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -225,8 +225,8 @@ trackedFiles:
     pristine_git_object: b0f81ba2dfa5599d7ac22e7def380de037c99ee1
   src/funcs/searchSearchAssets.ts:
     id: 7e457683073d
-    last_write_checksum: sha1:70b20f172f4a55e695b0cab8ffd7ecec8593f8b9
-    pristine_git_object: 598528ec2766ed2ad5ec7d921417b7fe9d0fe3e9
+    last_write_checksum: sha1:c4fd831bec23f358dfc0c751afbca41f89fc893f
+    pristine_git_object: 287463d4ef2ea6f9ee90d95aec4af23dfc1800ac
   src/funcs/searchVisualSearchAssets.ts:
     id: a8db6463f05c
     last_write_checksum: sha1:ff1cb93b63719893fa5a0681c350983c4c99b988
@@ -277,16 +277,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:39ccb515ee1b76e67b924d383e6b1544030de3fc
-    pristine_git_object: 5aa7e67715a3e7ccd45949f909f434e12e7aacf2
+    last_write_checksum: sha1:4f31a913c1c931c1e7e156cbf43a3de0de2853d8
+    pristine_git_object: e9ae813928df158a14431d5639437d9ab103a279
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:76e1adf80327df49559b354da50c191a0f3477a3
-    pristine_git_object: ea674d08e32c92cb06299233587b57b0856cc9d4
+    last_write_checksum: sha1:407f9788b7c0caafe86bfd0e6d5c24a8b137f805
+    pristine_git_object: 2dd378f3cf41cfd4723da37d5cc441bf7a0e67d6
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:eaac763b22717206a6199104e0403ed17a4e2711
@@ -381,8 +381,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:8e981b0a75bba8198ec8dbbd133e08997b4b74f1
-    pristine_git_object: 8b53e7d683caa5ff502f60f60e35f13022507dd0
+    last_write_checksum: sha1:144af096ed6fb68f0d0ec7765ef7d6fba38ab4e7
+    pristine_git_object: ee82ebd816d1c6c332c75ad7d1f82b10c78e0e94
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:5e888d32602a4a666f97cd2c126ad9a6286d8578
@@ -397,8 +397,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:626cd0d959dcbe0df733cd8e11e5ae5fbbd039e8
-    pristine_git_object: 52b6ac3a21bf606127a24e9129c401020a4ce857
+    last_write_checksum: sha1:13454ba57e075531fe776f3b7a37404df930011b
+    pristine_git_object: bb992d76a86ac4bf893e44c1e58e2cf265d410b0
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:89d816c34ea71049cbf484f9704239e5372858f1
@@ -477,8 +477,8 @@ trackedFiles:
     pristine_git_object: 519d1384aa839c30f812ad09bfd4db1949473c17
   src/mcp-server/tools/searchSearchAssets.ts:
     id: af8d0e1dda1d
-    last_write_checksum: sha1:76965c8b0f9d57336abe555ee1a14e535876cc08
-    pristine_git_object: 652b2ec7e6620148733adafc1726e923a0909ecd
+    last_write_checksum: sha1:0f4f1c29f28d057c1b349d4bc6c8b79c18dc6f8a
+    pristine_git_object: 21cb39020fbd9eee7cca449fc12312a0c33cc6c2
   src/mcp-server/tools/searchVisualSearchAssets.ts:
     id: 0f7022b64923
     last_write_checksum: sha1:994d34f1ca5c10f78006c33264a81d5773a11387
@@ -909,8 +909,8 @@ trackedFiles:
     pristine_git_object: 9907ec57f35764604e9e305bf238a29fcb382a17
   src/models/searchparameters.ts:
     id: 31420f097d62
-    last_write_checksum: sha1:e7f42138d5c49745b7cbb39bce9990e2fb68439a
-    pristine_git_object: f32f7b90c2d90c87d061041dc5e8a0575db3f39e
+    last_write_checksum: sha1:58dd6be0822f54fb105ba5bdc5bfd37831333b3b
+    pristine_git_object: b7ef8b3c823b7ec4ab7008f055e7552dc4a6367c
   src/models/searchresponse.ts:
     id: bbcd43bc9f51
     last_write_checksum: sha1:2f142fa61f475479f16a1c04df7c202fe93379ca
@@ -1041,8 +1041,8 @@ trackedFiles:
     pristine_git_object: 95c223c617dd027381bae34c6fa52b984461bf7a
   src/tool-names.ts:
     id: a9977280f9eb
-    last_write_checksum: sha1:91e8e4f22f4e5421b1a3f67f2993be0949342662
-    pristine_git_object: 7697b24fd14b08a2caa3d201db6fc6f6834118f9
+    last_write_checksum: sha1:c3c5dfc2ad0108c5e05475602724703af146fac5
+    pristine_git_object: ee0e780dbeecc64467b193e4d9a2a30a7deef545
   src/types/async.ts:
     id: fac8da972f86
     last_write_checksum: sha1:e2a7c53b428567587741f38e6da489f596de6227
@@ -1793,7 +1793,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": [{"created_at": "desc"}, {"public_id": "asc"}], "max_results": 30, "aggregate": ["format", "resource_type"], "fields": "tags,context,metadata"}
+        application/json: {"expression": "resource_type:image AND tags:kitten", "sort_by": [{"created_at": "desc"}, {"public_id": "asc"}], "max_results": 30, "aggregate": ["format", "resource_type"], "with_field": ["tags", "context"], "fields": "tags,context,metadata"}
       responses:
         "200":
           application/json: {"total_count": 42, "time": 42, "resources": [{"asset_id": "09169cf604b03521789d1b3b8cca53d1", "public_id": "blue_sweater", "asset_folder": "Clothing Sale", "filename": "blue_sweater", "display_name": "blue_sweater", "format": "jpg", "version": 1719316754, "resource_type": "image", "type": "upload", "created_at": "2024-06-25T11:59:14+00:00", "uploaded_at": "2024-06-25T11:59:14+00:00", "bytes": 71063, "backup_bytes": 71063, "width": 4800, "height": 6400, "aspect_ratio": 0.75, "pixels": 307200, "url": "http://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1719316754/blue_sweater.jpg", "status": "active", "access_mode": "public", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "etag": "7242da7b353e7da2c3eb8c006165b385", "created_by": {"access_key": "614335564976464"}, "uploaded_by": {"access_key": "614335564976464"}}], "next_cursor": "e4d03a236b27e306e56719f74d05cdef", "aggregations": {"values": [{"value": "jpg", "count": 42}], "ranges": [{"from": 0, "to": 1048576, "count": 17}]}}
@@ -1926,7 +1926,7 @@ examples:
         "400":
           application/json: {"error": {"message": "The provided Asset does not contain a face for this Person"}}
 examplesVersion: 1.0.2
-releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.upload.upload()`: \n  *  `request.upload_request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.renameAsset()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.generateArchive()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.downloadBackupAsset()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.error` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.destroyByAssetId()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.asset_folder` **Removed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listImages()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listVideos()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.listRawFiles()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.getResourceByAssetId()`:  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.assets.updateResourceByAssetId()`: \n  *  `request.ResourceUpdateRequest` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.asset_relations.createAssetRelationsByAssetId()`:  `request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.asset_relations.deleteAssetRelationsByAssetId()`:  `request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.folders.updateFolder()`:  `request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.folders.searchFolders()`:  `request` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.search.searchAssets()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.search.visualSearchAssets()`:  `response.resources[]` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.search.searchAssets()`: \n  *  `request.aggregate.union(Array<>)[].ranges[].key` **Added** (Breaking ⚠️)\n"
 generatedFiles:
   - .dxtignore
   - .gitattributes
