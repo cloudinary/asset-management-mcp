@@ -1,7 +1,9 @@
 import { CloudConfig } from "./cloudConfig.js";
 import { CloudinaryAuthHook } from "./cloudinaryAuthHook.js";
 import { CustomHeadersHook } from "./customHeadersHook.js";
+import { DefaultRetrySdkInitHook } from "./defaultRetrySdkInitHook.js";
 import { ResponseHeadersHook } from "./responseHeadersHook.js";
+import { SearchExpressionNormalizeHook } from "./searchExpressionNormalizeHook.js";
 import { Hooks } from "./types.js";
 import { UserAgentHook } from "./userAgentHook.js";
 /*
@@ -16,6 +18,8 @@ export function initHooks(hooks: Hooks) {
 
   hooks.registerBeforeRequestHook(new CloudinaryAuthHook(config));
   hooks.registerBeforeRequestHook(new CustomHeadersHook());
+  hooks.registerBeforeCreateRequestHook(new SearchExpressionNormalizeHook());
+  hooks.registerSDKInitHook(new DefaultRetrySdkInitHook());
   hooks.registerSDKInitHook(new UserAgentHook());
   hooks.registerAfterSuccessHook(new ResponseHeadersHook(config.collectHeaders));
 }
