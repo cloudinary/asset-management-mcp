@@ -56,6 +56,43 @@ describe("normalizeSearchExpression", () => {
       'updated_at>="2020-01-01T00:00:00Z"',
     );
   });
+
+  /**
+   * Shapes sampled from production `resources/search` traffic
+   */
+  test("production-shaped expressions: valid traffic unchanged", () => {
+    const productionSampleWithNot =
+      'resource_type=image AND metadata.assetStatus=active AND -tags="Holiday FY22"';
+    expect(normalizeSearchExpression(productionSampleWithNot)).toBe(productionSampleWithNot);
+
+    const productionSampleWithFolder = "tags=YUL AND folder=Cities/Illustrations/*";
+    expect(normalizeSearchExpression(productionSampleWithFolder)).toBe(productionSampleWithFolder);
+
+    expect(normalizeSearchExpression("public_id=2081167")).toBe("public_id=2081167");
+  });
+
+  test("production-shaped expressions: colon-space typos fixed", () => {
+    expect(
+      normalizeSearchExpression(
+        'resource_type=image AND metadata.assetStatus: active AND -tags: "Holiday FY22"',
+      ),
+    ).toBe(
+      'resource_type=image AND metadata.assetStatus:active AND -tags:"Holiday FY22"',
+    );
+  });
+
+  test('collapses space before quoted value: tags: "key: value"', () => {
+    expect(normalizeSearchExpression('tags: "key: value"')).toBe('tags:"key: value"');
+  });
+
+  test(
+    "collapses spaces after field colons before quoted context: tags: shirt AND context.note: \"a: b\"",
+    () => {
+      expect(
+        normalizeSearchExpression('tags: shirt AND context.note: "a: b"'),
+      ).toBe('tags:shirt AND context.note:"a: b"');
+    },
+  );
 });
 
 describe("SearchExpressionNormalizeHook", () => {

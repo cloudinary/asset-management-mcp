@@ -18,7 +18,7 @@
     "build": "bun i && bun src/mcp-server/build.mts && tsc",
     "mcpb:build": "bun i && bun src/mcp-server/build.mts --pack && tsc",
     "check": "npm run lint",
-    "test": "bun test src/hooks",
+    "test": "bun test src",
     "lint": "eslint --cache --max-warnings=0 src",
     "prepublishOnly": "npm run build"
   },
