@@ -19,8 +19,14 @@ export function landingPage(req: Request): Response {
 
 // express wrapper
 export function landingPageExpress(req: ExpressRequest, res: ExpressResponse) {
-  const origin = new URL(req.host).href;
-  res.type("html").send(landingPageHTML(origin));
+  const proto = req.get("x-forwarded-proto")?.split(",")[0]?.trim()
+    || req.protocol;
+  const host = req.get("host");
+  if (!host) {
+    res.status(400).send("Missing Host header");
+    return;
+  }
+  res.type("html").send(landingPageHTML(`${proto}://${host}`));
 }
 
 export function landingPageHTML(origin: string): string {
@@ -933,7 +939,7 @@ http_headers = { "api-key" = "YOUR_API_KEY", "api-secret" = "YOUR_API_SECRET", "
         <h1>Instructions</h1>
         <p>One-click installation for Claude Desktop users</p>
         <div class="instruction-item">
-          <a href="https://github.com/cloudinary/asset-management-mcp/releases/download/v0.9.1/mcp-server.mcpb" download="mcp-server.mcpb" class="action-button header-action" style="display: inline-flex; margin-bottom: 16px;">
+          <a href="https://github.com/cloudinary/asset-management-mcp/releases/download/v0.9.2/mcp-server.mcpb" download="mcp-server.mcpb" class="action-button header-action" style="display: inline-flex; margin-bottom: 16px;">
             📥 Download MCP Bundle
           </a>
         </div>
