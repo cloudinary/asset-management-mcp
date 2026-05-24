@@ -66,7 +66,12 @@ function appResourceContent(uri: URL, html: string) {
       uri: uri.toString(),
       mimeType: MCP_APP_MIME_TYPE,
       text: html,
-      _meta: { ui: { csp: { resourceDomains: CSP_RESOURCE_DOMAINS } } },
+      _meta: {
+        ui: {
+          csp: { resourceDomains: CSP_RESOURCE_DOMAINS },
+          permissions: { clipboardWrite: {} },
+        },
+      },
       // deno-lint-ignore no-explicit-any
     } as any],
   };

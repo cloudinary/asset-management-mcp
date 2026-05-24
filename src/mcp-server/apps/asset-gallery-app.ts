@@ -10,6 +10,7 @@
 import {
   SHARED_CSS_TOKENS,
   SHARED_CSS_COMPONENTS,
+  SHARED_JS_ICONS,
   SHARED_JS_MCP_CLIENT,
   SHARED_JS_HELPERS,
   SHARED_JS_TOOLTIPS,
@@ -37,90 +38,10 @@ const GALLERY_CSS = /* css */ `
   font-size: var(--cld-font-xxs); color: var(--cld-text3); background: var(--cld-bg3);
   padding: 2px 8px; border-radius: 20px; font-weight: 500;
 }
-.select-all-btn {
-  font-size: 12px; color: var(--cld-text2); background: none;
-  border: 1px solid var(--cld-border); border-radius: var(--cld-radius-sm);
-  padding: 4px 10px; cursor: pointer; font-family: inherit;
-  transition: color 0.15s, border-color 0.15s;
-}
-.select-all-btn:hover { color: var(--cld-accent); border-color: var(--cld-accent); }
-.refresh-btn {
-  background: none; border: 1px solid var(--cld-border); border-radius: var(--cld-radius-sm);
-  color: var(--cld-text2); cursor: pointer; font-size: 14px; padding: 2px 7px;
-  line-height: 1; transition: background 0.15s, color 0.15s;
-}
-.refresh-btn:hover { background: var(--cld-bg3); color: var(--cld-text); }
-
-/* ── Filter bar ── */
-.filter-row {
-  margin-bottom: var(--cld-sp-md); display: flex; gap: 8px; align-items: center;
-}
-.filter-text-wrap { position: relative; flex: 1; }
-.filter-input {
-  width: 100%; height: 36px; padding: 0 12px 0 34px;
-  border: 1px solid var(--cld-border); border-radius: var(--cld-radius);
-  background: var(--cld-bg); font-size: 12.5px; color: var(--cld-text);
-  outline: none; font-family: inherit;
-  transition: border-color 0.18s, box-shadow 0.18s;
-}
-.filter-input::placeholder { color: var(--cld-text3); }
-.filter-input:focus {
-  border-color: var(--cld-accent);
-  box-shadow: 0 0 0 3px rgba(52,72,197,0.1);
-}
-[data-theme="dark"] .filter-input:focus { box-shadow: 0 0 0 3px rgba(13,154,255,0.15); }
-.filter-icon {
-  position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
-  color: var(--cld-text3); pointer-events: none; display: flex; align-items: center;
-}
-.filter-clear {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; color: var(--cld-text3); cursor: pointer;
-  font-size: 14px; line-height: 1; padding: 2px 4px; border-radius: 4px;
-  display: none; font-family: inherit;
-}
-.filter-clear:hover { color: var(--cld-text); background: var(--cld-border); }
-.filter-clear.visible { display: block; }
-
-/* Aspect-ratio dropdown */
-.aspect-dropdown { position: relative; flex-shrink: 0; user-select: none; }
-.aspect-btn {
-  height: 36px; padding: 0 10px; border: 1px solid var(--cld-border);
-  border-radius: var(--cld-radius); background: var(--cld-bg);
-  font-size: 12.5px; color: var(--cld-text); cursor: pointer;
-  display: flex; align-items: center; gap: 6px; white-space: nowrap;
-  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
-  font-family: inherit; outline: none;
-}
-.aspect-btn:hover { border-color: var(--cld-border2); }
-.aspect-btn.active {
-  border-color: var(--cld-accent); background: var(--cld-accent-bg);
-  color: var(--cld-accent); font-weight: 600;
-}
-.aspect-btn-chevron { color: var(--cld-text3); flex-shrink: 0; transition: transform 0.18s; }
-.aspect-btn.open .aspect-btn-chevron { transform: rotate(180deg); }
-.aspect-menu {
-  position: absolute; top: calc(100% + 6px); right: 0;
-  background: var(--cld-bg); border: 1px solid var(--cld-border);
-  border-radius: 10px; box-shadow: var(--cld-shadow-md);
-  padding: 4px; min-width: 160px; z-index: 50; display: none;
-}
-.aspect-menu.open { display: block; }
-.aspect-option {
-  display: flex; align-items: center; gap: 10px;
-  padding: 7px 10px; border-radius: 6px; font-size: 12.5px;
-  color: var(--cld-text); cursor: pointer; transition: background 0.18s;
-}
-.aspect-option:hover { background: var(--cld-bg3); }
-.aspect-option.selected { color: var(--cld-accent); font-weight: 600; }
-.aspect-opt-icon { color: var(--cld-text3); display: flex; align-items: center; flex-shrink: 0; }
-.aspect-option.selected .aspect-opt-icon { color: var(--cld-accent); }
-.aspect-check { margin-left: auto; color: var(--cld-accent); opacity: 0; }
-.aspect-option.selected .aspect-check { opacity: 1; }
-.no-results {
-  grid-column: 1 / -1; padding: 60px 20px;
-  text-align: center; color: var(--cld-text3); font-size: 13px;
-}
+/* action-btn svg sizing */
+.action-btn svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+/* select bar svg */
+.bar-btn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
 /* ── Grid ── */
 .grid {
@@ -179,18 +100,11 @@ const GALLERY_CSS = /* css */ `
   opacity: 0; transition: opacity 0.18s; z-index: 4; pointer-events: none;
 }
 .card:hover .tags-overlay { opacity: 1; }
-.grid.filtering .tags-overlay { opacity: 1; }
 .tag-overlay {
   font-size: 10px; color: white;
   background: rgba(10, 12, 18, 0.55); padding: 2px 7px; border-radius: 20px;
   backdrop-filter: blur(6px); font-weight: 600; letter-spacing: 0.02em;
 }
-.tag-overlay.tag-match { background: rgba(52, 72, 197, 0.82); }
-.tag-overlay mark {
-  background: rgba(255, 213, 79, 0.5); color: white;
-  border-radius: 2px; padding: 0 1px;
-}
-
 /* Floating action buttons */
 .card-actions {
   position: absolute; bottom: 10px; left: 0; right: 0;
@@ -265,7 +179,6 @@ const GALLERY_CSS = /* css */ `
   opacity: 0; pointer-events: none; z-index: 100; white-space: nowrap;
 }
 .select-bar.visible { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: all; }
-.select-bar-spacer { height: 72px; }
 .select-count { font-size: 13px; font-weight: 600; margin-right: 8px; }
 .bar-btn {
   height: 36px; padding: 0 14px; border: none; border-radius: 30px;
@@ -306,8 +219,6 @@ var pendingCall = {
   args: null,
 };
 var selected = new Set();
-var filterQuery = "";
-var aspectFilter = "";
 var app = new MCPApp({ name: "Cloudinary Asset Gallery", version: "1.0.0" });
 setupHostContext(app);
 
@@ -331,24 +242,6 @@ function showToast(msg) {
   _toastTimer = setTimeout(function() { t.classList.remove("show"); }, 2000);
 }
 
-function getAspect(r) {
-  if (!r.width || !r.height) return "";
-  var ratio = r.width / r.height;
-  if (ratio > 1.1) return "landscape";
-  if (ratio < 0.9) return "portrait";
-  return "square";
-}
-
-function highlightText(text, query) {
-  if (!query) return esc(text);
-  var lo = text.toLowerCase();
-  var idx = lo.indexOf(query);
-  if (idx === -1) return esc(text);
-  return esc(text.slice(0, idx))
-    + "<mark>" + esc(text.slice(idx, idx + query.length)) + "</mark>"
-    + esc(text.slice(idx + query.length));
-}
-
 function updateSelectBar() {
   var bar = document.getElementById("select-bar");
   var countEl = document.getElementById("select-count");
@@ -356,8 +249,6 @@ function updateSelectBar() {
   var n = selected.size;
   countEl.textContent = n + " selected";
   bar.classList.toggle("visible", n > 0);
-  var spacer = document.getElementById("select-bar-spacer");
-  if (spacer) spacer.style.display = n > 0 ? "" : "none";
   var btn = document.getElementById("select-all-btn");
   if (btn) {
     var visible = getVisibleIndices();
@@ -424,11 +315,9 @@ function copyAssetUrl(type, idx) {
   var url = r.secure_url || r.url || "";
   var copyUrl = type === "optimized" ? optimizedUrl(url, r) : url;
   if (!copyUrl) return;
-  try {
-    navigator.clipboard.writeText(copyUrl).then(function() {
-      showToast(type === "optimized" ? "\\u2728 Optimized URL copied" : "URL copied");
-    });
-  } catch(e) { showError("Copy Failed", String(e)); }
+  copyText(copyUrl).then(function() {
+    showToast(type === "optimized" ? "\\u2728 Optimized URL copied" : "URL copied");
+  }).catch(function(e) { showError("Copy Failed", e && e.message ? e.message : String(e)); });
 }
 
 function downloadOne(idx) {
@@ -450,134 +339,74 @@ function copySelectedUrls(type) {
     urls.push(type === "optimized" ? optimizedUrl(url, r) : url);
   });
   if (!urls.length) return;
-  try {
-    navigator.clipboard.writeText(urls.join("\\n")).then(function() {
-      showToast(urls.length + " " + (type === "optimized" ? "optimized " : "") + "URLs copied");
-    });
-  } catch(e) { showError("Copy Failed", String(e)); }
+  copyText(urls.join("\\n")).then(function() {
+    showToast(urls.length + " " + (type === "optimized" ? "optimized " : "") + "URLs copied");
+  }).catch(function(e) { showError("Copy Failed", e && e.message ? e.message : String(e)); });
 }
 
-function downloadSelected() {
-  var count = 0;
+async function downloadSelected() {
+  if (selected.size === 0) return;
+
+  var picks = [];
   selected.forEach(function(i) {
     var r = allResources[i];
-    if (!r) return;
-    var url = r.secure_url || r.url || "";
-    var dl = downloadUrl(url, r);
-    if (dl) { app._rpc("ui/open-link", { url: dl }); count++; }
+    if (r && r.public_id) picks.push(r);
   });
-  if (count) showToast("Downloading " + count + " asset" + (count > 1 ? "s" : ""));
-}
+  if (!picks.length) return;
 
-function handleFilter() {
-  var input = document.getElementById("filter-input");
-  filterQuery = input ? input.value.trim().toLowerCase() : "";
+  var requestBody = {
+    mode: "create",
+    target_format: "zip",
+    keep_derived: true,
+    target_public_id: "mcp-gallery-archive-" + Date.now(),
+    fully_qualified_public_ids: picks.map(function(r) {
+      return (r.resource_type || "image") + "/" + (r.type || "upload") + "/" + r.public_id;
+    }),
+  };
 
-  var clearBtn = document.getElementById("filter-clear");
-  if (clearBtn) clearBtn.classList.toggle("visible", filterQuery.length > 0);
+  var btn = document.getElementById("bar-download");
+  var origLabel = btn ? btn.innerHTML : "";
+  if (btn) { btn.innerHTML = "Creating archive\\u2026"; btn.disabled = true; }
 
-  var aspectBtn = document.getElementById("aspect-btn");
-  if (aspectBtn) aspectBtn.classList.toggle("active", aspectFilter !== "");
+  try {
+    var res = await app.callServerTool({
+      name: "generate-archive",
+      arguments: {
+        resource_type: "all",
+        RequestBody: requestBody,
+      },
+    });
 
-  var anyFilter = filterQuery.length > 0 || aspectFilter !== "";
-  var grid = document.getElementById("gallery-grid");
-  if (grid) grid.classList.toggle("filtering", anyFilter);
-
-  var visibleCount = 0;
-  for (var i = 0; i < allResources.length; i++) {
-    var r = allResources[i];
-    var card = document.getElementById("card-" + i);
-    if (!card) continue;
-
-    var name = (r.public_id || r.filename || "").toLowerCase();
-    var tags = r.tags || [];
-    var textMatch = !filterQuery
-      || name.indexOf(filterQuery) !== -1
-      || tags.some(function(t) { return t.toLowerCase().indexOf(filterQuery) !== -1; });
-
-    var aspectMatch = !aspectFilter || getAspect(r) === aspectFilter;
-    var match = textMatch && aspectMatch;
-    card.style.display = match ? "" : "none";
-
-    var tagsEl = document.getElementById("tags-overlay-" + i);
-    if (tagsEl && tags.length) {
-      var maxOv = 3;
-      var matchedTags = [];
-      var otherTags = [];
-      for (var ti = 0; ti < tags.length; ti++) {
-        var isMatch = filterQuery && tags[ti].toLowerCase().indexOf(filterQuery) !== -1;
-        if (isMatch) matchedTags.push(tags[ti]);
-        else otherTags.push(tags[ti]);
-      }
-      var shown = matchedTags.slice();
-      var remaining = maxOv - shown.length;
-      if (remaining > 0) shown = shown.concat(otherTags.slice(0, remaining));
-      var hidden = tags.length - shown.length;
-      var hiddenTags = tags.filter(function(t) { return shown.indexOf(t) === -1; });
-      tagsEl.innerHTML = shown.map(function(t) {
-        var matched = filterQuery && t.toLowerCase().indexOf(filterQuery) !== -1;
-        return '<span class="tag-overlay' + (matched ? ' tag-match' : '') + '">' + highlightText(t, filterQuery) + '</span>';
-      }).join("") + (hidden > 0 ? '<span class="tag-overlay" title="' + esc(hiddenTags.join(", ")) + '">+' + hidden + '</span>' : '');
+    var data = ingestResult(res);
+    if (data && (data._error || data._parseError)) {
+      showError("Archive Failed", unwrapApiError(data._message));
+      return;
     }
-
-    if (match) visibleCount++;
-  }
-
-  var badge = document.getElementById("count-badge");
-  if (badge) {
-    badge.textContent = anyFilter
-      ? visibleCount + " of " + allResources.length
-      : allResources.length + (lastCursor ? "+" : "") + " items";
-  }
-
-  var noRes = document.getElementById("no-results");
-  if (visibleCount === 0 && anyFilter) {
-    if (!noRes && grid) {
-      noRes = document.createElement("div");
-      noRes.id = "no-results";
-      noRes.className = "no-results";
-      grid.appendChild(noRes);
+    var archiveUrl = data && (data.secure_url || data.url);
+    if (!archiveUrl) {
+      showError("Archive Failed", "No delivery URL returned.");
+      return;
     }
-    if (noRes) noRes.textContent = "No results" + (filterQuery ? ' for "' + filterQuery + '"' : "") + (aspectFilter ? " in " + aspectFilter + " images" : "");
-  } else if (noRes) {
-    noRes.remove();
+    try { await copyText(archiveUrl); } catch (e) { /* ignore */ }
+    app._rpc("ui/open-link", { url: archiveUrl });
+    showToast("Archive saved as raw in Cloudinary \\u2014 opening URL (" + picks.length + " asset" + (picks.length > 1 ? "s" : "") + ")");
+  } catch (e) {
+    showError("Archive Failed", unwrapApiError(e && e.message ? e.message : String(e)));
+  } finally {
+    if (btn) { btn.innerHTML = origLabel; btn.disabled = false; }
   }
 }
 
-function clearFilter() {
-  var input = document.getElementById("filter-input");
-  if (input) input.value = "";
-  aspectFilter = "";
-  var label = document.getElementById("aspect-btn-label");
-  if (label) label.textContent = "All orientations";
-  document.querySelectorAll(".aspect-option").forEach(function(o) {
-    o.classList.toggle("selected", o.getAttribute("data-value") === "");
-  });
-  handleFilter();
-}
-
-function toggleAspectMenu(e) {
-  e.stopPropagation();
-  var btn = document.getElementById("aspect-btn");
-  var menu = document.getElementById("aspect-menu");
-  if (!btn || !menu) return;
-  var open = menu.classList.toggle("open");
-  btn.classList.toggle("open", open);
-}
-
-function selectAspect(val) {
-  aspectFilter = val;
-  var labels = { "": "All orientations", landscape: "Landscape", portrait: "Portrait", square: "Square" };
-  var label = document.getElementById("aspect-btn-label");
-  if (label) label.textContent = labels[aspectFilter] || "All orientations";
-  document.querySelectorAll(".aspect-option").forEach(function(o) {
-    o.classList.toggle("selected", o.getAttribute("data-value") === aspectFilter);
-  });
-  var menu = document.getElementById("aspect-menu");
-  var btn = document.getElementById("aspect-btn");
-  if (menu) menu.classList.remove("open");
-  if (btn) btn.classList.remove("open");
-  handleFilter();
+function unwrapApiError(raw) {
+  if (!raw) return "Unknown error.";
+  var msg = String(raw);
+  try {
+    if (msg.charAt(0) === "{") {
+      var parsed = JSON.parse(msg);
+      msg = (parsed && parsed.error && parsed.error.message) || msg;
+    }
+  } catch (e) { /* keep raw */ }
+  return msg;
 }
 
 function render() {
@@ -597,40 +426,11 @@ function render() {
   h += '<h1>Results</h1>';
   h += '<span class="count-badge" id="count-badge">' + allResources.length + (lastCursor ? "+" : "") + ' items</span>';
   h += '</div>';
-  h += '<div style="display:flex;align-items:center;gap:8px">';
-  h += '<button class="select-all-btn" id="select-all-btn">Select all</button>';
-  h += '<button class="refresh-btn" id="refresh-gallery" title="Refresh">\\u21BB</button>';
+  h += '<div id="header-actions" style="display:flex;align-items:center;gap:8px">';
+  h += '<button class="icon-btn" id="select-all-btn">Select all</button>';
+  h += '<button class="icon-btn icon-only" id="refresh-gallery" title="Refresh">' + IC.refresh + '</button>';
   h += '</div>';
   h += '</div>';
-
-  // Filter bar
-  h += '<div class="filter-row">';
-  h += '<div class="filter-text-wrap">';
-  h += '<span class="filter-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5l3 3"/></svg></span>';
-  h += '<input class="filter-input" id="filter-input" type="text" placeholder="Filter by filename or tag\\u2026" autocomplete="off" spellcheck="false">';
-  h += '<button class="filter-clear" id="filter-clear">\\u2715</button>';
-  h += '</div>';
-  h += '<div class="aspect-dropdown" id="aspect-dropdown">';
-  h += '<button class="aspect-btn" id="aspect-btn">';
-  h += '<span id="aspect-btn-label">All orientations</span>';
-  h += '<svg class="aspect-btn-chevron" width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg>';
-  h += '</button>';
-  h += '<div class="aspect-menu" id="aspect-menu">';
-  var aspects = [
-    { val: "", label: "All orientations", icon: '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="12" height="12" rx="1.5"/></svg>' },
-    { val: "landscape", label: "Landscape", icon: '<svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5"><rect x=".75" y=".75" width="12.5" height="8.5" rx="1.5"/></svg>' },
-    { val: "portrait", label: "Portrait", icon: '<svg width="10" height="14" viewBox="0 0 10 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x=".75" y=".75" width="8.5" height="12.5" rx="1.5"/></svg>' },
-    { val: "square", label: "Square", icon: '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x=".75" y=".75" width="10.5" height="10.5" rx="1.5"/></svg>' },
-  ];
-  for (var ai = 0; ai < aspects.length; ai++) {
-    var ao = aspects[ai];
-    h += '<div class="aspect-option' + (ao.val === aspectFilter ? ' selected' : '') + '" data-value="' + ao.val + '">';
-    h += '<span class="aspect-opt-icon">' + ao.icon + '</span>';
-    h += ao.label;
-    h += '<svg class="aspect-check" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>';
-    h += '</div>';
-  }
-  h += '</div></div></div>';
 
   // Grid
   h += '<div class="grid" id="gallery-grid">';
@@ -680,8 +480,8 @@ function render() {
     if (url) {
       h += '<div class="card-actions">';
       h += '<button class="action-btn act-original" data-copy-original="' + i + '">Copy URL</button>';
-      if (rt !== "raw") h += '<button class="action-btn act-optimized" data-copy-optimized="' + i + '">\\u2728 Optimized</button>';
-      h += '<button class="action-btn act-download" data-download="' + i + '" title="Download">\\u2193</button>';
+      if (rt !== "raw") h += '<button class="action-btn act-optimized" data-copy-optimized="' + i + '">' + IC.zap + ' Optimized</button>';
+      h += '<button class="action-btn act-download" data-download="' + i + '" title="Download">' + IC.arrowDown + '</button>';
       h += '</div>';
     }
 
@@ -728,24 +528,22 @@ function render() {
     h += "</div>";
   }
 
-  // Spacer so select bar doesn't cover Load More
-  h += '<div class="select-bar-spacer" id="select-bar-spacer" style="display:none"></div>';
-
   // Multi-select bar
   h += '<div class="select-bar" id="select-bar">';
   h += '<span class="select-count" id="select-count">0 selected</span>';
   h += '<div class="bar-divider"></div>';
-  h += '<button class="bar-btn bar-primary" id="bar-copy-optimized" style="display:none">\\u2728 Copy Optimized</button>';
+  h += '<button class="bar-btn bar-primary" id="bar-copy-optimized" style="display:none">' + IC.zap + ' Copy Optimized</button>';
   h += '<button class="bar-btn bar-secondary" id="bar-copy-original">Copy Original</button>';
-  h += '<button class="bar-btn bar-secondary" id="bar-download">\\u2193 Download All</button>';
+  h += '<button class="bar-btn bar-secondary" id="bar-download">' + IC.arrowDown + ' Download Selected</button>';
   h += '<div class="bar-divider"></div>';
-  h += '<button class="bar-btn bar-ghost" id="bar-clear">\\u2715</button>';
+  h += '<button class="bar-btn bar-ghost" id="bar-clear">' + IC.x + '</button>';
   h += '</div>';
 
   // Toast
   h += '<div class="gallery-toast" id="gallery-toast"></div>';
 
   root.innerHTML = h;
+  renderThemeToggle();
 
   // Re-apply selection state
   selected.forEach(function(i) {
@@ -779,37 +577,16 @@ function attachEvents() {
   _eventsAttached = true;
   var root = document.getElementById("app");
 
-  root.addEventListener("input", function(e) {
-    if (e.target && e.target.id === "filter-input") handleFilter();
-  });
-
-  document.addEventListener("click", function(e) {
-    var dd = document.getElementById("aspect-dropdown");
-    if (dd && !dd.contains(e.target)) {
-      var menu = document.getElementById("aspect-menu");
-      var btn = document.getElementById("aspect-btn");
-      if (menu) menu.classList.remove("open");
-      if (btn) btn.classList.remove("open");
-    }
-  });
-
   root.addEventListener("click", function(e) {
     var el = e.target;
     while (el && el !== root) {
       if (el.id === "load-more-btn") { loadMore(); return; }
       if (el.id === "refresh-gallery") { refreshGallery(); return; }
       if (el.id === "select-all-btn") { toggleSelectAll(); return; }
-      if (el.id === "filter-clear") { clearFilter(); return; }
       if (el.id === "bar-copy-optimized") { copySelectedUrls("optimized"); return; }
       if (el.id === "bar-copy-original") { copySelectedUrls("original"); return; }
       if (el.id === "bar-download") { downloadSelected(); return; }
       if (el.id === "bar-clear") { clearSelection(); return; }
-      if (el.id === "aspect-btn" || el.parentElement && el.parentElement.id === "aspect-btn") {
-        toggleAspectMenu(e); return;
-      }
-      if (el.classList && el.classList.contains("aspect-option")) {
-        selectAspect(el.getAttribute("data-value") || ""); return;
-      }
       if (el.dataset && el.dataset.copyOriginal != null) {
         e.stopPropagation();
         copyAssetUrl("original", parseInt(el.dataset.copyOriginal, 10)); return;
@@ -970,6 +747,7 @@ function showFetchPrompt() {
   h += '<button class="prompt-btn prompt-btn-primary" id="fetch-direct-btn">Fetch Directly</button>';
   h += "</div></div>";
   root.innerHTML = h;
+  renderThemeToggle();
   document.getElementById("fetch-direct-btn").addEventListener("click", function() { fetchDirect(); });
 }
 
@@ -1047,7 +825,6 @@ function refreshGallery() {
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") {
     if (document.querySelector(".modal-overlay")) { closeModal(); return; }
-    if (filterQuery || aspectFilter) { clearFilter(); return; }
     if (selected.size > 0) { clearSelection(); return; }
   }
 });
@@ -1078,6 +855,7 @@ ${GALLERY_CSS}
 <div class="gallery-toast" id="gallery-toast"></div>
 
 <script>
+${SHARED_JS_ICONS}
 ${SHARED_JS_MCP_CLIENT}
 ${SHARED_JS_HELPERS}
 ${SHARED_JS_TOOLTIPS}

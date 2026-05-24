@@ -18,6 +18,7 @@ import { toJSONSchema } from "zod";
 import {
   SHARED_CSS_TOKENS,
   SHARED_CSS_COMPONENTS,
+  SHARED_JS_ICONS,
   SHARED_JS_MCP_CLIENT,
   SHARED_JS_HELPERS,
   SHARED_JS_TOOLTIPS,
@@ -61,15 +62,8 @@ const UPLOAD_CSS = /* css */ `
 .upload-header h1 {
   font-size: var(--cld-font-sm); font-weight: 600; color: var(--cld-text);
 }
-.upload-header-icon { font-size: 20px; }
-.upload-header { position: relative; }
-.back-link {
-  position: absolute; top: -2px; right: 0;
-  background: none; border: none; cursor: pointer;
-  color: var(--cld-accent); font-size: var(--cld-font-xs);
-  padding: 2px 6px; border-radius: 4px;
-}
-.back-link:hover { text-decoration: underline; background: var(--cld-accent-bg); }
+.upload-header-icon { display: flex; align-items: center; justify-content: center; }
+.upload-header-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .upload-result .detail-section { padding: 14px 16px; }
 .upload-result .detail-section:first-child { padding-top: 0; }
@@ -508,16 +502,18 @@ function renderPicker() {
   var h = "";
 
   h += '<div class="upload-header">';
-  if (lastResult) {
-    h += '<button class="back-link" id="back-to-result-btn">\\u2190 Back to Result</button>';
-  }
-  h += '<span class="upload-header-icon">\\u2B06\\uFE0F</span>';
+  h += '<span class="upload-header-icon icon-accent">' + IC.uploadCloud + '</span>';
   h += "<h1>Upload to Cloudinary</h1>";
+  h += '<div id="header-actions" style="display:flex;align-items:center;gap:6px;margin-left:auto">';
+  if (lastResult) {
+    h += '<button class="icon-btn" id="back-to-result-btn">' + IC.chevronLeft + ' Back</button>';
+  }
+  h += '</div>';
   h += "</div>";
 
   if (stagedFile) {
     h += '<div class="upload-staged">';
-    h += '<div class="upload-staged-icon">\\u{1F4C4}</div>';
+    h += '<div class="upload-staged-icon">' + IC.file + '</div>';
     h += '<div class="upload-staged-info">';
     h += '<div class="upload-staged-name">' + esc(stagedFile.name) + "</div>";
     if (stagedFile.size) {
@@ -528,11 +524,11 @@ function renderPicker() {
       h += '<div class="upload-staged-meta">Remote URL</div>';
     }
     h += "</div>";
-    h += '<button class="upload-staged-clear" id="clear-staged-btn" title="Remove">\\u2715</button>';
+    h += '<button class="upload-staged-clear icon-btn icon-only" id="clear-staged-btn" title="Remove">' + IC.x + '</button>';
     h += "</div>";
   } else {
     h += '<div class="upload-zone" id="drop-zone">';
-    h += '<div class="upload-zone-icon">\\u{1F4C1}</div>';
+    h += '<div class="upload-zone-icon">' + IC.folderOpen + '</div>';
     h += '<div class="upload-zone-text">Drag & drop a file here</div>';
     h += '<div class="upload-zone-hint">Images, videos, PDFs, and other files up to 60 MB</div>';
     h += '<button class="upload-zone-btn" id="browse-btn">Browse Files</button>';
@@ -556,6 +552,7 @@ function renderPicker() {
   }
 
   root.innerHTML = h;
+  renderThemeToggle();
 
   var backBtn = document.getElementById("back-to-result-btn");
   if (backBtn && lastResult) {
@@ -635,12 +632,13 @@ function renderUploading(name, meta) {
   var h = "";
 
   h += '<div class="upload-header">';
-  h += '<span class="upload-header-icon">\\u2B06\\uFE0F</span>';
-  h += "<h1>Uploading\\u2026</h1>";
+  h += '<span class="upload-header-icon icon-accent">' + IC.uploadCloud + '</span>';
+  h += '<h1>Uploading…</h1>';
+  h += '<div id="header-actions" style="display:flex;align-items:center;gap:6px;margin-left:auto"></div>';
   h += "</div>";
 
   h += '<div class="upload-preview">';
-  h += '<div class="upload-preview-icon">\\u{1F4C4}</div>';
+  h += '<div class="upload-preview-icon">' + IC.file + '</div>';
   h += '<div class="upload-preview-info">';
   h += '<div class="upload-preview-name">' + esc(name) + "</div>";
   h += '<div class="upload-preview-meta">' + esc(meta) + "</div>";
@@ -652,6 +650,7 @@ function renderUploading(name, meta) {
   h += "</div>";
 
   root.innerHTML = h;
+  renderThemeToggle();
   animateProgress();
 }
 
@@ -705,7 +704,7 @@ function renderUploadError(title, msg) {
     var header = document.querySelector(".upload-header h1");
     if (header) header.textContent = title;
     var icon = document.querySelector(".upload-header-icon");
-    if (icon) icon.textContent = "\\u26A0\\uFE0F";
+    if (icon) { icon.innerHTML = IC.alertTriangle; icon.className = "upload-header-icon icon-warning"; }
 
     var safeMsg = esc(msg).replace(/\\n/g, "<br>");
     var h = '<div class="upload-error-msg">' + safeMsg + "</div>";
@@ -717,14 +716,16 @@ function renderUploadError(title, msg) {
     var root = document.getElementById("app");
     var safeMsg = esc(msg).replace(/\\n/g, "<br>");
     var h = '<div class="upload-header">';
-    h += '<span class="upload-header-icon">\\u26A0\\uFE0F</span>';
+    h += '<span class="upload-header-icon icon-warning">' + IC.alertTriangle + '</span>';
     h += "<h1>" + esc(title) + "</h1>";
+    h += '<div id="header-actions" style="display:flex;align-items:center;gap:6px;margin-left:auto"></div>';
     h += "</div>";
     h += '<div class="upload-error-msg">' + safeMsg + "</div>";
     h += '<div class="upload-another" style="margin-top:14px;text-align:center">';
     h += '<button class="prompt-btn prompt-btn-primary" id="retry-upload-btn">Try from App</button>';
     h += "</div>";
     root.innerHTML = h;
+    renderThemeToggle();
   }
 
   var btn = document.getElementById("retry-upload-btn");
@@ -769,8 +770,9 @@ function renderLocalFileNeeded(expectedName, errMsg) {
   var classified = classifyFileError(errMsg);
   var root = document.getElementById("app");
   var h = '<div class="upload-header">';
-  h += '<span class="upload-header-icon">\\u{1F4C1}</span>';
+  h += '<span class="upload-header-icon icon-accent">' + IC.folderOpen + '</span>';
   h += "<h1>" + esc(classified.title) + "</h1>";
+  h += '<div id="header-actions" style="display:flex;align-items:center;gap:6px;margin-left:auto"></div>';
   h += "</div>";
   h += '<div class="prompt" style="margin-bottom:16px">';
   h += '<div class="prompt-desc">The file <strong>' + esc(expectedName)
@@ -785,13 +787,14 @@ function renderLocalFileNeeded(expectedName, errMsg) {
   }
   h += "</div>";
   h += '<div class="upload-zone" id="drop-zone">';
-  h += '<div class="upload-zone-icon">\\u{1F4C1}</div>';
+  h += '<div class="upload-zone-icon">' + IC.folderOpen + '</div>';
   h += '<div class="upload-zone-text">Drop <strong>' + esc(expectedName) + "</strong> here</div>";
   h += '<div class="upload-zone-hint">Or click to browse your files</div>';
   h += '<button class="upload-zone-btn" id="browse-btn">Browse Files</button>';
   h += '<input type="file" id="file-input" style="display:none">';
   h += "</div>";
   root.innerHTML = h;
+  renderThemeToggle();
 
   function onFileSelected(file) {
     var reader = new FileReader();
@@ -904,8 +907,9 @@ function renderResult(r) {
   var h = "";
 
   h += '<div class="upload-header">';
-  h += '<span class="upload-header-icon">' + (isPending ? "\\u23F3" : "\\u2705") + '</span>';
+  h += '<span class="upload-header-icon ' + (isPending ? "icon-accent" : "icon-success") + '">' + (isPending ? IC.clock : IC.checkCircle) + '</span>';
   h += "<h1>" + (isPending ? "Upload Queued" : "Upload Complete") + "</h1>";
+  h += '<div id="header-actions" style="display:flex;align-items:center;gap:6px;margin-left:auto"></div>';
   h += "</div>";
 
   h += '<div class="upload-result">';
@@ -966,6 +970,7 @@ function renderResult(r) {
   h += "</div></div>";
 
   root.innerHTML = h;
+  renderThemeToggle();
 
   root.addEventListener("click", function handler(e) {
     var el = e.target;
@@ -1102,6 +1107,7 @@ ${UPLOAD_CSS}
 <div id="app"><div class="status">Preparing upload&hellip;</div></div>
 
 <script>
+${SHARED_JS_ICONS}
 ${SHARED_JS_MCP_CLIENT}
 ${SHARED_JS_HELPERS}
 ${SHARED_JS_TOOLTIPS}

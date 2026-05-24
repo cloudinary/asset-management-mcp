@@ -116,6 +116,7 @@ export const SHARED_CSS_TOKENS = /* css */ `
 [data-theme="dark"] .status-warn, .dark .status-warn { background: #854d0e; color: #fef08a; }
 [data-theme="dark"] .status-err,  .dark .status-err  { background: #991b1b; color: #fecaca; }
 
+html { overflow: hidden; }
 body {
   font-family: var(--cld-font);
   background: var(--cld-bg);
@@ -126,16 +127,35 @@ body {
   position: relative;
 }
 .theme-btn {
-  position: absolute; top: 4px; right: 4px; z-index: 900;
   width: 22px; height: 22px; border-radius: 50%;
   border: 1px solid transparent; background: transparent;
   color: var(--cld-text3); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   padding: 0; transition: background 0.15s, color 0.15s, border-color 0.15s;
-  opacity: 0.5;
+  opacity: 0.5; flex-shrink: 0;
 }
 .theme-btn:hover { background: var(--cld-bg3); color: var(--cld-text); border-color: var(--cld-border); opacity: 1; }
 .theme-btn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Shared icon-button — square pill, same family as theme-btn */
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+  background: none; border: 1px solid var(--cld-border); border-radius: var(--cld-radius-sm);
+  color: var(--cld-text2); cursor: pointer; padding: 4px 8px;
+  font-size: 12px; font-weight: 500; font-family: inherit; line-height: 1;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.icon-btn:hover { background: var(--cld-bg3); color: var(--cld-text); border-color: var(--cld-border2); }
+.icon-btn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+/* icon-only variant (no text label) */
+.icon-btn.icon-only { padding: 4px; width: 28px; height: 28px; }
+/* header state icon (decorative, not a button) */
+.upload-header-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.upload-header-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.upload-header-icon.icon-success { color: var(--cld-success); }
+.upload-header-icon.icon-error   { color: var(--cld-error); }
+.upload-header-icon.icon-warning { color: var(--cld-warning); }
+.upload-header-icon.icon-accent  { color: var(--cld-accent); }
 `;
 
 // ── CSS: Shared component styles ────────────────────────────────────
@@ -389,7 +409,8 @@ details.detail-section > summary.detail-section-title::-webkit-details-marker { 
 }
 .upload-zone:hover { border-color: var(--cld-accent); background: var(--cld-accent-bg); }
 .upload-zone.dragover { border-color: var(--cld-accent); background: var(--cld-accent-bg); }
-.upload-zone-icon { font-size: 36px; margin-bottom: 8px; color: var(--cld-text3); }
+.upload-zone-icon { margin-bottom: 8px; color: var(--cld-text3); display: flex; align-items: center; justify-content: center; }
+.upload-zone-icon svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .upload-zone-text { font-size: 14px; color: var(--cld-text2); margin-bottom: 4px; }
 .upload-zone-hint { font-size: 12px; color: var(--cld-text3); }
 .upload-zone-btn {
@@ -435,8 +456,9 @@ details.detail-section > summary.detail-section-title::-webkit-details-marker { 
 .upload-preview-icon {
   width: 56px; height: 56px; border-radius: var(--cld-radius-sm);
   background: var(--cld-bg3); flex-shrink: 0; display: flex;
-  align-items: center; justify-content: center; font-size: 24px; color: var(--cld-text3);
+  align-items: center; justify-content: center; color: var(--cld-text3);
 }
+.upload-preview-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .upload-preview-info { flex: 1; min-width: 0; }
 .upload-preview-name { font-size: 13px; font-weight: 600; color: var(--cld-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .upload-preview-meta { font-size: 11px; color: var(--cld-text3); margin-top: 2px; }
@@ -585,19 +607,15 @@ details.upload-section > .upload-form { margin: 0; padding: 10px 12px; }
   background: var(--cld-accent-bg); border: 1px solid var(--cld-accent);
   border-radius: var(--cld-radius); margin-bottom: 4px; position: relative;
 }
-.upload-staged-icon { font-size: 24px; flex-shrink: 0; }
+.upload-staged-icon { flex-shrink: 0; display: flex; align-items: center; color: var(--cld-accent); }
+.upload-staged-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .upload-staged-info { flex: 1; min-width: 0; }
 .upload-staged-name {
   font-size: 13px; font-weight: 600; color: var(--cld-text);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .upload-staged-meta { font-size: 11px; color: var(--cld-text3); margin-top: 2px; }
-.upload-staged-clear {
-  background: none; border: none; cursor: pointer; font-size: 16px;
-  color: var(--cld-text3); padding: 4px 6px; border-radius: var(--cld-radius-sm);
-  transition: color 0.15s, background 0.15s; flex-shrink: 0;
-}
-.upload-staged-clear:hover { color: var(--cld-error); background: rgba(206,25,13,0.08); }
+.upload-staged-clear:hover { color: var(--cld-error); border-color: var(--cld-error); background: rgba(206,25,13,0.08); }
 
 /* Upload submit button */
 .upload-submit {
@@ -643,6 +661,24 @@ details.upload-section > .upload-form { margin: 0; padding: 10px 12px; }
   .json-bool { color: #a9e34b; }
   .json-null { color: #868e96; }
 }
+`;
+
+// ── JS: SVG icon strings (Lucide-style, 24px viewBox, stroke-based) ──
+export const SHARED_JS_ICONS = /* js */ `
+var IC = {
+  refresh:    '<svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>',
+  chevronLeft:'<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>',
+  arrowDown:  '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>',
+  x:          '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  zap:        '<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  uploadCloud:'<svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>',
+  alertTriangle:'<svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  folderOpen: '<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><polyline points="22 13 17 13 15 16 9 16 7 13 2 13"/></svg>',
+  checkCircle:'<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  clock:      '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  file:       '<svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>',
+  image:      '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+};
 `;
 
 // ── JS: MCPApp client class ─────────────────────────────────────────
@@ -734,6 +770,29 @@ class MCPApp {
 
 // ── JS: Helper functions ────────────────────────────────────────────
 export const SHARED_JS_HELPERS = /* js */ `
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).catch(function() { return _copyFallback(text); });
+  }
+  return _copyFallback(text);
+}
+function _copyFallback(text) {
+  return new Promise(function(resolve, reject) {
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.top = "0"; ta.style.left = "0";
+      ta.style.opacity = "0"; ta.style.pointerEvents = "none";
+      document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (ok) resolve(); else reject(new Error("Clipboard unavailable"));
+    } catch (e) { reject(e); }
+  });
+}
+
 function fmtBytes(b) {
   if (!b) return "";
   var u = ["B","KB","MB","GB"], i = Math.min(Math.floor(Math.log(b)/Math.log(1024)), 3);
@@ -1966,7 +2025,16 @@ function renderThemeToggle() {
     applyTheme();
     renderThemeToggle();
   });
-  document.body.appendChild(btn);
+  var slot = document.getElementById("header-actions");
+  if (slot) {
+    slot.appendChild(btn);
+  } else {
+    btn.style.position = "absolute";
+    btn.style.top = "4px";
+    btn.style.right = "4px";
+    btn.style.zIndex = "900";
+    document.body.appendChild(btn);
+  }
 }
 
 function setupHostContext(app) {

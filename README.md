@@ -174,7 +174,7 @@ The MCP server supports the following environment variables:
 | `CLOUDINARY_API_SECRET` | Your Cloudinary API secret | Yes |
 | `CLOUDINARY_URL` | Complete Cloudinary URL (alternative to individual vars) | No |
 | `CLOUDINARY_COLLECT_HEADERS` | Collect API response headers (see below) | No |
-| `CLOUDINARY_MCP_APPS` | Enable MCP Apps (see [MCP Apps](#mcp-apps)) | No |
+| `CLOUDINARY_MCP_APPS` | Override MCP Apps default (see [MCP Apps](#mcp-apps)) | No |
 
 ### CLOUDINARY_URL Format
 
@@ -223,29 +223,26 @@ When enabled, collected headers appear in an `_headers` field in the tool respon
 
 The server can expose interactive MCP UI **Apps** (spec-aligned with `io.modelcontextprotocol/ui`) that hosts can render alongside tool results — for example, an asset gallery for list results, a single-asset detail view, and an upload UI.
 
-Apps are **opt-in**. Use the `--mcp-apps` flag (available on both `start` and `serve`) or the `CLOUDINARY_MCP_APPS` environment variable to enable them:
+Apps are **enabled by default**. Use the `--mcp-apps` flag (available on both `start` and `serve`) or the `CLOUDINARY_MCP_APPS` environment variable to override this behaviour:
 
 | Value | Effect |
 |-------|--------|
-| bare `--mcp-apps` (no value), `all`, or `true` | Enable every app |
+| unset | Default — **all apps enabled** |
+| bare `--mcp-apps` (no value), `all`, or `true` | Enable every app (same as default) |
 | `none` or `false` | Disable every app (kill-switch) |
 | comma-separated subset, e.g. `asset-gallery,asset-details` | Enable only the listed apps |
-| unset | Default (currently **off**; may flip on in a future release) |
 
 Available app names: `asset-gallery`, `asset-details`, `asset-upload`.
 
 ```bash
-# Enable all apps via CLI flag (bare flag implies "all")
-npx @cloudinary/asset-management-mcp start --mcp-apps
-
-# Equivalent: explicit value
-npx @cloudinary/asset-management-mcp start --mcp-apps all
-
-# Enable just the gallery via env var
-CLOUDINARY_MCP_APPS=asset-gallery npx @cloudinary/asset-management-mcp start
-
-# Explicitly disable
+# Disable all apps
 npx @cloudinary/asset-management-mcp serve --mcp-apps none
+
+# Enable only the gallery
+npx @cloudinary/asset-management-mcp start --mcp-apps asset-gallery
+
+# Disable via env var
+CLOUDINARY_MCP_APPS=none npx @cloudinary/asset-management-mcp start
 ```
 
 Precedence: CLI flag > environment variable > built-in default.

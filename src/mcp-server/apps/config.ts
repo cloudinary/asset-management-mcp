@@ -12,8 +12,7 @@ export const MCP_APPS: readonly McpApp[] = [
   "asset-upload",
 ];
 
-// Flip to [...MCP_APPS] to enable MCP Apps by default.
-export const DEFAULT_MCP_APPS: readonly McpApp[] = [];
+export const DEFAULT_MCP_APPS: readonly McpApp[] = [...MCP_APPS];
 
 export function parseMcpAppsList(value: string): McpApp[] {
   const parts = value.split(",").map((s) => s.trim()).filter(Boolean);

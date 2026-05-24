@@ -9,6 +9,7 @@
 import {
   SHARED_CSS_TOKENS,
   SHARED_CSS_COMPONENTS,
+  SHARED_JS_ICONS,
   SHARED_JS_MCP_CLIENT,
   SHARED_JS_HELPERS,
   SHARED_JS_TOOLTIPS,
@@ -58,16 +59,6 @@ const ASSET_DETAILS_CSS = /* css */ `
   font-size: 10px; color: var(--cld-text2); background: var(--cld-bg3);
   padding: 2px 7px; border-radius: 4px; border: 1px solid var(--cld-border);
 }
-
-.open-link {
-  padding: 6px 14px; border-radius: var(--cld-radius-sm);
-  font-size: 12px; font-weight: 500; cursor: pointer;
-  border: 1px solid var(--cld-accent); background: transparent;
-  color: var(--cld-accent); font-family: inherit;
-  transition: background 0.15s;
-  white-space: nowrap; flex-shrink: 0;
-}
-.open-link:hover { background: var(--cld-accent-bg); }
 
 .hero-container {
   position: relative; margin-bottom: var(--cld-sp-md);
@@ -131,9 +122,9 @@ function renderPage(r) {
   if (dur) h += '<span class="pill">' + dur + "</span>";
   if (size) h += '<span class="pill">' + size + "</span>";
   h += "</div></div>";
-  h += '<div style="display:flex;gap:6px;flex-shrink:0">';
-  h += '<button class="open-link" id="refresh-asset" title="Refresh">\\u21BB</button>';
-  if (url) h += '<button class="open-link" id="open-asset">Open</button>';
+  h += '<div id="header-actions" style="display:flex;gap:8px;flex-shrink:0;align-items:center">';
+  if (url) h += '<button class="icon-btn" id="open-asset">Open</button>';
+  h += '<button class="icon-btn icon-only" id="refresh-asset" title="Refresh">' + IC.refresh + '</button>';
   h += "</div>";
   h += "</div>";
 
@@ -175,6 +166,7 @@ function renderPage(r) {
   h += "</div>";
 
   root.innerHTML = h;
+  renderThemeToggle();
 
   // Event delegation
   root.addEventListener("click", function handler(e) {
@@ -220,6 +212,7 @@ function showFetchPrompt() {
   h += '<button class="prompt-btn prompt-btn-primary" id="fetch-direct-btn">Fetch Directly</button>';
   h += "</div></div>";
   root.innerHTML = h;
+  renderThemeToggle();
   document.getElementById("fetch-direct-btn").addEventListener("click", function() { fetchDirect(); });
 }
 
@@ -300,6 +293,7 @@ ${ASSET_DETAILS_CSS}
 <div id="app"><div class="status">Loading asset details&hellip;</div></div>
 
 <script>
+${SHARED_JS_ICONS}
 ${SHARED_JS_MCP_CLIENT}
 ${SHARED_JS_HELPERS}
 ${SHARED_JS_TOOLTIPS}
