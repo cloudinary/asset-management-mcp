@@ -116,7 +116,7 @@ export const SHARED_CSS_TOKENS = /* css */ `
 [data-theme="dark"] .status-warn, .dark .status-warn { background: #854d0e; color: #fef08a; }
 [data-theme="dark"] .status-err,  .dark .status-err  { background: #991b1b; color: #fecaca; }
 
-html { overflow: hidden; }
+html { scrollbar-gutter: auto; }
 body {
   font-family: var(--cld-font);
   background: var(--cld-bg);
@@ -125,6 +125,7 @@ body {
   line-height: 1.5;
   font-size: var(--cld-font-xs);
   position: relative;
+  overflow-x: hidden;
 }
 .theme-btn {
   width: 22px; height: 22px; border-radius: 50%;
@@ -163,9 +164,11 @@ export const SHARED_CSS_COMPONENTS = /* css */ `
 .link { cursor: pointer; }
 .link:hover { color: var(--cld-accent); text-decoration: underline; }
 
-/* Modal */
+/* Modal — positioned absolutely so it can be placed in the part of the
+ * iframe that is currently visible in the host's viewport (since position:fixed
+ * inside a tall iframe anchors to iframe-center, not the user's visible area). */
 .modal-overlay {
-  position: fixed; inset: 0;
+  position: absolute; left: 0; right: 0;
   background: rgba(0,0,0,0.45);
   display: flex; align-items: center; justify-content: center;
   z-index: 1000; backdrop-filter: blur(3px); padding: 24px;
@@ -1013,6 +1016,55 @@ function closeModal() {
   if (ov) ov.remove();
 }
 
+/* Position the modal overlay so it's centered on the part of the iframe
+ * the user is currently looking at. Inside an iframe that the host has
+ * sized to scrollHeight, position: fixed anchors to iframe-center, not
+ * the user's visible band — so we compute the visible band ourselves
+ * via IntersectionObserver and place the overlay absolutely there. */
+function positionModalInVisibleArea(overlay) {
+  if (!overlay) return;
+  var docH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+
+  // Try IntersectionObserver first (works cross-origin too)
+  if (typeof IntersectionObserver !== "undefined") {
+    var probe = document.createElement("div");
+    probe.style.cssText = "position:absolute;left:0;top:0;width:1px;height:" + docH + "px;pointer-events:none;visibility:hidden;";
+    document.body.appendChild(probe);
+    var io = new IntersectionObserver(function(entries) {
+      try {
+        var entry = entries[0];
+        var rect = entry.intersectionRect;
+        var rootRect = entry.rootBounds || entry.boundingClientRect;
+        // intersectionRect.top is in viewport coords; visible band of the
+        // document is from (probe.top + rect.top) to (probe.top + rect.bottom).
+        var probeTop = entry.boundingClientRect.top; // viewport-relative
+        var visibleTop = rect.top - probeTop;        // document-relative
+        var visibleHeight = rect.height;
+        if (visibleHeight > 0) {
+          overlay.style.top = visibleTop + "px";
+          overlay.style.height = visibleHeight + "px";
+        } else {
+          // Fallback: probe not intersecting (shouldn't happen with full-height probe)
+          overlay.style.top = (window.scrollY || 0) + "px";
+          overlay.style.height = window.innerHeight + "px";
+        }
+      } finally {
+        io.disconnect();
+        if (probe.parentNode) probe.parentNode.removeChild(probe);
+      }
+    });
+    io.observe(probe);
+    return;
+  }
+
+  // Fallback: same-origin only — read iframe's bounding rect
+  var rect = document.documentElement.getBoundingClientRect();
+  var visibleTop = rect.top < 0 ? -rect.top : 0;
+  var visibleHeight = Math.min(window.innerHeight, rect.bottom) - Math.max(0, rect.top);
+  overlay.style.top = visibleTop + "px";
+  overlay.style.height = Math.max(visibleHeight, 200) + "px";
+}
+
 function openModal(headerHtml, bodyHtml) {
   closeModal();
   var h = '<div class="modal-overlay"><div class="modal">';
@@ -1022,6 +1074,7 @@ function openModal(headerHtml, bodyHtml) {
   document.body.insertAdjacentHTML("beforeend", h);
 
   var overlay = document.querySelector(".modal-overlay");
+  positionModalInVisibleArea(overlay);
   overlay.addEventListener("click", function(e) {
     if (e.target === overlay || e.target.classList.contains("modal-close")) {
       closeModal();

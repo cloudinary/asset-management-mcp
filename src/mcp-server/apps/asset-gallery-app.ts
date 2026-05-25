@@ -168,17 +168,27 @@ const GALLERY_CSS = /* css */ `
 }
 
 /* ── Multi-select bar ── */
+/* Wrapper takes layout space ONLY when a selection is active. When idle
+ * it's display:none so it contributes 0 to scrollHeight (no phantom
+ * scrollbar gutter / no extra iframe height). */
+.select-bar-wrap {
+  display: none;
+  position: sticky; bottom: 0; left: 0; right: 0;
+  justify-content: center; pointer-events: none;
+  z-index: 100; height: 64px;
+}
+.select-bar-wrap.visible { display: flex; }
 .select-bar {
-  position: fixed; bottom: 16px; left: 50%;
-  transform: translateX(-50%) translateY(80px);
+  position: absolute; bottom: 8px;
+  transform: translateY(80px);
   background: #1a1d24; color: white; border-radius: 40px;
   padding: 0 6px 0 16px; height: 48px;
   display: flex; align-items: center; gap: 4px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
-  opacity: 0; pointer-events: none; z-index: 100; white-space: nowrap;
+  opacity: 0; pointer-events: none; white-space: nowrap;
 }
-.select-bar.visible { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: all; }
+.select-bar-wrap.visible .select-bar { transform: translateY(0); opacity: 1; pointer-events: all; }
 .select-count { font-size: 13px; font-weight: 600; margin-right: 8px; }
 .bar-btn {
   height: 36px; padding: 0 14px; border: none; border-radius: 30px;
@@ -243,12 +253,12 @@ function showToast(msg) {
 }
 
 function updateSelectBar() {
-  var bar = document.getElementById("select-bar");
+  var wrap = document.getElementById("select-bar-wrap");
   var countEl = document.getElementById("select-count");
-  if (!bar || !countEl) return;
+  if (!wrap || !countEl) return;
   var n = selected.size;
   countEl.textContent = n + " selected";
-  bar.classList.toggle("visible", n > 0);
+  wrap.classList.toggle("visible", n > 0);
   var btn = document.getElementById("select-all-btn");
   if (btn) {
     var visible = getVisibleIndices();
@@ -528,7 +538,8 @@ function render() {
     h += "</div>";
   }
 
-  // Multi-select bar
+  // Multi-select bar (sticky, in-flow wrapper so iframe sizing stays truthful)
+  h += '<div class="select-bar-wrap" id="select-bar-wrap">';
   h += '<div class="select-bar" id="select-bar">';
   h += '<span class="select-count" id="select-count">0 selected</span>';
   h += '<div class="bar-divider"></div>';
@@ -537,6 +548,7 @@ function render() {
   h += '<button class="bar-btn bar-secondary" id="bar-download">' + IC.arrowDown + ' Download Selected</button>';
   h += '<div class="bar-divider"></div>';
   h += '<button class="bar-btn bar-ghost" id="bar-clear">' + IC.x + '</button>';
+  h += '</div>';
   h += '</div>';
 
   // Toast
@@ -767,6 +779,9 @@ async function fetchDirect() {
   console.log(LOG_PREFIX, "fetchDirect ->", name);
 
   document.getElementById("app").innerHTML = '<div class="status">Fetching assets\\u2026</div>';
+  requestAnimationFrame(function() {
+    app.reportSize(Math.max(document.documentElement.scrollHeight, MIN_HEIGHT));
+  });
   try {
     var res = await app.callServerTool({ name: name, arguments: args });
     var data = ingestResult(res);
@@ -818,6 +833,7 @@ async function loadMore() {
 function refreshGallery() {
   allResources = [];
   lastCursor = null;
+  selected.clear();
   fetchDirect();
 }
 
