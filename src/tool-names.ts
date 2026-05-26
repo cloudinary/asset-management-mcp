@@ -5,6 +5,10 @@ export const toolNames: Array<{ name: string; description: string }>= [
     "description": "Uploads media assets (images, videos, raw files) to your Cloudinary product environment\n\nUploads media assets (images, videos, raw files) to your Cloudinary product environment. The file is securely stored\nin the cloud with backup and revision history. Cloudinary automatically analyzes and saves important data about each\nasset, such as format, size, resolution, and prominent colors, which is indexed to enable searching on those attributes.\n\nSupports uploading from:\n- Local file paths (SDKs/MCP server only). For MCP server path MUST start with file://\n- Remote HTTP/HTTPS URLs\n- Base64 Data URIs (max ~60 MB)\n- Private storage buckets (S3 or Google Storage)\n- FTP addresses\n\nThe uploaded asset is immediately available for transformation and delivery upon successful upload.\n\nTransform media files using transformation syntax in delivery URLs, which creates derived files accessible immediately without re-uploading the original.\n"
   },
   {
+    "name": "concat",
+    "description": "Concatenate ordered video segments into a single MP4 asset\n\nAccepts an ordered list of remote HTTP(S) URLs pointing to video segments\nand concatenates them, remuxing the result into a single MP4 asset that is\nuploaded to your product environment using the supplied upload parameters.\nConcatenation and the resulting upload happen asynchronously; supply a\n`notification_url` to be notified when the upload completes.\n"
+  },
+  {
     "name": "asset-rename",
     "description": "Updates an existing asset's identifier (public ID) and optionally other metadata in your Cloudinary account"
   },
@@ -83,6 +87,18 @@ export const toolNames: Array<{ name: string; description: string }>= [
   {
     "name": "visual-search-assets",
     "description": "Finds images in your asset library based on visual similarity or content\n\nReturns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:\n- Provide a URL of an image\n- Specify the asset ID of an existing image\n- Provide a textual description\n"
+  },
+  {
+    "name": "create-initial-backup",
+    "description": "Create initial backup\n\nInitiates an initial backup of existing assets for the active product environment.\nBackup for new uploads must be enabled on the product environment, and the requester must be permitted to\ninitiate a backup.\n"
+  },
+  {
+    "name": "list-initial-backups",
+    "description": "List initial backups\n\nLists initial backup operations for the active product environment, ordered from most recent to oldest."
+  },
+  {
+    "name": "get-initial-backup",
+    "description": "Get initial backup\n\nRetrieves the progress and status of a single initial backup operation by its ID."
   },
   {
     "name": "get-tx-reference",

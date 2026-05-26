@@ -6,15 +6,21 @@
 import * as z from "zod";
 
 export type CreateFolderResponse = {
+  name: string;
+  path: string;
+  external_id: string;
+  created_at?: string | undefined;
   success?: boolean | undefined;
-  path?: string | undefined;
-  name?: string | undefined;
 };
 
 export const CreateFolderResponse$zodSchema: z.ZodType<CreateFolderResponse> = z
   .object({
-    name: z.string().optional().describe("The name of the created folder."),
-    path: z.string().optional().describe("The path of the created folder."),
+    created_at: z.iso.datetime({ offset: true }).optional().describe(
+      "The timestamp when the folder was created.",
+    ),
+    external_id: z.string().describe("The unique identifier for the folder."),
+    name: z.string().describe("The name of the folder."),
+    path: z.string().describe("The full path of the folder."),
     success: z.boolean().optional().describe(
       "Whether the operation was successful.",
     ),
