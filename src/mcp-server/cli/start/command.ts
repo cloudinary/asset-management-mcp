@@ -31,6 +31,20 @@ export const startCommand = buildCommand({
         parse: (val: string) =>
           z.coerce.number().int().gte(0).lt(65536).parse(val),
       },
+      host: {
+        kind: "parsed",
+        brief:
+          "Host/interface to bind the SSE server to. Defaults to loopback (127.0.0.1); use 0.0.0.0 to expose on the network, which requires --auth-token.",
+        default: "127.0.0.1",
+        parse: (value: string) => z.string().parse(value),
+      },
+      "auth-token": {
+        kind: "parsed",
+        brief:
+          "Shared secret required on /sse and /message when bound to a non-loopback host. Falls back to MCP_AUTH_TOKEN. Send as 'x-mcp-token' or 'Authorization: Bearer <token>'.",
+        optional: true,
+        parse: (value: string) => z.string().parse(value),
+      },
       tool: {
         kind: "parsed",
         brief: "Specify tools to mount on the server",

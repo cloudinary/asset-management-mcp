@@ -17,10 +17,21 @@ import { createMCPServer } from "../../server.js";
 import { buildAnnotationFilter } from "../../tools.js";
 
 import { landingPageExpress } from "../../../landing-page.js";
+// Security hardening for the SSE transport — see ../../sse-auth.ts
+// (Bugcrowd 4b93e87b / CWE-306). Hand-written; port into the Speakeasy template.
+import {
+  assertSafeBinding,
+  resolveAuthToken,
+  sseAuthMiddleware,
+} from "../../sse-auth.js";
 
 interface StartCommandFlags extends MCPServerFlags {
   readonly transport: "stdio" | "sse";
   readonly port: number;
+  // Interface/host to bind the SSE server to. Defaults to loopback (127.0.0.1).
+  readonly host: string;
+  // Shared secret required on /sse and /message when bound to a non-loopback host.
+  readonly "auth-token"?: string;
   readonly "log-level": ConsoleLoggerLevel;
   readonly env?: [string, string][];
 }
@@ -88,6 +99,16 @@ async function startSSE(cliFlags: StartCommandFlags) {
   const app = express();
   const sessions = new Map<string, Session>();
   const controller = new AbortController();
+
+  // --- Security hardening (Bugcrowd 4b93e87b / CWE-306) ---
+  // Default to loopback and refuse to expose an unauthenticated server on a
+  // non-loopback host. When a token is configured, require it on the functional
+  // endpoints; the landing page at "/" stays public.
+  const bindHost = cliFlags.host ?? "127.0.0.1";
+  const authToken = resolveAuthToken(cliFlags["auth-token"]);
+  assertSafeBinding(bindHost, authToken);
+  app.use(["/sse", "/message"], sseAuthMiddleware(authToken));
+  // --------------------------------------------------------
 
   app.get("/sse", async (req, res) => {
     const sessionId = crypto.randomUUID();
@@ -200,7 +221,7 @@ async function startSSE(cliFlags: StartCommandFlags) {
 
   app.get("/", landingPageExpress);
 
-  const httpServer = app.listen(cliFlags.port, "0.0.0.0", () => {
+  const httpServer = app.listen(cliFlags.port, bindHost, () => {
     const ha = httpServer.address();
     const host = typeof ha === "string" ? ha : `${ha?.address}:${ha?.port}`;
     logger.info("MCP HTTP server started", { host });
