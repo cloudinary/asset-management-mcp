@@ -37,8 +37,12 @@ import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
 import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
 import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
 import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
+import { tool$initialBackupCreateInitialBackup } from "./tools/initialBackupCreateInitialBackup.js";
+import { tool$initialBackupGetInitialBackup } from "./tools/initialBackupGetInitialBackup.js";
+import { tool$initialBackupListInitialBackups } from "./tools/initialBackupListInitialBackups.js";
 import { tool$searchSearchAssets } from "./tools/searchSearchAssets.js";
 import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.js";
+import { tool$uploadConcat } from "./tools/uploadConcat.js";
 import { tool$uploadUpload } from "./tools/uploadUpload.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 
@@ -107,6 +111,7 @@ export function createMCPServer(deps: {
   void register; // suppress unused warnings
 
   tool(tool$uploadUpload);
+  tool(tool$uploadConcat);
   tool(tool$assetsRenameAsset);
   tool(tool$assetsGenerateArchive);
   tool(tool$assetsDownloadBackupAsset);
@@ -127,6 +132,9 @@ export function createMCPServer(deps: {
   tool(tool$foldersSearchFolders);
   tool(tool$searchSearchAssets);
   tool(tool$searchVisualSearchAssets);
+  tool(tool$initialBackupCreateInitialBackup);
+  tool(tool$initialBackupListInitialBackups);
+  tool(tool$initialBackupGetInitialBackup);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
