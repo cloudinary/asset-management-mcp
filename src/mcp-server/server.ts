@@ -20,6 +20,7 @@ import {
   MCPToolAnnotationFilter,
   registerDynamicTools,
 } from "./tools.js";
+import { tool$assetsRenameAsset } from "./tools/assetsRenameAsset.js";
 import { tool$uploadUpload } from "./tools/uploadUpload.js";
 
 export function createMCPServer(deps: {
@@ -35,7 +36,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.10.1",
+    version: "0.10.2",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -81,6 +82,7 @@ export function createMCPServer(deps: {
   void register; // suppress unused warnings
 
   tool(tool$uploadUpload);
+  tool(tool$assetsRenameAsset);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
