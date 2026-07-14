@@ -28,14 +28,6 @@ export const GenerateImageGlobals$zodSchema: z.ZodType<GenerateImageGlobals> = z
     ).optional(),
   });
 
-export type GenerateImageSecurity = { api_key: string; api_secret: string };
-
-export const GenerateImageSecurity$zodSchema: z.ZodType<GenerateImageSecurity> =
-  z.object({
-    api_key: z.string(),
-    api_secret: z.string(),
-  });
-
 export type GenerateImageResponse =
   | ErrorResponse
   | RateLimitedResponse

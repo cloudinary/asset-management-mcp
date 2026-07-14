@@ -7,7 +7,6 @@ import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -21,7 +20,6 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   ListRootFoldersOpServerList,
   ListRootFoldersRequest,
-  ListRootFoldersSecurity,
 } from "../models/listrootfoldersop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -34,7 +32,6 @@ import { Result } from "../types/fp.js";
  */
 export function foldersListRootFolders(
   client$: CloudinaryAssetMgmtCore,
-  security: ListRootFoldersSecurity,
   _request?: ListRootFoldersRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -51,7 +48,6 @@ export function foldersListRootFolders(
 > {
   return new APIPromise($do(
     client$,
-    security,
     _request,
     options,
   ));
@@ -59,7 +55,6 @@ export function foldersListRootFolders(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: ListRootFoldersSecurity,
   _request?: ListRootFoldersRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -99,32 +94,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "listRootFolders",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -138,7 +114,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "GET",
     baseURL: baseURL$,
     path: path$,

@@ -8,10 +8,6 @@ import {
   ResourceTypesResponse,
   ResourceTypesResponse$zodSchema,
 } from "./resourcetypesresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const ListResourceTypesOpServerList = [
   /**
@@ -31,20 +27,6 @@ export const ListResourceTypesGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type ListResourceTypesSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const ListResourceTypesSecurity$zodSchema: z.ZodType<
-  ListResourceTypesSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type ListResourceTypesRequest = {};

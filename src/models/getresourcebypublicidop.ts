@@ -7,10 +7,6 @@ import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { Info, Info$zodSchema } from "./info.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const GetResourceByPublicIdOpServerList = [
   /**
@@ -30,20 +26,6 @@ export const GetResourceByPublicIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type GetResourceByPublicIdSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const GetResourceByPublicIdSecurity$zodSchema: z.ZodType<
-  GetResourceByPublicIdSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type GetResourceByPublicIdRequest = {

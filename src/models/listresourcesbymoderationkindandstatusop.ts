@@ -14,10 +14,6 @@ import {
   ModerationStatusParameter$zodSchema,
 } from "./moderationstatusparameter.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const ListResourcesByModerationKindAndStatusOpServerList = [
   /**
@@ -40,19 +36,6 @@ export const ListResourcesByModerationKindAndStatusGlobals$zodSchema: z.ZodType<
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
 });
-
-export type ListResourcesByModerationKindAndStatusSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const ListResourcesByModerationKindAndStatusSecurity$zodSchema:
-  z.ZodType<ListResourcesByModerationKindAndStatusSecurity> = z.object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
-    ).optional(),
-  });
 
 export type ListResourcesByModerationKindAndStatusRequest = {
   resource_type: ResourceType;

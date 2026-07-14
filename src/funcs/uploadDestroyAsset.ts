@@ -8,14 +8,12 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
   DestroyAssetOpServerList,
   DestroyAssetRequest,
   DestroyAssetRequest$zodSchema,
   DestroyAssetRequestBody,
-  DestroyAssetSecurity,
 } from "../models/destroyassetop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -35,7 +33,6 @@ import { Result } from "../types/fp.js";
  */
 export function uploadDestroyAsset(
   client$: CloudinaryAssetMgmtCore,
-  security: DestroyAssetSecurity,
   resource_type: ResourceType,
   RequestBody: DestroyAssetRequestBody,
   options?: RequestOptions,
@@ -53,7 +50,6 @@ export function uploadDestroyAsset(
 > {
   return new APIPromise($do(
     client$,
-    security,
     resource_type,
     RequestBody,
     options,
@@ -62,7 +58,6 @@ export function uploadDestroyAsset(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: DestroyAssetSecurity,
   resource_type: ResourceType,
   RequestBody: DestroyAssetRequestBody,
   options?: RequestOptions,
@@ -123,32 +118,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "destroyAsset",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -162,7 +138,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "POST",
     baseURL: baseURL$,
     path: path$,

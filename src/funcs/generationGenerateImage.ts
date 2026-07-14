@@ -8,7 +8,6 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -19,10 +18,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  GenerateImageOpServerList,
-  GenerateImageSecurity,
-} from "../models/generateimageop.js";
+import { GenerateImageOpServerList } from "../models/generateimageop.js";
 import {
   GenerateImageRequest,
   GenerateImageRequest$zodSchema,
@@ -43,7 +39,6 @@ import { Result } from "../types/fp.js";
  */
 export function generationGenerateImage(
   client$: CloudinaryAssetMgmtCore,
-  security: GenerateImageSecurity,
   request: GenerateImageRequest,
   options?: RequestOptions,
 ): APIPromise<
@@ -60,7 +55,6 @@ export function generationGenerateImage(
 > {
   return new APIPromise($do(
     client$,
-    security,
     request,
     options,
   ));
@@ -68,7 +62,6 @@ export function generationGenerateImage(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: GenerateImageSecurity,
   request: GenerateImageRequest,
   options?: RequestOptions,
 ): Promise<
@@ -114,28 +107,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        fieldName: "api_key",
-        type: "http:custom",
-        value: security?.api_key,
-      },
-      {
-        fieldName: "api_secret",
-        type: "http:custom",
-        value: security?.api_secret,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "generate_image",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -149,7 +127,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "POST",
     baseURL: baseURL$,
     path: path$,

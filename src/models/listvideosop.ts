@@ -12,10 +12,6 @@ import {
 import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const ListVideosOpServerList = [
   /**
@@ -34,19 +30,6 @@ export const ListVideosGlobals$zodSchema: z.ZodType<ListVideosGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
-    ).optional(),
-  });
-
-export type ListVideosSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const ListVideosSecurity$zodSchema: z.ZodType<ListVideosSecurity> = z
-  .object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

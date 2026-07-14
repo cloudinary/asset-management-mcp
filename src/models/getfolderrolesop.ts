@@ -9,10 +9,6 @@ import {
   FolderRolesResponse,
   FolderRolesResponse$zodSchema,
 } from "./folderrolesresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const GetFolderRolesOpServerList = [
   /**
@@ -33,20 +29,6 @@ export const GetFolderRolesGlobals$zodSchema: z.ZodType<GetFolderRolesGlobals> =
       "The cloud name of your product environment.",
     ).optional(),
   });
-
-export type GetFolderRolesSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const GetFolderRolesSecurity$zodSchema: z.ZodType<
-  GetFolderRolesSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
-});
 
 export type GetFolderRolesRequest = {
   folder_id: string;

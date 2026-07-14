@@ -7,10 +7,6 @@ import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
-import {
   VideoViewsResponse,
   VideoViewsResponse$zodSchema,
 } from "./videoviewsresponse.js";
@@ -32,19 +28,6 @@ export const GetVideoViewsGlobals$zodSchema: z.ZodType<GetVideoViewsGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
-    ).optional(),
-  });
-
-export type GetVideoViewsSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const GetVideoViewsSecurity$zodSchema: z.ZodType<GetVideoViewsSecurity> =
-  z.object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

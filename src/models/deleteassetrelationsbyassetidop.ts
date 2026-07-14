@@ -10,10 +10,6 @@ import {
   AssetRelationsDeleteResponse$zodSchema,
 } from "./assetrelationsdeleteresponse.js";
 import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
-import {
   UnrelateAssetsByAssetIdRequest,
   UnrelateAssetsByAssetIdRequest$zodSchema,
 } from "./unrelateassetsbyassetidrequest.js";
@@ -38,20 +34,6 @@ export const DeleteAssetRelationsByAssetIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type DeleteAssetRelationsByAssetIdSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const DeleteAssetRelationsByAssetIdSecurity$zodSchema: z.ZodType<
-  DeleteAssetRelationsByAssetIdSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type DeleteAssetRelationsByAssetIdRequest = {

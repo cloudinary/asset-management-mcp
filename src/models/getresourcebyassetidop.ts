@@ -6,10 +6,6 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { Info, Info$zodSchema } from "./info.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const GetResourceByAssetIdOpServerList = [
   /**
@@ -29,20 +25,6 @@ export const GetResourceByAssetIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type GetResourceByAssetIdSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const GetResourceByAssetIdSecurity$zodSchema: z.ZodType<
-  GetResourceByAssetIdSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type GetResourceByAssetIdRequest = {

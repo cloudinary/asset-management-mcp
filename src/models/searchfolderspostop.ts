@@ -9,10 +9,6 @@ import {
   FoldersSearchResponse,
   FoldersSearchResponse$zodSchema,
 } from "./folderssearchresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const SearchFoldersPostOpServerList = [
   /**
@@ -32,20 +28,6 @@ export const SearchFoldersPostGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type SearchFoldersPostSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const SearchFoldersPostSecurity$zodSchema: z.ZodType<
-  SearchFoldersPostSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type SearchFoldersPostResponse = FoldersSearchResponse | ApiError;

@@ -5,10 +5,6 @@
 
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 import { SearchResponse, SearchResponse$zodSchema } from "./searchresponse.js";
 
 export const VisualSearchAssetsOpServerList = [
@@ -29,20 +25,6 @@ export const VisualSearchAssetsGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type VisualSearchAssetsSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const VisualSearchAssetsSecurity$zodSchema: z.ZodType<
-  VisualSearchAssetsSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type VisualSearchAssetsResponse = ApiError | SearchResponse;

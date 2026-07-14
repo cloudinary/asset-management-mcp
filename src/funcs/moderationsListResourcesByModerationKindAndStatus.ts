@@ -8,7 +8,6 @@ import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
@@ -25,7 +24,6 @@ import {
   ListResourcesByModerationKindAndStatusOpServerList,
   ListResourcesByModerationKindAndStatusRequest,
   ListResourcesByModerationKindAndStatusRequest$zodSchema,
-  ListResourcesByModerationKindAndStatusSecurity,
 } from "../models/listresourcesbymoderationkindandstatusop.js";
 import { ModerationKind } from "../models/moderationkind.js";
 import { ModerationStatusParameter } from "../models/moderationstatusparameter.js";
@@ -41,7 +39,6 @@ import { Result } from "../types/fp.js";
  */
 export function moderationsListResourcesByModerationKindAndStatus(
   client$: CloudinaryAssetMgmtCore,
-  security: ListResourcesByModerationKindAndStatusSecurity,
   resource_type: ResourceType,
   moderation_kind: ModerationKind,
   moderation_status: ModerationStatusParameter,
@@ -64,7 +61,6 @@ export function moderationsListResourcesByModerationKindAndStatus(
 > {
   return new APIPromise($do(
     client$,
-    security,
     resource_type,
     moderation_kind,
     moderation_status,
@@ -78,7 +74,6 @@ export function moderationsListResourcesByModerationKindAndStatus(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: ListResourcesByModerationKindAndStatusSecurity,
   resource_type: ResourceType,
   moderation_kind: ModerationKind,
   moderation_status: ModerationStatusParameter,
@@ -172,32 +167,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "listResourcesByModerationKindAndStatus",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -211,7 +187,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "GET",
     baseURL: baseURL$,
     path: path$,

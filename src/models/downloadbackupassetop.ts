@@ -6,10 +6,6 @@
 import * as z from "zod";
 import * as b64$ from "../lib/base64.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const DownloadBackupAssetOpServerList = [
   /**
@@ -29,20 +25,6 @@ export const DownloadBackupAssetGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type DownloadBackupAssetSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const DownloadBackupAssetSecurity$zodSchema: z.ZodType<
-  DownloadBackupAssetSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type DownloadBackupAssetRequest = {

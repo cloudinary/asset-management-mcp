@@ -15,10 +15,6 @@ import {
   RelateAssetsByPublicIdRequest$zodSchema,
 } from "./relateassetsbypublicidrequest.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const CreateAssetRelationsByPublicIdOpServerList = [
   /**
@@ -40,20 +36,6 @@ export const CreateAssetRelationsByPublicIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type CreateAssetRelationsByPublicIdSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const CreateAssetRelationsByPublicIdSecurity$zodSchema: z.ZodType<
-  CreateAssetRelationsByPublicIdSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type CreateAssetRelationsByPublicIdRequest = {

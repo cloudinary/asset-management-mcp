@@ -17,10 +17,6 @@ import {
   DeleteBackupVersionsResponse,
   DeleteBackupVersionsResponse$zodSchema,
 } from "./deletebackupversionsresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const DeleteBackupVersionsOpServerList = [
   /**
@@ -40,20 +36,6 @@ export const DeleteBackupVersionsGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type DeleteBackupVersionsSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const DeleteBackupVersionsSecurity$zodSchema: z.ZodType<
-  DeleteBackupVersionsSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type DeleteBackupVersionsRequestRequest = {

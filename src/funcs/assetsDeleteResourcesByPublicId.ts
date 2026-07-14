@@ -8,14 +8,12 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { DeleteResourceByPublicIdsRequestUnion } from "../models/deleteresourcebypublicidsrequestunion.js";
 import {
   DeleteResourcesByPublicIdOpServerList,
   DeleteResourcesByPublicIdRequest,
   DeleteResourcesByPublicIdRequest$zodSchema,
-  DeleteResourcesByPublicIdSecurity,
 } from "../models/deleteresourcesbypublicidop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -38,7 +36,6 @@ import { Result } from "../types/fp.js";
  */
 export function assetsDeleteResourcesByPublicId(
   client$: CloudinaryAssetMgmtCore,
-  security: DeleteResourcesByPublicIdSecurity,
   resource_type: ResourceType,
   type: string,
   DeleteResourceByPublicIdsRequest: DeleteResourceByPublicIdsRequestUnion,
@@ -57,7 +54,6 @@ export function assetsDeleteResourcesByPublicId(
 > {
   return new APIPromise($do(
     client$,
-    security,
     resource_type,
     type,
     DeleteResourceByPublicIdsRequest,
@@ -67,7 +63,6 @@ export function assetsDeleteResourcesByPublicId(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: DeleteResourcesByPublicIdSecurity,
   resource_type: ResourceType,
   type: string,
   DeleteResourceByPublicIdsRequest: DeleteResourceByPublicIdsRequestUnion,
@@ -140,32 +135,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "deleteResourcesByPublicId",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -179,7 +155,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "DELETE",
     baseURL: baseURL$,
     path: path$,

@@ -8,7 +8,6 @@ import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
@@ -25,7 +24,6 @@ import {
   ListResourcesByAssetFolderOpServerList,
   ListResourcesByAssetFolderRequest,
   ListResourcesByAssetFolderRequest$zodSchema,
-  ListResourcesByAssetFolderSecurity,
 } from "../models/listresourcesbyassetfolderop.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -39,7 +37,6 @@ import { Result } from "../types/fp.js";
  */
 export function assetsListResourcesByAssetFolder(
   client$: CloudinaryAssetMgmtCore,
-  security: ListResourcesByAssetFolderSecurity,
   asset_folder: string,
   resource_type?: ResourceType | undefined,
   next_cursor?: string | undefined,
@@ -61,7 +58,6 @@ export function assetsListResourcesByAssetFolder(
 > {
   return new APIPromise($do(
     client$,
-    security,
     asset_folder,
     resource_type,
     next_cursor,
@@ -74,7 +70,6 @@ export function assetsListResourcesByAssetFolder(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: ListResourcesByAssetFolderSecurity,
   asset_folder: string,
   resource_type?: ResourceType | undefined,
   next_cursor?: string | undefined,
@@ -152,32 +147,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "listResourcesByAssetFolder",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -191,7 +167,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "GET",
     baseURL: baseURL$,
     path: path$,

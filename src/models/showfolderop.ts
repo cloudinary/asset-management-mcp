@@ -9,10 +9,6 @@ import {
   FoldersListResponse,
   FoldersListResponse$zodSchema,
 } from "./folderslistresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const ShowFolderOpServerList = [
   /**
@@ -31,19 +27,6 @@ export const ShowFolderGlobals$zodSchema: z.ZodType<ShowFolderGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
-    ).optional(),
-  });
-
-export type ShowFolderSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const ShowFolderSecurity$zodSchema: z.ZodType<ShowFolderSecurity> = z
-  .object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

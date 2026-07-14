@@ -10,10 +10,6 @@ import {
   FoldersSearchResponse,
   FoldersSearchResponse$zodSchema,
 } from "./folderssearchresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const SearchFoldersOpServerList = [
   /**
@@ -32,19 +28,6 @@ export const SearchFoldersGlobals$zodSchema: z.ZodType<SearchFoldersGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
-    ).optional(),
-  });
-
-export type SearchFoldersSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const SearchFoldersSecurity$zodSchema: z.ZodType<SearchFoldersSecurity> =
-  z.object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

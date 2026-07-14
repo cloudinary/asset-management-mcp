@@ -8,7 +8,6 @@ import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
@@ -25,7 +24,6 @@ import {
   ListResourcesByContextOpServerList,
   ListResourcesByContextRequest,
   ListResourcesByContextRequest$zodSchema,
-  ListResourcesByContextSecurity,
 } from "../models/listresourcesbycontextop.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -39,7 +37,6 @@ import { Result } from "../types/fp.js";
  */
 export function assetsListResourcesByContext(
   client$: CloudinaryAssetMgmtCore,
-  security: ListResourcesByContextSecurity,
   resource_type: ResourceType,
   key: string,
   value?: string | undefined,
@@ -62,7 +59,6 @@ export function assetsListResourcesByContext(
 > {
   return new APIPromise($do(
     client$,
-    security,
     resource_type,
     key,
     value,
@@ -76,7 +72,6 @@ export function assetsListResourcesByContext(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: ListResourcesByContextSecurity,
   resource_type: ResourceType,
   key: string,
   value?: string | undefined,
@@ -162,32 +157,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "listResourcesByContext",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -201,7 +177,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "GET",
     baseURL: baseURL$,
     path: path$,

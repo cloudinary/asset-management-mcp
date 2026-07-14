@@ -8,7 +8,6 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -19,10 +18,7 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import {
-  VisualSearchAssetsOpServerList,
-  VisualSearchAssetsSecurity,
-} from "../models/visualsearchassetsop.js";
+import { VisualSearchAssetsOpServerList } from "../models/visualsearchassetsop.js";
 import {
   VisualSearchParametersUnion,
   VisualSearchParametersUnion$zodSchema,
@@ -41,7 +37,6 @@ import { Result } from "../types/fp.js";
  */
 export function searchVisualSearchAssets(
   client$: CloudinaryAssetMgmtCore,
-  security: VisualSearchAssetsSecurity,
   request: VisualSearchParametersUnion,
   options?: RequestOptions,
 ): APIPromise<
@@ -58,7 +53,6 @@ export function searchVisualSearchAssets(
 > {
   return new APIPromise($do(
     client$,
-    security,
     request,
     options,
   ));
@@ -66,7 +60,6 @@ export function searchVisualSearchAssets(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: VisualSearchAssetsSecurity,
   request: VisualSearchParametersUnion,
   options?: RequestOptions,
 ): Promise<
@@ -119,32 +112,13 @@ async function $do(
     Accept: "application/json",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "visualSearchAssets",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -158,7 +132,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "POST",
     baseURL: baseURL$,
     path: path$,

@@ -9,10 +9,6 @@ import {
   InitialBackupProgressResponse,
   InitialBackupProgressResponse$zodSchema,
 } from "./initialbackupprogressresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const GetInitialBackupOpServerList = [
   /**
@@ -32,20 +28,6 @@ export const GetInitialBackupGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type GetInitialBackupSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const GetInitialBackupSecurity$zodSchema: z.ZodType<
-  GetInitialBackupSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type GetInitialBackupRequest = { id: string };

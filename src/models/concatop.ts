@@ -6,10 +6,6 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { ConcatResponse, ConcatResponse$zodSchema } from "./concatresponse.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const ConcatOpServerList = [
   /**
@@ -27,18 +23,6 @@ export type ConcatGlobals = { cloud_name?: string | undefined };
 export const ConcatGlobals$zodSchema: z.ZodType<ConcatGlobals> = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type ConcatSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const ConcatSecurity$zodSchema: z.ZodType<ConcatSecurity> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type ConcatResponseResponse = ConcatResponse | ApiError;

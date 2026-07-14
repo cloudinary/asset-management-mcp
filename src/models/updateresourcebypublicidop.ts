@@ -11,10 +11,6 @@ import {
   ResourceUpdateRequest,
   ResourceUpdateRequest$zodSchema,
 } from "./resourceupdaterequest.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const UpdateResourceByPublicIdOpServerList = [
   /**
@@ -36,20 +32,6 @@ export const UpdateResourceByPublicIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type UpdateResourceByPublicIdSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const UpdateResourceByPublicIdSecurity$zodSchema: z.ZodType<
-  UpdateResourceByPublicIdSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type UpdateResourceByPublicIdRequest = {

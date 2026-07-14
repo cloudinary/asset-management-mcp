@@ -10,10 +10,6 @@ import {
   AssignFolderRolesRequest$zodSchema,
 } from "./assignfolderrolesrequest.js";
 import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
-import {
   SuccessResponse,
   SuccessResponse$zodSchema,
 } from "./successresponse.js";
@@ -36,20 +32,6 @@ export const AssignFolderRolesGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
-});
-
-export type AssignFolderRolesSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const AssignFolderRolesSecurity$zodSchema: z.ZodType<
-  AssignFolderRolesSecurity
-> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
 });
 
 export type AssignFolderRolesRequestRequest = {

@@ -8,13 +8,11 @@ import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
   DownloadBackupAssetOpServerList,
   DownloadBackupAssetRequest,
   DownloadBackupAssetRequest$zodSchema,
-  DownloadBackupAssetSecurity,
 } from "../models/downloadbackupassetop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -41,7 +39,6 @@ export enum DownloadBackupAssetAcceptEnum {
  */
 export function assetsDownloadBackupAsset(
   client$: CloudinaryAssetMgmtCore,
-  security: DownloadBackupAssetSecurity,
   asset_id: string,
   version_id: string,
   options?: RequestOptions,
@@ -59,7 +56,6 @@ export function assetsDownloadBackupAsset(
 > {
   return new APIPromise($do(
     client$,
-    security,
     asset_id,
     version_id,
     options,
@@ -68,7 +64,6 @@ export function assetsDownloadBackupAsset(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  security: DownloadBackupAssetSecurity,
   asset_id: string,
   version_id: string,
   options?: RequestOptions & {
@@ -133,32 +128,13 @@ async function $do(
       || "application/json;q=1, text/plain;q=0.8, application/octet-stream;q=0.6, video/*;q=0.4, image/*;q=0",
   }));
 
-  const requestSecurity = resolveSecurity(
-    [
-      {
-        type: "http:custom",
-        value: {
-          api_key: security?.cloudinaryAuth?.api_key,
-          api_secret: security?.cloudinaryAuth?.api_secret,
-        },
-      },
-    ],
-    [
-      {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauth2,
-      },
-    ],
-  );
-
   const context = {
     options: client$._options,
     baseURL: baseURL$ ?? "",
     operationID: "downloadBackupAsset",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -172,7 +148,6 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "GET",
     baseURL: baseURL$,
     path: path$,

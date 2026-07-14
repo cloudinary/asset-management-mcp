@@ -11,10 +11,6 @@ import {
   ManagedDeliveryType$zodSchema,
 } from "./manageddeliverytype.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export const DownloadAssetOpServerList = [
   /**
@@ -33,19 +29,6 @@ export const DownloadAssetGlobals$zodSchema: z.ZodType<DownloadAssetGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
-    ).optional(),
-  });
-
-export type DownloadAssetSecurity = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
-};
-
-export const DownloadAssetSecurity$zodSchema: z.ZodType<DownloadAssetSecurity> =
-  z.object({
-    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-    oauth2: z.string().describe(
-      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 
