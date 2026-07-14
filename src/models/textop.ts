@@ -6,14 +6,41 @@
 import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
 import { TextRequest, TextRequest$zodSchema } from "./textrequest.js";
 import { TextResponse, TextResponse$zodSchema } from "./textresponse.js";
+
+export const TextOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type TextGlobals = { cloud_name?: string | undefined };
 
 export const TextGlobals$zodSchema: z.ZodType<TextGlobals> = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type TextSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const TextSecurity$zodSchema: z.ZodType<TextSecurity> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 /**

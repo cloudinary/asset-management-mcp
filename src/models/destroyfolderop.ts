@@ -9,6 +9,21 @@ import {
   DeleteFolderResponse,
   DeleteFolderResponse$zodSchema,
 } from "./deletefolderresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const DestroyFolderOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type DestroyFolderGlobals = { cloud_name?: string | undefined };
 
@@ -16,6 +31,19 @@ export const DestroyFolderGlobals$zodSchema: z.ZodType<DestroyFolderGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
+    ).optional(),
+  });
+
+export type DestroyFolderSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const DestroyFolderSecurity$zodSchema: z.ZodType<DestroyFolderSecurity> =
+  z.object({
+    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+    oauth2: z.string().describe(
+      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

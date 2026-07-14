@@ -6,9 +6,24 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  ComponentsDestroyResponse,
-  ComponentsDestroyResponse$zodSchema,
-} from "./componentsdestroyresponse.js";
+  DestroyByAssetIdResponse,
+  DestroyByAssetIdResponse$zodSchema,
+} from "./destroybyassetidresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const DestroyByAssetIdOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type DestroyByAssetIdGlobals = { cloud_name?: string | undefined };
 
@@ -19,11 +34,27 @@ export const DestroyByAssetIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DestroyByAssetIdResponse = ComponentsDestroyResponse | ApiError;
+export type DestroyByAssetIdSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
 
-export const DestroyByAssetIdResponse$zodSchema: z.ZodType<
-  DestroyByAssetIdResponse
+export const DestroyByAssetIdSecurity$zodSchema: z.ZodType<
+  DestroyByAssetIdSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
+});
+
+export type DestroyByAssetIdResponseResponse =
+  | DestroyByAssetIdResponse
+  | ApiError;
+
+export const DestroyByAssetIdResponseResponse$zodSchema: z.ZodType<
+  DestroyByAssetIdResponseResponse
 > = z.union([
-  ComponentsDestroyResponse$zodSchema,
+  DestroyByAssetIdResponse$zodSchema,
   ApiError$zodSchema,
 ]);

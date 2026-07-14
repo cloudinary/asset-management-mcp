@@ -8,7 +8,7 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -19,6 +19,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  SearchAssetsOpServerList,
+  SearchAssetsSecurity,
+} from "../models/searchassetsop.js";
 import {
   SearchParameters,
   SearchParameters$zodSchema,
@@ -42,11 +46,12 @@ import { Result } from "../types/fp.js";
  * - **Booleans**: `AND`, `OR`, `NOT` (uppercase), or `+` (must), `-` (must not). `NOT` must appear between clauses — a bare leading `NOT` is a parse error; use `-field:value` to negate the first clause. Group with parentheses: `(shirt OR pants) AND clothes`.
  * - **Wildcards**: trailing `*` only, for prefix match (`public_id:shoes_*`, `format:jp*`, `tags:shirt*`). Not supported on `folder`, `asset_folder`, `resource_type`, or `type`. Leading `*`, middle `*`, `?`, and bare `*` (`folder:*`, `context.alt:*`) are all parse errors — wildcards cannot be used as a "field is present" probe.
  * - **Tokenized vs exact fields**: `tags`, `filename`, `display_name`, `context.<key>`, and `metadata.<id>` match on tokens split by whitespace and punctuation — `tags:analysis` matches the tag `full-analysis`. `public_id`, `folder`, `asset_folder`, and `format` match the whole value — `public_id:dog` will not match `dog_pldcwy`; use `public_id="dog_pldcwy"` (exact) or `public_id:dog*` (prefix). These exact-match fields still accept a trailing `*` for prefix match (except `folder` / `asset_folder`, where wildcards are ignored).
- * - **Dates**: ISO-8601 in quotes (`uploaded_at>"2024-01-15"`) or relative shorthand `Nh`, `Nd`, `Nw`, `Nm`, `Ny` (`uploaded_at>1d`, `created_at:[4w TO 1w]`). Send raw `<`/`>`, never HTML-escaped.
- * - **Quoting**: wrap any value containing a space, colon, or other reserved character (`! ( ) { } [ ] ^ ~ ?  \ = & < > |`) in double quotes, or escape each character with `\`. Examples: `tags:"service:mantels"`, `aspect_ratio:"16:9"`, `folder:"My Folder"`.
+ * - **Dates**: ISO-8601 in quotes (`uploaded_at>"2024-01-15"`, `created_at>"2026-01-01T00:00:00Z"`) or relative shorthand `Nh`, `Nd`, `Nw` (`uploaded_at>1d`, `created_at:[4w TO 1w]`). Send raw `<`/`>`, never HTML-escaped.
+ * - **Quoting**: wrap any value containing a space, colon, or other reserved character (`! ( ) { } [ ] ^ ~ ?  \ = & < > |`) in double quotes, or escape each character with `\`. Examples: `tags:"service:mantels"`, `tags:"brand:openhaul"`, `aspect_ratio:"16:9"`, `folder:"My Folder"`.
  *
  * ## Common mistakes
  *
+ * - No months or years shorthand. `1m` and `1y` are not supported; use ISO dates: `created_at>"2024-01-01"` or `created_at:["2024-01-01" TO "2024-04-01"]`.
  * - Use `folder:` or `asset_folder:` (singular); `folders:`, `asset_folder_id:`, and other invented variants are not valid fields. Pass the exact folder name — wildcards do not apply here.
  * - There is no "has any value" / presence probe. `folder:*`, `metadata.alt:*`, `context.key:*`, `tags:*`, and `-tags:*` are all parse errors. See *"Which assets have any value for `metadata.<id>`?"* under **Common tasks** for workarounds.
  * - `NOT foo AND bar` is a parse error. Write it as `bar AND NOT foo` or `-foo AND bar`, and keep every `NOT` between two clauses (`a AND NOT b AND NOT c` is fine; `NOT b AND NOT c …` is not).
@@ -82,6 +87,7 @@ import { Result } from "../types/fp.js";
  */
 export function searchSearchAssets(
   client$: CloudinaryAssetMgmtCore,
+  security: SearchAssetsSecurity,
   request: SearchParameters,
   options?: RequestOptions,
 ): APIPromise<
@@ -98,6 +104,7 @@ export function searchSearchAssets(
 > {
   return new APIPromise($do(
     client$,
+    security,
     request,
     options,
   ));
@@ -105,6 +112,7 @@ export function searchSearchAssets(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: SearchAssetsSecurity,
   request: SearchParameters,
   options?: RequestOptions,
 ): Promise<
@@ -132,6 +140,13 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = encodeJSON("body", payload$, { explode: true });
+  const baseURL$ = options?.serverURL
+    || pathToFunc(SearchAssetsOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -147,16 +162,33 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "searchAssets",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -172,7 +204,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     body: body$,

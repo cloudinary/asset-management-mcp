@@ -3,9 +3,6 @@
  * @generated-id: 320761608fb3
  */
 
-import * as z from "zod";
-import { Security } from "../models/security.js";
-import { ClosedEnum } from "../types/enums.js";
 import { HTTPClient } from "./http.js";
 import { Logger } from "./logger.js";
 import { RetryConfig } from "./retries.js";
@@ -15,41 +12,10 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
+  "/",
 ] as const;
 
-/**
- * Regional endpoint selection
- */
-export const ServerRegion = {
-  Api: "api",
-  ApiEu: "api-eu",
-  ApiAp: "api-ap",
-} as const;
-/**
- * Regional endpoint selection
- */
-export type ServerRegion = ClosedEnum<typeof ServerRegion>;
-
-export const ServerRegion$zodSchema = z.enum([
-  "api",
-  "api-eu",
-  "api-ap",
-]).describe("Regional endpoint selection");
-
 export type SDKOptions = {
-  /**
-   * The security details required to authenticate the SDK
-   */
-  security?: Security | (() => Promise<Security>) | undefined;
-
   /**
    * Allows setting the cloud_name parameter for all supported operations
    */
@@ -61,17 +27,9 @@ export type SDKOptions = {
    */
   serverIdx?: number | undefined;
   /**
-   * Sets the region variable for url substitution
+   * Specifies the server URL to be used by the SDK
    */
-  region?: ServerRegion | undefined;
-  /**
-   * Sets the host variable for url substitution
-   */
-  host?: string | undefined;
-  /**
-   * Allows overriding the default server URL used by the SDK
-   */
-  serverURL?: string | undefined;
+  serverURL: string;
   /**
    * Allows overriding the default user agent used by the SDK
    */
@@ -87,15 +45,7 @@ export type SDKOptions = {
 export function serverURLFromOptions(options: SDKOptions): URL | null {
   let serverURL = options.serverURL;
 
-  const serverParams: Params[] = [
-    {
-      "region": options.region ?? "api",
-    },
-    {
-      "host": options.host ?? "api.cloudinary.com",
-    },
-  ];
-  let params: Params = {};
+  const params: Params = {};
 
   if (!serverURL) {
     const serverIdx = options.serverIdx ?? 0;
@@ -103,7 +53,6 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
       throw new Error(`Invalid server index ${serverIdx}`);
     }
     serverURL = ServerList[serverIdx] || "";
-    params = serverParams[serverIdx] || {};
   }
 
   const u = pathToFunc(serverURL)(params);
@@ -112,9 +61,9 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
 export const SDK_METADATA = {
   language: "typescript",
-  openapiDocVersion: "0.5.1",
-  sdkVersion: "0.9.3",
-  genVersion: "2.885.1",
+  openapiDocVersion: "1.0.2",
+  sdkVersion: "0.10.0",
+  genVersion: "2.918.1",
   userAgent:
-    "speakeasy-sdk/mcp-typescript 0.9.3 2.885.1 0.5.1 @cloudinary/asset-management-mcp",
+    "speakeasy-sdk/mcp-typescript 0.10.0 2.918.1 1.0.2 @cloudinary/asset-management-mcp",
 } as const;

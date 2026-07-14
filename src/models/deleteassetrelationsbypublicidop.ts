@@ -12,9 +12,24 @@ import {
 import { DeliveryType, DeliveryType$zodSchema } from "./deliverytype.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+import {
   UnrelateAssetsByPublicIdRequest,
   UnrelateAssetsByPublicIdRequest$zodSchema,
 } from "./unrelateassetsbypublicidrequest.js";
+
+export const DeleteAssetRelationsByPublicIdOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type DeleteAssetRelationsByPublicIdGlobals = {
   cloud_name?: string | undefined;
@@ -25,6 +40,20 @@ export const DeleteAssetRelationsByPublicIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type DeleteAssetRelationsByPublicIdSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const DeleteAssetRelationsByPublicIdSecurity$zodSchema: z.ZodType<
+  DeleteAssetRelationsByPublicIdSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 export type DeleteAssetRelationsByPublicIdRequest = {

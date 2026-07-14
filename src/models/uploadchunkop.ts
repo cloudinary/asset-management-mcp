@@ -20,6 +20,17 @@ import {
 } from "./uploadresourcetype.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
+export const UploadChunkOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type UploadChunkGlobals = { cloud_name?: string | undefined };
 
 export const UploadChunkGlobals$zodSchema: z.ZodType<UploadChunkGlobals> = z
@@ -31,16 +42,18 @@ export const UploadChunkGlobals$zodSchema: z.ZodType<UploadChunkGlobals> = z
 
 export type UploadChunkRequest = {
   resource_type?: UploadResourceType | undefined;
-  contentRange: string;
+  contentRange?: string | undefined;
   xUniqueUploadId: string;
+  xUploadPartNumber?: number | undefined;
+  xUploadTotalParts?: number | undefined;
   upload_request: UploadRequest;
 };
 
 export const UploadChunkRequest$zodSchema: z.ZodType<UploadChunkRequest> = z
   .object({
     contentRange: z.string().describe(
-      "The range of bytes being uploaded in the current chunk, in the format \"bytes start-end/total\". For example, \"bytes 0-999999/3000000\" indicates the first 1MB chunk of a 3MB file.",
-    ),
+      "The range of bytes being uploaded in the current chunk, in the format \"bytes start-end/total\".\nFor example, \"bytes 0-999999/3000000\" indicates the first 1MB chunk of a 3MB file. Required for the\ndefault uniform-size chunked upload flow. In explicit-order mode (`X-Upload-Part-Number`), this\nheader remains optional; clients do not have to send `Content-Range`, `X-Upload-Part-Number`, and\n`X-Upload-Total-Parts` together on every request—`X-Upload-Total-Parts` may be omitted on some chunks\nsubject to the rules documented on that header.\n",
+    ).optional(),
     resource_type: UploadResourceType$zodSchema.default("auto").describe(
       "The type of resource (image, video, raw, or auto).",
     ),
@@ -50,6 +63,12 @@ export const UploadChunkRequest$zodSchema: z.ZodType<UploadChunkRequest> = z
     xUniqueUploadId: z.string().describe(
       "A unique identifier for the upload. Must be the same for all chunks of the same file.",
     ),
+    xUploadPartNumber: z.int().describe(
+      "The 1-based part number for this chunk when uploading parts of uneven size with explicit\nclient-supplied order. Requires `X-Unique-Upload-Id`. When present, activates explicit-order mode\nand `Content-Range` is optional. Parts must use contiguous indices `1`…`N`, where `N` is the session\ntotal. If `X-Upload-Total-Parts` is omitted on a chunk, the server still enforces `X-Upload-Part-Number ≤ N`\nonce `N` has been learned from any prior chunk for the same upload that supplied `X-Upload-Total-Parts`.\n",
+    ).optional(),
+    xUploadTotalParts: z.int().describe(
+      "Declared session total `N` (optional on chunks where omission is allowed). When present on a chunk,\nit must satisfy either `X-Upload-Part-Number < X-Upload-Total-Parts` (non-terminal) or\n`X-Upload-Part-Number == X-Upload-Total-Parts` (terminal). The same integer `N` must appear whenever\nthis header is sent for a given `X-Unique-Upload-Id` (no conflicting declared totals). Chunks may omit\nthe header entirely until `N` is established; after `N` is known, non-terminal indices may still omit\nit. Once `N` is known for the session, the request for part index `N` (the final part) must include\n`X-Upload-Total-Parts: N`. The upload completes when all parts `1`…`N` have been received.\n",
+    ).optional(),
   });
 
 /**

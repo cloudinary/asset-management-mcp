@@ -8,11 +8,13 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
+  CreateAssetRelationsByAssetIdOpServerList,
   CreateAssetRelationsByAssetIdRequest,
   CreateAssetRelationsByAssetIdRequest$zodSchema,
+  CreateAssetRelationsByAssetIdSecurity,
 } from "../models/createassetrelationsbyassetidop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -35,6 +37,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetRelationsCreateAssetRelationsByAssetId(
   client$: CloudinaryAssetMgmtCore,
+  security: CreateAssetRelationsByAssetIdSecurity,
   asset_id: string,
   relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest,
   options?: RequestOptions,
@@ -52,6 +55,7 @@ export function assetRelationsCreateAssetRelationsByAssetId(
 > {
   return new APIPromise($do(
     client$,
+    security,
     asset_id,
     relate_assets_by_asset_id_request,
     options,
@@ -60,6 +64,7 @@ export function assetRelationsCreateAssetRelationsByAssetId(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: CreateAssetRelationsByAssetIdSecurity,
   asset_id: string,
   relate_assets_by_asset_id_request: RelateAssetsByAssetIdRequest,
   options?: RequestOptions,
@@ -95,6 +100,15 @@ async function $do(
   const body$ = encodeJSON("body", payload$.relate_assets_by_asset_id_request, {
     explode: true,
   });
+  const baseURL$ = options?.serverURL
+    || pathToFunc(CreateAssetRelationsByAssetIdOpServerList[0], {
+      charEncoding: "percent",
+    })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     asset_id: encodeSimple("asset_id", payload$.asset_id, {
@@ -116,16 +130,33 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "createAssetRelationsByAssetId",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -141,7 +172,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     body: body$,

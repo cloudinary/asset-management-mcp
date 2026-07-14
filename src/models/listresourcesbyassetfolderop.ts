@@ -9,6 +9,21 @@ import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const ListResourcesByAssetFolderOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type ListResourcesByAssetFolderGlobals = {
   cloud_name?: string | undefined;
@@ -19,6 +34,20 @@ export const ListResourcesByAssetFolderGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type ListResourcesByAssetFolderSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const ListResourcesByAssetFolderSecurity$zodSchema: z.ZodType<
+  ListResourcesByAssetFolderSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 export type ListResourcesByAssetFolderRequest = {

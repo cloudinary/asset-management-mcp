@@ -14,7 +14,6 @@ import {
 import { MCPServerFlags } from "../../flags.js";
 import { createMCPServer } from "../../server.js";
 import { buildAnnotationFilter } from "../../tools.js";
-import { buildSDK } from "../../tools.js";
 
 import { landingPageExpress } from "../../../landing-page.js";
 
@@ -52,15 +51,6 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
   app.use(express.json());
 
   app.post("/mcp", async (req, res) => {
-    const headers = new Headers();
-    for (const [key, value] of Object.entries(req.headers)) {
-      if (Array.isArray(value)) {
-        for (const v of value) headers.append(key, v);
-      } else if (value !== undefined) {
-        headers.set(key, value);
-      }
-    }
-
     const transport = new StreamableHTTPServerTransport({});
 
     const { server: mcpServer } = createMCPServer({
@@ -70,12 +60,8 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       annotationFilter: buildAnnotationFilter(cliFlags["tool-annotations"]),
       scopes: cliFlags.scope,
       serverURL: cliFlags["server-url"],
-      getSDK: () =>
-        buildSDK(headers, cliFlags, cliFlags["disable-static-auth"], logger),
       cloud_name: cliFlags["cloud-name"],
       serverIdx: cliFlags["server-index"],
-      region: cliFlags.region,
-      host: cliFlags["api-host"],
     });
 
     mcpServer.server.onerror = (error) => {

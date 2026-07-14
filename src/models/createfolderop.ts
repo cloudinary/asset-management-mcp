@@ -9,6 +9,21 @@ import {
   CreateFolderResponse,
   CreateFolderResponse$zodSchema,
 } from "./createfolderresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const CreateFolderOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type CreateFolderGlobals = { cloud_name?: string | undefined };
 
@@ -16,6 +31,19 @@ export const CreateFolderGlobals$zodSchema: z.ZodType<CreateFolderGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
+    ).optional(),
+  });
+
+export type CreateFolderSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const CreateFolderSecurity$zodSchema: z.ZodType<CreateFolderSecurity> = z
+  .object({
+    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+    oauth2: z.string().describe(
+      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 
@@ -28,11 +56,11 @@ export const CreateFolderRequest$zodSchema: z.ZodType<CreateFolderRequest> = z
     ),
   });
 
-export type CreateFolderResponseResponse = ApiError | CreateFolderResponse;
+export type CreateFolderResponseResponse = CreateFolderResponse | ApiError;
 
 export const CreateFolderResponseResponse$zodSchema: z.ZodType<
   CreateFolderResponseResponse
 > = z.union([
-  ApiError$zodSchema,
   CreateFolderResponse$zodSchema,
+  ApiError$zodSchema,
 ]);

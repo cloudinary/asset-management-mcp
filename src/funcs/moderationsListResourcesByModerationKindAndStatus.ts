@@ -8,7 +8,7 @@ import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
@@ -22,8 +22,10 @@ import {
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { Fields } from "../models/fields.js";
 import {
+  ListResourcesByModerationKindAndStatusOpServerList,
   ListResourcesByModerationKindAndStatusRequest,
   ListResourcesByModerationKindAndStatusRequest$zodSchema,
+  ListResourcesByModerationKindAndStatusSecurity,
 } from "../models/listresourcesbymoderationkindandstatusop.js";
 import { ModerationKind } from "../models/moderationkind.js";
 import { ModerationStatusParameter } from "../models/moderationstatusparameter.js";
@@ -39,6 +41,7 @@ import { Result } from "../types/fp.js";
  */
 export function moderationsListResourcesByModerationKindAndStatus(
   client$: CloudinaryAssetMgmtCore,
+  security: ListResourcesByModerationKindAndStatusSecurity,
   resource_type: ResourceType,
   moderation_kind: ModerationKind,
   moderation_status: ModerationStatusParameter,
@@ -61,6 +64,7 @@ export function moderationsListResourcesByModerationKindAndStatus(
 > {
   return new APIPromise($do(
     client$,
+    security,
     resource_type,
     moderation_kind,
     moderation_status,
@@ -74,6 +78,7 @@ export function moderationsListResourcesByModerationKindAndStatus(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: ListResourcesByModerationKindAndStatusSecurity,
   resource_type: ResourceType,
   moderation_kind: ModerationKind,
   moderation_status: ModerationStatusParameter,
@@ -118,6 +123,15 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = null;
+  const baseURL$ = options?.serverURL
+    || pathToFunc(ListResourcesByModerationKindAndStatusOpServerList[0], {
+      charEncoding: "percent",
+    })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -157,16 +171,33 @@ async function $do(
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "listResourcesByModerationKindAndStatus",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -182,7 +213,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     query: query$,

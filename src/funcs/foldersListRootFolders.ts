@@ -7,7 +7,7 @@ import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -18,7 +18,11 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { ListRootFoldersRequest } from "../models/listrootfoldersop.js";
+import {
+  ListRootFoldersOpServerList,
+  ListRootFoldersRequest,
+  ListRootFoldersSecurity,
+} from "../models/listrootfoldersop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -30,6 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function foldersListRootFolders(
   client$: CloudinaryAssetMgmtCore,
+  security: ListRootFoldersSecurity,
   _request?: ListRootFoldersRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -46,6 +51,7 @@ export function foldersListRootFolders(
 > {
   return new APIPromise($do(
     client$,
+    security,
     _request,
     options,
   ));
@@ -53,6 +59,7 @@ export function foldersListRootFolders(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: ListRootFoldersSecurity,
   _request?: ListRootFoldersRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -70,6 +77,14 @@ async function $do(
     APICall,
   ]
 > {
+  const baseURL$ = options?.serverURL
+    || pathToFunc(ListRootFoldersOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
+
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
       explode: false,
@@ -83,16 +98,33 @@ async function $do(
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "listRootFolders",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -108,7 +140,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     userAgent: client$._options.userAgent,

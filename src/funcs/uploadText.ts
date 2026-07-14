@@ -8,7 +8,7 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -20,9 +20,11 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
+  TextOpServerList,
   TextRequestRequest,
   TextRequestRequest$zodSchema,
   TextResourceType,
+  TextSecurity,
 } from "../models/textop.js";
 import { TextRequest } from "../models/textrequest.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -36,6 +38,7 @@ import { Result } from "../types/fp.js";
  */
 export function uploadText(
   client$: CloudinaryAssetMgmtCore,
+  security: TextSecurity,
   resource_type: TextResourceType,
   text_request: TextRequest,
   options?: RequestOptions,
@@ -53,6 +56,7 @@ export function uploadText(
 > {
   return new APIPromise($do(
     client$,
+    security,
     resource_type,
     text_request,
     options,
@@ -61,6 +65,7 @@ export function uploadText(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: TextSecurity,
   resource_type: TextResourceType,
   text_request: TextRequest,
   options?: RequestOptions,
@@ -94,6 +99,13 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = encodeJSON("body", payload$.text_request, { explode: true });
+  const baseURL$ = options?.serverURL
+    || pathToFunc(TextOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -113,16 +125,33 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "text",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -138,7 +167,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     body: body$,

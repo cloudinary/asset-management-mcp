@@ -3,16 +3,10 @@
  * @generated-id: c52972a3b198
  */
 
-import { dlv } from "./dlv.js";
-
 import * as z from "zod";
 import { SDKOptions } from "./config.js";
 
 export interface Env {
-  CLOUDINARY_API_KEY?: string | undefined;
-  CLOUDINARY_API_SECRET?: string | undefined;
-  CLOUDINARY_OAUTH2?: string | undefined;
-
   /**
    * Sets the cloud_name parameter for all supported operations
    */
@@ -22,10 +16,6 @@ export interface Env {
 }
 
 export const envSchema: z.ZodType<Env> = z.object({
-  CLOUDINARY_API_KEY: z.string().optional(),
-  CLOUDINARY_API_SECRET: z.string().optional(),
-  CLOUDINARY_OAUTH2: z.string().optional(),
-
   CLOUDINARY_CLOUD_NAME: z.string().optional(),
 
   CLOUDINARY_DEBUG: z.coerce.boolean().optional(),
@@ -40,8 +30,13 @@ export function env(): Env {
     return envMemo;
   }
 
+  const globals = globalThis as {
+    process?: { env?: Record<string, string | undefined> };
+    Deno?: { env?: { toObject?: () => Record<string, string | undefined> } };
+  };
+
   envMemo = envSchema.parse(
-    dlv(globalThis, "process.env") ?? dlv(globalThis, "Deno.env") ?? {},
+    globals.process?.env ?? globals.Deno?.env?.toObject?.() ?? {},
   );
   return envMemo;
 }
