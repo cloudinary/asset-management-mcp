@@ -7,9 +7,24 @@ import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+import {
   TagsListResponse,
   TagsListResponse$zodSchema,
 } from "./tagslistresponse.js";
+
+export const ListResourceTagsOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type ListResourceTagsGlobals = { cloud_name?: string | undefined };
 
@@ -18,6 +33,20 @@ export const ListResourceTagsGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type ListResourceTagsSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const ListResourceTagsSecurity$zodSchema: z.ZodType<
+  ListResourceTagsSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 export type ListResourceTagsRequest = {

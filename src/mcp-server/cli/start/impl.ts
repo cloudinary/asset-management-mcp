@@ -55,21 +55,13 @@ async function startStdio(flags: StartCommandFlags) {
     allowedTools: flags.tool,
     dynamic: flags.mode === "dynamic",
     annotationFilter: buildAnnotationFilter(flags["tool-annotations"]),
-    scopes: flags.scope,
     security: {
-      cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
-        ? {
-          api_key: flags["api-key"] ?? "",
-          api_secret: flags["api-secret"] ?? "",
-        }
-        : void 0,
-      oauth2: flags.oauth2 ?? "",
+      api_key: flags["api-key"] ?? "",
+      api_secret: flags["api-secret"] ?? "",
     },
     cloud_name: flags["cloud-name"],
     serverURL: flags["server-url"],
     serverIdx: flags["server-index"],
-    region: flags.region,
-    host: flags["api-host"],
   });
   await server.connect(transport);
 
@@ -111,7 +103,6 @@ async function startSSE(cliFlags: StartCommandFlags) {
       "api-key": (req.headers["api_key"] as string) ?? cliFlags["api-key"],
       "api-secret": (req.headers["api_secret"] as string)
         ?? cliFlags["api-secret"],
-      "oauth2": (req.headers["oauth2"] as string) ?? cliFlags["oauth2"],
     };
 
     // Create a new MCP server for this connection with its auth
@@ -120,21 +111,13 @@ async function startSSE(cliFlags: StartCommandFlags) {
       allowedTools: flags.tool,
       dynamic: flags.mode === "dynamic",
       annotationFilter: buildAnnotationFilter(flags["tool-annotations"]),
-      scopes: flags.scope,
       security: {
-        cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
-          ? {
-            api_key: flags["api-key"] ?? "",
-            api_secret: flags["api-secret"] ?? "",
-          }
-          : void 0,
-        oauth2: flags.oauth2 ?? "",
+        api_key: flags["api-key"] ?? "",
+        api_secret: flags["api-secret"] ?? "",
       },
       cloud_name: flags["cloud-name"],
       serverURL: flags["server-url"],
       serverIdx: flags["server-index"],
-      region: flags.region,
-      host: flags["api-host"],
     });
 
     // Message path includes session ID for routing

@@ -4,7 +4,6 @@
  */
 
 import { SDKOptions } from "../lib/config.js";
-import { MCPScope } from "./scopes.js";
 
 /**
  * Base flags interface for MCP server configuration.
@@ -14,13 +13,9 @@ export interface MCPServerFlags {
   readonly tool?: string[];
   readonly mode?: "dynamic" | undefined;
   readonly "tool-annotations"?: string[] | undefined;
-  readonly scope?: MCPScope[];
   readonly "api-key"?: string | undefined;
   readonly "api-secret"?: string | undefined;
-  readonly oauth2?: string | undefined;
   readonly "cloud-name"?: SDKOptions["cloud_name"] | undefined;
-  readonly "server-url"?: string | undefined;
+  readonly "server-url": string;
   readonly "server-index"?: SDKOptions["serverIdx"];
-  readonly region?: SDKOptions["region"];
-  readonly "api-host"?: SDKOptions["host"];
 }

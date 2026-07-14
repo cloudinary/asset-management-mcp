@@ -1,6 +1,6 @@
 {
   "name": "@cloudinary/asset-management-mcp",
-  "version": "0.9.4",
+  "version": "0.10.0",
   "author": "Cloudinary",
   "type": "module",
   "sideEffects": false,

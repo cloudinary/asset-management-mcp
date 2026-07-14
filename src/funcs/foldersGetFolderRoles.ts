@@ -8,7 +8,7 @@ import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -20,8 +20,10 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
+  GetFolderRolesOpServerList,
   GetFolderRolesRequest,
   GetFolderRolesRequest$zodSchema,
+  GetFolderRolesSecurity,
 } from "../models/getfolderrolesop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -34,6 +36,7 @@ import { Result } from "../types/fp.js";
  */
 export function foldersGetFolderRoles(
   client$: CloudinaryAssetMgmtCore,
+  security: GetFolderRolesSecurity,
   folder_id: string,
   permitted_roles?: boolean | undefined,
   options?: RequestOptions,
@@ -51,6 +54,7 @@ export function foldersGetFolderRoles(
 > {
   return new APIPromise($do(
     client$,
+    security,
     folder_id,
     permitted_roles,
     options,
@@ -59,6 +63,7 @@ export function foldersGetFolderRoles(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: GetFolderRolesSecurity,
   folder_id: string,
   permitted_roles?: boolean | undefined,
   options?: RequestOptions,
@@ -92,6 +97,13 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = null;
+  const baseURL$ = options?.serverURL
+    || pathToFunc(GetFolderRolesOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -115,16 +127,33 @@ async function $do(
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "getFolderRoles",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -140,7 +169,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     query: query$,

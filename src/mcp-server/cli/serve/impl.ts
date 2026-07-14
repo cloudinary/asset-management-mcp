@@ -68,14 +68,11 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
       allowedTools: cliFlags.tool,
       dynamic: cliFlags.mode === "dynamic",
       annotationFilter: buildAnnotationFilter(cliFlags["tool-annotations"]),
-      scopes: cliFlags.scope,
       serverURL: cliFlags["server-url"],
       getSDK: () =>
         buildSDK(headers, cliFlags, cliFlags["disable-static-auth"], logger),
       cloud_name: cliFlags["cloud-name"],
       serverIdx: cliFlags["server-index"],
-      region: cliFlags.region,
-      host: cliFlags["api-host"],
     });
 
     mcpServer.server.onerror = (error) => {

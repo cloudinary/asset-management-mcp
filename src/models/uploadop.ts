@@ -9,6 +9,10 @@ import {
   AsyncUploadResponse,
   AsyncUploadResponse$zodSchema,
 } from "./asyncuploadresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
 import { UploadRequest, UploadRequest$zodSchema } from "./uploadrequest.js";
 import {
   UploadResourceType,
@@ -16,11 +20,34 @@ import {
 } from "./uploadresourcetype.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
+export const UploadOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type UploadGlobals = { cloud_name?: string | undefined };
 
 export const UploadGlobals$zodSchema: z.ZodType<UploadGlobals> = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type UploadSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const UploadSecurity$zodSchema: z.ZodType<UploadSecurity> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 export type UploadRequestRequest = {

@@ -12,6 +12,21 @@ import {
 import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const ListRawFilesOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type ListRawFilesGlobals = { cloud_name?: string | undefined };
 
@@ -19,6 +34,19 @@ export const ListRawFilesGlobals$zodSchema: z.ZodType<ListRawFilesGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
+    ).optional(),
+  });
+
+export type ListRawFilesSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const ListRawFilesSecurity$zodSchema: z.ZodType<ListRawFilesSecurity> = z
+  .object({
+    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+    oauth2: z.string().describe(
+      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

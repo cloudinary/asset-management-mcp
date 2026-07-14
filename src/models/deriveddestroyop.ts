@@ -9,6 +9,21 @@ import {
   DerivedDestroyResponse,
   DerivedDestroyResponse$zodSchema,
 } from "./deriveddestroyresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const DerivedDestroyOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type DerivedDestroyGlobals = { cloud_name?: string | undefined };
 
@@ -18,6 +33,20 @@ export const DerivedDestroyGlobals$zodSchema: z.ZodType<DerivedDestroyGlobals> =
       "The cloud name of your product environment.",
     ).optional(),
   });
+
+export type DerivedDestroySecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const DerivedDestroySecurity$zodSchema: z.ZodType<
+  DerivedDestroySecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
+});
 
 export type DerivedDestroyResponseResponse = ApiError | DerivedDestroyResponse;
 

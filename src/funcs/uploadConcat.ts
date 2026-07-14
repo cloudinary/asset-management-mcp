@@ -8,8 +8,9 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { ConcatOpServerList, ConcatSecurity } from "../models/concatop.js";
 import {
   ConcatRequest,
   ConcatRequest$zodSchema,
@@ -38,6 +39,7 @@ import { Result } from "../types/fp.js";
  */
 export function uploadConcat(
   client$: CloudinaryAssetMgmtCore,
+  security: ConcatSecurity,
   request: ConcatRequest,
   options?: RequestOptions,
 ): APIPromise<
@@ -54,6 +56,7 @@ export function uploadConcat(
 > {
   return new APIPromise($do(
     client$,
+    security,
     request,
     options,
   ));
@@ -61,6 +64,7 @@ export function uploadConcat(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: ConcatSecurity,
   request: ConcatRequest,
   options?: RequestOptions,
 ): Promise<
@@ -88,6 +92,13 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = encodeJSON("body", payload$, { explode: true });
+  const baseURL$ = options?.serverURL
+    || pathToFunc(ConcatOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -103,16 +114,33 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "concat",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -128,7 +156,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     body: body$,

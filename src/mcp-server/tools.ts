@@ -16,7 +16,6 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import * as z from "zod";
 import { CloudinaryAssetMgmtCore } from "../core.js";
-import { ServerRegion$zodSchema } from "../lib/config.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPServerFlags } from "./flags.js";
 import { MCPScope, mcpScopes } from "./scopes.js";
@@ -490,24 +489,12 @@ export function buildSDK(
       cliFlags["api-secret"],
       disableStaticAuth,
     ),
-    "oauth2": resolveHeader(
-      headers,
-      "oauth2",
-      z.string(),
-      cliFlags["oauth2"],
-      disableStaticAuth,
-    ),
   };
 
   return new CloudinaryAssetMgmtCore({
     security: {
-      cloudinaryAuth: flags["api-key"] != null && flags["api-secret"] != null
-        ? {
-          api_key: flags["api-key"] ?? "",
-          api_secret: flags["api-secret"] ?? "",
-        }
-        : void 0,
-      oauth2: flags.oauth2 ?? "",
+      api_key: flags["api-key"] ?? "",
+      api_secret: flags["api-secret"] ?? "",
     },
     serverURL: cliFlags["server-url"],
     cloud_name: resolveHeader(
@@ -518,20 +505,6 @@ export function buildSDK(
       disableStaticAuth,
     ),
     serverIdx: cliFlags["server-index"],
-    region: resolveHeader(
-      headers,
-      "region",
-      ServerRegion$zodSchema,
-      cliFlags.region,
-      disableStaticAuth,
-    ),
-    host: resolveHeader(
-      headers,
-      "api-host",
-      z.string(),
-      cliFlags["api-host"],
-      disableStaticAuth,
-    ),
     debugLogger: logger.level === "debug"
       ? {
         log: (...args) => console.log(...args),

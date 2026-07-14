@@ -6,6 +6,10 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+import {
   UpdatePersonRequest,
   UpdatePersonRequest$zodSchema,
 } from "./updatepersonrequest.js";
@@ -14,12 +18,36 @@ import {
   UpdatePersonResponse$zodSchema,
 } from "./updatepersonresponse.js";
 
+export const UpdatePersonOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type UpdatePersonGlobals = { cloud_name?: string | undefined };
 
 export const UpdatePersonGlobals$zodSchema: z.ZodType<UpdatePersonGlobals> = z
   .object({
     cloud_name: z.string().describe(
       "The cloud name of your product environment.",
+    ).optional(),
+  });
+
+export type UpdatePersonSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const UpdatePersonSecurity$zodSchema: z.ZodType<UpdatePersonSecurity> = z
+  .object({
+    cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+    oauth2: z.string().describe(
+      "OAuth2 Authorization Code flow for user authentication",
     ).optional(),
   });
 

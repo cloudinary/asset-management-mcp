@@ -8,11 +8,13 @@ import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
+import { resolveSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
+  DownloadAssetOpServerList,
   DownloadAssetRequest,
   DownloadAssetRequest$zodSchema,
+  DownloadAssetSecurity,
 } from "../models/downloadassetop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -40,6 +42,7 @@ export enum DownloadAssetAcceptEnum {
  */
 export function assetsDownloadAsset(
   client$: CloudinaryAssetMgmtCore,
+  security: DownloadAssetSecurity,
   resource_type: ResourceType,
   public_id: string,
   format?: string | undefined,
@@ -63,6 +66,7 @@ export function assetsDownloadAsset(
 > {
   return new APIPromise($do(
     client$,
+    security,
     resource_type,
     public_id,
     format,
@@ -77,6 +81,7 @@ export function assetsDownloadAsset(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
+  security: DownloadAssetSecurity,
   resource_type: ResourceType,
   public_id: string,
   format?: string | undefined,
@@ -122,6 +127,13 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = null;
+  const baseURL$ = options?.serverURL
+    || pathToFunc(DownloadAssetOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -150,16 +162,33 @@ async function $do(
     Accept: options?.acceptHeaderOverride
       || "application/json;q=1, application/octet-stream;q=0.8, video/*;q=0.5, image/*;q=0",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+
+  const requestSecurity = resolveSecurity(
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key,
+          api_secret: security?.cloudinaryAuth?.api_secret,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2,
+      },
+    ],
+  );
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "downloadAsset",
     oAuth2Scopes: null,
     resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    securitySource: security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -175,7 +204,7 @@ async function $do(
   const requestRes = client$._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     query: query$,

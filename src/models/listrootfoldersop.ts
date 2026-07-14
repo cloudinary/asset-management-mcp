@@ -9,6 +9,21 @@ import {
   FoldersListResponse,
   FoldersListResponse$zodSchema,
 } from "./folderslistresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const ListRootFoldersOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type ListRootFoldersGlobals = { cloud_name?: string | undefined };
 
@@ -17,6 +32,20 @@ export const ListRootFoldersGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type ListRootFoldersSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const ListRootFoldersSecurity$zodSchema: z.ZodType<
+  ListRootFoldersSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 export type ListRootFoldersRequest = {};

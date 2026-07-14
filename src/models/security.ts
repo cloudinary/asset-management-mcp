@@ -4,19 +4,13 @@
  */
 
 import * as z from "zod";
-import {
-  SchemeCloudinaryAuth,
-  SchemeCloudinaryAuth$zodSchema,
-} from "./schemecloudinaryauth.js";
 
 export type Security = {
-  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
-  oauth2?: string | undefined;
+  api_key?: string | undefined;
+  api_secret?: string | undefined;
 };
 
 export const Security$zodSchema: z.ZodType<Security> = z.object({
-  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
-  oauth2: z.string().describe(
-    "OAuth2 Authorization Code flow for user authentication",
-  ).optional(),
+  api_key: z.string().optional(),
+  api_secret: z.string().optional(),
 });

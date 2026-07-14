@@ -3,10 +3,6 @@
  * @generated-id: 8966d24256b2
  */
 
-export const mcpScopes = [
-  "admin",
-  "builder",
-  "librarian",
-] as const;
+export const mcpScopes = [] as const;
 
 export type MCPScope = (typeof mcpScopes)[number];

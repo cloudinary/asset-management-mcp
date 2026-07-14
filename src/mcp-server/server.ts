@@ -20,31 +20,6 @@ import {
   MCPToolAnnotationFilter,
   registerDynamicTools,
 } from "./tools.js";
-import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetRelationsCreateAssetRelationsByAssetId.js";
-import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
-import { tool$assetsDerivedDestroy } from "./tools/assetsDerivedDestroy.js";
-import { tool$assetsDestroyByAssetId } from "./tools/assetsDestroyByAssetId.js";
-import { tool$assetsDownloadBackupAsset } from "./tools/assetsDownloadBackupAsset.js";
-import { tool$assetsGenerateArchive } from "./tools/assetsGenerateArchive.js";
-import { tool$assetsGetResourceByAssetId } from "./tools/assetsGetResourceByAssetId.js";
-import { tool$assetsListImages } from "./tools/assetsListImages.js";
-import { tool$assetsListRawFiles } from "./tools/assetsListRawFiles.js";
-import { tool$assetsListResourceTags } from "./tools/assetsListResourceTags.js";
-import { tool$assetsListVideos } from "./tools/assetsListVideos.js";
-import { tool$assetsRenameAsset } from "./tools/assetsRenameAsset.js";
-import { tool$assetsUpdateResourceByAssetId } from "./tools/assetsUpdateResourceByAssetId.js";
-import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
-import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
-import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
-import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
-import { tool$initialBackupCreateInitialBackup } from "./tools/initialBackupCreateInitialBackup.js";
-import { tool$initialBackupGetInitialBackup } from "./tools/initialBackupGetInitialBackup.js";
-import { tool$initialBackupListInitialBackups } from "./tools/initialBackupListInitialBackups.js";
-import { tool$searchSearchAssets } from "./tools/searchSearchAssets.js";
-import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.js";
-import { tool$uploadConcat } from "./tools/uploadConcat.js";
-import { tool$uploadUpload } from "./tools/uploadUpload.js";
-import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 
 export function createMCPServer(deps: {
   logger: ConsoleLogger;
@@ -53,16 +28,14 @@ export function createMCPServer(deps: {
   scopes?: MCPScope[] | undefined;
   annotationFilter?: MCPToolAnnotationFilter | undefined;
   getSDK?: () => CloudinaryAssetMgmtCore;
-  serverURL?: string | undefined;
+  serverURL: string;
   security?: SDKOptions["security"] | undefined;
   cloud_name?: SDKOptions["cloud_name"] | undefined;
   serverIdx?: SDKOptions["serverIdx"] | undefined;
-  region?: SDKOptions["region"] | undefined;
-  host?: SDKOptions["host"] | undefined;
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.9.4",
+    version: "0.10.0",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -71,8 +44,6 @@ export function createMCPServer(deps: {
       cloud_name: deps.cloud_name,
       serverURL: deps.serverURL,
       serverIdx: deps.serverIdx,
-      region: deps.region,
-      host: deps.host,
       debugLogger: deps.logger.level === "debug"
         ? {
           log: (...args) => console.log(...args),
@@ -109,32 +80,6 @@ export function createMCPServer(deps: {
   const prompt = createRegisterPrompt(deps.logger, server, getClient, scopes);
   const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
-
-  tool(tool$uploadUpload);
-  tool(tool$uploadConcat);
-  tool(tool$assetsRenameAsset);
-  tool(tool$assetsGenerateArchive);
-  tool(tool$assetsDownloadBackupAsset);
-  tool(tool$assetsDestroyByAssetId);
-  tool(tool$assetsListImages);
-  tool(tool$assetsListVideos);
-  tool(tool$assetsListRawFiles);
-  tool(tool$assetsGetResourceByAssetId);
-  tool(tool$assetsUpdateResourceByAssetId);
-  tool(tool$assetsListResourceTags);
-  tool(tool$assetsDerivedDestroy);
-  tool(tool$usageGetUsage);
-  tool(tool$assetRelationsCreateAssetRelationsByAssetId);
-  tool(tool$assetRelationsDeleteAssetRelationsByAssetId);
-  tool(tool$foldersUpdateFolder);
-  tool(tool$foldersCreateFolder);
-  tool(tool$foldersDestroyFolder);
-  tool(tool$foldersSearchFolders);
-  tool(tool$searchSearchAssets);
-  tool(tool$searchVisualSearchAssets);
-  tool(tool$initialBackupCreateInitialBackup);
-  tool(tool$initialBackupListInitialBackups);
-  tool(tool$initialBackupGetInitialBackup);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);

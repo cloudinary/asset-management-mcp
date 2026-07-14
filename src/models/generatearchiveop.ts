@@ -19,6 +19,21 @@ import {
   GenerateArchiveResponse,
   GenerateArchiveResponse$zodSchema,
 } from "./generatearchiveresponse.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const GenerateArchiveOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type GenerateArchiveGlobals = { cloud_name?: string | undefined };
 
@@ -27,6 +42,20 @@ export const GenerateArchiveGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type GenerateArchiveSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const GenerateArchiveSecurity$zodSchema: z.ZodType<
+  GenerateArchiveSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 /**

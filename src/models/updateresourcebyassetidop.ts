@@ -10,6 +10,21 @@ import {
   ResourceUpdateRequest,
   ResourceUpdateRequest$zodSchema,
 } from "./resourceupdaterequest.js";
+import {
+  SchemeCloudinaryAuth,
+  SchemeCloudinaryAuth$zodSchema,
+} from "./schemecloudinaryauth.js";
+
+export const UpdateResourceByAssetIdOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
 
 export type UpdateResourceByAssetIdGlobals = {
   cloud_name?: string | undefined;
@@ -20,6 +35,20 @@ export const UpdateResourceByAssetIdGlobals$zodSchema: z.ZodType<
 > = z.object({
   cloud_name: z.string().describe("The cloud name of your product environment.")
     .optional(),
+});
+
+export type UpdateResourceByAssetIdSecurity = {
+  cloudinaryAuth?: SchemeCloudinaryAuth | undefined;
+  oauth2?: string | undefined;
+};
+
+export const UpdateResourceByAssetIdSecurity$zodSchema: z.ZodType<
+  UpdateResourceByAssetIdSecurity
+> = z.object({
+  cloudinaryAuth: SchemeCloudinaryAuth$zodSchema.optional(),
+  oauth2: z.string().describe(
+    "OAuth2 Authorization Code flow for user authentication",
+  ).optional(),
 });
 
 export type UpdateResourceByAssetIdRequest = {
