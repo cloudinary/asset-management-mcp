@@ -933,7 +933,7 @@ http_headers = { "server-url" = "YOUR_SERVER_URL", "cloud-name" = "YOUR_CLOUD_NA
         <h1>Instructions</h1>
         <p>One-click installation for Claude Desktop users</p>
         <div class="instruction-item">
-          <a href="https://github.com/cloudinary/asset-management-mcp/releases/download/v0.10.0/mcp-server.mcpb" download="mcp-server.mcpb" class="action-button header-action" style="display: inline-flex; margin-bottom: 16px;">
+          <a href="https://github.com/cloudinary/asset-management-mcp/releases/download/v0.10.1/mcp-server.mcpb" download="mcp-server.mcpb" class="action-button header-action" style="display: inline-flex; margin-bottom: 16px;">
             📥 Download MCP Bundle
           </a>
         </div>
