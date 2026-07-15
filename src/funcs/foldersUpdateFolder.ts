@@ -8,7 +8,6 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
-import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -21,6 +20,7 @@ import {
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { MoveFolderRequest } from "../models/movefolderrequest.js";
 import {
+  UpdateFolderOpServerList,
   UpdateFolderRequest,
   UpdateFolderRequest$zodSchema,
 } from "../models/updatefolderop.js";
@@ -95,6 +95,13 @@ async function $do(
   const body$ = encodeJSON("body", payload$.move_folder_request, {
     explode: true,
   });
+  const baseURL$ = options?.serverURL
+    || pathToFunc(UpdateFolderOpServerList[0], { charEncoding: "percent" })(
+      {
+        region: "api",
+        host: "api.cloudinary.com",
+      },
+    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -114,16 +121,14 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
-  const securityInput = await extractSecurity(client$._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
     options: client$._options,
-    baseURL: options?.serverURL ?? client$._baseURL ?? "",
+    baseURL: baseURL$ ?? "",
     operationID: "updateFolder",
     oAuth2Scopes: null,
-    resolvedSecurity: requestSecurity,
-    securitySource: client$._options.security,
+    resolvedSecurity: null,
+    securitySource: null,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -137,9 +142,8 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
-    security: requestSecurity,
     method: "PUT",
-    baseURL: options?.serverURL,
+    baseURL: baseURL$,
     path: path$,
     headers: headers$,
     body: body$,

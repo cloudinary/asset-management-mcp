@@ -16,6 +16,17 @@ import {
   UnrelateAssetsByPublicIdRequest$zodSchema,
 } from "./unrelateassetsbypublicidrequest.js";
 
+export const DeleteAssetRelationsByPublicIdOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type DeleteAssetRelationsByPublicIdGlobals = {
   cloud_name?: string | undefined;
 };

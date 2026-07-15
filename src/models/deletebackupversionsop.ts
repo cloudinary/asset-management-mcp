@@ -18,6 +18,17 @@ import {
   DeleteBackupVersionsResponse$zodSchema,
 } from "./deletebackupversionsresponse.js";
 
+export const DeleteBackupVersionsOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type DeleteBackupVersionsGlobals = { cloud_name?: string | undefined };
 
 export const DeleteBackupVersionsGlobals$zodSchema: z.ZodType<

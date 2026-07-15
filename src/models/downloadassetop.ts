@@ -12,6 +12,17 @@ import {
 } from "./manageddeliverytype.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
+export const DownloadAssetOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type DownloadAssetGlobals = { cloud_name?: string | undefined };
 
 export const DownloadAssetGlobals$zodSchema: z.ZodType<DownloadAssetGlobals> = z

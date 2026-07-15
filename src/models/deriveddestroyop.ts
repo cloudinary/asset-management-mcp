@@ -10,6 +10,17 @@ import {
   DerivedDestroyResponse$zodSchema,
 } from "./deriveddestroyresponse.js";
 
+export const DerivedDestroyOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type DerivedDestroyGlobals = { cloud_name?: string | undefined };
 
 export const DerivedDestroyGlobals$zodSchema: z.ZodType<DerivedDestroyGlobals> =

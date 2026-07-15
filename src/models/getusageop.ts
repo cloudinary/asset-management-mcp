@@ -7,6 +7,17 @@ import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { UsageResponse, UsageResponse$zodSchema } from "./usageresponse.js";
 
+export const GetUsageOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type GetUsageGlobals = { cloud_name?: string | undefined };
 
 export const GetUsageGlobals$zodSchema: z.ZodType<GetUsageGlobals> = z.object({

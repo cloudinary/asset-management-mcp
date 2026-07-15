@@ -11,6 +11,17 @@ import {
   TagsListResponse$zodSchema,
 } from "./tagslistresponse.js";
 
+export const ListResourceTagsOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type ListResourceTagsGlobals = { cloud_name?: string | undefined };
 
 export const ListResourceTagsGlobals$zodSchema: z.ZodType<

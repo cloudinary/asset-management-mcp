@@ -14,6 +14,17 @@ import {
   UpdatePersonResponse$zodSchema,
 } from "./updatepersonresponse.js";
 
+export const UpdatePersonOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type UpdatePersonGlobals = { cloud_name?: string | undefined };
 
 export const UpdatePersonGlobals$zodSchema: z.ZodType<UpdatePersonGlobals> = z

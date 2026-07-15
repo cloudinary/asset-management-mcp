@@ -16,6 +16,17 @@ import {
 } from "./relateassetsbypublicidrequest.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
+export const CreateAssetRelationsByPublicIdOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type CreateAssetRelationsByPublicIdGlobals = {
   cloud_name?: string | undefined;
 };

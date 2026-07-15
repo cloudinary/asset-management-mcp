@@ -9,6 +9,17 @@ import {
   ResourceTypesResponse$zodSchema,
 } from "./resourcetypesresponse.js";
 
+export const ListResourceTypesOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type ListResourceTypesGlobals = { cloud_name?: string | undefined };
 
 export const ListResourceTypesGlobals$zodSchema: z.ZodType<

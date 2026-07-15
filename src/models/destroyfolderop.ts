@@ -10,6 +10,17 @@ import {
   DeleteFolderResponse$zodSchema,
 } from "./deletefolderresponse.js";
 
+export const DestroyFolderOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type DestroyFolderGlobals = { cloud_name?: string | undefined };
 
 export const DestroyFolderGlobals$zodSchema: z.ZodType<DestroyFolderGlobals> = z

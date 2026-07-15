@@ -16,6 +16,17 @@ import {
 } from "./uploadresourcetype.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
+export const UploadOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type UploadGlobals = { cloud_name?: string | undefined };
 
 export const UploadGlobals$zodSchema: z.ZodType<UploadGlobals> = z.object({

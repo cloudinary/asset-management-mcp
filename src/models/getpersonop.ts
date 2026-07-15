@@ -7,6 +7,17 @@ import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { PersonResponse, PersonResponse$zodSchema } from "./personresponse.js";
 
+export const GetPersonOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type GetPersonGlobals = { cloud_name?: string | undefined };
 
 export const GetPersonGlobals$zodSchema: z.ZodType<GetPersonGlobals> = z.object(

@@ -10,6 +10,17 @@ import {
   InitialBackupProgressResponse$zodSchema,
 } from "./initialbackupprogressresponse.js";
 
+export const GetInitialBackupOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type GetInitialBackupGlobals = { cloud_name?: string | undefined };
 
 export const GetInitialBackupGlobals$zodSchema: z.ZodType<

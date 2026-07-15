@@ -11,6 +11,17 @@ import {
   VideoViewsResponse$zodSchema,
 } from "./videoviewsresponse.js";
 
+export const GetVideoViewsOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type GetVideoViewsGlobals = { cloud_name?: string | undefined };
 
 export const GetVideoViewsGlobals$zodSchema: z.ZodType<GetVideoViewsGlobals> = z

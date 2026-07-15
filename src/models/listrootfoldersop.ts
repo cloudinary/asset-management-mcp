@@ -10,6 +10,17 @@ import {
   FoldersListResponse$zodSchema,
 } from "./folderslistresponse.js";
 
+export const ListRootFoldersOpServerList = [
+  /**
+   * Regional API endpoints for optimal performance.
+   */
+  "https://{region}.cloudinary.com",
+  /**
+   * Custom domains for enterprise deployments.
+   */
+  "https://{host}",
+] as const;
+
 export type ListRootFoldersGlobals = { cloud_name?: string | undefined };
 
 export const ListRootFoldersGlobals$zodSchema: z.ZodType<
