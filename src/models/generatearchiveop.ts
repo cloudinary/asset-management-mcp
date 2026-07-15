@@ -20,17 +20,6 @@ import {
   GenerateArchiveResponse$zodSchema,
 } from "./generatearchiveresponse.js";
 
-export const GenerateArchiveOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type GenerateArchiveGlobals = { cloud_name?: string | undefined };
 
 export const GenerateArchiveGlobals$zodSchema: z.ZodType<

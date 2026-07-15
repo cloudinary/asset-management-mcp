@@ -14,17 +14,6 @@ import {
   MoveFolderResponse$zodSchema,
 } from "./movefolderresponse.js";
 
-export const UpdateFolderOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type UpdateFolderGlobals = { cloud_name?: string | undefined };
 
 export const UpdateFolderGlobals$zodSchema: z.ZodType<UpdateFolderGlobals> = z

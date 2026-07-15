@@ -3,6 +3,9 @@
  * @generated-id: 0502afa7922e
  */
 
+import { Security } from "../models/security.js";
+import { env } from "./env.js";
+
 type OAuth2PasswordFlow = {
   username: string;
   password: string;
@@ -240,4 +243,50 @@ function applyBearer(
   if (spec.fieldName !== undefined) {
     state.headers[spec.fieldName] = value;
   }
+}
+export function resolveGlobalSecurity(
+  security: Partial<Security> | null | undefined,
+  allowedFields?: number[],
+): SecurityState | null {
+  let inputs: SecurityInput[][] = [
+    [
+      {
+        type: "http:custom",
+        value: {
+          api_key: security?.cloudinaryAuth?.api_key
+            || env().CLOUDINARY_API_KEY,
+          api_secret: security?.cloudinaryAuth?.api_secret
+            || env().CLOUDINARY_API_SECRET,
+        },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauth2 || env().CLOUDINARY_OAUTH2,
+      },
+    ],
+  ];
+
+  if (allowedFields) {
+    inputs = allowedFields.map((i) => {
+      if (i < 0 || i >= inputs.length) {
+        throw new RangeError(`invalid allowedFields index ${i}`);
+      }
+      return inputs[i]!;
+    });
+  }
+
+  return resolveSecurity(...inputs);
+}
+
+export async function extractSecurity<
+  T extends string | Record<string, unknown>,
+>(sec: T | (() => Promise<T>) | undefined): Promise<T | undefined> {
+  if (sec == null) {
+    return;
+  }
+
+  return typeof sec === "function" ? sec() : sec;
 }

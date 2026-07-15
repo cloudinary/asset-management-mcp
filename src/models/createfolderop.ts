@@ -10,17 +10,6 @@ import {
   CreateFolderResponse$zodSchema,
 } from "./createfolderresponse.js";
 
-export const CreateFolderOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type CreateFolderGlobals = { cloud_name?: string | undefined };
 
 export const CreateFolderGlobals$zodSchema: z.ZodType<CreateFolderGlobals> = z

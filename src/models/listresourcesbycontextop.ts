@@ -10,17 +10,6 @@ import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
-export const ListResourcesByContextOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type ListResourcesByContextGlobals = { cloud_name?: string | undefined };
 
 export const ListResourcesByContextGlobals$zodSchema: z.ZodType<

@@ -12,17 +12,6 @@ import {
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
-export const ExplicitAssetOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type ExplicitAssetGlobals = { cloud_name?: string | undefined };
 
 export const ExplicitAssetGlobals$zodSchema: z.ZodType<ExplicitAssetGlobals> = z

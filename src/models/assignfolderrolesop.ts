@@ -14,17 +14,6 @@ import {
   SuccessResponse$zodSchema,
 } from "./successresponse.js";
 
-export const AssignFolderRolesOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type AssignFolderRolesGlobals = { cloud_name?: string | undefined };
 
 export const AssignFolderRolesGlobals$zodSchema: z.ZodType<

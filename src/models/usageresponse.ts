@@ -39,20 +39,19 @@ export const Bandwidth$zodSchema: z.ZodType<Bandwidth> = z.object({
   ),
 });
 
-export type UsageResponseStorage = {
+export type Storage = {
   usage?: number | undefined;
   limit?: number | undefined;
   used_percent?: number | undefined;
 };
 
-export const UsageResponseStorage$zodSchema: z.ZodType<UsageResponseStorage> = z
-  .object({
-    limit: z.int().optional().describe("Storage limit for the plan"),
-    usage: z.int().optional().describe("Storage used in bytes"),
-    used_percent: z.number().optional().describe(
-      "Percentage of storage limit used",
-    ),
-  });
+export const Storage$zodSchema: z.ZodType<Storage> = z.object({
+  limit: z.int().optional().describe("Storage limit for the plan"),
+  usage: z.int().optional().describe("Storage used in bytes"),
+  used_percent: z.number().optional().describe(
+    "Percentage of storage limit used",
+  ),
+});
 
 export type Impressions = { usage?: number | undefined };
 
@@ -102,7 +101,7 @@ export type UsageResponse = {
   transformations?: Transformations | undefined;
   objects?: Objects | undefined;
   bandwidth?: Bandwidth | undefined;
-  storage?: UsageResponseStorage | undefined;
+  storage?: Storage | undefined;
   impressions?: Impressions | undefined;
   seconds_delivered?: SecondsDelivered | undefined;
   resources?: number | undefined;
@@ -129,6 +128,6 @@ export const UsageResponse$zodSchema: z.ZodType<UsageResponse> = z.object({
   requests: z.int().optional().describe("Number of requests made"),
   resources: z.int().optional().describe("Number of resources stored"),
   seconds_delivered: z.lazy(() => SecondsDelivered$zodSchema).optional(),
-  storage: z.lazy(() => UsageResponseStorage$zodSchema).optional(),
+  storage: z.lazy(() => Storage$zodSchema).optional(),
   transformations: z.lazy(() => Transformations$zodSchema).optional(),
 });

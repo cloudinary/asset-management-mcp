@@ -8,9 +8,9 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  CreateAssetRelationsByPublicIdOpServerList,
   CreateAssetRelationsByPublicIdRequest,
   CreateAssetRelationsByPublicIdRequest$zodSchema,
 } from "../models/createassetrelationsbypublicidop.js";
@@ -107,15 +107,6 @@ async function $do(
     payload$.relate_assets_by_public_id_request,
     { explode: true },
   );
-  const baseURL$ = options?.serverURL
-    || pathToFunc(CreateAssetRelationsByPublicIdOpServerList[0], {
-      charEncoding: "percent",
-    })(
-      {
-        region: "api",
-        host: "api.cloudinary.com",
-      },
-    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -145,14 +136,16 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
+  const securityInput = await extractSecurity(client$._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
     options: client$._options,
-    baseURL: baseURL$ ?? "",
+    baseURL: options?.serverURL ?? client$._baseURL ?? "",
     operationID: "createAssetRelationsByPublicId",
     oAuth2Scopes: null,
-    resolvedSecurity: null,
-    securitySource: null,
+    resolvedSecurity: requestSecurity,
+    securitySource: client$._options.security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -166,8 +159,9 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    baseURL: baseURL$,
+    baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
     body: body$,

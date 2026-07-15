@@ -40,8 +40,10 @@
       "args": [
         "${__dirname}/bin/mcp-server.js",
         "start",
-        "--server-url",
-        "${user_config.server_url}",
+        "--api-key",
+        "${user_config.api_key}",
+        "--api-secret",
+        "${user_config.api_secret}",
         "--cloud-name",
         "${user_config.cloud_name}"
       ]
@@ -51,6 +53,7 @@
     "api_key": {
       "description": "Your Cloudinary API key. Found in Dashboard → Settings → Access Keys.",
       "required": true,
+      "sensitive": true,
       "title": "API Key",
       "type": "string"
     },
@@ -66,15 +69,9 @@
       "required": true,
       "title": "Cloud Name",
       "type": "string"
-    },
-    "server_url": {
-      "type": "string",
-      "title": "Server URL",
-      "description": "The URL of the server to connect to",
-      "required": true
     }
   },
-  "version": "0.11.4",
+  "version": "0.12.0",
   "tools": [
     {
       "name": "upload-asset",

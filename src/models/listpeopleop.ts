@@ -13,17 +13,6 @@ import {
 } from "./peoplelistresponse.js";
 import { PersonStatus, PersonStatus$zodSchema } from "./personstatus.js";
 
-export const ListPeopleOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type ListPeopleGlobals = { cloud_name?: string | undefined };
 
 export const ListPeopleGlobals$zodSchema: z.ZodType<ListPeopleGlobals> = z

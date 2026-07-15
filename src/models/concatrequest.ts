@@ -222,10 +222,10 @@ export const ConcatRequest$zodSchema: z.ZodType<ConcatRequest> = z.object({
   cinemagraph_analysis: z.boolean().optional().describe(
     "Whether to return a cinemagraph analysis value for the media asset between 0 and 1, where 0 means the asset is not a cinemagraph and 1 means the asset is a cinemagraph. Relevant for animated images and video only. A static image will return 0.",
   ),
-  clear_invalid: z.boolean().optional().describe(
+  clear_invalid: z.boolean().default(false).describe(
     "Whether to clear metadata field values that have become invalid due to a change in metadata rules. If false, the API returns an error if any existing metadata value is no longer valid. Default: false.",
   ),
-  colors: z.boolean().optional().describe(
+  colors: z.boolean().default(false).describe(
     "Whether to retrieve predominant colors & color histogram of the uploaded image. Note: If all returned colors are opaque, then 6-digit RGB hex values are returned. If one or more colors contain an alpha channel, then 8-digit RGBA hex quadruplet values are returned.",
   ),
   context: z.string().optional().describe(

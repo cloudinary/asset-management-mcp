@@ -15,17 +15,6 @@ import {
 } from "./destroyresponse.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
-export const DestroyAssetOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type DestroyAssetGlobals = { cloud_name?: string | undefined };
 
 export const DestroyAssetGlobals$zodSchema: z.ZodType<DestroyAssetGlobals> = z

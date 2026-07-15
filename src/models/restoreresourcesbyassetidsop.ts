@@ -10,17 +10,6 @@ import {
   RestoreResponseUnion$zodSchema,
 } from "./restoreresponseunion.js";
 
-export const RestoreResourcesByAssetIDsOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type RestoreResourcesByAssetIDsGlobals = {
   cloud_name?: string | undefined;
 };

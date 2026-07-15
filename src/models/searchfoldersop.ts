@@ -11,17 +11,6 @@ import {
   FoldersSearchResponse$zodSchema,
 } from "./folderssearchresponse.js";
 
-export const SearchFoldersOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type SearchFoldersGlobals = { cloud_name?: string | undefined };
 
 export const SearchFoldersGlobals$zodSchema: z.ZodType<SearchFoldersGlobals> = z

@@ -7,17 +7,6 @@ import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { Info, Info$zodSchema } from "./info.js";
 
-export const GetResourceByAssetIdOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type GetResourceByAssetIdGlobals = { cloud_name?: string | undefined };
 
 export const GetResourceByAssetIdGlobals$zodSchema: z.ZodType<

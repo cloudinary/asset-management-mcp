@@ -53,20 +53,26 @@ export function createMCPServer(deps: {
   scopes?: MCPScope[] | undefined;
   annotationFilter?: MCPToolAnnotationFilter | undefined;
   getSDK?: () => CloudinaryAssetMgmtCore;
-  serverURL: string;
+  serverURL?: string | undefined;
+  security?: SDKOptions["security"] | undefined;
   cloud_name?: SDKOptions["cloud_name"] | undefined;
   serverIdx?: SDKOptions["serverIdx"] | undefined;
+  region?: SDKOptions["region"] | undefined;
+  host?: SDKOptions["host"] | undefined;
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.11.4",
+    version: "0.12.0",
   });
 
   const getClient = deps.getSDK || (() =>
     new CloudinaryAssetMgmtCore({
+      security: deps.security,
       cloud_name: deps.cloud_name,
       serverURL: deps.serverURL,
       serverIdx: deps.serverIdx,
+      region: deps.region,
+      host: deps.host,
       debugLogger: deps.logger.level === "debug"
         ? {
           log: (...args) => console.log(...args),
