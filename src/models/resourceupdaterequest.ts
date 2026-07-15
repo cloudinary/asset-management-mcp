@@ -77,7 +77,7 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
     categorization: z.string().optional().describe(
       "The type of categorization to perform on the resource. Optionally append a language code suffix (e.g., google_tagging:fr).",
     ),
-    clear_invalid: z.boolean().default(false).describe(
+    clear_invalid: z.boolean().optional().describe(
       "Whether to clear invalid metadata fields. If false, invalid fields will be preserved. Default: false",
     ),
     context: z.string().optional().describe(
