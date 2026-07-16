@@ -158,6 +158,14 @@
       "description": "Finds images in your asset library based on visual similarity or content\n\nReturns a list of resources that are visually similar to a specified image. You can provide the source image for comparison in one of three ways:\n- Provide a URL of an image\n- Specify the asset ID of an existing image\n- Provide a textual description\n"
     },
     {
+      "name": "generate-image",
+      "description": "Generate an image\n\nGenerate an image from a text prompt using AI models.\n\nThe model is selected via the optional `model` object:\n1. If `model.id` is provided, use that exact model.\n2. Else if `model.family` (+ optional `model.tier`) is provided, resolve via the model registry; a missing tier defaults to `standard`.\n3. If `model` is omitted, use the global default (nano-banana / standard).\n"
+    },
+    {
+      "name": "get-generation-task",
+      "description": "Get a generation task\n\nGet the status of a generation task."
+    },
+    {
       "name": "get-tx-reference",
       "description": "Get Cloudinary transformation rules documentation from official docs\n\n🚨 WHEN TO USE:\n- MANDATORY before creating, modifying, or discussing Cloudinary transformations\n- REQUIRED when user asks for image/video effects, resizing, cropping, filters, etc.\n- NOT needed for simple asset management (upload, list, delete, etc.)\n- ⚠️ CALL ONLY ONCE per session - documentation doesn't change, reuse the knowledge\n\n🚨 STRICT REQUIREMENTS (when transformations are involved):\n- MUST call this tool BEFORE any transformation-related task (but only once)\n- MUST read and understand the returned documentation\n- DO NOT attempt transformations without consulting this reference\n- DO NOT make up transformation parameters\n- DO NOT guess syntax - only use documented parameters\n- DO NOT call this tool multiple times - the docs are static, remember them\n\nThis tool returns the complete, authoritative Cloudinary transformation reference that contains all valid parameters, syntax rules, and best practices."
     },
