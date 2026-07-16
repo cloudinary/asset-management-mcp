@@ -22,6 +22,40 @@ export const Type$zodSchema = z.enum([
   "duration",
 ]);
 
+export const AggregateEnum = {
+  Format: "format",
+  ResourceType: "resource_type",
+  Type: "type",
+} as const;
+export type AggregateEnum = ClosedEnum<typeof AggregateEnum>;
+
+export const AggregateEnum$zodSchema = z.enum([
+  "format",
+  "resource_type",
+  "type",
+]);
+
+export const WithField = {
+  Context: "context",
+  Tags: "tags",
+  ImageMetadata: "image_metadata",
+  ImageAnalysis: "image_analysis",
+  Metadata: "metadata",
+  QualityAnalysis: "quality_analysis",
+  AccessibilityAnalysis: "accessibility_analysis",
+} as const;
+export type WithField = ClosedEnum<typeof WithField>;
+
+export const WithField$zodSchema = z.enum([
+  "context",
+  "tags",
+  "image_metadata",
+  "image_analysis",
+  "metadata",
+  "quality_analysis",
+  "accessibility_analysis",
+]);
+
 export type SearchParametersRange = {
   key: string;
   from?: number | undefined;
@@ -50,19 +84,6 @@ export const Aggregate$zodSchema: z.ZodType<Aggregate> = z.object({
   type: Type$zodSchema,
 });
 
-export const AggregateEnum = {
-  Format: "format",
-  ResourceType: "resource_type",
-  Type: "type",
-} as const;
-export type AggregateEnum = ClosedEnum<typeof AggregateEnum>;
-
-export const AggregateEnum$zodSchema = z.enum([
-  "format",
-  "resource_type",
-  "type",
-]);
-
 /**
  * Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.
  *
@@ -76,27 +97,6 @@ export const AggregateUnion$zodSchema: z.ZodType<AggregateUnion> = z.union([
 ]).describe(
   "Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.\n",
 );
-
-export const WithField = {
-  Context: "context",
-  Tags: "tags",
-  ImageMetadata: "image_metadata",
-  ImageAnalysis: "image_analysis",
-  Metadata: "metadata",
-  QualityAnalysis: "quality_analysis",
-  AccessibilityAnalysis: "accessibility_analysis",
-} as const;
-export type WithField = ClosedEnum<typeof WithField>;
-
-export const WithField$zodSchema = z.enum([
-  "context",
-  "tags",
-  "image_metadata",
-  "image_analysis",
-  "metadata",
-  "quality_analysis",
-  "accessibility_analysis",
-]);
 
 /**
  * Common parameters for resource search operations.

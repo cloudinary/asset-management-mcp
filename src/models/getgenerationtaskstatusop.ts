@@ -11,10 +11,6 @@ import {
 } from "./ratelimitedresponse.js";
 import { TaskResponse, TaskResponse$zodSchema } from "./taskresponse.js";
 
-export const GetGenerationTaskStatusOpServerList = [
-  "https://api.cloudinary.com/v2",
-] as const;
-
 export type GetGenerationTaskStatusGlobals = {
   cloud_name?: string | undefined;
 };

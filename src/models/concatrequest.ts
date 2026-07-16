@@ -20,34 +20,6 @@ import {
 import { TagsParam, TagsParam$zodSchema } from "./tagsparam.js";
 
 /**
- * Configuration object for automatic video transcription with translation options.
- */
-export type ConcatRequestAutoTranscription = {
-  translate?: Array<string> | undefined;
-};
-
-export const ConcatRequestAutoTranscription$zodSchema: z.ZodType<
-  ConcatRequestAutoTranscription
-> = z.object({
-  translate: z.array(z.string()).optional().describe(
-    "Array of target language codes for transcription translation.",
-  ),
-}).describe(
-  "Configuration object for automatic video transcription with translation options.",
-);
-
-export type ConcatRequestAutoTranscriptionUnion =
-  | boolean
-  | ConcatRequestAutoTranscription;
-
-export const ConcatRequestAutoTranscriptionUnion$zodSchema: z.ZodType<
-  ConcatRequestAutoTranscriptionUnion
-> = z.union([
-  z.boolean(),
-  z.lazy(() => ConcatRequestAutoTranscription$zodSchema),
-]);
-
-/**
  * Deprecated. Use access_control instead. Allows the asset to behave as if it's of the authenticated delivery type while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs.
  *
  * @remarks
@@ -75,6 +47,34 @@ export const ConcatRequestAccessMode$zodSchema = z.enum([
 ]).describe(
   "Deprecated. Use access_control instead. Allows the asset to behave as if it's of the authenticated delivery type while still using the default 'upload' type in delivery URLs. The asset can later be made public by changing its access_mode via the Admin API, without having to update any delivery URLs.\n",
 );
+
+/**
+ * Configuration object for automatic video transcription with translation options.
+ */
+export type ConcatRequestAutoTranscription = {
+  translate?: Array<string> | undefined;
+};
+
+export const ConcatRequestAutoTranscription$zodSchema: z.ZodType<
+  ConcatRequestAutoTranscription
+> = z.object({
+  translate: z.array(z.string()).optional().describe(
+    "Array of target language codes for transcription translation.",
+  ),
+}).describe(
+  "Configuration object for automatic video transcription with translation options.",
+);
+
+export type ConcatRequestAutoTranscriptionUnion =
+  | boolean
+  | ConcatRequestAutoTranscription;
+
+export const ConcatRequestAutoTranscriptionUnion$zodSchema: z.ZodType<
+  ConcatRequestAutoTranscriptionUnion
+> = z.union([
+  z.boolean(),
+  z.lazy(() => ConcatRequestAutoTranscription$zodSchema),
+]);
 
 /**
  * Named region coordinate groups for cropping with region gravity.

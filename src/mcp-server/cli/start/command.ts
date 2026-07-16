@@ -6,6 +6,7 @@
 import { buildCommand } from "@stricli/core";
 import { numberParser } from "@stricli/core";
 import * as z from "zod";
+import { ServerRegion } from "../../../lib/config.js";
 import { consoleLoggerLevels } from "../../console-logger.js";
 import { mcpScopes } from "../../scopes.js";
 
@@ -59,6 +60,30 @@ export const startCommand = buildCommand({
         variadic: true,
         optional: true,
       },
+      "api-key": {
+        kind: "parsed",
+        brief: "Sets the api_key auth field for the API",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
+      "api-secret": {
+        kind: "parsed",
+        brief: "Sets the api_secret auth field for the API",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
+      oauth2: {
+        kind: "parsed",
+        brief: "Sets the oauth2 auth field for the API",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
       "cloud-name": {
         kind: "parsed",
         brief:
@@ -71,7 +96,7 @@ export const startCommand = buildCommand({
       "server-url": {
         kind: "parsed",
         brief: "Overrides the default server URL used by the SDK",
-        optional: false,
+        optional: true,
         parse: (value) => new URL(value).toString(),
       },
       "server-index": {
@@ -79,6 +104,18 @@ export const startCommand = buildCommand({
         brief: "Selects a predefined server used by the SDK",
         optional: true,
         parse: numberParser,
+      },
+      region: {
+        kind: "enum",
+        brief: "Sets the region variable for url substitution",
+        optional: true,
+        values: Object.values(ServerRegion) as Array<ServerRegion>,
+      },
+      "api-host": {
+        kind: "parsed",
+        brief: "Sets the host variable for url substitution",
+        optional: true,
+        parse: (value) => value,
       },
       "log-level": {
         kind: "enum",

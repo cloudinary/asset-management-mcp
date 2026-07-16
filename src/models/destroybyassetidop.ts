@@ -10,17 +10,6 @@ import {
   DestroyByAssetIdResponse$zodSchema,
 } from "./destroybyassetidresponse.js";
 
-export const DestroyByAssetIdOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type DestroyByAssetIdGlobals = { cloud_name?: string | undefined };
 
 export const DestroyByAssetIdGlobals$zodSchema: z.ZodType<

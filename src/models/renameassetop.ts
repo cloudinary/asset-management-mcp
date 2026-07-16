@@ -12,17 +12,6 @@ import {
 } from "./uploaddeliverytype.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
-export const RenameAssetOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type RenameAssetGlobals = { cloud_name?: string | undefined };
 
 export const RenameAssetGlobals$zodSchema: z.ZodType<RenameAssetGlobals> = z

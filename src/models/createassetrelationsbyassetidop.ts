@@ -14,17 +14,6 @@ import {
   RelateAssetsByAssetIdRequest$zodSchema,
 } from "./relateassetsbyassetidrequest.js";
 
-export const CreateAssetRelationsByAssetIdOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type CreateAssetRelationsByAssetIdGlobals = {
   cloud_name?: string | undefined;
 };

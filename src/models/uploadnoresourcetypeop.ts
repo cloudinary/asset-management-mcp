@@ -11,17 +11,6 @@ import {
 } from "./asyncuploadresponse.js";
 import { UploadResponse, UploadResponse$zodSchema } from "./uploadresponse.js";
 
-export const UploadNoResourceTypeOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type UploadNoResourceTypeGlobals = { cloud_name?: string | undefined };
 
 export const UploadNoResourceTypeGlobals$zodSchema: z.ZodType<

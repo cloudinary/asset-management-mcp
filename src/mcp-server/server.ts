@@ -37,12 +37,8 @@ import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
 import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
 import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
 import { tool$foldersUpdateFolder } from "./tools/foldersUpdateFolder.js";
-import { tool$initialBackupCreateInitialBackup } from "./tools/initialBackupCreateInitialBackup.js";
-import { tool$initialBackupGetInitialBackup } from "./tools/initialBackupGetInitialBackup.js";
-import { tool$initialBackupListInitialBackups } from "./tools/initialBackupListInitialBackups.js";
 import { tool$searchSearchAssets } from "./tools/searchSearchAssets.js";
 import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.js";
-import { tool$uploadConcat } from "./tools/uploadConcat.js";
 import { tool$uploadUpload } from "./tools/uploadUpload.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
 
@@ -53,20 +49,26 @@ export function createMCPServer(deps: {
   scopes?: MCPScope[] | undefined;
   annotationFilter?: MCPToolAnnotationFilter | undefined;
   getSDK?: () => CloudinaryAssetMgmtCore;
-  serverURL: string;
+  serverURL?: string | undefined;
+  security?: SDKOptions["security"] | undefined;
   cloud_name?: SDKOptions["cloud_name"] | undefined;
   serverIdx?: SDKOptions["serverIdx"] | undefined;
+  region?: SDKOptions["region"] | undefined;
+  host?: SDKOptions["host"] | undefined;
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.13.4",
+    version: "0.14.0",
   });
 
   const getClient = deps.getSDK || (() =>
     new CloudinaryAssetMgmtCore({
+      security: deps.security,
       cloud_name: deps.cloud_name,
       serverURL: deps.serverURL,
       serverIdx: deps.serverIdx,
+      region: deps.region,
+      host: deps.host,
       debugLogger: deps.logger.level === "debug"
         ? {
           log: (...args) => console.log(...args),
@@ -105,7 +107,6 @@ export function createMCPServer(deps: {
   void register; // suppress unused warnings
 
   tool(tool$uploadUpload);
-  tool(tool$uploadConcat);
   tool(tool$assetsRenameAsset);
   tool(tool$assetsGenerateArchive);
   tool(tool$assetsDownloadBackupAsset);
@@ -126,9 +127,6 @@ export function createMCPServer(deps: {
   tool(tool$foldersSearchFolders);
   tool(tool$searchSearchAssets);
   tool(tool$searchVisualSearchAssets);
-  tool(tool$initialBackupCreateInitialBackup);
-  tool(tool$initialBackupListInitialBackups);
-  tool(tool$initialBackupGetInitialBackup);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);

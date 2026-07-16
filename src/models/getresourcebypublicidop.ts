@@ -8,17 +8,6 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { Info, Info$zodSchema } from "./info.js";
 import { ResourceType, ResourceType$zodSchema } from "./resourcetype.js";
 
-export const GetResourceByPublicIdOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type GetResourceByPublicIdGlobals = { cloud_name?: string | undefined };
 
 export const GetResourceByPublicIdGlobals$zodSchema: z.ZodType<

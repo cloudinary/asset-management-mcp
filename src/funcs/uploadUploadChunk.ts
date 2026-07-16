@@ -8,6 +8,7 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -19,7 +20,6 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  UploadChunkOpServerList,
   UploadChunkRequest,
   UploadChunkRequest$zodSchema,
 } from "../models/uploadchunkop.js";
@@ -129,13 +129,6 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = encodeJSON("body", payload$.upload_request, { explode: true });
-  const baseURL$ = options?.serverURL
-    || pathToFunc(UploadChunkOpServerList[0], { charEncoding: "percent" })(
-      {
-        region: "api",
-        host: "api.cloudinary.com",
-      },
-    );
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -175,14 +168,16 @@ async function $do(
       { explode: false, charEncoding: "none" },
     ),
   }));
+  const securityInput = await extractSecurity(client$._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
     options: client$._options,
-    baseURL: baseURL$ ?? "",
+    baseURL: options?.serverURL ?? client$._baseURL ?? "",
     operationID: "uploadChunk",
     oAuth2Scopes: null,
-    resolvedSecurity: null,
-    securitySource: null,
+    resolvedSecurity: requestSecurity,
+    securitySource: client$._options.security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -196,8 +191,9 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    baseURL: baseURL$,
+    baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
     body: body$,

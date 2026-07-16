@@ -15,7 +15,12 @@ export interface MCPServerFlags {
   readonly mode?: "dynamic" | undefined;
   readonly "tool-annotations"?: string[] | undefined;
   readonly scope?: MCPScope[];
+  readonly "api-key"?: string | undefined;
+  readonly "api-secret"?: string | undefined;
+  readonly oauth2?: string | undefined;
   readonly "cloud-name"?: SDKOptions["cloud_name"] | undefined;
-  readonly "server-url": string;
+  readonly "server-url"?: string | undefined;
   readonly "server-index"?: SDKOptions["serverIdx"];
+  readonly region?: SDKOptions["region"];
+  readonly "api-host"?: SDKOptions["host"];
 }

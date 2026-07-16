@@ -11,26 +11,6 @@ import {
   VideoViewsResponse$zodSchema,
 } from "./videoviewsresponse.js";
 
-export const GetVideoViewsOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
-export type GetVideoViewsGlobals = { cloud_name?: string | undefined };
-
-export const GetVideoViewsGlobals$zodSchema: z.ZodType<GetVideoViewsGlobals> = z
-  .object({
-    cloud_name: z.string().describe(
-      "The cloud name of your product environment.",
-    ).optional(),
-  });
-
 /**
  * Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.
  */
@@ -57,6 +37,15 @@ export const GetVideoViewsSortBy$zodSchema = z.enum([
 ]).describe(
   "Specifies the expression field by which to sort the results. Prepend values with a '-' to reverse the order.",
 );
+
+export type GetVideoViewsGlobals = { cloud_name?: string | undefined };
+
+export const GetVideoViewsGlobals$zodSchema: z.ZodType<GetVideoViewsGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type GetVideoViewsRequest = {
   expression?: string | undefined;

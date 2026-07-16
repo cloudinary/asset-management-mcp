@@ -10,17 +10,6 @@ import {
   FolderRolesResponse$zodSchema,
 } from "./folderrolesresponse.js";
 
-export const GetFolderRolesOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type GetFolderRolesGlobals = { cloud_name?: string | undefined };
 
 export const GetFolderRolesGlobals$zodSchema: z.ZodType<GetFolderRolesGlobals> =

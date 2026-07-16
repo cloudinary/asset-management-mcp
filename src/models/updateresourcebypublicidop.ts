@@ -12,17 +12,6 @@ import {
   ResourceUpdateRequest$zodSchema,
 } from "./resourceupdaterequest.js";
 
-export const UpdateResourceByPublicIdOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type UpdateResourceByPublicIdGlobals = {
   cloud_name?: string | undefined;
 };

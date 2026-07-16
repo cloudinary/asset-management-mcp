@@ -8,6 +8,7 @@ import { encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -19,7 +20,6 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
-  GetGenerationTaskStatusOpServerList,
   GetGenerationTaskStatusRequest,
   GetGenerationTaskStatusRequest$zodSchema,
 } from "../models/getgenerationtaskstatusop.js";
@@ -88,10 +88,6 @@ async function $do(
   }
   const payload$ = parsed$.value;
   const body$ = null;
-  const baseURL$ = options?.serverURL
-    || pathToFunc(GetGenerationTaskStatusOpServerList[0], {
-      charEncoding: "percent",
-    })();
 
   const pathParams$ = {
     cloud_name: encodeSimple("cloud_name", client$._options.cloud_name, {
@@ -103,21 +99,23 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/generate/{cloud_name}/tasks/{task_id}")(
+  const path$ = pathToFunc("/v2/generate/{cloud_name}/tasks/{task_id}")(
     pathParams$,
   );
 
   const headers$ = new Headers(compactMap({
     Accept: "application/json",
   }));
+  const securityInput = await extractSecurity(client$._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
     options: client$._options,
-    baseURL: baseURL$ ?? "",
+    baseURL: options?.serverURL ?? client$._baseURL ?? "",
     operationID: "get_generation_task_status",
     oAuth2Scopes: null,
-    resolvedSecurity: null,
-    securitySource: null,
+    resolvedSecurity: requestSecurity,
+    securitySource: client$._options.security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -131,8 +129,9 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
+    security: requestSecurity,
     method: "GET",
-    baseURL: baseURL$,
+    baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
     body: body$,

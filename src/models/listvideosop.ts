@@ -13,17 +13,6 @@ import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 import { Fields, Fields$zodSchema } from "./fields.js";
 import { ListResponse, ListResponse$zodSchema } from "./listresponse.js";
 
-export const ListVideosOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type ListVideosGlobals = { cloud_name?: string | undefined };
 
 export const ListVideosGlobals$zodSchema: z.ZodType<ListVideosGlobals> = z

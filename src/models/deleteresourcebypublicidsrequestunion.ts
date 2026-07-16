@@ -29,6 +29,52 @@ export const DeleteResourceByPublicIdsRequestResourceType3$zodSchema = z.enum([
   "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
 );
 
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export const DeleteResourceByPublicIdsRequestResourceType2 = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export type DeleteResourceByPublicIdsRequestResourceType2 = ClosedEnum<
+  typeof DeleteResourceByPublicIdsRequestResourceType2
+>;
+
+export const DeleteResourceByPublicIdsRequestResourceType2$zodSchema = z.enum([
+  "image",
+  "video",
+  "raw",
+]).describe(
+  "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
+);
+
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export const DeleteResourceByPublicIdsRequestResourceType1 = {
+  Image: "image",
+  Video: "video",
+  Raw: "raw",
+} as const;
+/**
+ * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
+ */
+export type DeleteResourceByPublicIdsRequestResourceType1 = ClosedEnum<
+  typeof DeleteResourceByPublicIdsRequestResourceType1
+>;
+
+export const DeleteResourceByPublicIdsRequestResourceType1$zodSchema = z.enum([
+  "image",
+  "video",
+  "raw",
+]).describe(
+  "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
+);
+
 export type DeleteResourceByPublicIdsRequest3 = {
   public_ids?: Array<string> | undefined;
   prefix?: string | undefined;
@@ -70,29 +116,6 @@ export const DeleteResourceByPublicIdsRequest3$zodSchema: z.ZodType<
   ),
 });
 
-/**
- * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
- */
-export const DeleteResourceByPublicIdsRequestResourceType2 = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
- */
-export type DeleteResourceByPublicIdsRequestResourceType2 = ClosedEnum<
-  typeof DeleteResourceByPublicIdsRequestResourceType2
->;
-
-export const DeleteResourceByPublicIdsRequestResourceType2$zodSchema = z.enum([
-  "image",
-  "video",
-  "raw",
-]).describe(
-  "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
-);
-
 export type DeleteResourceByPublicIdsRequest2 = {
   public_ids?: Array<string> | undefined;
   prefix: string;
@@ -133,29 +156,6 @@ export const DeleteResourceByPublicIdsRequest2$zodSchema: z.ZodType<
     "Only the derived assets matching this hash of transformation parameters will be deleted. You can include multiple transformations separated by a pipe character (|).",
   ),
 });
-
-/**
- * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
- */
-export const DeleteResourceByPublicIdsRequestResourceType1 = {
-  Image: "image",
-  Video: "video",
-  Raw: "raw",
-} as const;
-/**
- * The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.
- */
-export type DeleteResourceByPublicIdsRequestResourceType1 = ClosedEnum<
-  typeof DeleteResourceByPublicIdsRequestResourceType1
->;
-
-export const DeleteResourceByPublicIdsRequestResourceType1$zodSchema = z.enum([
-  "image",
-  "video",
-  "raw",
-]).describe(
-  "The type of asset. Relevant as a parameter only when using the SDKs (the resource_type is included in the endpoint URL when using the REST API). Note: use video for all video and audio assets, such as .mp3. Default: image.",
-);
 
 export type DeleteResourceByPublicIdsRequest1 = {
   public_ids: Array<string>;

@@ -15,10 +15,6 @@ import {
 } from "./ratelimitedresponse.js";
 import { TaskResponse, TaskResponse$zodSchema } from "./taskresponse.js";
 
-export const GenerateImageOpServerList = [
-  "https://api.cloudinary.com/v2",
-] as const;
-
 export type GenerateImageGlobals = { cloud_name?: string | undefined };
 
 export const GenerateImageGlobals$zodSchema: z.ZodType<GenerateImageGlobals> = z

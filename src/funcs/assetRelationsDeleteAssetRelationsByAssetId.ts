@@ -8,9 +8,9 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  DeleteAssetRelationsByAssetIdOpServerList,
   DeleteAssetRelationsByAssetIdRequest,
   DeleteAssetRelationsByAssetIdRequest$zodSchema,
 } from "../models/deleteassetrelationsbyassetidop.js";
@@ -97,15 +97,6 @@ async function $do(
     payload$.unrelate_assets_by_asset_id_request,
     { explode: true },
   );
-  const baseURL$ = options?.serverURL
-    || pathToFunc(DeleteAssetRelationsByAssetIdOpServerList[0], {
-      charEncoding: "percent",
-    })(
-      {
-        region: "api",
-        host: "api.cloudinary.com",
-      },
-    );
 
   const pathParams$ = {
     asset_id: encodeSimple("asset_id", payload$.asset_id, {
@@ -127,14 +118,16 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
+  const securityInput = await extractSecurity(client$._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
     options: client$._options,
-    baseURL: baseURL$ ?? "",
+    baseURL: options?.serverURL ?? client$._baseURL ?? "",
     operationID: "deleteAssetRelationsByAssetId",
     oAuth2Scopes: null,
-    resolvedSecurity: null,
-    securitySource: null,
+    resolvedSecurity: requestSecurity,
+    securitySource: client$._options.security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -148,8 +141,9 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
+    security: requestSecurity,
     method: "DELETE",
-    baseURL: baseURL$,
+    baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
     body: body$,

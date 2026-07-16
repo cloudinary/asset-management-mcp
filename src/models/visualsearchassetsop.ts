@@ -7,17 +7,6 @@ import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { SearchResponse, SearchResponse$zodSchema } from "./searchresponse.js";
 
-export const VisualSearchAssetsOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
 export type VisualSearchAssetsGlobals = { cloud_name?: string | undefined };
 
 export const VisualSearchAssetsGlobals$zodSchema: z.ZodType<

@@ -13,26 +13,6 @@ import {
 } from "./peoplelistresponse.js";
 import { PersonStatus, PersonStatus$zodSchema } from "./personstatus.js";
 
-export const ListPeopleOpServerList = [
-  /**
-   * Regional API endpoints for optimal performance.
-   */
-  "https://{region}.cloudinary.com",
-  /**
-   * Custom domains for enterprise deployments.
-   */
-  "https://{host}",
-] as const;
-
-export type ListPeopleGlobals = { cloud_name?: string | undefined };
-
-export const ListPeopleGlobals$zodSchema: z.ZodType<ListPeopleGlobals> = z
-  .object({
-    cloud_name: z.string().describe(
-      "The cloud name of your product environment.",
-    ).optional(),
-  });
-
 /**
  * Filter by whether the person has been named. Default: all.
  */
@@ -74,6 +54,15 @@ export const ListPeopleSortBy$zodSchema = z.enum([
   "created_at",
   "updated_at",
 ]).describe("The field to sort results by. Default: name (ascending).\n");
+
+export type ListPeopleGlobals = { cloud_name?: string | undefined };
+
+export const ListPeopleGlobals$zodSchema: z.ZodType<ListPeopleGlobals> = z
+  .object({
+    cloud_name: z.string().describe(
+      "The cloud name of your product environment.",
+    ).optional(),
+  });
 
 export type ListPeopleRequest = {
   max_results?: number | undefined;

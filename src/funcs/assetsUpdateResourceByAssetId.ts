@@ -8,6 +8,7 @@ import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -20,7 +21,6 @@ import {
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { ResourceUpdateRequest } from "../models/resourceupdaterequest.js";
 import {
-  UpdateResourceByAssetIdOpServerList,
   UpdateResourceByAssetIdRequest,
   UpdateResourceByAssetIdRequest$zodSchema,
 } from "../models/updateresourcebyassetidop.js";
@@ -95,15 +95,6 @@ async function $do(
   const body$ = encodeJSON("body", payload$.ResourceUpdateRequest, {
     explode: true,
   });
-  const baseURL$ = options?.serverURL
-    || pathToFunc(UpdateResourceByAssetIdOpServerList[0], {
-      charEncoding: "percent",
-    })(
-      {
-        region: "api",
-        host: "api.cloudinary.com",
-      },
-    );
 
   const pathParams$ = {
     asset_id: encodeSimple("asset_id", payload$.asset_id, {
@@ -123,14 +114,16 @@ async function $do(
     "Content-Type": "application/json",
     Accept: "application/json",
   }));
+  const securityInput = await extractSecurity(client$._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
     options: client$._options,
-    baseURL: baseURL$ ?? "",
+    baseURL: options?.serverURL ?? client$._baseURL ?? "",
     operationID: "updateResourceByAssetId",
     oAuth2Scopes: null,
-    resolvedSecurity: null,
-    securitySource: null,
+    resolvedSecurity: requestSecurity,
+    securitySource: client$._options.security,
     retryConfig: options?.retries
       || client$._options.retryConfig
       || { strategy: "none" },
@@ -144,8 +137,9 @@ async function $do(
   };
 
   const requestRes = client$._createRequest(context, {
+    security: requestSecurity,
     method: "PUT",
-    baseURL: baseURL$,
+    baseURL: options?.serverURL,
     path: path$,
     headers: headers$,
     body: body$,
