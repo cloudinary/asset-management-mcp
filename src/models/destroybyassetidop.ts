@@ -6,9 +6,9 @@
 import * as z from "zod";
 import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import {
-  ComponentsDestroyResponse,
-  ComponentsDestroyResponse$zodSchema,
-} from "./componentsdestroyresponse.js";
+  DestroyByAssetIdResponse,
+  DestroyByAssetIdResponse$zodSchema,
+} from "./destroybyassetidresponse.js";
 
 export type DestroyByAssetIdGlobals = { cloud_name?: string | undefined };
 
@@ -19,11 +19,13 @@ export const DestroyByAssetIdGlobals$zodSchema: z.ZodType<
     .optional(),
 });
 
-export type DestroyByAssetIdResponse = ComponentsDestroyResponse | ApiError;
+export type DestroyByAssetIdResponseResponse =
+  | DestroyByAssetIdResponse
+  | ApiError;
 
-export const DestroyByAssetIdResponse$zodSchema: z.ZodType<
-  DestroyByAssetIdResponse
+export const DestroyByAssetIdResponseResponse$zodSchema: z.ZodType<
+  DestroyByAssetIdResponseResponse
 > = z.union([
-  ComponentsDestroyResponse$zodSchema,
+  DestroyByAssetIdResponse$zodSchema,
   ApiError$zodSchema,
 ]);

@@ -22,6 +22,40 @@ export const Type$zodSchema = z.enum([
   "duration",
 ]);
 
+export const AggregateEnum = {
+  Format: "format",
+  ResourceType: "resource_type",
+  Type: "type",
+} as const;
+export type AggregateEnum = ClosedEnum<typeof AggregateEnum>;
+
+export const AggregateEnum$zodSchema = z.enum([
+  "format",
+  "resource_type",
+  "type",
+]);
+
+export const WithField = {
+  Context: "context",
+  Tags: "tags",
+  ImageMetadata: "image_metadata",
+  ImageAnalysis: "image_analysis",
+  Metadata: "metadata",
+  QualityAnalysis: "quality_analysis",
+  AccessibilityAnalysis: "accessibility_analysis",
+} as const;
+export type WithField = ClosedEnum<typeof WithField>;
+
+export const WithField$zodSchema = z.enum([
+  "context",
+  "tags",
+  "image_metadata",
+  "image_analysis",
+  "metadata",
+  "quality_analysis",
+  "accessibility_analysis",
+]);
+
 export type SearchParametersRange = {
   key: string;
   from?: number | undefined;
@@ -50,19 +84,6 @@ export const Aggregate$zodSchema: z.ZodType<Aggregate> = z.object({
   type: Type$zodSchema,
 });
 
-export const AggregateEnum = {
-  Format: "format",
-  ResourceType: "resource_type",
-  Type: "type",
-} as const;
-export type AggregateEnum = ClosedEnum<typeof AggregateEnum>;
-
-export const AggregateEnum$zodSchema = z.enum([
-  "format",
-  "resource_type",
-  "type",
-]);
-
 /**
  * Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.
  *
@@ -76,27 +97,6 @@ export const AggregateUnion$zodSchema: z.ZodType<AggregateUnion> = z.union([
 ]).describe(
   "Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.\n",
 );
-
-export const WithField = {
-  Context: "context",
-  Tags: "tags",
-  ImageMetadata: "image_metadata",
-  ImageAnalysis: "image_analysis",
-  Metadata: "metadata",
-  QualityAnalysis: "quality_analysis",
-  AccessibilityAnalysis: "accessibility_analysis",
-} as const;
-export type WithField = ClosedEnum<typeof WithField>;
-
-export const WithField$zodSchema = z.enum([
-  "context",
-  "tags",
-  "image_metadata",
-  "image_analysis",
-  "metadata",
-  "quality_analysis",
-  "accessibility_analysis",
-]);
 
 /**
  * Common parameters for resource search operations.
@@ -120,7 +120,7 @@ export const SearchParameters$zodSchema: z.ZodType<SearchParameters> = z.object(
       "Fields or ranges to aggregate search results by. Requires a Tier 2 search plan; on Tier 1 the field is accepted but aggregations are omitted from the response.\n",
     ),
     expression: z.string().optional().describe(
-      "The Lucene-like search expression. Supports token match (`:`), exact match (`=`), trailing `*` for prefix match, ranges (`[a TO b]`, `{a TO b}`), and comparisons (`>`, `<`, `>=`, `<=`). Combine terms with uppercase `AND`, `OR`, `NOT`, or `+`/`-`. `NOT` must appear between clauses — a leading `NOT` is a parse error; use `-field:value` to negate the first clause. Group with parentheses.\n\nWrap values containing spaces, colons, or other reserved characters (`! ( ) { } [ ] ^ ~ ?  \\ = & < > |`) in double quotes, e.g. `tags:\"service:mantels\"`, `aspect_ratio:\"16:9\"`. Send raw `<`/`>`, never HTML-escaped.\n\nWildcards are prefix-only (trailing `*`). A bare `*` (e.g. `folder:*`, `context.alt:*`, `metadata.key:*`, `tags:*`, `-tags:*`) is a parse error — there is no \"has any value\" / presence probe. Either drop the clause, use a concrete prefix, or filter on a known token.\n\nDates: ISO-8601 in quotes, or relative shorthand `1h`, `1d`, `1w`, `1m`, `1y` (`uploaded_at>1d`, `created_at:[4w TO 1w]`).\n\nSupported fields: `public_id`, `asset_id`, `filename`, `display_name`, `folder` / `asset_folder` (singular, not `folders`), `tags`, `context.<key>`, `metadata.<external_id>`, `resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `pages`, `aspect_ratio`, `transparent`, `grayscale`, `status`, `moderation_status`, `moderation_kind`, `uploaded_at`, `created_at`, `taken_at`, `updated_at`, `last_updated.<kind>`, `face_count`, `illustration_score`, `quality_score`. Fields under `image_metadata.*`, `image_analysis.*`, `quality_analysis.*`, and `accessibility_analysis.*` also require the matching `with_field` to be returned in the response.\n\nSee the [search expressions guide](https://cloudinary.com/documentation/search_expressions.md) for the full reference.\n",
+      "The Lucene-like search expression. Supports token match (`:`), exact match (`=`), trailing `*` for prefix match, ranges (`[a TO b]`, `{a TO b}`), and comparisons (`>`, `<`, `>=`, `<=`). Combine terms with uppercase `AND`, `OR`, `NOT`, or `+`/`-`. `NOT` must appear between clauses — a leading `NOT` is a parse error; use `-field:value` to negate the first clause. Group with parentheses.\n\nWrap values containing spaces, colons, or other reserved characters (`! ( ) { } [ ] ^ ~ ?  \\ = & < > |`) in double quotes, e.g. `tags:\"service:mantels\"`, `tags:\"brand:openhaul\"`, `aspect_ratio:\"16:9\"`. Send raw `<`/`>`, never HTML-escaped.\n\nWildcards are prefix-only (trailing `*`). A bare `*` (e.g. `folder:*`, `context.alt:*`, `metadata.key:*`, `tags:*`, `-tags:*`) is a parse error — there is no \"has any value\" / presence probe. Either drop the clause, use a concrete prefix, or filter on a known token.\n\nDates: ISO-8601 in quotes (`uploaded_at>\"2024-01-15\"`, `created_at>\"2026-01-01T00:00:00Z\"`), or relative shorthand `Nh`, `Nd`, `Nw` (`uploaded_at>1d`, `created_at:[4w TO 1w]`).\n\nSupported fields: `public_id`, `asset_id`, `filename`, `display_name`, `folder` / `asset_folder` (singular, not `folders`), `tags`, `context.<key>`, `metadata.<external_id>`, `resource_type`, `type`, `format`, `bytes`, `width`, `height`, `duration`, `pages`, `aspect_ratio`, `transparent`, `grayscale`, `status`, `moderation_status`, `moderation_kind`, `uploaded_at`, `created_at`, `taken_at`, `updated_at`, `last_updated.<kind>`, `face_count`, `illustration_score`, `quality_score`. Fields under `image_metadata.*`, `image_analysis.*`, `quality_analysis.*`, and `accessibility_analysis.*` also require the matching `with_field` to be returned in the response.\n\nSee the [search expressions guide](https://cloudinary.com/documentation/search_expressions.md) for the full reference.\n",
     ),
     fields: z.string().optional().describe(
       "A comma-separated list of fields to include in the response.\nNotes:\n- This parameter takes precedence over the with_field parameter, so if you want any additional asset attributes returned, make sure to also include them in this list (e.g., tags or context).\n- The following fields are always included in the response: public_id, asset_id, asset_folder, created_at, status, type, and resource_type.\n",

@@ -28,11 +28,11 @@ export const CreateFolderRequest$zodSchema: z.ZodType<CreateFolderRequest> = z
     ),
   });
 
-export type CreateFolderResponseResponse = ApiError | CreateFolderResponse;
+export type CreateFolderResponseResponse = CreateFolderResponse | ApiError;
 
 export const CreateFolderResponseResponse$zodSchema: z.ZodType<
   CreateFolderResponseResponse
 > = z.union([
-  ApiError$zodSchema,
   CreateFolderResponse$zodSchema,
+  ApiError$zodSchema,
 ]);

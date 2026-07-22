@@ -17,4 +17,8 @@ export type OAuth2Scope =
   /**
    * Allows uploading new assets.
    */
-  | "upload";
+  | "upload"
+  /**
+   * Generate media
+   */
+  | "media_generation";
