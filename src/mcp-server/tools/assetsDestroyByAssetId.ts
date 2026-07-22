@@ -4,11 +4,11 @@
  */
 
 import { assetsDestroyByAssetId } from "../../funcs/assetsDestroyByAssetId.js";
-import { ComponentsDestroyRequest$zodSchema } from "../../models/componentsdestroyrequest.js";
+import { DestroyByAssetIdRequest$zodSchema } from "../../models/destroybyassetidrequest.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: ComponentsDestroyRequest$zodSchema.describe(
+  request: DestroyByAssetIdRequest$zodSchema.describe(
     `The asset to delete and related options.`,
   ),
 };

@@ -11,9 +11,9 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-  ComponentsDestroyRequest,
-  ComponentsDestroyRequest$zodSchema,
-} from "../models/componentsdestroyrequest.js";
+  DestroyByAssetIdRequest,
+  DestroyByAssetIdRequest$zodSchema,
+} from "../models/destroybyassetidrequest.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
   ConnectionError,
@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function assetsDestroyByAssetId(
   client$: CloudinaryAssetMgmtCore,
-  request: ComponentsDestroyRequest,
+  request: DestroyByAssetIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -57,7 +57,7 @@ export function assetsDestroyByAssetId(
 
 async function $do(
   client$: CloudinaryAssetMgmtCore,
-  request: ComponentsDestroyRequest,
+  request: DestroyByAssetIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -76,7 +76,7 @@ async function $do(
 > {
   const parsed$ = safeParse(
     request,
-    (value$) => ComponentsDestroyRequest$zodSchema.parse(value$),
+    (value$) => DestroyByAssetIdRequest$zodSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {

@@ -15,15 +15,6 @@ import {
   ManagedDeliveryType$zodSchema,
 } from "./manageddeliverytype.js";
 
-export type ExplodeResourceGlobals = { cloud_name?: string | undefined };
-
-export const ExplodeResourceGlobals$zodSchema: z.ZodType<
-  ExplodeResourceGlobals
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
-
 /**
  * The type of resource to explode. Only "image" is supported.
  */
@@ -40,6 +31,15 @@ export type ExplodeResourceResourceType = ClosedEnum<
 export const ExplodeResourceResourceType$zodSchema = z.enum([
   "image",
 ]).describe("The type of resource to explode. Only \"image\" is supported.");
+
+export type ExplodeResourceGlobals = { cloud_name?: string | undefined };
+
+export const ExplodeResourceGlobals$zodSchema: z.ZodType<
+  ExplodeResourceGlobals
+> = z.object({
+  cloud_name: z.string().describe("The cloud name of your product environment.")
+    .optional(),
+});
 
 /**
  * The explode operation parameters.

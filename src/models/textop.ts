@@ -9,13 +9,6 @@ import { ApiError, ApiError$zodSchema } from "./apierror.js";
 import { TextRequest, TextRequest$zodSchema } from "./textrequest.js";
 import { TextResponse, TextResponse$zodSchema } from "./textresponse.js";
 
-export type TextGlobals = { cloud_name?: string | undefined };
-
-export const TextGlobals$zodSchema: z.ZodType<TextGlobals> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
-
 /**
  * The type of resource to create. Must be "image" for text generation.
  */
@@ -32,6 +25,13 @@ export const TextResourceType$zodSchema = z.enum([
 ]).describe(
   "The type of resource to create. Must be \"image\" for text generation.",
 );
+
+export type TextGlobals = { cloud_name?: string | undefined };
+
+export const TextGlobals$zodSchema: z.ZodType<TextGlobals> = z.object({
+  cloud_name: z.string().describe("The cloud name of your product environment.")
+    .optional(),
+});
 
 export type TextRequestRequest = {
   resource_type: TextResourceType;

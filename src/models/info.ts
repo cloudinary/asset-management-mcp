@@ -33,11 +33,13 @@ export const InfoModeration$zodSchema: z.ZodType<InfoModeration> = z.object({
   updated_at: z.iso.datetime({ offset: true }).optional(),
 });
 
-export type RelatedAsset = {};
+export type InfoRelatedAsset = {};
 
-export const RelatedAsset$zodSchema: z.ZodType<RelatedAsset> = z.object({});
+export const InfoRelatedAsset$zodSchema: z.ZodType<InfoRelatedAsset> = z.object(
+  {},
+);
 
-export type LastUpdated = {
+export type InfoLastUpdated = {
   access_control_updated_at?: string | undefined;
   context_updated_at?: string | undefined;
   metadata_updated_at?: string | undefined;
@@ -46,7 +48,7 @@ export type LastUpdated = {
   updated_at?: string | undefined;
 };
 
-export const LastUpdated$zodSchema: z.ZodType<LastUpdated> = z.object({
+export const InfoLastUpdated$zodSchema: z.ZodType<InfoLastUpdated> = z.object({
   access_control_updated_at: z.iso.datetime({ offset: true }).optional(),
   context_updated_at: z.iso.datetime({ offset: true }).optional(),
   metadata_updated_at: z.iso.datetime({ offset: true }).optional(),
@@ -55,7 +57,7 @@ export const LastUpdated$zodSchema: z.ZodType<LastUpdated> = z.object({
   updated_at: z.iso.datetime({ offset: true }).optional(),
 });
 
-export type Derived = {
+export type InfoDerived = {
   transformation?: string | undefined;
   format?: string | undefined;
   bytes?: number | undefined;
@@ -64,7 +66,7 @@ export type Derived = {
   secure_url?: string | undefined;
 };
 
-export const Derived$zodSchema: z.ZodType<Derived> = z.object({
+export const InfoDerived$zodSchema: z.ZodType<InfoDerived> = z.object({
   bytes: z.int().optional(),
   format: z.string().optional(),
   id: z.string().optional(),
@@ -73,7 +75,7 @@ export const Derived$zodSchema: z.ZodType<Derived> = z.object({
   url: z.string().optional(),
 });
 
-export type Version = {
+export type InfoVersion = {
   version_id?: string | undefined;
   version?: string | undefined;
   format?: string | null | undefined;
@@ -82,7 +84,7 @@ export type Version = {
   restorable?: boolean | undefined;
 };
 
-export const Version$zodSchema: z.ZodType<Version> = z.object({
+export const InfoVersion$zodSchema: z.ZodType<InfoVersion> = z.object({
   format: z.string().nullable().optional(),
   restorable: z.boolean().optional(),
   size: z.int().optional(),
@@ -102,14 +104,14 @@ export const InfoInfo$zodSchema: z.ZodType<InfoInfo> = z.object({}).describe(
   "Additional asset information (visual search, recognized people, etc.)",
 );
 
-export type Derivative = {
+export type InfoDerivative = {
   id?: string | undefined;
   transformation?: string | undefined;
   transformation_signature?: string | undefined;
   secure_url?: string | undefined;
 };
 
-export const Derivative$zodSchema: z.ZodType<Derivative> = z.object({
+export const InfoDerivative$zodSchema: z.ZodType<InfoDerivative> = z.object({
   id: z.string().optional().describe(
     "The unique identifier of the derived resource.",
   ),
@@ -159,10 +161,10 @@ export type Info = {
   duration?: number | null | undefined;
   resource_subtype?: string | null | undefined;
   substatus?: string | null | undefined;
-  related_assets?: Array<RelatedAsset> | null | undefined;
-  last_updated?: LastUpdated | null | undefined;
+  related_assets?: Array<InfoRelatedAsset> | null | undefined;
+  last_updated?: InfoLastUpdated | null | undefined;
   next_cursor?: string | undefined;
-  derived?: Array<Derived> | undefined;
+  derived?: Array<InfoDerived> | undefined;
   faces?: Array<Array<number>> | null | undefined;
   coordinates?: CoordinatesResponse | null | undefined;
   illustration_score?: number | undefined;
@@ -170,9 +172,9 @@ export type Info = {
   grayscale?: boolean | undefined;
   colors?: Array<Array<any>> | undefined;
   predominant?: { [k: string]: Array<Array<any>> } | undefined;
-  versions?: Array<Version> | undefined;
+  versions?: Array<InfoVersion> | undefined;
   info?: InfoInfo | undefined;
-  derivatives?: Array<Derivative> | null | undefined;
+  derivatives?: Array<InfoDerivative> | null | undefined;
 };
 
 export const Info$zodSchema: z.ZodType<Info> = z.object({
@@ -196,11 +198,11 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
     "Face and custom coordinate data. Included if 'coordinates=true' parameter is used.",
   ),
   created_at: z.iso.datetime({ offset: true }).optional(),
-  derivatives: z.array(z.lazy(() => Derivative$zodSchema)).nullable().optional()
-    .describe(
+  derivatives: z.array(z.lazy(() => InfoDerivative$zodSchema)).nullable()
+    .optional().describe(
       "Included if 'derived=true' parameter is used. Null when no derivatives exist.",
     ),
-  derived: z.array(z.lazy(() => Derived$zodSchema)).optional(),
+  derived: z.array(z.lazy(() => InfoDerived$zodSchema)).optional(),
   display_name: z.string().optional(),
   duration: z.number().nullable().optional().describe(
     "Duration in seconds for video/audio assets. Null for images.",
@@ -218,7 +220,7 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   info: z.lazy(() => InfoInfo$zodSchema).optional().describe(
     "Additional asset information (visual search, recognized people, etc.)",
   ),
-  last_updated: z.lazy(() => LastUpdated$zodSchema).nullable().optional(),
+  last_updated: z.lazy(() => InfoLastUpdated$zodSchema).nullable().optional(),
   metadata: z.record(z.string(), z.any()).optional(),
   moderation: z.array(z.lazy(() => InfoModeration$zodSchema)).optional()
     .describe("Included if 'moderations=true' parameter is used."),
@@ -234,7 +236,7 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   pixels: z.int().nullable().optional(),
   predominant: z.record(z.string(), z.array(z.array(z.any()))).optional(),
   public_id: z.string().optional(),
-  related_assets: z.array(z.lazy(() => RelatedAsset$zodSchema)).nullable()
+  related_assets: z.array(z.lazy(() => InfoRelatedAsset$zodSchema)).nullable()
     .optional().describe(
       "Related assets linked to this resource. Null when none linked.",
     ),
@@ -257,6 +259,6 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
   uploaded_at: z.iso.datetime({ offset: true }).optional(),
   url: z.string().optional(),
   version: z.int().optional(),
-  versions: z.array(z.lazy(() => Version$zodSchema)).optional(),
+  versions: z.array(z.lazy(() => InfoVersion$zodSchema)).optional(),
   width: z.int().nullable().optional(),
 });

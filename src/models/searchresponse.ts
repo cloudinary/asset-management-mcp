@@ -57,14 +57,14 @@ export const SearchResponseStatus$zodSchema = z.enum([
 ]).describe("The current status of the asset.");
 
 /**
- * The access mode of the asset.
+ * The access mode of the asset. Null when not explicitly set.
  */
 export const SearchResponseAccessMode = {
   Public: "public",
   Authenticated: "authenticated",
 } as const;
 /**
- * The access mode of the asset.
+ * The access mode of the asset. Null when not explicitly set.
  */
 export type SearchResponseAccessMode = ClosedEnum<
   typeof SearchResponseAccessMode
@@ -73,7 +73,7 @@ export type SearchResponseAccessMode = ClosedEnum<
 export const SearchResponseAccessMode$zodSchema = z.enum([
   "public",
   "authenticated",
-]).describe("The access mode of the asset.");
+]).describe("The access mode of the asset. Null when not explicitly set.");
 
 /**
  * Information about who created the asset.
@@ -149,7 +149,7 @@ export type Resource = {
   asset_folder?: string | undefined;
   filename?: string | undefined;
   display_name?: string | undefined;
-  format?: string | undefined;
+  format?: string | null | undefined;
   version?: number | undefined;
   resource_type?: SearchResponseResourceType | undefined;
   type?: DeliveryTypeAll | undefined;
@@ -157,14 +157,14 @@ export type Resource = {
   uploaded_at?: string | undefined;
   bytes?: number | undefined;
   backup_bytes?: number | undefined;
-  width?: number | undefined;
-  height?: number | undefined;
-  aspect_ratio?: number | undefined;
-  pixels?: number | undefined;
+  width?: number | null | undefined;
+  height?: number | null | undefined;
+  aspect_ratio?: number | null | undefined;
+  pixels?: number | null | undefined;
   url?: string | undefined;
   secure_url?: string | undefined;
   status?: SearchResponseStatus | undefined;
-  access_mode?: SearchResponseAccessMode | undefined;
+  access_mode?: SearchResponseAccessMode | null | undefined;
   access_control?: Array<AccessControlItem> | null | undefined;
   etag?: string | undefined;
   created_by?: CreatedBy | null | undefined;
@@ -181,13 +181,12 @@ export type Resource = {
 export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   access_control: z.array(AccessControlItem$zodSchema).nullable().optional()
     .describe("The access control settings for the asset."),
-  access_mode: SearchResponseAccessMode$zodSchema.optional().describe(
-    "The access mode of the asset.",
-  ),
+  access_mode: SearchResponseAccessMode$zodSchema.nullable().optional()
+    .describe("The access mode of the asset. Null when not explicitly set."),
   accessibility_analysis: z.lazy(() => AccessibilityAnalysis$zodSchema)
     .nullable().optional().describe("Results of accessibility analysis."),
-  aspect_ratio: z.number().optional().describe(
-    "The aspect ratio of the asset (width/height).",
+  aspect_ratio: z.number().nullable().optional().describe(
+    "The aspect ratio of the asset (width/height). Null for non-visual assets (e.g. raw, audio).",
   ),
   asset_folder: z.string().optional().describe(
     "The folder where the asset is stored.",
@@ -215,8 +214,12 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   filename: z.string().optional().describe(
     "The original filename of the asset.",
   ),
-  format: z.string().optional().describe("The format of the asset."),
-  height: z.int().optional().describe("The height of the asset in pixels."),
+  format: z.string().nullable().optional().describe(
+    "The format of the asset. Null for raw assets, which have no format.",
+  ),
+  height: z.int().nullable().optional().describe(
+    "The height of the asset in pixels. Null for non-visual assets (e.g. raw, audio).",
+  ),
   image_analysis: z.lazy(() => ImageAnalysis$zodSchema).nullable().optional()
     .describe("Results of image analysis."),
   image_metadata: z.lazy(() => SearchResponseImageMetadata$zodSchema).nullable()
@@ -224,8 +227,8 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   metadata: z.lazy(() => Metadata$zodSchema).nullable().optional().describe(
     "Structured metadata associated with the asset.",
   ),
-  pixels: z.int().optional().describe(
-    "The total number of pixels in the asset.",
+  pixels: z.int().nullable().optional().describe(
+    "The total number of pixels in the asset. Null for non-visual assets (e.g. raw, audio).",
   ),
   public_id: z.string().optional().describe(
     "The public identifier that is used to build the URL.",
@@ -254,7 +257,9 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
     .describe("Information about who uploaded the asset."),
   url: z.string().optional().describe("The HTTP URL for accessing the asset."),
   version: z.int().optional().describe("The version number of the asset."),
-  width: z.int().optional().describe("The width of the asset in pixels."),
+  width: z.int().nullable().optional().describe(
+    "The width of the asset in pixels. Null for non-visual assets (e.g. raw, audio).",
+  ),
 }).describe(
   "Resource fields that can be returned. All fields are optional and can be filtered using the fields parameter.",
 );
