@@ -20,15 +20,6 @@ import {
   GenerateArchiveResponse$zodSchema,
 } from "./generatearchiveresponse.js";
 
-export type GenerateArchiveGlobals = { cloud_name?: string | undefined };
-
-export const GenerateArchiveGlobals$zodSchema: z.ZodType<
-  GenerateArchiveGlobals
-> = z.object({
-  cloud_name: z.string().describe("The cloud name of your product environment.")
-    .optional(),
-});
-
 /**
  * The method for generating and delivering the archive. Options:
  *
@@ -76,6 +67,15 @@ export const TargetFormat$zodSchema = z.enum([
   "zip",
   "tgz",
 ]).describe("The format of the generated archive.");
+
+export type GenerateArchiveGlobals = { cloud_name?: string | undefined };
+
+export const GenerateArchiveGlobals$zodSchema: z.ZodType<
+  GenerateArchiveGlobals
+> = z.object({
+  cloud_name: z.string().describe("The cloud name of your product environment.")
+    .optional(),
+});
 
 /**
  * A list of asset folder paths to include in the archive, or a single folder path string. Only available when asset folders are enabled for your account.

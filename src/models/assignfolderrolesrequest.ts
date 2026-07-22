@@ -8,20 +8,6 @@ import { ClosedEnum } from "../types/enums.js";
 import { PrincipalType, PrincipalType$zodSchema } from "./principaltype.js";
 
 /**
- * The user, group, or API key whose role assignments are being modified.
- */
-export type Principal = { type: PrincipalType; id: string };
-
-export const Principal$zodSchema: z.ZodType<Principal> = z.object({
-  id: z.string().describe(
-    "The unique identifier of the principal. For `apiKey`, provide the API key value.",
-  ),
-  type: PrincipalType$zodSchema.describe("The type of principal."),
-}).describe(
-  "The user, group, or API key whose role assignments are being modified.",
-);
-
-/**
  * The operation to perform on the principal’s role assignments. `add` grants the specified roles; `remove` revokes them.
  */
 export const Operation = {
@@ -38,6 +24,20 @@ export const Operation$zodSchema = z.enum([
   "remove",
 ]).describe(
   "The operation to perform on the principal’s role assignments. `add` grants the specified roles; `remove` revokes them.",
+);
+
+/**
+ * The user, group, or API key whose role assignments are being modified.
+ */
+export type Principal = { type: PrincipalType; id: string };
+
+export const Principal$zodSchema: z.ZodType<Principal> = z.object({
+  id: z.string().describe(
+    "The unique identifier of the principal. For `apiKey`, provide the API key value.",
+  ),
+  type: PrincipalType$zodSchema.describe("The type of principal."),
+}).describe(
+  "The user, group, or API key whose role assignments are being modified.",
 );
 
 export type AssignFolderRolesRequest = {
