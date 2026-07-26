@@ -7,12 +7,12 @@
     "url": "https://github.com/cloudinary/asset-management-mcp",
     "source": "github"
   },
-  "version": "0.10.0",
+  "version": "0.10.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@cloudinary/asset-management-mcp",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "transport": {
         "type": "stdio"
       },
@@ -39,7 +39,7 @@
     },
     {
       "registryType": "oci",
-      "identifier": "docker.io/cloudinary/asset-management-mcp:0.10.0",
+      "identifier": "docker.io/cloudinary/asset-management-mcp:0.10.1",
       "transport": {
         "type": "stdio"
       },

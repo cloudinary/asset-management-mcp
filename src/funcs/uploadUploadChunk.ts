@@ -28,11 +28,6 @@ import { UploadResourceType } from "../models/uploadresourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
-export enum UploadChunkAcceptEnum {
-  applicationJsonAccept = "application/json",
-  textHtmlAccept = "text/html",
-}
-
 /**
  * Upload a single chunk of a large file
  *
@@ -94,7 +89,7 @@ async function $do(
   contentRange?: string | undefined,
   xUploadPartNumber?: number | undefined,
   xUploadTotalParts?: number | undefined,
-  options?: RequestOptions & { acceptHeaderOverride?: UploadChunkAcceptEnum },
+  options?: RequestOptions,
 ): Promise<
   [
     Result<
@@ -146,8 +141,7 @@ async function $do(
 
   const headers$ = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: options?.acceptHeaderOverride
-      || "application/json;q=1, text/html;q=0",
+    Accept: "application/json",
     "Content-Range": encodeSimple("Content-Range", payload$.contentRange, {
       explode: false,
       charEncoding: "none",
