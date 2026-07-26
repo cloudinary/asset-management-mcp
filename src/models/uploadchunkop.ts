@@ -82,8 +82,7 @@ export type UploadChunkResponse =
   | ApiError
   | AsyncUploadResponse
   | NonFinalChunkUploadResponse
-  | UploadResponse
-  | string;
+  | UploadResponse;
 
 export const UploadChunkResponse$zodSchema: z.ZodType<UploadChunkResponse> = z
   .union([
@@ -93,7 +92,4 @@ export const UploadChunkResponse$zodSchema: z.ZodType<UploadChunkResponse> = z
       NonFinalChunkUploadResponse$zodSchema,
       UploadResponse$zodSchema,
     ]),
-    z.string().describe(
-      "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
-    ),
   ]);

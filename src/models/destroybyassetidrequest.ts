@@ -9,16 +9,12 @@ export type DestroyByAssetIdRequest = {
   asset_id: string;
   invalidate?: boolean | undefined;
   notification_url?: string | undefined;
-  callback?: string | undefined;
 };
 
 export const DestroyByAssetIdRequest$zodSchema: z.ZodType<
   DestroyByAssetIdRequest
 > = z.object({
   asset_id: z.string().describe("A 32-character hexadecimal asset ID."),
-  callback: z.string().optional().describe(
-    "URL for redirect after operation completion.",
-  ),
   invalidate: z.boolean().optional().describe(
     "Whether to invalidate CDN cache. Default is false.",
   ),
