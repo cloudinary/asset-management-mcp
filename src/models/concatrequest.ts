@@ -125,7 +125,6 @@ export type ConcatRequest = {
   access_mode?: ConcatRequestAccessMode | undefined;
   backup?: boolean | undefined;
   background_removal?: string | undefined;
-  callback?: string | undefined;
   categorization?: string | undefined;
   cinemagraph_analysis?: boolean | undefined;
   colors?: boolean | undefined;
@@ -212,9 +211,6 @@ export const ConcatRequest$zodSchema: z.ZodType<ConcatRequest> = z.object({
   ),
   backup: z.boolean().optional().describe(
     "Whether to backup the uploaded asset. When set to true, backs up uploaded assets to a secondary storage bucket.",
-  ),
-  callback: z.string().optional().describe(
-    "A URL to redirect to after the upload/explicit is completed instead of returning the upload response.\nSigned upload result parameters are added to the callback URL. This parameter is ignored for XHR (Ajax XMLHttpRequest) or JavaScript Fetch API upload requests.\nNote: This parameter is relevant for direct uploads from a form in the browser. It is automatically set if you perform direct upload from the browser using Cloudinary's SDKs and the jQuery plugin.\n",
   ),
   categorization: z.string().optional().describe(
     "A comma-separated list of the categorization add-ons to run on the asset.\nSet to google_tagging, google_video_tagging, imagga_tagging and/or aws_rek_tagging\nto automatically classify the scenes of the uploaded asset.\nOptionally append a language code suffix (e.g., google_tagging:fr).\n",
