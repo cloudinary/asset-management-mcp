@@ -36,6 +36,7 @@ restricted to edit models:
 
 
 
+
    to that family's edit model (e.g. \`nano-banana\` / \`premium\` →
    \`nano-banana-2-edit\`).
 3. If \`model\` is omitted, use the default edit model (\`nano-banana-2-edit\`).

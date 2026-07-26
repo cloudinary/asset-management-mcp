@@ -37,8 +37,7 @@ export const UploadNoResourceTypeResponseBody$zodSchema: z.ZodType<
 export type UploadNoResourceTypeResponse =
   | ApiError
   | AsyncUploadResponse
-  | UploadResponse
-  | string;
+  | UploadResponse;
 
 export const UploadNoResourceTypeResponse$zodSchema: z.ZodType<
   UploadNoResourceTypeResponse
@@ -48,7 +47,4 @@ export const UploadNoResourceTypeResponse$zodSchema: z.ZodType<
     AsyncUploadResponse$zodSchema,
     UploadResponse$zodSchema,
   ]),
-  z.string().describe(
-    "Redirect to callback URL (when 'callback' parameter is provided and request is not XHR).",
-  ),
 ]);

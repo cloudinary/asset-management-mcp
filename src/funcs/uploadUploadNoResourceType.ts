@@ -26,11 +26,6 @@ import {
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
-export enum UploadNoResourceTypeAcceptEnum {
-  applicationJsonAccept = "application/json",
-  textHtmlAccept = "text/html",
-}
-
 /**
  * Upload with automatic file type detection
  *
@@ -63,9 +58,7 @@ export function uploadUploadNoResourceType(
 async function $do(
   client$: CloudinaryAssetMgmtCore,
   request: UploadRequest,
-  options?: RequestOptions & {
-    acceptHeaderOverride?: UploadNoResourceTypeAcceptEnum;
-  },
+  options?: RequestOptions,
 ): Promise<
   [
     Result<
@@ -104,8 +97,7 @@ async function $do(
 
   const headers$ = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: options?.acceptHeaderOverride
-      || "application/json;q=1, text/html;q=0",
+    Accept: "application/json",
   }));
   const securityInput = await extractSecurity(client$._options.security);
   const requestSecurity = resolveGlobalSecurity(securityInput);

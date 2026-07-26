@@ -28,11 +28,6 @@ import { UploadResourceType } from "../models/uploadresourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
-export enum UploadAcceptEnum {
-  applicationJsonAccept = "application/json",
-  textHtmlAccept = "text/html",
-}
-
 /**
  * Uploads media assets (images, videos, raw files) to your Cloudinary product environment
  *
@@ -81,7 +76,7 @@ async function $do(
   client$: CloudinaryAssetMgmtCore,
   resource_type: UploadResourceType | undefined,
   upload_request: UploadRequest,
-  options?: RequestOptions & { acceptHeaderOverride?: UploadAcceptEnum },
+  options?: RequestOptions,
 ): Promise<
   [
     Result<
@@ -129,8 +124,7 @@ async function $do(
 
   const headers$ = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: options?.acceptHeaderOverride
-      || "application/json;q=1, text/html;q=0",
+    Accept: "application/json",
   }));
   const securityInput = await extractSecurity(client$._options.security);
   const requestSecurity = resolveGlobalSecurity(securityInput);
