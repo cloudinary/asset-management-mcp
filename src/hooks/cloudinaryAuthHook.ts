@@ -1,5 +1,26 @@
 import { CloudConfig } from "./cloudConfig.js";
+import { isRemoteMCP } from "./runtimeMode.js";
 import { BeforeRequestContext, BeforeRequestHook } from "./types.js";
+
+/**
+ * Raised when a `file://` upload is attempted against a hosted server.
+ *
+ * The SDK surfaces a thrown hook error as `<wrapper>: <cause>`, and the cause
+ * stringifies via `Error.prototype.toString` as `<name>: <message>`. Blanking
+ * `name` drops the redundant "Error:" segment, and leading with "Bad request"
+ * keeps the text reading as a rejected input rather than a transport fault.
+ */
+class LocalFileNotSupportedError extends Error {
+    override name = "";
+
+    constructor() {
+        super(
+            "Bad request: local file paths (file://) are not supported on this "
+                + "hosted server. Use the sign-upload tool to upload a file from "
+                + "your machine, or pass a remote HTTP/HTTPS URL.",
+        );
+    }
+}
 
 /**
  * Attaches Cloudinary authentication to every outgoing request.
@@ -96,27 +117,40 @@ export class CloudinaryAuthHook implements BeforeRequestHook {
     /**
      * For JSON requests, converts local `file://` URIs to inline base64
      * data URIs so Cloudinary can accept the upload payload.
+     *
+     * Requests that carry no such URI are returned as-is: re-serializing a body
+     * we do not need to change would round-trip it through JSON.parse and lose
+     * fidelity (large integers, trailing zeros).
      */
     private async preprocessBody(request: Request): Promise<Request> {
-        if (request.headers.get("Content-Type") !== "application/json") {
+        // Compare the media type only — the header may carry parameters such
+        // as "; charset=utf-8".
+        const mediaType = request.headers.get("Content-Type")
+            ?.split(";")[0]?.trim().toLowerCase();
+        if (mediaType !== "application/json") {
             return request;
         }
 
-        const body = await request.json();
+        const body = await request.clone().json();
 
-        if (
-            typeof body?.file === "string"
-            && body.file.startsWith("file://")
-        ) {
-            body.file = await this.readLocalFileAsDataUri(body.file);
-            return new Request(request, { body: JSON.stringify(body) });
+        if (typeof body?.file !== "string" || !body.file.startsWith("file://")) {
+            return request;
         }
+
+        if (isRemoteMCP()) {
+            throw new LocalFileNotSupportedError();
+        }
+
+        body.file = await this.readLocalFileAsDataUri(body.file);
 
         return new Request(request, { body: JSON.stringify(body) });
     }
 
     /**
      * Reads a local file and returns it as a base64 data URI.
+     *
+     * Only called when running locally, where the filesystem being read belongs
+     * to the caller — see the caller's isRemoteMCP check.
      */
     private async readLocalFileAsDataUri(fileUrl: string): Promise<string> {
         const filePath = fileUrl.replace(/^file:\/\//, "");

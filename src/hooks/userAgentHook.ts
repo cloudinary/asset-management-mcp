@@ -1,5 +1,6 @@
 import { SDKInitHook } from "./types.js";
 import { SDKOptions, SDK_METADATA } from "../lib/config.js";
+import { isRemoteMCP } from "./runtimeMode.js";
 
 // Extract product name from package name part
 function getProductName(packageName: string): string {
@@ -20,12 +21,6 @@ function getProductName(packageName: string): string {
     } catch {
         return "Unknown";
     }
-}
-
-function isRemoteMCP(): boolean {
-    // Check if we are running in the OAuth wrapper environment
-    const process = (globalThis as any)?.process;
-    return process?.env?.['OAUTH_WRAPPER_ORIGIN'] !== undefined;
 }
 
 function getRuntime(): string {
@@ -63,8 +58,8 @@ function buildUserAgent(
 
 export class UserAgentHook implements SDKInitHook {
     sdkInit(opts: SDKOptions): SDKOptions {
-        // If opts.userAgent is pre-set (e.g. by mcp-service via getSDK),
-        // treat it as the caller's User-Agent to embed in the combined string.
+        // If opts.userAgent is pre-set by an embedding host, treat it as the
+        // caller's User-Agent to embed in the combined string.
         const callerUserAgent = opts.userAgent || undefined;
 
         const originalUserAgent = SDK_METADATA.userAgent;

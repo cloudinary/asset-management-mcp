@@ -13,6 +13,7 @@ sources:
             - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-multipart-overlay.yml
             - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/create-only-archive-mode-overlay.yml
             - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/search-llm-guidance-overlay.yml
+            - location: https://cloudinary.github.io/api-schemas/asset-management/overlays/remove-callback-param-overlay.yml
         registry:
             location: registry.speakeasyapi.dev/cloudinary/cloudinary/cloudinary-asset-mgmt-mcp-oas
 targets:
