@@ -230,7 +230,7 @@ export const UploadRequest$zodSchema: z.ZodType<UploadRequest> = z.object({
     "Whether to retrieve predominant colors & color histogram of the uploaded image. Note: If all returned colors are opaque, then 6-digit RGB hex values are returned. If one or more colors contain an alpha channel, then 8-digit RGBA hex quadruplet values are returned.",
   ),
   context: z.string().optional().describe(
-    "A pipe-separated list of key-value pairs of general textual context metadata to attach to the asset (e.g., \"alt=My image|caption=Nice photo\"). The =, \", and | characters can be escaped with a prepending backslash (\\).",
+    "A pipe-separated list of key-value pairs of general textual context metadata to attach to the asset (e.g., \"alt=My image|caption=Nice photo\"). A literal = or | inside a value must be escaped with a prepending backslash, and a literal backslash must be doubled. A double quote must not be escaped.",
   ),
   custom_coordinates: z.string().optional().describe(
     "Custom coordinates as comma-separated values, with multiple coordinates separated by pipes.",
