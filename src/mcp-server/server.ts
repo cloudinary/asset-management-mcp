@@ -20,6 +20,9 @@ import {
   MCPToolAnnotationFilter,
   registerDynamicTools,
 } from "./tools.js";
+import { tool$assetMetadataUpdateAssetsContext } from "./tools/assetMetadataUpdateAssetsContext.js";
+import { tool$assetMetadataUpdateAssetsMetadata } from "./tools/assetMetadataUpdateAssetsMetadata.js";
+import { tool$assetMetadataUpdateAssetsTags } from "./tools/assetMetadataUpdateAssetsTags.js";
 import { tool$assetRelationsCreateAssetRelationsByAssetId } from "./tools/assetRelationsCreateAssetRelationsByAssetId.js";
 import { tool$assetRelationsDeleteAssetRelationsByAssetId } from "./tools/assetRelationsDeleteAssetRelationsByAssetId.js";
 import { tool$assetsDerivedDestroy } from "./tools/assetsDerivedDestroy.js";
@@ -61,7 +64,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.10.1",
+    version: "0.10.2",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -121,6 +124,9 @@ export function createMCPServer(deps: {
   tool(tool$assetsUpdateResourceByAssetId);
   tool(tool$assetsListResourceTags);
   tool(tool$assetsDerivedDestroy);
+  tool(tool$assetMetadataUpdateAssetsTags);
+  tool(tool$assetMetadataUpdateAssetsContext);
+  tool(tool$assetMetadataUpdateAssetsMetadata);
   tool(tool$usageGetUsage);
   tool(tool$assetRelationsCreateAssetRelationsByAssetId);
   tool(tool$assetRelationsDeleteAssetRelationsByAssetId);
