@@ -81,7 +81,7 @@ export const ResourceUpdateRequest$zodSchema: z.ZodType<ResourceUpdateRequest> =
       "Whether to clear invalid metadata fields. If false, invalid fields will be preserved. Default: false",
     ),
     context: z.string().optional().describe(
-      "A pipe-separated list of key-value pairs of general textual context metadata to attach to the asset (e.g., \"alt=My image|caption=Nice photo\"). The =, \", and | characters can be escaped with a prepending backslash (\\).",
+      "A pipe-separated list of key-value pairs of general textual context metadata to attach to the asset (e.g., \"alt=My image|caption=Nice photo\"). A literal = or | inside a value must be escaped with a prepending backslash, and a literal backslash must be doubled. A double quote must not be escaped.",
     ),
     custom_coordinates: z.string().optional().describe(
       "Custom coordinates as comma-separated values, with multiple coordinates separated by pipes.",

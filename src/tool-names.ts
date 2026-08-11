@@ -49,6 +49,18 @@ export const toolNames: Array<{ name: string; description: string }>= [
     "description": "Delete derived resources\n\nDeletes derived resources by derived resource ID"
   },
   {
+    "name": "manage-asset-tags",
+    "description": "Adds, removes, or replaces tags on multiple assets\n\nApplies a tag command to the given assets, addressing them by public ID.\n\nThe number of tags multiplied by the number of public IDs must not exceed 10,000.\n"
+  },
+  {
+    "name": "manage-asset-context",
+    "description": "Adds or clears contextual metadata on multiple assets\n\nApplies a contextual-metadata command to the given assets, addressing them by public ID.\n"
+  },
+  {
+    "name": "manage-asset-metadata",
+    "description": "Sets structured metadata values on multiple assets\n\nAssigns structured metadata field values to the given assets, addressing them by public ID.\n\nValues are merged into each asset's existing structured metadata: fields not mentioned\nkeep their current values, and an empty value clears the field. Every referenced field\nmust already exist in the product environment. Conditional metadata rules are evaluated\nas part of the update.\n"
+  },
+  {
     "name": "get-usage-details",
     "description": "Retrieves comprehensive usage metrics and account statistics\n\nA report on the status of product environment usage, including storage, credits, bandwidth, requests, number of resources, and add-on usage. No date parameter needed to get current usage statistics."
   },
