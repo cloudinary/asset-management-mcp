@@ -34,7 +34,7 @@ The model is selected via the optional \`model\` object:
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await generationGenerateImage(
+    const [result, apiCall] = await generationGenerateImage(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -47,6 +47,8 @@ The model is selected via the optional \`model\` object:
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

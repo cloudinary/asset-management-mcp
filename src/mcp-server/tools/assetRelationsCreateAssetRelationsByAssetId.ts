@@ -33,7 +33,7 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetRelationsCreateAssetRelationsByAssetId(
+    const [result, apiCall] = await assetRelationsCreateAssetRelationsByAssetId(
       client,
       args.asset_id,
       args.relate_assets_by_asset_id_request,
@@ -47,6 +47,8 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

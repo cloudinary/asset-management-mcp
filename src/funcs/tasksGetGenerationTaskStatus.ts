@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,6 +23,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   GetGenerationTaskStatusRequest,
   GetGenerationTaskStatusRequest$zodSchema,
+  GetGenerationTaskStatusResponse,
+  GetGenerationTaskStatusResponse$zodSchema,
 } from "../models/getgenerationtaskstatusop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -38,7 +41,7 @@ export function tasksGetGenerationTaskStatus(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    GetGenerationTaskStatusResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -62,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      GetGenerationTaskStatusResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -153,9 +156,34 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    GetGenerationTaskStatusResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, GetGenerationTaskStatusResponse$zodSchema, {
+      key: "TaskResponse",
+    }),
+    M.json([400, 401, 404], GetGenerationTaskStatusResponse$zodSchema, {
+      key: "ErrorResponse",
+    }),
+    M.json(429, GetGenerationTaskStatusResponse$zodSchema, {
+      key: "RateLimitedResponse",
+    }),
+    M.json(500, GetGenerationTaskStatusResponse$zodSchema, {
+      key: "ErrorResponse",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

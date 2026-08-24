@@ -33,7 +33,7 @@ Returns a list of resources that are visually similar to a specified image. You 
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await searchVisualSearchAssets(
+    const [result, apiCall] = await searchVisualSearchAssets(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -46,6 +46,8 @@ Returns a list of resources that are visually similar to a specified image. You 
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

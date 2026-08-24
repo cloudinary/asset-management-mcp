@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -19,6 +20,10 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import {
+  GenerateImageFromImagesResponse,
+  GenerateImageFromImagesResponse$zodSchema,
+} from "../models/generateimagefromimagesop.js";
 import {
   ImageToImageRequest,
   ImageToImageRequest$zodSchema,
@@ -53,7 +58,7 @@ export function generationGenerateImageFromImages(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    GenerateImageFromImagesResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -77,7 +82,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      GenerateImageFromImagesResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -161,9 +166,39 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    GenerateImageFromImagesResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, GenerateImageFromImagesResponse$zodSchema, {
+      key: "GenerateImageResult",
+    }),
+    M.json(202, GenerateImageFromImagesResponse$zodSchema, {
+      key: "TaskResponse",
+    }),
+    M.json(
+      [400, 401, 403, 404, 422],
+      GenerateImageFromImagesResponse$zodSchema,
+      { key: "ErrorResponse" },
+    ),
+    M.json(429, GenerateImageFromImagesResponse$zodSchema, {
+      key: "RateLimitedResponse",
+    }),
+    M.json([500, 502], GenerateImageFromImagesResponse$zodSchema, {
+      key: "ErrorResponse",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

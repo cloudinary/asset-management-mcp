@@ -28,7 +28,7 @@ Deletes a folder and all assets within it.`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await foldersDestroyFolder(
+    const [result, apiCall] = await foldersDestroyFolder(
       client,
       args.folder,
       { fetchOptions: { signal: ctx.signal } },
@@ -41,6 +41,8 @@ Deletes a folder and all assets within it.`,
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
@@ -18,7 +19,11 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import { ListRootFoldersRequest } from "../models/listrootfoldersop.js";
+import {
+  ListRootFoldersRequest,
+  ListRootFoldersResponse,
+  ListRootFoldersResponse$zodSchema,
+} from "../models/listrootfoldersop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -34,7 +39,7 @@ export function foldersListRootFolders(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    ListRootFoldersResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -58,7 +63,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      ListRootFoldersResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -129,9 +134,26 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    ListRootFoldersResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, ListRootFoldersResponse$zodSchema, {
+      key: "folders_list_response",
+    }),
+    M.json([401, 403], ListRootFoldersResponse$zodSchema, { key: "api_error" }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

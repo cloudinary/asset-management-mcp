@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -23,6 +24,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   ListPeopleRequest,
   ListPeopleRequest$zodSchema,
+  ListPeopleResponse,
+  ListPeopleResponse$zodSchema,
   ListPeopleSortBy,
   NameStatus,
 } from "../models/listpeopleop.js";
@@ -49,7 +52,7 @@ export function peopleListPeople(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    ListPeopleResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -85,7 +88,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      ListPeopleResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -188,9 +191,24 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    ListPeopleResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, ListPeopleResponse$zodSchema, { key: "people_list_response" }),
+    M.json([400, 401, 403], ListPeopleResponse$zodSchema, { key: "api_error" }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

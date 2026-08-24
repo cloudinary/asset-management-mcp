@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -23,6 +24,10 @@ import {
   RestoreRequest,
   RestoreRequest$zodSchema,
 } from "../models/restorerequest.js";
+import {
+  RestoreResourcesByAssetIDsResponse,
+  RestoreResourcesByAssetIDsResponse$zodSchema,
+} from "../models/restoreresourcesbyassetidsop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -38,7 +43,7 @@ export function assetsRestoreResourcesByAssetIDs(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    RestoreResourcesByAssetIDsResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -62,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      RestoreResourcesByAssetIDsResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -146,9 +151,28 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    RestoreResourcesByAssetIDsResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, RestoreResourcesByAssetIDsResponse$zodSchema, {
+      key: "restore_response",
+    }),
+    M.json([400, 401, 403], RestoreResourcesByAssetIDsResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

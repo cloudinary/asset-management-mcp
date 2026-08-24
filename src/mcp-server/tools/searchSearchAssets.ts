@@ -77,7 +77,7 @@ Uses a Lucene-like query language to filter assets by descriptive attributes (\`
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await searchSearchAssets(
+    const [result, apiCall] = await searchSearchAssets(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -90,6 +90,8 @@ Uses a Lucene-like query language to filter assets by descriptive attributes (\`
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

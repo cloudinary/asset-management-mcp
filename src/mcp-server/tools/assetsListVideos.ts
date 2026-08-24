@@ -52,7 +52,7 @@ Retrieves a list of video assets. Results can be filtered by various criteria li
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsListVideos(
+    const [result, apiCall] = await assetsListVideos(
       client,
       args.type,
       args.prefix,
@@ -73,6 +73,8 @@ Retrieves a list of video assets. Results can be filtered by various criteria li
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

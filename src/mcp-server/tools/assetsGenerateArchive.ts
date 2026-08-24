@@ -33,7 +33,7 @@ Creates a downloadable ZIP or other archive format containing the specified reso
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsGenerateArchive(
+    const [result, apiCall] = await assetsGenerateArchive(
       client,
       args.resource_type,
       args.RequestBody,
@@ -47,6 +47,8 @@ Creates a downloadable ZIP or other archive format containing the specified reso
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

@@ -26,12 +26,14 @@ import {
   SocialDeliveryType$zodSchema,
 } from "./socialdeliverytype.js";
 
-export const DeliveryTypeAllEnum = {
+export const DeliveryTypeAllMediaOptimization = {
   MediaOptimization: "media_optimization",
 } as const;
-export type DeliveryTypeAllEnum = ClosedEnum<typeof DeliveryTypeAllEnum>;
+export type DeliveryTypeAllMediaOptimization = ClosedEnum<
+  typeof DeliveryTypeAllMediaOptimization
+>;
 
-export const DeliveryTypeAllEnum$zodSchema = z.enum([
+export const DeliveryTypeAllMediaOptimization$zodSchema = z.enum([
   "media_optimization",
 ]);
 
@@ -44,7 +46,7 @@ export type DeliveryTypeAll =
   | FetchDeliveryType
   | SocialDeliveryType
   | GeneratedDeliveryType
-  | DeliveryTypeAllEnum;
+  | DeliveryTypeAllMediaOptimization;
 
 export const DeliveryTypeAll$zodSchema: z.ZodType<DeliveryTypeAll> = z.union([
   ManagedDeliveryType$zodSchema,
@@ -52,5 +54,5 @@ export const DeliveryTypeAll$zodSchema: z.ZodType<DeliveryTypeAll> = z.union([
   FetchDeliveryType$zodSchema,
   SocialDeliveryType$zodSchema,
   GeneratedDeliveryType$zodSchema,
-  DeliveryTypeAllEnum$zodSchema,
+  DeliveryTypeAllMediaOptimization$zodSchema,
 ]).describe("All supported delivery types.");

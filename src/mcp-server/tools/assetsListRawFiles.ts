@@ -52,7 +52,7 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsListRawFiles(
+    const [result, apiCall] = await assetsListRawFiles(
       client,
       args.type,
       args.prefix,
@@ -73,6 +73,8 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

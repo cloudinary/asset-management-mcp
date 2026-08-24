@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -24,6 +25,8 @@ import { Fields } from "../models/fields.js";
 import {
   ListResourcesByModerationKindAndStatusRequest,
   ListResourcesByModerationKindAndStatusRequest$zodSchema,
+  ListResourcesByModerationKindAndStatusResponse,
+  ListResourcesByModerationKindAndStatusResponse$zodSchema,
 } from "../models/listresourcesbymoderationkindandstatusop.js";
 import { ModerationKind } from "../models/moderationkind.js";
 import { ModerationStatusParameter } from "../models/moderationstatusparameter.js";
@@ -49,7 +52,7 @@ export function assetsListResourcesByModerationKindAndStatus(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    ListResourcesByModerationKindAndStatusResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -85,7 +88,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      ListResourcesByModerationKindAndStatusResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -205,9 +208,30 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    ListResourcesByModerationKindAndStatusResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, ListResourcesByModerationKindAndStatusResponse$zodSchema, {
+      key: "list_response",
+    }),
+    M.json(
+      [400, 401],
+      ListResourcesByModerationKindAndStatusResponse$zodSchema,
+      { key: "api_error" },
+    ),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

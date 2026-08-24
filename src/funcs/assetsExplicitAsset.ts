@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,6 +23,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   ExplicitAssetRequest,
   ExplicitAssetRequest$zodSchema,
+  ExplicitAssetResponse,
+  ExplicitAssetResponse$zodSchema,
 } from "../models/explicitassetop.js";
 import { ExplicitRequest } from "../models/explicitrequest.js";
 import { ResourceType } from "../models/resourcetype.js";
@@ -44,7 +47,7 @@ export function assetsExplicitAsset(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    ExplicitAssetResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -70,7 +73,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      ExplicitAssetResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -165,9 +168,26 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    ExplicitAssetResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, ExplicitAssetResponse$zodSchema, { key: "upload_response" }),
+    M.json([400, 401, 403, 404], ExplicitAssetResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

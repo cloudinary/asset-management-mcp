@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -13,6 +14,8 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DeleteAssetRelationsByAssetIdRequest,
   DeleteAssetRelationsByAssetIdRequest$zodSchema,
+  DeleteAssetRelationsByAssetIdResponse,
+  DeleteAssetRelationsByAssetIdResponse$zodSchema,
 } from "../models/deleteassetrelationsbyassetidop.js";
 import { APIError } from "../models/errors/apierror.js";
 import {
@@ -40,7 +43,7 @@ export function assetRelationsDeleteAssetRelationsByAssetId(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    DeleteAssetRelationsByAssetIdResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -66,7 +69,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      DeleteAssetRelationsByAssetIdResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -165,9 +168,28 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    DeleteAssetRelationsByAssetIdResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json([200, 207], DeleteAssetRelationsByAssetIdResponse$zodSchema, {
+      key: "asset_relations_delete_response",
+    }),
+    M.json([400, 401, 404], DeleteAssetRelationsByAssetIdResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

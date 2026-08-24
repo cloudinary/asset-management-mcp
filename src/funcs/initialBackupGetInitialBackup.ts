@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,6 +23,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   GetInitialBackupRequest,
   GetInitialBackupRequest$zodSchema,
+  GetInitialBackupResponse,
+  GetInitialBackupResponse$zodSchema,
 } from "../models/getinitialbackupop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -38,7 +41,7 @@ export function initialBackupGetInitialBackup(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    GetInitialBackupResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -62,7 +65,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      GetInitialBackupResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -153,9 +156,28 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    GetInitialBackupResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, GetInitialBackupResponse$zodSchema, {
+      key: "initial_backup_progress_response",
+    }),
+    M.json([401, 403, 404], GetInitialBackupResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

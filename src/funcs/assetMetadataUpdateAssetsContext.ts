@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -24,6 +25,8 @@ import { ResourceType } from "../models/resourcetype.js";
 import {
   UpdateAssetsContextRequest,
   UpdateAssetsContextRequest$zodSchema,
+  UpdateAssetsContextResponse,
+  UpdateAssetsContextResponse$zodSchema,
 } from "../models/updateassetscontextop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -41,7 +44,7 @@ export function assetMetadataUpdateAssetsContext(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    UpdateAssetsContextResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -67,7 +70,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      UpdateAssetsContextResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -162,9 +165,28 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    UpdateAssetsContextResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, UpdateAssetsContextResponse$zodSchema, {
+      key: "public_ids_response",
+    }),
+    M.json([400, 401, 403], UpdateAssetsContextResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

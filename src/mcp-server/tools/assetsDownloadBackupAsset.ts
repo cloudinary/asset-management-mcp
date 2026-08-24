@@ -28,7 +28,7 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsDownloadBackupAsset(
+    const [result, apiCall] = await assetsDownloadBackupAsset(
       client,
       args.asset_id,
       args.version_id,
@@ -42,6 +42,8 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

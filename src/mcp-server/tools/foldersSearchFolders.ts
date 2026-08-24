@@ -39,7 +39,7 @@ Lists the folders that match the specified search expression. Limited to 2000 re
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await foldersSearchFolders(
+    const [result, apiCall] = await foldersSearchFolders(
       client,
       args.expression,
       args.sort_by,
@@ -55,6 +55,8 @@ Lists the folders that match the specified search expression. Limited to 2000 re
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

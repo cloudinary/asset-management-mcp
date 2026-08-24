@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -23,6 +24,10 @@ import {
   FolderSearchRequest,
   FolderSearchRequest$zodSchema,
 } from "../models/foldersearchrequest.js";
+import {
+  SearchFoldersPostResponse,
+  SearchFoldersPostResponse$zodSchema,
+} from "../models/searchfolderspostop.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -38,7 +43,7 @@ export function foldersSearchFoldersPost(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    SearchFoldersPostResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -62,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      SearchFoldersPostResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -146,9 +151,28 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    SearchFoldersPostResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, SearchFoldersPostResponse$zodSchema, {
+      key: "folders_search_response",
+    }),
+    M.json([400, 401], SearchFoldersPostResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

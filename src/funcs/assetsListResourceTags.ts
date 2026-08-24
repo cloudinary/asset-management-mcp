@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -22,6 +23,8 @@ import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import {
   ListResourceTagsRequest,
   ListResourceTagsRequest$zodSchema,
+  ListResourceTagsResponse,
+  ListResourceTagsResponse$zodSchema,
 } from "../models/listresourcetagsop.js";
 import { ResourceType } from "../models/resourcetype.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -44,7 +47,7 @@ export function assetsListResourceTags(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    ListResourceTagsResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -74,7 +77,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      ListResourceTagsResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -174,9 +177,28 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    ListResourceTagsResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, ListResourceTagsResponse$zodSchema, {
+      key: "tags_list_response",
+    }),
+    M.json([400, 401], ListResourceTagsResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

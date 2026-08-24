@@ -54,7 +54,7 @@ read-permission checked) or an external HTTPS \`url\`.
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await generationGenerateImageFromImages(
+    const [result, apiCall] = await generationGenerateImageFromImages(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -67,6 +67,8 @@ read-permission checked) or an external HTTPS \`url\`.
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

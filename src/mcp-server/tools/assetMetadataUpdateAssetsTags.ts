@@ -35,7 +35,7 @@ The number of tags multiplied by the number of public IDs must not exceed 10,000
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetMetadataUpdateAssetsTags(
+    const [result, apiCall] = await assetMetadataUpdateAssetsTags(
       client,
       args.resource_type,
       args.tags_update_request,
@@ -49,6 +49,8 @@ The number of tags multiplied by the number of public IDs must not exceed 10,000
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

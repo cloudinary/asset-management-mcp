@@ -61,7 +61,7 @@ Returns the details of a single resource specified by its asset ID.`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsGetResourceByAssetId(
+    const [result, apiCall] = await assetsGetResourceByAssetId(
       client,
       args.asset_id,
       args.colors,
@@ -85,6 +85,8 @@ Returns the details of a single resource specified by its asset ID.`,
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

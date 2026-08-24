@@ -35,7 +35,7 @@ Applies a contextual-metadata command to the given assets, addressing them by pu
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetMetadataUpdateAssetsContext(
+    const [result, apiCall] = await assetMetadataUpdateAssetsContext(
       client,
       args.resource_type,
       args.context_update_request,
@@ -49,6 +49,8 @@ Applies a contextual-metadata command to the given assets, addressing them by pu
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

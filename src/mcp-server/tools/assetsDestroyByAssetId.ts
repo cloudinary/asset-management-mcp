@@ -29,7 +29,7 @@ Deletes an asset using its immutable asset ID.
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsDestroyByAssetId(
+    const [result, apiCall] = await assetsDestroyByAssetId(
       client,
       args.request,
       { fetchOptions: { signal: ctx.signal } },
@@ -42,6 +42,8 @@ Deletes an asset using its immutable asset ID.
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

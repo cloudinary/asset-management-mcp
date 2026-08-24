@@ -28,7 +28,7 @@ A report on the status of product environment usage, including storage, credits,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await usageGetUsage(
+    const [result, apiCall] = await usageGetUsage(
       client,
       args.date,
       { fetchOptions: { signal: ctx.signal } },
@@ -41,6 +41,8 @@ A report on the status of product environment usage, including storage, credits,
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

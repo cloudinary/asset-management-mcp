@@ -5,11 +5,16 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import {
+  ConcatResponseResponse,
+  ConcatResponseResponse$zodSchema,
+} from "../models/concatop.js";
 import {
   ConcatRequest,
   ConcatRequest$zodSchema,
@@ -42,7 +47,7 @@ export function uploadConcat(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    ConcatResponseResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -66,7 +71,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      ConcatResponseResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -150,9 +155,24 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    ConcatResponseResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, ConcatResponseResponse$zodSchema, { key: "concat_response" }),
+    M.json([400, 401], ConcatResponseResponse$zodSchema, { key: "api_error" }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

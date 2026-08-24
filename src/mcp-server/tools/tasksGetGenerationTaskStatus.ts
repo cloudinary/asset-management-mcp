@@ -26,7 +26,7 @@ Get the status of a generation task.`,
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await tasksGetGenerationTaskStatus(
+    const [result, apiCall] = await tasksGetGenerationTaskStatus(
       client,
       args.task_id,
       { fetchOptions: { signal: ctx.signal } },
@@ -39,6 +39,8 @@ Get the status of a generation task.`,
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

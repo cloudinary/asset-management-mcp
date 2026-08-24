@@ -5,6 +5,7 @@
 
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -13,6 +14,8 @@ import { pathToFunc } from "../lib/url.js";
 import {
   DeleteBackupVersionsRequestRequest,
   DeleteBackupVersionsRequestRequest$zodSchema,
+  DeleteBackupVersionsResponseResponse,
+  DeleteBackupVersionsResponseResponse$zodSchema,
 } from "../models/deletebackupversionsop.js";
 import { DeleteBackupVersionsRequest } from "../models/deletebackupversionsrequest.js";
 import { APIError } from "../models/errors/apierror.js";
@@ -41,7 +44,7 @@ export function assetsDeleteBackupVersions(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    Response,
+    DeleteBackupVersionsResponseResponse,
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -67,7 +70,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      Response,
+      DeleteBackupVersionsResponseResponse,
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -162,9 +165,31 @@ async function $do(
   if (!doResult.ok) {
     return [doResult, { status: "request-error", request: req$ }];
   }
-  return [doResult, {
-    status: "complete",
-    "request": req$,
-    response: doResult.value,
-  }];
+  const response = doResult.value;
+  const responseFields$ = {
+    HttpMeta: { Response: response, Request: req$ },
+  };
+
+  const [result$] = await M.match<
+    DeleteBackupVersionsResponseResponse,
+    | APIError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    M.json(200, DeleteBackupVersionsResponseResponse$zodSchema, {
+      key: "delete_backup_versions_response",
+    }),
+    M.json(207, DeleteBackupVersionsResponseResponse$zodSchema, {
+      key: "delete_backup_versions_partial_response",
+    }),
+    M.json([400, 401, 404], DeleteBackupVersionsResponseResponse$zodSchema, {
+      key: "api_error",
+    }),
+  )(response, req$, { extraFields: responseFields$ });
+
+  return [result$, { status: "complete", request: req$, response }];
 }

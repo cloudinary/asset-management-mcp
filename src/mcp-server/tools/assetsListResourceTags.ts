@@ -39,7 +39,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetsListResourceTags(
+    const [result, apiCall] = await assetsListResourceTags(
       client,
       args.resource_type,
       args.prefix,
@@ -55,6 +55,8 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };

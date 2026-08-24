@@ -40,7 +40,7 @@ as part of the update.
   },
   args,
   tool: async (client, args, ctx) => {
-    const [result] = await assetMetadataUpdateAssetsMetadata(
+    const [result, apiCall] = await assetMetadataUpdateAssetsMetadata(
       client,
       args.resource_type,
       args.metadata_update_request,
@@ -54,6 +54,8 @@ as part of the update.
       };
     }
 
-    return formatResult(result.value);
+    const value = result.value;
+
+    return formatResult(value, apiCall);
   },
 };
