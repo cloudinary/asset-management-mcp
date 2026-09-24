@@ -28,18 +28,11 @@ the optional \`model\` object, exactly like \`text_to_image\`, but IDs are
 restricted to edit models:
 1. If \`model.id\` is provided, use that exact edit model.
 2. Else if \`model.family\` (+ optional \`model.tier\`) is provided, resolve
-
-
-
-
-
-
-
-
-
    to that family's edit model (e.g. \`nano-banana\` / \`premium\` →
    \`nano-banana-2-edit\`).
-3. If \`model\` is omitted, use the default edit model (\`nano-banana-2-edit\`).
+3. Else if \`model.mode\` is \`auto\`, the service picks an edit model for
+   the request (optionally steered by \`model.preference\`).
+4. Otherwise, use the default edit model (\`nano-banana-2-edit\`).
 
 Each reference image is either a stored managed asset (by \`asset_id\`,
 read-permission checked) or an external HTTPS \`url\`.

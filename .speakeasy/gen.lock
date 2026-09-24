@@ -1,26 +1,26 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: b6305cd854e783549590a2f62f66bfa1
-  docVersion: 0.7.5
-  speakeasyVersion: 1.793.0
-  generationVersion: 2.928.0
-  releaseVersion: 0.11.0
-  configChecksum: 6633f813190d284222456a3dbeaf7a8d
+  docChecksum: 85b117cd58415dda6eb4f07f8012f8bf
+  docVersion: 0.7.6
+  speakeasyVersion: 1.798.0
+  generationVersion: 2.938.0
+  releaseVersion: 0.11.1
+  configChecksum: 27f938f8d4a3713ac0421acd26084044
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 251a7d32-4e27-4840-89ec-1f09411b3b40
-  pristine_commit_hash: b0257daaa87e8617a24887fe0ed4f805be2b7ec6
-  pristine_tree_hash: 1deaae1a55d5a756afd8655a19fb197c7247cda0
+  generation_id: 7591441b-a61c-4e2a-83c3-1b900926c8b5
+  pristine_commit_hash: d623ee948717343cba0186118dce587b607b4c8a
+  pristine_tree_hash: 7b87390c08f8c87db5c516810759b5c819d96406
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.2
-    core: 1.3.7
+    core: 1.3.11
     customSecuritySchemes: 0.1.1
     deepObjectParams: 0.1.0
     defaultEnabledRetries: 0.1.0
@@ -35,9 +35,9 @@ features:
     ignores: 0.1.0
     nullables: 0.1.0
     responseFormat: 0.1.1
-    retries: 0.1.1
+    retries: 0.1.2
     sdkHooks: 0.3.0
-    unions: 0.2.0
+    unions: 0.2.1
 trackedFiles:
   .dxtignore:
     id: 0ee1c4f92736
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:8d2d93ed984777e0d7fb5746aa62804a9cec6441
-    pristine_git_object: 0dd805ae8947468ace9188abb9c52af834c7bba2
+    last_write_checksum: sha1:19735bf147c45ef920a4a0729520adf539b21092
+    pristine_git_object: 789d7c0fda831c9e6112fab4461cc5d589587c24
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:8dfce423169ca11401e21fa955664107bc8e21c2
-    pristine_git_object: 5d7fbba9f2296c56058ddce56ad76bdd08c50491
+    last_write_checksum: sha1:d760b6376f3e233b9d60187f711ef75dda74e5ed
+    pristine_git_object: 2fbcf42a45976f6a5355b6df10399f91f744e120
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -99,6 +99,10 @@ trackedFiles:
     id: a3f2ea8a14e8
     last_write_checksum: sha1:fe88085be8ecb56d717a12f68df97f581d0a9778
     pristine_git_object: 798b2a194726d28c8c82239c3d3404d96936a3ba
+  src/funcs/assetsDeleteResourcesByPublicId.ts:
+    id: 3377464f9d8c
+    last_write_checksum: sha1:cb240df7befdf691c23ba81693ebae3f4e971d73
+    pristine_git_object: 2a3b5a3d47c823164b7f8bc23ad551bab5a68ee8
   src/funcs/assetsDerivedDestroy.ts:
     id: 2cc0252024b0
     last_write_checksum: sha1:bf70dc88a9796c1b1049578dfb9a203398012226
@@ -135,6 +139,10 @@ trackedFiles:
     id: 548a221e796c
     last_write_checksum: sha1:ba1fb117f5a8e167b242bc84712ce7a60154998a
     pristine_git_object: e687e7f31ac0c8829348c21f65c8e614a3b6f034
+  src/funcs/assetsGetResourceByPublicId.ts:
+    id: 6636ca49aa1a
+    last_write_checksum: sha1:950dc6c265c404692396dbf52cbedb7fd1bab2a0
+    pristine_git_object: b854a46f307db2fadc3890f272ec522bc6b4e64d
   src/funcs/assetsInvalidateDerivedByUrls.ts:
     id: 149a9d8469b2
     last_write_checksum: sha1:7c0a05377fa3066c583fbb7ff71e77693a4be2ce
@@ -195,6 +203,10 @@ trackedFiles:
     id: 53e52e168fe2
     last_write_checksum: sha1:e3519bc69fd889e22caabc31e677087378ca0cd0
     pristine_git_object: 5b131386f6a6058b989cf3d0106ca3867575b168
+  src/funcs/assetsUpdateResourceByPublicId.ts:
+    id: 6ccc5265964f
+    last_write_checksum: sha1:ab2ff28ec23f6c1b30acd7536eba27594e985565
+    pristine_git_object: 5b57397f4768d920a89dca066567fc02fbb685da
   src/funcs/backupsDeleteBackupVersions.ts:
     id: f734afd6b5df
     last_write_checksum: sha1:b792f7b88fada90b93adcd46e414064d9e8ddf0e
@@ -257,12 +269,12 @@ trackedFiles:
     pristine_git_object: 8d21d28eee633c3ac2e83d02447b7c950f7ee389
   src/funcs/generationGenerateImage.ts:
     id: cc8760c8f69b
-    last_write_checksum: sha1:f060ba3938f2507ab58072228c05e706f4f85457
-    pristine_git_object: 32e0aa7537d401987fad674f05143fadfad32ea6
+    last_write_checksum: sha1:a576706355ed1a9ffc041a16d0e82838972f0ec8
+    pristine_git_object: 707b1901f26ebd89070e72b4f33b892279f40224
   src/funcs/generationGenerateImageFromImages.ts:
     id: 0453acfec59b
-    last_write_checksum: sha1:df779f099976652a3b9080a478f8f175dc27964a
-    pristine_git_object: 3fdc2aa733ec09cb10d6fb50a4f9376ef152e51c
+    last_write_checksum: sha1:1616d5f60f433e85bdcff3ea70a5a88b22a86689
+    pristine_git_object: 308c765d1af521abc88148ef68394d820e5543ca
   src/funcs/initialBackupCreateInitialBackup.ts:
     id: a6f3615da147
     last_write_checksum: sha1:8c21e854400334f6fc6e246f9943d862a80e1617
@@ -361,16 +373,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:75176ca959de6200d70b613dc9bf59fbf8a7450f
-    pristine_git_object: c2c3dbef02db3d5262fb0fae180e83059490e5e8
+    last_write_checksum: sha1:0b1e73a94f4e71965c7264c4f45f0d64c5609535
+    pristine_git_object: a849704533e7f184a5dcf4bb2aa434ae43caae98
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:6a021608334d3743867b9fa40a351aa4d1138900
-    pristine_git_object: d8d5d48290353c5dda5649c2df4782aa9304239b
+    last_write_checksum: sha1:edb367f924fc4003e95cfca5a40825c589fd719f
+    pristine_git_object: 9721ba5fc4fb118577c28e0684dac18c0b4a68e6
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -457,8 +469,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:106169ce0a8c570d6ca9fe21824256bf718c822b
-    pristine_git_object: 4c457b6461f036c42e43e3a7a1c206ad9e100534
+    last_write_checksum: sha1:4154cf254014703b517491d9af8ca718fdc45834
+    pristine_git_object: e5794ccfae5ccc9a40939cb37309ebb1e3422d51
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:5e888d32602a4a666f97cd2c126ad9a6286d8578
@@ -473,8 +485,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:5382ea04641d6229b0238651b579f4c33d93a4cb
-    pristine_git_object: 5c4a42595b496029544b004a33bb92291539a752
+    last_write_checksum: sha1:713d6aa8d1eb6afcd9603241960c8eb007b5f9cf
+    pristine_git_object: 86aa7528aecc0eec033f74502763e27c9fcf6e24
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:89d816c34ea71049cbf484f9704239e5372858f1
@@ -565,12 +577,12 @@ trackedFiles:
     pristine_git_object: 519d1384aa839c30f812ad09bfd4db1949473c17
   src/mcp-server/tools/generationGenerateImage.ts:
     id: 358095938b5f
-    last_write_checksum: sha1:cf65a8daf5a78d05efcb1c8f5066661d0afcf531
-    pristine_git_object: e16e09bc47ed24024811b107bc04d56b93ed12ac
+    last_write_checksum: sha1:7e4e4ec20237ba05cb96d0ca4a585c80d0ad1023
+    pristine_git_object: db7473f5673ac5d6a5bc3982c9fe16a19c59f20d
   src/mcp-server/tools/generationGenerateImageFromImages.ts:
     id: 326fa47baec5
-    last_write_checksum: sha1:34e737e5fc1190b886474ed3ba6145dc54dff8dd
-    pristine_git_object: f42029bc671396d0c49e5c99bdd64b0f07d5a858
+    last_write_checksum: sha1:c5e287e5ebcae3dfd76b3e75285f50a49a138915
+    pristine_git_object: 4b7ffea93b042e6a555974674872d1c0f42a21f7
   src/mcp-server/tools/searchSearchAssets.ts:
     id: af8d0e1dda1d
     last_write_checksum: sha1:658a135a1582b39464777bf1001edc7c54129eb2
@@ -719,14 +731,22 @@ trackedFiles:
     id: 8304965989f5
     last_write_checksum: sha1:f567d5d754d01f308db37680b11a1befe933a12f
     pristine_git_object: 4573ce515e0c01f76943a54ab3c92facb05236bd
+  src/models/deleteresourcebypublicidsrequestunion.ts:
+    id: f609f3bcbc44
+    last_write_checksum: sha1:a4b0348761839a605fba3fe43fb75cd3f4b9ca47
+    pristine_git_object: dded119743ccf19cf09b842c574ce1148e56bada
+  src/models/deleteresourcesbypublicidop.ts:
+    id: cf9aed5b5a91
+    last_write_checksum: sha1:eb64533ef2be14580e1d0d361a9fc1b6145c3c0a
+    pristine_git_object: ac3a701e54b928599c5ecdc873b7a786049254c9
   src/models/deliverytype.ts:
     id: 4de15895a3be
     last_write_checksum: sha1:1026c78f889ff52e37ef729b0949d406eb143843
     pristine_git_object: d39bc6c754799784da07210690f3dcb384f80f6a
   src/models/deliverytypeall.ts:
     id: 50dd1bb1cbdc
-    last_write_checksum: sha1:cf36158a05df15cca5e42b39b91f70fa548d3bdc
-    pristine_git_object: ad997359d39c3692b1912e515f1bfe2fd5776744
+    last_write_checksum: sha1:efcca9329349e5030d7af4e32d0f5ce9cebb8991
+    pristine_git_object: a77798971a7602b7917a6512909c00121771799a
   src/models/deriveddestroyop.ts:
     id: 9422a54462b5
     last_write_checksum: sha1:d345d12569fcecc4725c630b772ce3301b1472a7
@@ -909,8 +929,8 @@ trackedFiles:
     pristine_git_object: a71ebb29021d5a0de559790cfdfc7e16c005ef37
   src/models/generatearchiveop.ts:
     id: 0c28b0f5b136
-    last_write_checksum: sha1:02039905db5e3144c7b142bfade36096022ca72e
-    pristine_git_object: 2630cb228b23f79b3c72cf68860d30eb3b4aaada
+    last_write_checksum: sha1:d60424dd514fd21709ccfbd0f7f8caa46af0ef6c
+    pristine_git_object: c2936161c568fdf57341c53e69c89716b6483c84
   src/models/generatearchiveresponse.ts:
     id: 2a645ece8733
     last_write_checksum: sha1:5e55af67f31e737b52fa3fb1b686e2d18838b2d2
@@ -937,8 +957,8 @@ trackedFiles:
     pristine_git_object: ca39c00a131b9e244ac9e82e46df5743a72cd129
   src/models/generateimagerequest.ts:
     id: 958825c984f2
-    last_write_checksum: sha1:3058878e79d4a58aaf2096d96ca8bfd7b43ffc64
-    pristine_git_object: 6b2c7ddcb6465afc56b0f58633ec7bb0473ce3ad
+    last_write_checksum: sha1:c9ec5e1125bda9b020ee4bddae68658f1eba82f0
+    pristine_git_object: 08c704ed82d4c1de4cfa049ac428a5dd897b1888
   src/models/generateimageresult.ts:
     id: de0aa67fae25
     last_write_checksum: sha1:510b41da1232a8a6320558220e67b900970d28e2
@@ -997,8 +1017,8 @@ trackedFiles:
     pristine_git_object: 4032d51daf13c3db32aa3ebadf66df6e1482e9c8
   src/models/imagetoimagerequest.ts:
     id: 42757ef53307
-    last_write_checksum: sha1:72307beffe1539902a0ccbe61ea5ec045d6cf633
-    pristine_git_object: 67e48d7c709203f8330486b621f27a696b368f7e
+    last_write_checksum: sha1:3f0471f6bc65b2e434e793400920a7ebd86a97a0
+    pristine_git_object: 7faaad7592f318f7820291d5f68084b276576475
   src/models/info.ts:
     id: 70f4d95abf4e
     last_write_checksum: sha1:6f5d0583a948634a3e51f184e9e3be16b466fd26
@@ -1125,20 +1145,24 @@ trackedFiles:
     pristine_git_object: 1c197d58ebc1f9d0db5b7422667936a353b2246f
   src/models/model.ts:
     id: b99d4c14e794
-    last_write_checksum: sha1:1130d23f72c94a3d11c7cd5a8b0c4b21f2110cf4
-    pristine_git_object: d69b81661f5308afbba57351acd11069ba742aa0
+    last_write_checksum: sha1:3ef4828bfda0dc2c8d2d6572d5e20574d1ded343
+    pristine_git_object: 009a3d156e710a6f8594e838da0d5db2ac575541
+  src/models/modelauto.ts:
+    id: 9b549af31aae
+    last_write_checksum: sha1:4d9d08922b19f46fb7815141e9f897c51bd2fbeb
+    pristine_git_object: fe8c1acd26c9e1366ae3befa9121309f66689d91
   src/models/modelbyfamily.ts:
     id: 6af9ea6fe52b
     last_write_checksum: sha1:24f1164f4eda389b87a1ebc70ee5156084c2c2da
     pristine_git_object: cc019d2cf6a0221384bf6c94a6fbb829fe2d4421
   src/models/modelbyid.ts:
     id: 55f0cd308347
-    last_write_checksum: sha1:caa3f112c6041f70f01d4af842ce2d690053adb1
-    pristine_git_object: 11025aa3eedd474a007236fe703b239137806fd7
+    last_write_checksum: sha1:99483bc558b630344b051a1f5e1ba4e2f63156c7
+    pristine_git_object: 98a04070ff512646149749f5a3f14d66321779b5
   src/models/modelselection.ts:
     id: dc910f56e90b
-    last_write_checksum: sha1:c693d28cb205b521054a50691287577b6e14417d
-    pristine_git_object: 106970b651548aa6b4a9999c646a7da1466c8aa2
+    last_write_checksum: sha1:267228dc22edfb6a35b8b32b0a1d45d8b39acf59
+    pristine_git_object: f8e4b6f1190c5fa634fcfc446f3600f2530d061d
   src/models/moderationkind.ts:
     id: dd69aeb34a50
     last_write_checksum: sha1:c3b727cebfa121d88c14d33e011f231e38a293a0
@@ -1477,8 +1501,8 @@ trackedFiles:
     pristine_git_object: 95c223c617dd027381bae34c6fa52b984461bf7a
   src/tool-names.ts:
     id: a9977280f9eb
-    last_write_checksum: sha1:c8cbba528ac26fc62ee520f32b8e86028cfbb26f
-    pristine_git_object: 18b51c593957a4d0fb2e1954e8f73ced2fdb0160
+    last_write_checksum: sha1:f763ea4f8b31079d03c876127556a12038e254fd
+    pristine_git_object: a290c1590adb7c105cea519f584e5167075098c6
   src/types/async.ts:
     id: fac8da972f86
     last_write_checksum: sha1:042571ad6be7fd5ce5a93b292b9c1aefc21ebff7
@@ -1915,6 +1939,19 @@ examples:
       responses:
         "200":
           application/json: {}
+    speakeasy-default-delete-resources-by-public-id:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          resource_type: "raw"
+          type: "asset"
+      requestBody:
+        application/json: {"all": false, "resource_type": "image", "keep_original": false, "invalidate": false}
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   getResourceByPublicId:
     getResourceResponseExample:
       parameters:
@@ -1936,7 +1973,30 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac"}
+          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac", "last_updated": {"access_control_updated_at": "2022-10-13T03:49:21Z", "context_updated_at": "2022-11-10T06:05:21Z", "metadata_updated_at": "2022-10-14T06:40:13Z", "public_id_updated_at": "2022-12-11T05:41:21Z", "tags_updated_at": "2022-12-14T06:09:21Z", "updated_at": "2022-12-14T06:09:21Z"}, "next_cursor": "041a39fc10971b9eabd4993470f6bfaf", "derived": [{"transformation": "c_fill,w_100,h_100", "format": "jpg", "bytes": 7112, "id": "8267a869b62a93a59248f35d7f124c1f", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg"}, {"transformation": "w_230,h_168,c_fit", "format": "jpg", "bytes": 19173, "id": "383e22a57167445552a3cdc16f0a0c85", "url": "http://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg"}], "faces": [[98, 74, 61, 83], [140, 130, 52, 71]], "illustration_score": 0, "semi_transparent": false, "grayscale": false, "colors": [["#162E02", 6.7], ["#385B0C", 6.3], ["#F3285C", 5], ["#B3CB6E", 5], ["#688F1C", 4.4], ["#324D07", 4.4], ["#8EAA34", 4.3], ["#4F6D0D", 4.2], ["#789446", 4.1], ["#DF1327", 3.9], ["#A10B12", 3.7], ["#273804", 3.4], ["#0D1802", 3.4], ["#D5E191", 3.2], ["#646E20", 3.1], ["#94AF4D", 2.9], ["#FB54A9", 2.8], ["#48570B", 2.7], ["#ACC655", 2.7], ["#FCA2D9", 2.7], ["#63110A", 2.6], ["#E9B327", 2.2], ["#6D644D", 2.1], ["#6D8D12", 2], ["#8F9F27", 1.9], ["#C3573E", 1.8], ["#CFD76E", 1.6], ["#A0B058", 1.6], ["#FCD0E9", 1.6], ["#728F2D", 1.4], ["#F958A1", 1.4], ["#D1B694", 1]], "predominant": {"google": [["yellow", 52.9], ["pink", 13.5], ["red", 12], ["black", 10.1], ["green", 6.3]]}, "versions": [{"version_id": "d214063097a43d1d1293db61a397f60f", "version": "1312461204", "format": "jpg", "size": 109669, "time": "2021-08-04T12:33:24+00:00", "restorable": false}]}
+    speakeasy-default-get-resource-by-public-id:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          resource_type: "raw"
+          type: "media_optimization"
+          public_id: "sample"
+        query:
+          colors: false
+          media_metadata: false
+          faces: false
+          quality_analysis: false
+          accessibility_analysis: false
+          pages: false
+          phash: false
+          coordinates: false
+          versions: false
+          max_results: 10
+      responses:
+        "200":
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   updateResourceByPublicId:
     updateResourceResponseExample:
       parameters:
@@ -1946,10 +2006,24 @@ examples:
           type: "dailymotion"
           public_id: "<id>"
       requestBody:
-        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "product,summer,sale", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
           application/json: {"asset_id": "bc71d3cedb739ed931be3706e94c413a", "public_id": "qdi8r768kj5tticu8keh", "asset_folder": "", "display_name": "qdi8r768kj5tticu8keh", "format": "jpg", "version": 1747134921, "resource_type": "image", "type": "upload", "created_at": "2025-05-13T11:15:21Z", "bytes": 206960, "width": 400, "height": 300, "moderation_kind": "manual", "moderation_status": "approved", "moderation": [{"kind": "manual", "status": "approved", "updated_at": "2025-05-13T11:15:22Z"}], "url": "http://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg", "secure_url": "https://res.cloudinary.com/cloud-name/image/upload/v1747134921/qdi8r768kj5tticu8keh.jpg"}
+    speakeasy-default-update-resource-by-public-id:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          resource_type: "image"
+          type: "media_optimization"
+          public_id: "sample"
+      requestBody:
+        application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
+      responses:
+        "200":
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+        "400":
+          application/json: {"error": {"message": "<value>"}}
   getResourceByAssetId:
     speakeasy-default-get-resource-by-asset-id:
       parameters:
@@ -2569,7 +2643,7 @@ examples:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "A photorealistic sunset over a mountain lake, 8K detail", "model": {"family": "flux", "tier": "premium"}, "image_size": {"aspect_ratio": "16:9", "resolution": "2K"}, "target": {"target_type": "managed_asset", "public_id": "my-public-id", "upload_preset": "some-preset"}, "seed": 42, "async": false}
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "model": {"family": "flux", "tier": "premium"}, "image_size": {"aspect_ratio": "16:9", "resolution": "2K"}, "target": {"target_type": "managed_asset", "public_id": "my-public-id", "upload_preset": "some-preset"}, "seed": 42, "async": false}
       responses:
         "200":
           application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
@@ -2586,7 +2660,7 @@ examples:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "A photorealistic sunset over a mountain lake, 8K detail", "model": {"id": "flux-2-pro"}, "image_size": {"width": 1280, "height": 720}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "model": {"id": "flux-2-pro"}, "image_size": {"width": 1280, "height": 720}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
       responses:
         "200":
           application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
@@ -2659,6 +2733,23 @@ examples:
       responses:
         "429":
           application/json: {"error": {"category": "rate_limit_error", "code": "MG_00429", "message": "Daily generation limit exceeded. Limit resets at 2026-04-22T00:00:00Z"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 0, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    AutoModelExample:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "model": {"mode": "auto", "preference": "quality"}, "image_size": {"aspect_ratio": "16:9", "resolution": "2K"}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
+      responses:
+        "200":
+          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "429":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
   generate_image_from_images:
     speakeasy-default-generate-image-from-images:
       parameters:
@@ -2668,7 +2759,7 @@ examples:
         application/json: {"prompt": "Place the product from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "managed_asset", "asset_id": "0d6f8e1c2b3a4d5e6f7a8b9c0d1e2f3a"}], "model": {"id": "flux-2-pro"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
@@ -2686,6 +2777,74 @@ examples:
       responses:
         "429":
           application/json: {"error": {"category": "rate_limit_error", "code": "MG_00429", "message": "Daily generation limit exceeded. Limit resets at 2026-04-22T00:00:00Z"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 0, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    BasicExample:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Place the product from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://example.com/product.png"}], "async": false}
+      responses:
+        "200":
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "429":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    FamilyModelExample:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Restyle [1] as a watercolor painting, keep the composition", "reference_images": [{"source_type": "managed_asset", "asset_id": "0d6f8e1c2b3a4d5e6f7a8b9c0d1e2f3a"}], "model": {"family": "nano-banana", "tier": "premium"}, "image_size": {"aspect_ratio": "4:3", "resolution": "1K"}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
+      responses:
+        "200":
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "429":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    ExplicitModelExample:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Replace the background of [1] with a bright studio backdrop", "reference_images": [{"source_type": "url", "url": "https://example.com/product.png"}], "model": {"id": "flux-2-pro-edit"}, "image_size": {"width": 1280, "height": 720}, "target": {"target_type": "managed_asset", "public_id": "my-public-id", "upload_preset": "some-preset"}, "seed": 42, "async": false}
+      responses:
+        "200":
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "429":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    AutoModelExample:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Make it look like a watercolor painting, keep the composition", "reference_images": [{"source_type": "url", "url": "https://example.com/photo.jpg"}], "model": {"mode": "auto", "preference": "quality"}, "image_size": {"aspect_ratio": "4:3", "resolution": "1K"}, "async": false}
+      responses:
+        "200":
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "429":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
   get_generation_task_status:
     default:
       parameters:
@@ -2771,11 +2930,7 @@ examples:
         "400":
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Mcp-typescript SDK Changes:
-  * `CloudinaryAssetMgmt.asset_metadata.updateAssetsTags()`: **Added**
-  * `CloudinaryAssetMgmt.asset_metadata.updateAssetsContext()`: **Added**
-  * `CloudinaryAssetMgmt.asset_metadata.updateAssetsMetadata()`: **Added**
+releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.Generation.generate_image()`: \n  *  `request.model` **Changed**\n* `CloudinaryAssetMgmt.Generation.generate_image_from_images()`: \n  *  `request.model` **Changed**\n"
 generatedFiles:
   - .dxtignore
   - .gitattributes
