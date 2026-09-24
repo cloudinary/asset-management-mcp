@@ -4,23 +4,27 @@
  */
 
 import * as z from "zod";
+import { ModelAuto, ModelAuto$zodSchema } from "./modelauto.js";
 import { ModelByFamily, ModelByFamily$zodSchema } from "./modelbyfamily.js";
 import { ModelById, ModelById$zodSchema } from "./modelbyid.js";
 
 /**
- * Selects the model, in one of two mutually exclusive forms (omit to use
+ * Selects the model, in one of three mutually exclusive forms (omit to use
  *
  * @remarks
  * the global default):
  *   * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time
  *     selector.
  *   * `ModelById`: an explicit `id`, pinning one exact model.
+ *   * `ModelAuto`: `mode: auto`, letting the service choose the model for
+ *     the request (+ optional `preference`).
  */
-export type ModelSelection = ModelByFamily | ModelById;
+export type ModelSelection = ModelByFamily | ModelById | ModelAuto;
 
 export const ModelSelection$zodSchema: z.ZodType<ModelSelection> = z.union([
   ModelByFamily$zodSchema,
   ModelById$zodSchema,
+  ModelAuto$zodSchema,
 ]).describe(
-  "Selects the model, in one of two mutually exclusive forms (omit to use\nthe global default):\n  * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time\n    selector.\n  * `ModelById`: an explicit `id`, pinning one exact model.\n",
+  "Selects the model, in one of three mutually exclusive forms (omit to use\nthe global default):\n  * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time\n    selector.\n  * `ModelById`: an explicit `id`, pinning one exact model.\n  * `ModelAuto`: `mode: auto`, letting the service choose the model for\n    the request (+ optional `preference`).\n",
 );

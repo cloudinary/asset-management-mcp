@@ -11,7 +11,13 @@ import * as z from "zod";
 export type Model = { family: string; tier: string; id: string };
 
 export const Model$zodSchema: z.ZodType<Model> = z.object({
-  family: z.string().describe("The model family used."),
-  id: z.string().describe("The exact model identifier used for generation."),
-  tier: z.string().describe("The quality tier used."),
+  family: z.string().describe(
+    "The family this model belongs to, or `unmapped` when it belongs to\nnone.\n\nA family holds exactly two tiers, so the family/tier taxonomy can\nname only part of the roster. Models outside it are offered by `id`\nonly and genuinely have no family — `unmapped` says so, rather than\nattributing a grouping the model is not part of. This describes the\nmodel, not how the request selected it: a model that does belong to\na family reports it whether it was chosen by `family`/`tier` or\npinned by `id`.\n\nNot an enum: new families are added over time, so treat any value\nas possible.\n",
+  ),
+  id: z.string().describe(
+    "The exact model identifier used for generation. Always a concrete\nmodel, and always the reliable field to key on — unlike `family`\nand `tier`, which can be `unmapped`.\n",
+  ),
+  tier: z.string().describe(
+    "The quality tier this model holds within its family, or `unmapped`\nwhen it holds none — see `family`.\n",
+  ),
 }).describe("Identifies the model that produced a generation result.");

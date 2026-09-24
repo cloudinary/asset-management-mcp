@@ -28,7 +28,7 @@ import {
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
  * create_and_download - Creates, stores, and delivers the archive file
  */
-export const Mode = {
+export const GenerateArchiveMode = {
   Download: "download",
   Create: "create",
   CreateAndDownload: "create_and_download",
@@ -41,9 +41,9 @@ export const Mode = {
  * create - Creates and stores the archive as a raw asset, returning URLs in the response
  * create_and_download - Creates, stores, and delivers the archive file
  */
-export type Mode = ClosedEnum<typeof Mode>;
+export type GenerateArchiveMode = ClosedEnum<typeof GenerateArchiveMode>;
 
-export const Mode$zodSchema = z.enum([
+export const GenerateArchiveMode$zodSchema = z.enum([
   "download",
   "create",
   "create_and_download",
@@ -98,7 +98,7 @@ export type GenerateArchiveRequestBody = {
   prefixes?: Array<string> | undefined;
   type?: DeliveryTypeAll | undefined;
   transformations?: string | undefined;
-  mode?: Mode | undefined;
+  mode?: GenerateArchiveMode | undefined;
   target_format?: TargetFormat | undefined;
   target_public_id?: string | undefined;
   target_asset_folder?: string | undefined;
@@ -148,7 +148,7 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
   keep_derived: z.boolean().default(false).describe(
     "Whether to keep the derived assets used for generating the archive.",
   ),
-  mode: Mode$zodSchema.default("create").describe(
+  mode: GenerateArchiveMode$zodSchema.default("create").describe(
     "The method for generating and delivering the archive. Options:\ndownload - Generates and delivers the archive file without storing it\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\ncreate_and_download - Creates, stores, and delivers the archive file\n",
   ),
   notification_url: z.string().optional().describe(
