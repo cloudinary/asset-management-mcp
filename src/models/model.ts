@@ -12,12 +12,12 @@ export type Model = { family: string; tier: string; id: string };
 
 export const Model$zodSchema: z.ZodType<Model> = z.object({
   family: z.string().describe(
-    "The family this model belongs to, or `unmapped` when it belongs to\nnone.\n\nA family holds exactly two tiers, so the family/tier taxonomy can\nname only part of the roster. Models outside it are offered by `id`\nonly and genuinely have no family — `unmapped` says so, rather than\nattributing a grouping the model is not part of. This describes the\nmodel, not how the request selected it: a model that does belong to\na family reports it whether it was chosen by `family`/`tier` or\npinned by `id`.\n\nNot an enum: new families are added over time, so treat any value\nas possible.\n",
+    "The family this model belongs to. `none` when the model is not part\nof any family.\n\nA family holds exactly two tiers (`standard` and `premium`), so the\nfamily/tier taxonomy names only part of the roster. The remaining\nmodels are selected by `id` alone and are not part of any family,\nwhich is reported as `none` rather than as a family the model does\nnot belong to. This describes the model, not how it was selected: a\nmodel that belongs to a family reports it whether it was chosen by\n`family` and `tier` or pinned by `id`.\n\nNot an enum: new families are added over time, so treat any value\nas possible.\n",
   ),
   id: z.string().describe(
-    "The exact model identifier used for generation. Always a concrete\nmodel, and always the reliable field to key on — unlike `family`\nand `tier`, which can be `unmapped`.\n",
+    "The exact model identifier used for generation. Always a concrete\nmodel, and the reliable field to key on: unlike `family` and\n`tier`, it is never `none`.\n",
   ),
   tier: z.string().describe(
-    "The quality tier this model holds within its family, or `unmapped`\nwhen it holds none — see `family`.\n",
+    "The quality tier this model holds within its family. `none` when\nthe model is not part of any family. See `family`.\n",
   ),
 }).describe("Identifies the model that produced a generation result.");

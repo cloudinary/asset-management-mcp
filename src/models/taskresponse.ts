@@ -4,6 +4,7 @@
  */
 
 import * as z from "zod";
+import { Notice, Notice$zodSchema } from "./notice.js";
 import { Task, Task$zodSchema } from "./task.js";
 
 /**
@@ -12,11 +13,18 @@ import { Task, Task$zodSchema } from "./task.js";
  * @remarks
  * response and by GET /tasks/{task_id}.
  */
-export type TaskResponse = { data?: Task | undefined; request_id: string };
+export type TaskResponse = {
+  data?: Task | undefined;
+  notices?: Array<Notice> | undefined;
+  request_id: string;
+};
 
 export const TaskResponse$zodSchema: z.ZodType<TaskResponse> = z.object({
   data: Task$zodSchema.optional().describe(
     "An async generation task. Returned when a generation is accepted (202)\nand from GET /tasks/{task_id} as it progresses. The `result` is filled\nin once `status` is `completed`.\n",
+  ),
+  notices: z.array(Notice$zodSchema).optional().describe(
+    "Tips and guidance attached to the response to help you get the most\nout of the generation. Each entry is plain text you can show to a\nuser or act on as-is. Omitted when there is nothing to add.\n",
   ),
   request_id: z.string().describe(
     "Unique identifier for this request, for correlation and support.",

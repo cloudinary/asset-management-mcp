@@ -9,6 +9,7 @@ import {
   GeneratedAssets$zodSchema,
 } from "./generatedassets.js";
 import { Limits, Limits$zodSchema } from "./limits.js";
+import { Notice, Notice$zodSchema } from "./notice.js";
 
 /**
  * Successful synchronous image-generation response.
@@ -16,6 +17,7 @@ import { Limits, Limits$zodSchema } from "./limits.js";
 export type GenerateImageResult = {
   data?: GeneratedAssets | undefined;
   limits?: Limits | undefined;
+  notices?: Array<Notice> | undefined;
   request_id: string;
 };
 
@@ -26,6 +28,9 @@ export const GenerateImageResult$zodSchema: z.ZodType<GenerateImageResult> = z
     ),
     limits: Limits$zodSchema.optional().describe(
       "Rate limit information for the account's add-on quotas.",
+    ),
+    notices: z.array(Notice$zodSchema).optional().describe(
+      "Tips and guidance attached to the response to help you get the most\nout of the generation. Each entry is plain text you can show to a\nuser or act on as-is. Omitted when there is nothing to add.\n",
     ),
     request_id: z.string().describe(
       "Unique identifier for this request, for correlation and support.",
