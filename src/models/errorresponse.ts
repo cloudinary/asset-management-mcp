@@ -5,15 +5,23 @@
 
 import * as z from "zod";
 import { ErrorT, ErrorT$zodSchema } from "./error.js";
+import { Notice, Notice$zodSchema } from "./notice.js";
 
 /**
  * Wrapper for error responses; includes the error object and a request_id for correlation.
  */
-export type ErrorResponse = { error: ErrorT; request_id: string };
+export type ErrorResponse = {
+  error: ErrorT;
+  notices?: Array<Notice> | undefined;
+  request_id: string;
+};
 
 export const ErrorResponse$zodSchema: z.ZodType<ErrorResponse> = z.object({
   error: ErrorT$zodSchema.describe(
     "Details of an error, including a coarse category for retry logic, a stable error code, and a human-readable message.",
+  ),
+  notices: z.array(Notice$zodSchema).optional().describe(
+    "Tips and guidance attached to the response to help you get the most\nout of the generation. Each entry is plain text you can show to a\nuser or act on as-is. Omitted when there is nothing to add.\n",
   ),
   request_id: z.string().describe(
     "Unique identifier for this request, for correlation and support.",
