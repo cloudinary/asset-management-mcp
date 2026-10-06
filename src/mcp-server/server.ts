@@ -15,6 +15,7 @@ import {
   createRegisterResourceTemplate,
 } from "./resources.js";
 import { MCPScope } from "./scopes.js";
+import { instructions, serverInfo } from "./server-info.js";
 import { registerMCPExtensions } from "./server.extensions.js";
 import {
   createRegisterTool,
@@ -67,7 +68,8 @@ export function createMCPServer(deps: {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
     version: "0.11.2",
-  });
+    ...serverInfo,
+  }, { instructions });
 
   const getClient = deps.getSDK || (() =>
     new CloudinaryAssetMgmtCore({

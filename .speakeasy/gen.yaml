@@ -93,7 +93,7 @@ mcp-typescript:
       - cdn
       - transformation
     license: MIT
-    long_description: A comprehensive MCP server for managing your Cloudinary assets. Upload, organize, search, and transform images, videos, and files with AI-powered tools.
+    long_description: A comprehensive MCP server for managing your Cloudinary assets. Upload, generate, organize, search, and transform images, videos, and files with AI-powered tools.
     privacy_policies:
       - https://cloudinary.com/privacy
     repository:
