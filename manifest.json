@@ -18,7 +18,7 @@
     "transformation"
   ],
   "license": "MIT",
-  "long_description": "A comprehensive MCP server for managing your Cloudinary assets. Upload, organize, search, and transform images, videos, and files with AI-powered tools.",
+  "long_description": "A comprehensive MCP server for managing your Cloudinary assets. Upload, generate, organize, search, and transform images, videos, and files with AI-powered tools.",
   "manifest_version": "0.3",
   "name": "@cloudinary/asset-management-mcp",
   "privacy_policies": [
@@ -71,7 +71,7 @@
       "type": "string"
     }
   },
-  "version": "0.11.2",
+  "version": "0.11.3",
   "tools": [
     {
       "name": "upload-asset",
