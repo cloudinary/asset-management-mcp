@@ -3,17 +3,17 @@ id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
   docChecksum: 9de6c9dc45c08b31e1a1074bb6b7921f
   docVersion: 0.7.7
-  speakeasyVersion: 1.799.0
-  generationVersion: 2.941.0
-  releaseVersion: 0.11.2
-  configChecksum: 4ff25aca7e96ac4c2cac383977ea9c7f
+  speakeasyVersion: 1.800.1
+  generationVersion: 2.943.0
+  releaseVersion: 0.11.3
+  configChecksum: bc3d505e63cd9787e41dc9fa2efa30e0
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 90bd63b9-fbae-402f-b595-5b08422e1522
-  pristine_commit_hash: a21a95cfb32aacd22c45c9fcbc7efa4bcf95e831
-  pristine_tree_hash: 94921ae732cf4104f09e0d9e84e1546e9c8e4b6c
+  generation_id: 62431f9d-09c2-4c3c-83f5-d8b1c086049a
+  pristine_commit_hash: 8604c6f95f5eb33ef21b7c5eb2eb6c2da4d783c4
+  pristine_tree_hash: e896af7ddd53efbab592994ea1a49b964095f5b7
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
@@ -37,7 +37,7 @@ features:
     responseFormat: 0.1.1
     retries: 0.1.2
     sdkHooks: 0.3.0
-    unions: 0.2.1
+    unions: 0.2.3
 trackedFiles:
   .dxtignore:
     id: 0ee1c4f92736
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:b8957dbeed32b5d67731d0badb1abf663a2cb457
-    pristine_git_object: 15ec0c528bab40148fec210b4547a2bf8e5c886a
+    last_write_checksum: sha1:1d0e04a05f21d97030ebae85e5bd87fa6655b1a3
+    pristine_git_object: f7c0e948f8f596f06a551e7c9ee7e3bb3ebf8589
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:e6e92e0b8da55ecb0a9b9cc17d8f8a309d835ec1
-    pristine_git_object: 26019758d55c84bd4d9c97120bf87cb481a3f5a2
+    last_write_checksum: sha1:8d86a96a551d7f91a8bc131a547ff9bef01e97be
+    pristine_git_object: acbb9927310bcd6ce26e1a3c7ae7f0dff25ef28c
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -373,16 +373,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:6c9061060d355ba19585db798f7049a70283ac4e
-    pristine_git_object: 0db30096a63f1c88f3f7a19fac89afa90dfbbc7a
+    last_write_checksum: sha1:9230473af03a45f59bd40795a5203126202fd7dc
+    pristine_git_object: 0313c1a8f830a44b7554047fbddf98426b2b2ee1
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:6262de4387707b202a609fc62a93fc61203c6ac7
-    pristine_git_object: cd28b7f8851caad03d5cfa6c2d55c174df46b319
+    last_write_checksum: sha1:5ba976e2c2386057b4d6be1b2f1bcecfd0d09832
+    pristine_git_object: dbe2f3697c0896559ac21a83362016ffca68a37a
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -469,8 +469,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:1b5c8a9f458674645e4f4ee5e093b30117b14926
-    pristine_git_object: d7500e98f2becf67642cdab235cccccc8d46901d
+    last_write_checksum: sha1:592b87867902c460199433dacadd397f40e974c0
+    pristine_git_object: 4df10f8643e123e219ea9b36157a2c897981aa47
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:5e888d32602a4a666f97cd2c126ad9a6286d8578
@@ -485,8 +485,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:beceed0e34ee73f3ef70167814f9e82819dc9412
-    pristine_git_object: 74e83d25102c4d811f943a579d0c4b6333413006
+    last_write_checksum: sha1:2e158ecc5950e22f40918971288a8c80ce687c55
+    pristine_git_object: 50e358fd187badb391850223367580a9790aa6cd
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:89d816c34ea71049cbf484f9704239e5372858f1
@@ -2934,11 +2934,6 @@ examples:
         "400":
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Mcp-typescript SDK Changes:
-  * `CloudinaryAssetMgmt.Generation.generate_image()`:  `response.notices` **Added**
-  * `CloudinaryAssetMgmt.Generation.generate_image_from_images()`:  `response.notices` **Added**
-  * `CloudinaryAssetMgmt.Tasks.get_generation_task_status()`:  `response.notices` **Added**
 generatedFiles:
   - .dxtignore
   - .gitattributes
