@@ -38,7 +38,7 @@ The model is selected via the optional \`model\` object:
     const [result] = await generationGenerateImage(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

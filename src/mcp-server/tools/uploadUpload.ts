@@ -51,7 +51,7 @@ Transform media files using transformation syntax in delivery URLs, which create
       client,
       args.resource_type,
       args.upload_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -36,7 +36,7 @@ Returns a list of resources that are visually similar to a specified image. You 
     const [result] = await searchVisualSearchAssets(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

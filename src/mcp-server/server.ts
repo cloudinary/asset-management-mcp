@@ -3,7 +3,7 @@
  * @generated-id: 2784dd48e82a
  */
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/server";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { SDKOptions } from "../lib/config.js";
 import type { ConsoleLogger } from "./console-logger.js";
@@ -64,7 +64,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.11.3",
+    version: "0.11.4",
   });
 
   const getClient = deps.getSDK || (() =>

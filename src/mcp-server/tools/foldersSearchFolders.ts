@@ -45,7 +45,7 @@ Lists the folders that match the specified search expression. Limited to 2000 re
       args.sort_by,
       args.max_results,
       args.next_cursor,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
