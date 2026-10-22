@@ -24,7 +24,10 @@ export const TemporaryTargetTargetType$zodSchema = z.enum([
 ]).describe("Discriminator identifying this as a temporary target.");
 
 /**
- * Store the output as a short-lived asset on the upload service.
+ * Return the image at a short-lived URL (valid until `expires_at`) without
+ *
+ * @remarks
+ * saving it to the user's Cloudinary account.
  */
 export type TemporaryTarget = { target_type: TemporaryTargetTargetType };
 
@@ -32,4 +35,6 @@ export const TemporaryTarget$zodSchema: z.ZodType<TemporaryTarget> = z.object({
   target_type: TemporaryTargetTargetType$zodSchema.describe(
     "Discriminator identifying this as a temporary target.",
   ),
-}).describe("Store the output as a short-lived asset on the upload service.");
+}).describe(
+  "Return the image at a short-lived URL (valid until `expires_at`) without\nsaving it to the user's Cloudinary account.\n",
+);

@@ -1,6 +1,6 @@
 {
   "name": "@cloudinary/asset-management-mcp",
-  "version": "0.11.4",
+  "version": "0.11.5",
   "mcpName": "io.github.cloudinary/asset-management-mcp",
   "author": "Cloudinary",
   "type": "module",

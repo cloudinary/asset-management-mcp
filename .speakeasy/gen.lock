@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: 9de6c9dc45c08b31e1a1074bb6b7921f
-  docVersion: 0.7.7
+  docChecksum: 68f3f4f973d4bb6d651e1376d6c4943b
+  docVersion: 0.7.8
   speakeasyVersion: 1.803.1
   generationVersion: 2.950.2
-  releaseVersion: 0.11.4
-  configChecksum: 0066935c2da8641150259497df5407da
+  releaseVersion: 0.11.5
+  configChecksum: 896087f86bf1ddefd3011553d68ea965
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: a26f9522-f1a9-4949-a771-d578126c27a7
-  pristine_commit_hash: 5a07b5b1d51e72066f4bff4aa7872e3cf3538ed7
-  pristine_tree_hash: e5b4ca8e83549591b1e8046101f2dab5f5b577cf
+  generation_id: 0eeed43c-f034-457c-868e-ee3c427de3be
+  pristine_commit_hash: b884e08913f9b5eac5b617d5bebf967f987f96a1
+  pristine_tree_hash: d1ec6e0cc1d13d0f803c1e3db6e28d0b9f9f79ef
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:a9d228186e6e083f3f9cc86060d4fa4892061ed2
-    pristine_git_object: 3c5b42e04aec599168040848c5bf975d54ebd3a0
+    last_write_checksum: sha1:5ec6278bb9f4c52a26219e646e5bd89bf3c55989
+    pristine_git_object: 723b536142e7ae3b6a72b3725d084a8f08259c4f
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:d86d5eef8e633650edb8397730434f5f95c346d6
-    pristine_git_object: a563094dbeda1e4d612c11fd7b044440862cf524
+    last_write_checksum: sha1:a4b411d7f7f86ffe28d8e7825544849af7a1a7bd
+    pristine_git_object: 77d9c1ba855f4b0c42ab9dbadbf4abbe9895a026
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -269,12 +269,12 @@ trackedFiles:
     pristine_git_object: 8d21d28eee633c3ac2e83d02447b7c950f7ee389
   src/funcs/generationGenerateImage.ts:
     id: cc8760c8f69b
-    last_write_checksum: sha1:a576706355ed1a9ffc041a16d0e82838972f0ec8
-    pristine_git_object: 707b1901f26ebd89070e72b4f33b892279f40224
+    last_write_checksum: sha1:f7e546d42b9344659b579de288d9cbd573381f65
+    pristine_git_object: 364c131e69913f9a58aec254df3aa2b4b97bc073
   src/funcs/generationGenerateImageFromImages.ts:
     id: 0453acfec59b
-    last_write_checksum: sha1:1616d5f60f433e85bdcff3ea70a5a88b22a86689
-    pristine_git_object: 308c765d1af521abc88148ef68394d820e5543ca
+    last_write_checksum: sha1:a6247084ced48652bf7cc0d27474122cc78e8f78
+    pristine_git_object: 5081b661a413acc39c1eba3fc52d545bb37d3078
   src/funcs/initialBackupCreateInitialBackup.ts:
     id: a6f3615da147
     last_write_checksum: sha1:8c21e854400334f6fc6e246f9943d862a80e1617
@@ -321,8 +321,8 @@ trackedFiles:
     pristine_git_object: 2b2dec95d8b8d4c30b872420980b57de2be54da6
   src/funcs/tasksGetGenerationTaskStatus.ts:
     id: 7551699362f9
-    last_write_checksum: sha1:0ddfc9d9a71b5d7f39ba517bfc69050fa472d040
-    pristine_git_object: 482a68c45cbcfe97e2e92ea7985d30084334a3ab
+    last_write_checksum: sha1:fcf245b7b0a9141dcf2ff6f7136ef138f80930a6
+    pristine_git_object: b7f121044d4b3a8b4b53529be8ebedc09e441673
   src/funcs/uploadConcat.ts:
     id: 77442768d5c6
     last_write_checksum: sha1:76d9041e7e05d3608dd00c57f8cf4961fe65e6e3
@@ -373,16 +373,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:a37356b4f22d105e48a1f366325e7dd595cbc045
-    pristine_git_object: 6e076469b2aae5d5bc6197186c217014b3861996
+    last_write_checksum: sha1:d67d0196925086566b76babd893c59fbc579a293
+    pristine_git_object: 4f21727858827296b750b5363ab97b43a8e36ae4
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:83af0797f220d53471a2cfb16e8e92e6de067a7e
-    pristine_git_object: 934b4474c936c30ca5f4d5dad7bad9ffe8fab289
+    last_write_checksum: sha1:c899b2818c4075ca8d6bb54710ea08fbeb1479f1
+    pristine_git_object: 5db533f7ede5a094fcb90746b04e2e64bb57e615
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -469,8 +469,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:4ac4cc83732b5d9808b8d7762e2efb4245be8789
-    pristine_git_object: ed1148f4903d338ec5b674c52a9f388c614b17c8
+    last_write_checksum: sha1:22afd14d81bc025da9b25f82c615864f8250bd8d
+    pristine_git_object: c2f22cc64dd276fe1b6d599985ad1bacd939f525
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b0d1819592561fdc2c4287da2144e12005b1a67e
@@ -485,8 +485,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:ff62a8cd6b40e53321ef2a8ffdbe76de795e9f02
-    pristine_git_object: 7403d6bee79eb2d37389fce55dbc867c774d6e59
+    last_write_checksum: sha1:16c5e40da176277016671e6f55827324a6d6466b
+    pristine_git_object: 626875ab4fde0aa19ae2b9c54bae627498497e1b
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:84222f4deea46fec7c7897f0ef6a66712fc7dff7
@@ -577,12 +577,12 @@ trackedFiles:
     pristine_git_object: 3e2f010d99fe7c135b5666dcaf67b96fcc8e73d4
   src/mcp-server/tools/generationGenerateImage.ts:
     id: 358095938b5f
-    last_write_checksum: sha1:f51685648e921b3749d50d061b303c86ac879463
-    pristine_git_object: 44cfa8ee8a4fbcc6d3fd078aa7f64b89f4bf0baf
+    last_write_checksum: sha1:be82fabff8369ecb02d535dbe4f118f0b67f3b84
+    pristine_git_object: 12c93f6d35d100ee04dbaa8281d5325bda13e917
   src/mcp-server/tools/generationGenerateImageFromImages.ts:
     id: 326fa47baec5
-    last_write_checksum: sha1:bbdb1b4f8cf62a3ae067ce6a1481a16377150033
-    pristine_git_object: 2ead6ddcb9d383b563bd4c872d1be50f319a143d
+    last_write_checksum: sha1:986bf87a8af77b7809eb52a22ff3fcd29f94c3fc
+    pristine_git_object: c0fa504247834d894b53e43027f121f530c8cab6
   src/mcp-server/tools/searchSearchAssets.ts:
     id: af8d0e1dda1d
     last_write_checksum: sha1:27c0059c0b83ce619a20bf45a6639a7c2be1766c
@@ -593,8 +593,8 @@ trackedFiles:
     pristine_git_object: 47c98b106eb48b0dc9b7c2f5744acfffba0f9ecd
   src/mcp-server/tools/tasksGetGenerationTaskStatus.ts:
     id: d4dcec03e501
-    last_write_checksum: sha1:a49b4b9e27239a770f75d4536dc0427268a7246b
-    pristine_git_object: b1313999e5b0d8a0766e494dea466364fcc89c45
+    last_write_checksum: sha1:cbef3d2eec2c8723fa418985cabb0ececaa6b9a2
+    pristine_git_object: 97e4413635d7f15731a48601d80744fb4b83ff5f
   src/mcp-server/tools/uploadUpload.ts:
     id: 811aa635cedb
     last_write_checksum: sha1:afb1553c3367f21f31d6dce1457f7a70a4667ad8
@@ -609,8 +609,8 @@ trackedFiles:
     pristine_git_object: e7bcd2fe68a781bbd25053f4007b838b42ba2d8d
   src/models/addonquota.ts:
     id: 1e523cb9c814
-    last_write_checksum: sha1:12dd68294c4de88eca35f005253974f98db9be9a
-    pristine_git_object: 97df55355e37ea623924bcd49301036f8350de71
+    last_write_checksum: sha1:9c2dd80e578e136906d2225252692a32e496c671
+    pristine_git_object: f7c7a2f3b808033ee702dadbc5b9acc5866a8181
   src/models/admincontextoperation.ts:
     id: 5f4b2860e23c
     last_write_checksum: sha1:75afa0e61fb19b9012eeda33aa7b45a7ed61a506
@@ -805,12 +805,12 @@ trackedFiles:
     pristine_git_object: cb5953fbc01c1780c0a4159a59e4ac9c41c41ecf
   src/models/error.ts:
     id: d53a586acbe6
-    last_write_checksum: sha1:8c4eff7a3c1500bfb905901683151c38a8df78d9
-    pristine_git_object: fba2b8c5ca8654e1ed7b965f2e3669da55bf1866
+    last_write_checksum: sha1:485e7c1392944fb8b64bd03db8900e2406df1a0d
+    pristine_git_object: 9510f147d01bef6d6cba5c98c0abefdbf09f0273
   src/models/errorcategory.ts:
     id: 369096a8494a
-    last_write_checksum: sha1:4fb96d1f04e1cd37917d6887b58f015019af66e7
-    pristine_git_object: 5270b226cbefe5c474b99d55c26485241becbd9b
+    last_write_checksum: sha1:f19c914862b6ef887f456383b1085261351758ba
+    pristine_git_object: 31357cf3c53a8cb0ab3a22aa9a66d807fc061603
   src/models/errorresponse.ts:
     id: 55a21b891851
     last_write_checksum: sha1:c524ecc3ede3b2208f399d626c670c9928de7779
@@ -937,8 +937,8 @@ trackedFiles:
     pristine_git_object: 0a3d9f2d97b88d679bebcc331c520c53acf3ce76
   src/models/generatedasset.ts:
     id: 97a338105c2a
-    last_write_checksum: sha1:61dba91554b175fb53effceed00c95dd71705cc5
-    pristine_git_object: e84182e7b2eb3d6aa3c47e857a72b9b78e640650
+    last_write_checksum: sha1:70869b4ae2b63d6f1e0e1c35fc5dafe678b14b36
+    pristine_git_object: 6015ee4936bfc9fd4b044cf9f57581459af867bc
   src/models/generatedassets.ts:
     id: 612a8e835a58
     last_write_checksum: sha1:ba211b259a27341dd1e57250d4fbd11bed4da119
@@ -957,8 +957,8 @@ trackedFiles:
     pristine_git_object: ca39c00a131b9e244ac9e82e46df5743a72cd129
   src/models/generateimagerequest.ts:
     id: 958825c984f2
-    last_write_checksum: sha1:c9ec5e1125bda9b020ee4bddae68658f1eba82f0
-    pristine_git_object: 08c704ed82d4c1de4cfa049ac428a5dd897b1888
+    last_write_checksum: sha1:667539935ba1fb6a567961c6a5db16265053dda7
+    pristine_git_object: 75b8735cc157c17b374025a0522c992ac295e1a6
   src/models/generateimageresult.ts:
     id: de0aa67fae25
     last_write_checksum: sha1:6857061eb429322f508d4e7fc561eed7e7862a0c
@@ -1017,8 +1017,8 @@ trackedFiles:
     pristine_git_object: 4032d51daf13c3db32aa3ebadf66df6e1482e9c8
   src/models/imagetoimagerequest.ts:
     id: 42757ef53307
-    last_write_checksum: sha1:3f0471f6bc65b2e434e793400920a7ebd86a97a0
-    pristine_git_object: 7faaad7592f318f7820291d5f68084b276576475
+    last_write_checksum: sha1:123e5037c05497316e3148d950119fff0268053c
+    pristine_git_object: d1dec9829700cc6ff6c14db2b15f8d643886c889
   src/models/info.ts:
     id: 70f4d95abf4e
     last_write_checksum: sha1:6f5d0583a948634a3e51f184e9e3be16b466fd26
@@ -1149,20 +1149,20 @@ trackedFiles:
     pristine_git_object: 42601de52f0360c308667f52ff2d4953f947c16c
   src/models/modelauto.ts:
     id: 9b549af31aae
-    last_write_checksum: sha1:4d9d08922b19f46fb7815141e9f897c51bd2fbeb
-    pristine_git_object: fe8c1acd26c9e1366ae3befa9121309f66689d91
+    last_write_checksum: sha1:bdf419c92337dd7685fd007eae54afacdcde865a
+    pristine_git_object: 8fe80b558201dfd1998384af4bd6933471d11498
   src/models/modelbyfamily.ts:
     id: 6af9ea6fe52b
-    last_write_checksum: sha1:24f1164f4eda389b87a1ebc70ee5156084c2c2da
-    pristine_git_object: cc019d2cf6a0221384bf6c94a6fbb829fe2d4421
+    last_write_checksum: sha1:446610083027081af3f08a2626a844d07814e5cc
+    pristine_git_object: 20e44ff6d85d3c6d59d1f48a6e9417e2290fd6ce
   src/models/modelbyid.ts:
     id: 55f0cd308347
-    last_write_checksum: sha1:99483bc558b630344b051a1f5e1ba4e2f63156c7
-    pristine_git_object: 98a04070ff512646149749f5a3f14d66321779b5
+    last_write_checksum: sha1:00fefcbeea5643c4222ea7dc68c26a8bedae404d
+    pristine_git_object: 8346685fee55761108ac82b844e4952eaf86a734
   src/models/modelselection.ts:
     id: dc910f56e90b
-    last_write_checksum: sha1:267228dc22edfb6a35b8b32b0a1d45d8b39acf59
-    pristine_git_object: f8e4b6f1190c5fa634fcfc446f3600f2530d061d
+    last_write_checksum: sha1:e465b7cd8b517fe340d7503ad0641db1af3eed8d
+    pristine_git_object: 9b79fe20bce370d91ad7e882f2df663a9f81ccf5
   src/models/moderationkind.ts:
     id: dd69aeb34a50
     last_write_checksum: sha1:c3b727cebfa121d88c14d33e011f231e38a293a0
@@ -1185,8 +1185,8 @@ trackedFiles:
     pristine_git_object: ee06a72759c903afab9cdd12a1953f90c36addfd
   src/models/notice.ts:
     id: f330319b981c
-    last_write_checksum: sha1:374d1ebde0bb032eb693ff7dc99c3182d8907077
-    pristine_git_object: 210b8e9a98990ff2a74f52b28d8e3f6f0821942e
+    last_write_checksum: sha1:60ab47430632216b8eb52ad581d91437a8866593
+    pristine_git_object: c267d280d9cfd712e7d7b222215bf3f313032f67
   src/models/peopleinspectiongroup.ts:
     id: b8b780220471
     last_write_checksum: sha1:765da336ff324a8d313e153a3939bba194b9faab
@@ -1233,8 +1233,8 @@ trackedFiles:
     pristine_git_object: 24b96f6402a24568fa069020818dc04f701bac12
   src/models/ratelimitedresponse.ts:
     id: d632a065f0ef
-    last_write_checksum: sha1:9a141cf8fe6ebdbd47bd2a30259ff5330537fdb0
-    pristine_git_object: 19cbec6d79b08684097a380551279bf32118c557
+    last_write_checksum: sha1:dcd23eaac26476a02a97b702bb5c7b6b3e99b075
+    pristine_git_object: e4850e566392cb77fc4eadb9a0539b1a8e843693
   src/models/referenceimage.ts:
     id: 25cf64688b41
     last_write_checksum: sha1:a85a6e171c6a8797675d47c08443f61014ad4e97
@@ -1341,8 +1341,8 @@ trackedFiles:
     pristine_git_object: 7ab967429dc1c8f9873f040aaeecd98c67ab2630
   src/models/storage.ts:
     id: 8b534f43f59e
-    last_write_checksum: sha1:af72148ef00fff80067e2c6bce4723c32edee2ef
-    pristine_git_object: 15c6b74d2dc00ad8cc55caf537873d18227219ce
+    last_write_checksum: sha1:652c35c6f04e45e84a5414103fe253d8dc5c1956
+    pristine_git_object: 642641575663e98afc8d7bbdf3d31a41665757ab
   src/models/structuredmetadataparam.ts:
     id: 0c4163b8e5ca
     last_write_checksum: sha1:b9dcbe99a71dca482d06b1b29492b89325903980
@@ -1369,8 +1369,8 @@ trackedFiles:
     pristine_git_object: 8a47bf9484452e285738b95c5983d728280e9037
   src/models/target.ts:
     id: f37077ef7c9a
-    last_write_checksum: sha1:4c90763beb8a249f22910a147c9c989a25ece581
-    pristine_git_object: b50800e73b1cdb5183c47227c89ab422641cf21a
+    last_write_checksum: sha1:004e3f3b96c7f9a3dca251ef8b4799707a79c667
+    pristine_git_object: a53d7379dcfeb9b06947be31bb131786ecadcc77
   src/models/task.ts:
     id: 9609f5f4adcb
     last_write_checksum: sha1:9c220e7d96811092d8103bc0b40814b9a0d8b361
@@ -1389,8 +1389,8 @@ trackedFiles:
     pristine_git_object: 166fa9b1e0535039edf99066b45a1d73758af956
   src/models/temporarytarget.ts:
     id: 3585fffc94ea
-    last_write_checksum: sha1:713565b4afd3baf0f7a94c05e502b3edbdd7facd
-    pristine_git_object: c5bc2f50afb82a8b7e7b85c5fbadda244fd24237
+    last_write_checksum: sha1:c3afda578c80ef3fb9d92e035b4b085713a90b07
+    pristine_git_object: 258711ebf24e96a2b3f42bb12894bdfac7835298
   src/models/textop.ts:
     id: a49c6a61da8e
     last_write_checksum: sha1:df11c526a9c00788143f3d92642ee5dccf8a3990
@@ -1481,8 +1481,8 @@ trackedFiles:
     pristine_git_object: 5fc0d393fc889d8769e7d83547a4549900454b01
   src/models/urlreference.ts:
     id: 84ab494b1c55
-    last_write_checksum: sha1:d1db2ab6502566e1a16fcc86a522e9f5d4dbd511
-    pristine_git_object: 0a073d758c068a8297a8e494df0e37646c2adb1c
+    last_write_checksum: sha1:721e1d728304c3ac4bb4e61a817a5b9e272e6095
+    pristine_git_object: 8962efda46b9d83315e0cc9b4464edb1c60539b5
   src/models/usageresponse.ts:
     id: f8fa3dab0b79
     last_write_checksum: sha1:91d8ab34177d27c2d7aedbdacc627453da42996e
@@ -1505,8 +1505,8 @@ trackedFiles:
     pristine_git_object: 95c223c617dd027381bae34c6fa52b984461bf7a
   src/tool-names.ts:
     id: a9977280f9eb
-    last_write_checksum: sha1:f763ea4f8b31079d03c876127556a12038e254fd
-    pristine_git_object: a290c1590adb7c105cea519f584e5167075098c6
+    last_write_checksum: sha1:fa394a394b732901f42bc2ad9f856a2edfc335da
+    pristine_git_object: 4d1920a54359fb7f6e0d5496408836a2adacea9b
   src/types/async.ts:
     id: fac8da972f86
     last_write_checksum: sha1:042571ad6be7fd5ce5a93b292b9c1aefc21ebff7
@@ -2633,15 +2633,15 @@ examples:
         application/json: {"prompt": "A man with a hat", "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     DeclarativeSizeExample:
       parameters:
         path:
@@ -2650,15 +2650,15 @@ examples:
         application/json: {"prompt": "A photorealistic sunset over a mountain lake", "model": {"family": "flux", "tier": "premium"}, "image_size": {"aspect_ratio": "16:9", "resolution": "2K"}, "target": {"target_type": "managed_asset", "public_id": "my-public-id", "upload_preset": "some-preset"}, "seed": 42, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     DimensionsSizeExample:
       parameters:
         path:
@@ -2667,15 +2667,15 @@ examples:
         application/json: {"prompt": "A photorealistic sunset over a mountain lake", "model": {"id": "flux-2-pro"}, "image_size": {"width": 1280, "height": 720}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     AsyncExample:
       parameters:
         path:
@@ -2684,38 +2684,38 @@ examples:
         application/json: {"prompt": "A futuristic city skyline at night", "model": {"family": "gpt-image", "tier": "premium"}, "async": true, "notification_url": "https://path.to/webhook"}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     speakeasy-default-generate-image:
       parameters:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "A photorealistic sunset over a mountain lake, 8K detail", "model": {"family": "flux", "tier": "premium"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "image_size": {"aspect_ratio": "16:9"}, "target": {"target_type": "temporary"}, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     Success:
       parameters:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "A photorealistic sunset over a mountain lake, 8K detail", "model": {"family": "flux", "tier": "premium"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "image_size": {"aspect_ratio": "16:9"}, "target": {"target_type": "temporary"}, "async": false}
       responses:
         "200":
           application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
@@ -2724,7 +2724,7 @@ examples:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "A photorealistic sunset over a mountain lake, 8K detail", "model": {"family": "flux", "tier": "premium"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "image_size": {"aspect_ratio": "16:9"}, "target": {"target_type": "temporary"}, "async": false}
       responses:
         "200":
           application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1750000000/my-public-id.png", "asset_id": "0d6f8e1c2b3a4d5e6f7a8b9c0d1e2f3a", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 1750000000}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
@@ -2733,10 +2733,10 @@ examples:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "A photorealistic sunset over a mountain lake, 8K detail", "model": {"family": "flux", "tier": "premium"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "image_size": {"aspect_ratio": "16:9"}, "target": {"target_type": "temporary"}, "async": false}
       responses:
         "429":
-          application/json: {"error": {"category": "rate_limit_error", "code": "MG_00429", "message": "Daily generation limit exceeded. Limit resets at 2026-04-22T00:00:00Z"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 0, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "rate_limit_error", "code": "MG_00602", "message": "Generation limit exceeded. Upgrade your plan at https://console.cloudinary.com/app/image/generation/plans"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 0, "remaining": 0, "limit": 50}]}, "notices": [{"severity": "blocking", "text": "Your Image Generation credits are used up (50 of 50). This request did not generate an image. This is not a rate limit: retrying now returns this same response, and it changes only once credits are added, or the quota renews on plans that renew. Stop and tell the user their credits are finished, show them this link to add credits or review the plan: https://console.cloudinary.com/app/image/generation/plans, and once the balance changes re-run this same request unchanged."}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
     AutoModelExample:
       parameters:
         path:
@@ -2745,42 +2745,62 @@ examples:
         application/json: {"prompt": "A photorealistic sunset over a mountain lake", "model": {"mode": "auto", "preference": "quality"}, "image_size": {"aspect_ratio": "16:9", "resolution": "2K"}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": []}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    Accepted:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "image_size": {"aspect_ratio": "16:9"}, "target": {"target_type": "temporary"}, "async": false}
+      responses:
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    MissingParameters:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "A photorealistic sunset over a mountain lake", "image_size": {"aspect_ratio": "16:9"}, "target": {"target_type": "temporary"}, "async": false}
+      responses:
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
   generate_image_from_images:
     speakeasy-default-generate-image-from-images:
       parameters:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "Place the product from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "managed_asset", "asset_id": "0d6f8e1c2b3a4d5e6f7a8b9c0d1e2f3a"}], "model": {"id": "flux-2-pro"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
+        application/json: {"prompt": "Place the shoes from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://res.cloudinary.com/demo/image/upload/docs/shoes.jpg"}], "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     RateLimited:
       parameters:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"prompt": "Place the product from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "managed_asset", "asset_id": "0d6f8e1c2b3a4d5e6f7a8b9c0d1e2f3a"}], "model": {"id": "flux-2-pro"}, "image_size": {"width": 1280, "height": 720}, "format": "png", "target": {"target_type": "managed_asset"}, "seed": 42, "async": false, "notification_url": "https://path.to/webhook"}
+        application/json: {"prompt": "Place the shoes from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://res.cloudinary.com/demo/image/upload/docs/shoes.jpg"}], "async": false}
       responses:
         "429":
-          application/json: {"error": {"category": "rate_limit_error", "code": "MG_00429", "message": "Daily generation limit exceeded. Limit resets at 2026-04-22T00:00:00Z"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 0, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "rate_limit_error", "code": "MG_00602", "message": "Generation limit exceeded. Upgrade your plan at https://console.cloudinary.com/app/image/generation/plans"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 0, "remaining": 0, "limit": 50}]}, "notices": [{"severity": "blocking", "text": "Your Image Generation credits are used up (50 of 50). This request did not generate an image. This is not a rate limit: retrying now returns this same response, and it changes only once credits are added, or the quota renews on plans that renew. Stop and tell the user their credits are finished, show them this link to add credits or review the plan: https://console.cloudinary.com/app/image/generation/plans, and once the balance changes re-run this same request unchanged."}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
     BasicExample:
       parameters:
         path:
@@ -2789,15 +2809,15 @@ examples:
         application/json: {"prompt": "Place the product from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://example.com/product.png"}], "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     FamilyModelExample:
       parameters:
         path:
@@ -2806,15 +2826,15 @@ examples:
         application/json: {"prompt": "Restyle [1] as a watercolor painting, keep the composition", "reference_images": [{"source_type": "managed_asset", "asset_id": "0d6f8e1c2b3a4d5e6f7a8b9c0d1e2f3a"}], "model": {"family": "nano-banana", "tier": "premium"}, "image_size": {"aspect_ratio": "4:3", "resolution": "1K"}, "target": {"target_type": "temporary"}, "seed": 42, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     ExplicitModelExample:
       parameters:
         path:
@@ -2823,15 +2843,15 @@ examples:
         application/json: {"prompt": "Replace the background of [1] with a bright studio backdrop", "reference_images": [{"source_type": "url", "url": "https://example.com/product.png"}], "model": {"id": "flux-2-pro-edit"}, "image_size": {"width": 1280, "height": 720}, "target": {"target_type": "managed_asset", "public_id": "my-public-id", "upload_preset": "some-preset"}, "seed": 42, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     AutoModelExample:
       parameters:
         path:
@@ -2840,15 +2860,44 @@ examples:
         application/json: {"prompt": "Make it look like a watercolor painting, keep the composition", "reference_images": [{"source_type": "url", "url": "https://example.com/photo.jpg"}], "model": {"mode": "auto", "preference": "quality"}, "image_size": {"aspect_ratio": "4:3", "resolution": "1K"}, "async": false}
       responses:
         "200":
-          application/json: {"data": {"assets": [{"storage": {"storage_type": "managed_asset", "secure_url": "https://res.cloudinary.com/demo/image/upload/v1/my-public-id.png", "public_id": "my-public-id", "resource_type": "image", "type": "upload", "version": 709116}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "flux", "tier": "premium", "id": "flux-2-pro"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "202":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    Success:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Place the shoes from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://res.cloudinary.com/demo/image/upload/docs/shoes.jpg"}], "async": false}
+      responses:
+        "200":
+          application/json: {"data": {"assets": [{"storage": {"storage_type": "temporary", "secure_url": "https://upload-global.cloudinary.com/v2/demo/uploads/a78a2e043c2da0b50a98961d60a8b05a/image.png", "expires_at": "2026-06-25T12:50:26Z"}, "format": "png", "width": 1024, "height": 768, "bytes": 2048576, "model": {"family": "nano-banana", "tier": "premium", "id": "nano-banana-2-edit"}, "seed": 42, "created_at": "2026-04-21T14:30:00Z"}]}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    Accepted:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Place the shoes from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://res.cloudinary.com/demo/image/upload/docs/shoes.jpg"}], "async": false}
+      responses:
+        "202":
+          application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    MissingParameters:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "Place the shoes from [1] on a marble kitchen counter, soft morning light", "reference_images": [{"source_type": "url", "url": "https://res.cloudinary.com/demo/image/upload/docs/shoes.jpg"}], "async": false}
+      responses:
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
   get_generation_task_status:
     default:
       parameters:
@@ -2859,11 +2908,11 @@ examples:
         "200":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     speakeasy-default-get-generation-task-status:
       parameters:
         path:
@@ -2873,11 +2922,11 @@ examples:
         "200":
           application/json: {"data": {"task_id": "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb", "status": "pending"}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "400":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "429":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["param1", "param2"]}}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 48, "limit": 50}]}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
         "500":
-          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {}}, "notices": [{"severity": "warning", "text": "You've used 40 of your 50 Image Generation credits. 10 remain. Tell the user the balance is nearly spent, do not estimate how many images it covers, and show them: https://console.cloudinary.com/app/image/generation/plans"}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
     Completed:
       parameters:
         path:
@@ -2893,7 +2942,17 @@ examples:
           cloud_name: "my_cloud"
       responses:
         "429":
-          application/json: {"error": {"category": "rate_limit_error", "code": "MG_00429", "message": "Daily generation limit exceeded. Limit resets at 2026-04-22T00:00:00Z"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 1, "remaining": 0, "limit": 50}]}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+          application/json: {"error": {"category": "rate_limit_error", "code": "MG_00602", "message": "Generation limit exceeded. Upgrade your plan at https://console.cloudinary.com/app/image/generation/plans"}, "limits": {"addons_quota": [{"type": "image_generation", "used_by_request": 0, "remaining": 0, "limit": 50}]}, "notices": [{"severity": "blocking", "text": "Your Image Generation credits are used up (50 of 50). This request did not generate an image. This is not a rate limit: retrying now returns this same response, and it changes only once credits are added, or the quota renews on plans that renew. Stop and tell the user their credits are finished, show them this link to add credits or review the plan: https://console.cloudinary.com/app/image/generation/plans, and once the balance changes re-run this same request unchanged."}], "request_id": "17c3b70c5096df0e77e838323abb7029"}
+    MissingParameters:
+      parameters:
+        path:
+          task_id: "053f4bde4b933c8ecef23724ecde63b667c1ea21816d56c161c7ec1df6297da4b43109625650e9edf0f42152cc4cc32c8ad57824ac75ba8e05020f827c415559ac1248076a2d72c0a73af0479cca77eb"
+          cloud_name: "my_cloud"
+      responses:
+        "400":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
+        "500":
+          application/json: {"error": {"category": "user_error", "code": "MG_00001", "message": "missing parameters", "details": {"parameters": ["prompt"]}}, "request_id": "17c3b70c5096df0e77e838323abb7029"}
   updateAssetsTags:
     speakeasy-default-update-assets-tags:
       parameters:
@@ -2934,6 +2993,7 @@ examples:
         "400":
           application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
+releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.Generation.generate_image()`: \n  *  `request.model.union(ModelById).id` **Changed**\n  *  `response.error.details` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.Generation.generate_image_from_images()`: \n  *  `request.model.union(ModelById).id` **Changed**\n  *  `response.error.details` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.Tasks.get_generation_task_status()`:  `response.error.details` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .dxtignore
   - .gitattributes

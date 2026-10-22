@@ -13,9 +13,12 @@ const args = {
 
 export const tool$tasksGetGenerationTaskStatus: ToolDefinition<typeof args> = {
   name: "get-generation-task",
-  description: `Get a generation task
+  description: `Check the status and result of a generation task
 
-Get the status of a generation task.`,
+Check on an image generation running in the background: whether it is
+pending, processing, completed or failed, and, once it has completed,
+the generated images with their URLs, size and format.
+`,
   scopes: ["builder"],
   annotations: {
     "title": "Get a Generation Task",

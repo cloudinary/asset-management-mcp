@@ -7,32 +7,23 @@ import * as z from "zod";
 import { ErrorCategory, ErrorCategory$zodSchema } from "./errorcategory.js";
 
 /**
- * Additional structured context about the error, when available.
- */
-export type Details = {};
-
-export const Details$zodSchema: z.ZodType<Details> = z.object({}).describe(
-  "Additional structured context about the error, when available.",
-);
-
-/**
  * Details of an error, including a coarse category for retry logic, a stable error code, and a human-readable message.
  */
 export type ErrorT = {
   category?: ErrorCategory | undefined;
   code?: string | undefined;
   message?: string | undefined;
-  details?: Details | undefined;
+  details?: { [k: string]: any } | undefined;
 };
 
 export const ErrorT$zodSchema: z.ZodType<ErrorT> = z.object({
   category: ErrorCategory$zodSchema.optional().describe(
-    "Coarse classification of an error, primarily used by clients to decide whether to retry.\n* `user_error`: the request was invalid; do not retry without changes.\n* `auth_error`: authentication or authorization failed.\n* `server_error`: an unexpected server-side error; retrying may succeed.\n* `rate_limit_error`: quota or rate limit exceeded; retry later.\n",
+    "Coarse classification of an error, primarily used by clients to decide\nwhether to retry.\n* `user_error`: the request was invalid; do not retry without changes.\n* `auth_error`: authentication or authorization failed.\n* `server_error`: an unexpected server-side error; retrying may succeed.\n* `rate_limit_error`: quota or rate limit exceeded; retry later.\n",
   ),
   code: z.string().optional().describe(
     "Stable, machine-readable error code for programmatic handling.",
   ),
-  details: z.lazy(() => Details$zodSchema).optional().describe(
+  details: z.record(z.string(), z.any()).optional().describe(
     "Additional structured context about the error, when available.",
   ),
   message: z.string().optional().describe(

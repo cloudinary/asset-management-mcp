@@ -14,10 +14,14 @@ import {
 } from "./temporarytarget.js";
 
 /**
- * Where to store the generated output, determined by `target_type`.
+ * Where the generated image goes, determined by `target_type`. Use
  *
  * @remarks
- * Optional; defaults to a `managed_asset` target when omitted.
+ * `temporary` when the user only wants the image: a short-lived URL,
+ * nothing saved to their account. Omit it, or use `managed_asset`, to
+ * store the image permanently in their Media Library. If the caller lacks
+ * upload permission, the image is returned as `temporary` instead, with a
+ * `warning` notice.
  */
 export type Target =
   | (ManagedAssetTarget & { target_type: "managed_asset" })
@@ -35,5 +39,5 @@ export const Target$zodSchema: z.ZodType<Target> = z.union([
     }).transform((v) => ({ target_type: v.target_type })),
   ),
 ]).describe(
-  "Where to store the generated output, determined by `target_type`.\nOptional; defaults to a `managed_asset` target when omitted.\n",
+  "Where the generated image goes, determined by `target_type`. Use\n`temporary` when the user only wants the image: a short-lived URL,\nnothing saved to their account. Omit it, or use `managed_asset`, to\nstore the image permanently in their Media Library. If the caller lacks\nupload permission, the image is returned as `temporary` instead, with a\n`warning` notice.\n",
 );

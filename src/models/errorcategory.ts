@@ -7,9 +7,10 @@ import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
- * Coarse classification of an error, primarily used by clients to decide whether to retry.
+ * Coarse classification of an error, primarily used by clients to decide
  *
  * @remarks
+ * whether to retry.
  * * `user_error`: the request was invalid; do not retry without changes.
  * * `auth_error`: authentication or authorization failed.
  * * `server_error`: an unexpected server-side error; retrying may succeed.
@@ -22,9 +23,10 @@ export const ErrorCategory = {
   RateLimitError: "rate_limit_error",
 } as const;
 /**
- * Coarse classification of an error, primarily used by clients to decide whether to retry.
+ * Coarse classification of an error, primarily used by clients to decide
  *
  * @remarks
+ * whether to retry.
  * * `user_error`: the request was invalid; do not retry without changes.
  * * `auth_error`: authentication or authorization failed.
  * * `server_error`: an unexpected server-side error; retrying may succeed.
@@ -38,5 +40,5 @@ export const ErrorCategory$zodSchema = z.enum([
   "server_error",
   "rate_limit_error",
 ]).describe(
-  "Coarse classification of an error, primarily used by clients to decide whether to retry.\n* `user_error`: the request was invalid; do not retry without changes.\n* `auth_error`: authentication or authorization failed.\n* `server_error`: an unexpected server-side error; retrying may succeed.\n* `rate_limit_error`: quota or rate limit exceeded; retry later.\n",
+  "Coarse classification of an error, primarily used by clients to decide\nwhether to retry.\n* `user_error`: the request was invalid; do not retry without changes.\n* `auth_error`: authentication or authorization failed.\n* `server_error`: an unexpected server-side error; retrying may succeed.\n* `rate_limit_error`: quota or rate limit exceeded; retry later.\n",
 );

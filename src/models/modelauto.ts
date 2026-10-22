@@ -28,10 +28,9 @@ export const Mode$zodSchema = z.enum([
  * * `balanced` (default): quality and cost weighted equally.
  * * `quality`: quality only; cost isn't weighed.
  * * `economy`: cost first, quality second.
- * * `balanced_fast`, `quality_fast`, `economy_fast`: as above, but also
- *
- *   favor faster generation, and never pick a model that typically
- *   takes longer than 30 seconds.
+ * * `balanced_fast`, `quality_fast`, `economy_fast`: as above, but
+ *   also favor faster generation, and never pick a model that
+ *   typically takes longer than 30 seconds.
  */
 export const Preference = {
   Balanced: "balanced",
@@ -48,10 +47,9 @@ export const Preference = {
  * * `balanced` (default): quality and cost weighted equally.
  * * `quality`: quality only; cost isn't weighed.
  * * `economy`: cost first, quality second.
- * * `balanced_fast`, `quality_fast`, `economy_fast`: as above, but also
- *
- *   favor faster generation, and never pick a model that typically
- *   takes longer than 30 seconds.
+ * * `balanced_fast`, `quality_fast`, `economy_fast`: as above, but
+ *   also favor faster generation, and never pick a model that
+ *   typically takes longer than 30 seconds.
  */
 export type Preference = ClosedEnum<typeof Preference>;
 
@@ -63,7 +61,7 @@ export const Preference$zodSchema = z.enum([
   "quality_fast",
   "economy_fast",
 ]).describe(
-  "What the choice optimizes for:\n* `balanced` (default): quality and cost weighted equally.\n* `quality`: quality only; cost isn't weighed.\n* `economy`: cost first, quality second.\n* `balanced_fast`, `quality_fast`, `economy_fast`: as above, but also\n\n\n\n\n\n\n\n\n\n  favor faster generation, and never pick a model that typically\n  takes longer than 30 seconds.\n",
+  "What the choice optimizes for:\n* `balanced` (default): quality and cost weighted equally.\n* `quality`: quality only; cost isn't weighed.\n* `economy`: cost first, quality second.\n* `balanced_fast`, `quality_fast`, `economy_fast`: as above, but\n  also favor faster generation, and never pick a model that\n  typically takes longer than 30 seconds.\n",
 );
 
 /**
@@ -80,7 +78,7 @@ export const ModelAuto$zodSchema: z.ZodType<ModelAuto> = z.object({
     "The only valid value; selects automatic model selection.",
   ),
   preference: Preference$zodSchema.default("balanced").describe(
-    "What the choice optimizes for:\n* `balanced` (default): quality and cost weighted equally.\n* `quality`: quality only; cost isn't weighed.\n* `economy`: cost first, quality second.\n* `balanced_fast`, `quality_fast`, `economy_fast`: as above, but also\n\n\n\n\n\n\n\n\n\n  favor faster generation, and never pick a model that typically\n  takes longer than 30 seconds.\n",
+    "What the choice optimizes for:\n* `balanced` (default): quality and cost weighted equally.\n* `quality`: quality only; cost isn't weighed.\n* `economy`: cost first, quality second.\n* `balanced_fast`, `quality_fast`, `economy_fast`: as above, but\n  also favor faster generation, and never pick a model that\n  typically takes longer than 30 seconds.\n",
   ),
 }).describe(
   "Let the service choose the model for this request. The response reports\nthe resolved model in `data.assets[].model`, as for the other forms; on\n`image_to_image` it is always an edit model.\n",

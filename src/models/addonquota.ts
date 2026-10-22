@@ -7,7 +7,7 @@ import * as z from "zod";
 import { Feature, Feature$zodSchema } from "./feature.js";
 
 /**
- * Quota usage for a single add-on.
+ * Credit usage for a single add-on.
  */
 export type AddonQuota = {
   type: Feature;
@@ -17,12 +17,12 @@ export type AddonQuota = {
 };
 
 export const AddonQuota$zodSchema: z.ZodType<AddonQuota> = z.object({
-  limit: z.int().nullable().describe("Maximum generations allowed per period."),
+  limit: z.int().nullable().describe("Credits available per period."),
   remaining: z.int().nullable().describe(
-    "Generations remaining in the current period.",
+    "Credits remaining in the current period.",
   ),
   type: Feature$zodSchema.describe("The add-on a quota applies to."),
   used_by_request: z.int().nullable().describe(
-    "Number of generations consumed by this request.",
+    "Credits used by this request; 0 when no image was generated.",
   ),
-}).describe("Quota usage for a single add-on.");
+}).describe("Credit usage for a single add-on.");

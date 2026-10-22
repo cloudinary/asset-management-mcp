@@ -17,25 +17,25 @@ export const tool$generationGenerateImageFromImages: ToolDefinition<
   typeof args
 > = {
   name: "generate-image-from-images",
-  description: `Generate an image from reference images
+  description: `Edit or combine images with a text prompt
 
-Generate an image guided by one or more **reference images** — restyle,
-on-brand variants, character consistency, virtual try-on, edit/extend —
-steered by \`prompt\`.
+Edit, restyle or combine existing images with AI, guided by a text
+prompt: replace a background, add or remove objects, apply a style, make
+on-brand variants, keep a character or product consistent across scenes,
+virtual try-on, or extend an image. Pass up to 4 reference images, each
+a public HTTPS \`url\` or an \`asset_id\` from the user's Cloudinary
+account, and refer to them in the prompt as \`[1]\`, \`[2]\`, …. For a local
+file, upload it first and reference it by its \`asset_id\`. Leave out
+\`model\` and a strong default edit model is used; only edit-capable
+models are accepted.
 
-Only edit-capable models are selectable here. The model is selected via
-the optional \`model\` object, exactly like \`text_to_image\`, but IDs are
-restricted to edit models:
-1. If \`model.id\` is provided, use that exact edit model.
-2. Else if \`model.family\` (+ optional \`model.tier\`) is provided, resolve
-   to that family's edit model (e.g. \`nano-banana\` / \`premium\` →
-   \`nano-banana-2-edit\`).
-3. Else if \`model.mode\` is \`auto\`, the service picks an edit model for
-   the request (optionally steered by \`model.preference\`).
-4. Otherwise, use the default edit model (\`nano-banana-2-edit\`).
+**Storage is optional.** Get the image at a temporary link without
+saving anything to your account, or keep it in your Media Library.
 
-Each reference image is either a stored managed asset (by \`asset_id\`,
-read-permission checked) or an external HTTPS \`url\`.
+**What you get back.** Each image comes with its URL, size, format and
+the model that made it, either in the response or, for longer jobs, from
+a background task you can check or be notified about. Each generation
+uses Image Generation credits.
 `,
   scopes: ["builder"],
   annotations: {
