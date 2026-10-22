@@ -44,7 +44,7 @@ as part of the update.
       client,
       args.resource_type,
       args.metadata_update_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -29,7 +29,7 @@ Get the status of a generation task.`,
     const [result] = await tasksGetGenerationTaskStatus(
       client,
       args.task_id,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -38,7 +38,7 @@ Updates one or more attributes of a specified resource (asset) by its asset ID. 
       client,
       args.asset_id,
       args.ResourceUpdateRequest,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

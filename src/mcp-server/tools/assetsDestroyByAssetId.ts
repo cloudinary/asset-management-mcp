@@ -32,7 +32,7 @@ Deletes an asset using its immutable asset ID.
     const [result] = await assetsDestroyByAssetId(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {
