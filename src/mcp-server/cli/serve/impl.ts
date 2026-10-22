@@ -50,7 +50,7 @@ async function startStreamableHTTP(cliFlags: ServeCommandFlags) {
     next();
   });
 
-  app.use(express.json());
+  app.use(express.json({ inflate: false }));
 
   app.post("/mcp", async (req, res) => {
     const headers = new Headers();
