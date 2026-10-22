@@ -62,10 +62,10 @@ export const GeneratedAsset$zodSchema: z.ZodType<GeneratedAsset> = z.object({
     "Identifies the model that produced a generation result.",
   ),
   seed: z.int().nullable().optional().describe(
-    "The seed used for generation. Echoes input or returns the model-generated seed.\nNull when the model doesn't support seeds.\n",
+    "The seed used for generation. Echoes input or returns the\nmodel-generated seed. Null when the model doesn't support seeds.\n",
   ),
   storage: Storage$zodSchema.describe(
-    "Where a generated asset is stored — mirrors the request `target`,\ndetermined by `storage_type`. `secure_url` is always present.\n",
+    "Where the generated asset is actually stored, determined by\n`storage_type`. Usually matches the request `target`; a `managed_asset`\nrequest falls back to `temporary` when the caller lacks upload\npermission. `secure_url` is always present.\n",
   ),
   width: z.int().optional().describe(
     "The width of the generated image in pixels; zero if the model doesn't provide dimensions.",

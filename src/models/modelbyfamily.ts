@@ -12,9 +12,12 @@ import { ClosedEnum } from "../types/enums.js";
  * @remarks
  * * `flux`: Photorealistic images (FLUX.2 Klein 9B / FLUX.2 Pro).
  * * `recraft`: Vector and illustration (Recraft V3 / Recraft V4).
- * * `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT Image 2).
- * * `nano-banana`: General purpose generation (Nano Banana 1 / Nano Banana 2).
- * * `ideogram`: Realism, text rendering, and artistic generation (Ideogram V4).
+ * * `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT
+ *   Image 2).
+ * * `nano-banana`: General purpose generation (Nano Banana 1 / Nano
+ *   Banana 2).
+ * * `ideogram`: Realism, text rendering, and artistic generation
+ *   (Ideogram V4).
  */
 export const Family = {
   Flux: "flux",
@@ -29,9 +32,12 @@ export const Family = {
  * @remarks
  * * `flux`: Photorealistic images (FLUX.2 Klein 9B / FLUX.2 Pro).
  * * `recraft`: Vector and illustration (Recraft V3 / Recraft V4).
- * * `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT Image 2).
- * * `nano-banana`: General purpose generation (Nano Banana 1 / Nano Banana 2).
- * * `ideogram`: Realism, text rendering, and artistic generation (Ideogram V4).
+ * * `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT
+ *   Image 2).
+ * * `nano-banana`: General purpose generation (Nano Banana 1 / Nano
+ *   Banana 2).
+ * * `ideogram`: Realism, text rendering, and artistic generation
+ *   (Ideogram V4).
  */
 export type Family = ClosedEnum<typeof Family>;
 
@@ -42,7 +48,7 @@ export const Family$zodSchema = z.enum([
   "nano-banana",
   "ideogram",
 ]).describe(
-  "Model family:\n* `flux`: Photorealistic images (FLUX.2 Klein 9B / FLUX.2 Pro).\n* `recraft`: Vector and illustration (Recraft V3 / Recraft V4).\n* `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT Image 2).\n* `nano-banana`: General purpose generation (Nano Banana 1 / Nano Banana 2).\n* `ideogram`: Realism, text rendering, and artistic generation (Ideogram V4).\n",
+  "Model family:\n* `flux`: Photorealistic images (FLUX.2 Klein 9B / FLUX.2 Pro).\n* `recraft`: Vector and illustration (Recraft V3 / Recraft V4).\n* `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT\n  Image 2).\n* `nano-banana`: General purpose generation (Nano Banana 1 / Nano\n  Banana 2).\n* `ideogram`: Realism, text rendering, and artistic generation\n  (Ideogram V4).\n",
 );
 
 /**
@@ -74,7 +80,7 @@ export type ModelByFamily = { family: Family; tier?: Tier | undefined };
 
 export const ModelByFamily$zodSchema: z.ZodType<ModelByFamily> = z.object({
   family: Family$zodSchema.describe(
-    "Model family:\n* `flux`: Photorealistic images (FLUX.2 Klein 9B / FLUX.2 Pro).\n* `recraft`: Vector and illustration (Recraft V3 / Recraft V4).\n* `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT Image 2).\n* `nano-banana`: General purpose generation (Nano Banana 1 / Nano Banana 2).\n* `ideogram`: Realism, text rendering, and artistic generation (Ideogram V4).\n",
+    "Model family:\n* `flux`: Photorealistic images (FLUX.2 Klein 9B / FLUX.2 Pro).\n* `recraft`: Vector and illustration (Recraft V3 / Recraft V4).\n* `gpt-image`: Campaign and marketing images (GPT Image 1 Mini / GPT\n  Image 2).\n* `nano-banana`: General purpose generation (Nano Banana 1 / Nano\n  Banana 2).\n* `ideogram`: Realism, text rendering, and artistic generation\n  (Ideogram V4).\n",
   ),
   tier: Tier$zodSchema.optional().describe(
     "Quality tier within the family. Defaults to `standard` when omitted.",

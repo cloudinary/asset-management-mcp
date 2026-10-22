@@ -12,7 +12,8 @@ import { ModelById, ModelById$zodSchema } from "./modelbyid.js";
  * Selects the model, in one of three mutually exclusive forms (omit to use
  *
  * @remarks
- * the global default):
+ * the default: `nano-banana-2`, or `nano-banana-2-edit` for
+ * image-to-image):
  *   * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time
  *     selector.
  *   * `ModelById`: an explicit `id`, pinning one exact model.
@@ -26,5 +27,5 @@ export const ModelSelection$zodSchema: z.ZodType<ModelSelection> = z.union([
   ModelById$zodSchema,
   ModelAuto$zodSchema,
 ]).describe(
-  "Selects the model, in one of three mutually exclusive forms (omit to use\nthe global default):\n  * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time\n    selector.\n  * `ModelById`: an explicit `id`, pinning one exact model.\n  * `ModelAuto`: `mode: auto`, letting the service choose the model for\n    the request (+ optional `preference`).\n",
+  "Selects the model, in one of three mutually exclusive forms (omit to use\nthe default: `nano-banana-2`, or `nano-banana-2-edit` for\nimage-to-image):\n  * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time\n    selector.\n  * `ModelById`: an explicit `id`, pinning one exact model.\n  * `ModelAuto`: `mode: auto`, letting the service choose the model for\n    the request (+ optional `preference`).\n",
 );

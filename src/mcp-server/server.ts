@@ -64,7 +64,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.11.4",
+    version: "0.11.5",
   });
 
   const getClient = deps.getSDK || (() =>

@@ -27,10 +27,12 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a generation task
+ * Check the status and result of a generation task
  *
  * @remarks
- * Get the status of a generation task.
+ * Check on an image generation running in the background: whether it is
+ * pending, processing, completed or failed, and, once it has completed,
+ * the generated images with their URLs, size and format.
  */
 export function tasksGetGenerationTaskStatus(
   client$: CloudinaryAssetMgmtCore,

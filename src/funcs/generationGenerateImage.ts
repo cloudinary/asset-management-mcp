@@ -27,16 +27,26 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Generate an image
+ * Generate an image from a text prompt
  *
  * @remarks
- * Generate an image from a text prompt using AI models.
+ * Create any image from a text description with AI: photos, illustrations,
+ * logos, icons, product shots, banners, ads, social posts, concept art,
+ * mockups, and images with readable text. One call gives you the best
+ * image models — Nano Banana, GPT Image, FLUX, Ideogram, Recraft and more.
+ * Leave out `model` and a strong default is used.
  *
- * The model is selected via the optional `model` object:
- * 1. If `model.id` is provided, use that exact model.
- * 2. Else if `model.family` (+ optional `model.tier`) is provided, resolve via the model registry; a missing tier defaults to `standard`.
- * 3. Else if `model.mode` is `auto`, the service picks the model for the request (optionally steered by `model.preference`).
- * 4. Otherwise, use the global default (nano-banana / premium, i.e. `nano-banana-2`).
+ * **Storage is optional.** Get the image at a temporary link without
+ * saving anything to your account, or keep it in your Media Library, ready
+ * to deliver, transform and optimize.
+ *
+ * **What you get back.** Each image comes with its URL, size, format and
+ * the model that made it, either in the response or, for longer jobs, from
+ * a background task you can check or be notified about. Each generation
+ * uses Image Generation credits.
+ *
+ * To edit, restyle or combine existing images, use image-to-image
+ * (`generate-image-from-images`) instead.
  */
 export function generationGenerateImage(
   client$: CloudinaryAssetMgmtCore,
