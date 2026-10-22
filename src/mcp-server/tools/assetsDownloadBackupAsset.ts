@@ -32,7 +32,7 @@ export const tool$assetsDownloadBackupAsset: ToolDefinition<typeof args> = {
       client,
       args.asset_id,
       args.version_id,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

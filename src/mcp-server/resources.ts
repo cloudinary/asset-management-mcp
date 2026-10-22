@@ -3,27 +3,23 @@
  * @generated-id: cb0c57ebeaea
  */
 
+import type { ResourceTemplate as LegacyResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   McpServer,
+  ReadResourceResult,
   ResourceMetadata,
   ResourceTemplate,
-} from "@modelcontextprotocol/sdk/server/mcp.js";
-import { RequestHandlerExtra } from "@modelcontextprotocol/sdk/shared/protocol.js";
-import { Variables } from "@modelcontextprotocol/sdk/shared/uriTemplate.js";
-import {
-  ReadResourceResult,
-  ServerNotification,
-  ServerRequest,
-} from "@modelcontextprotocol/sdk/types.js";
+  Variables,
+} from "@modelcontextprotocol/server";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPScope } from "./scopes.js";
-import { valueToBase64 } from "./shared.js";
+import { MCPServerContext, mcpServerContext, valueToBase64 } from "./shared.js";
 
 export type ReadResourceCallback = (
   client: CloudinaryAssetMgmtCore,
   uri: URL,
-  extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+  extra: MCPServerContext,
 ) => ReadResourceResult | Promise<ReadResourceResult>;
 
 export type ResourceDefinition = {
@@ -39,7 +35,7 @@ export type ReadResourceTemplateCallback = (
   client: CloudinaryAssetMgmtCore,
   uri: URL,
   vars: Variables,
-  extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+  extra: MCPServerContext,
 ) => ReadResourceResult | Promise<ReadResourceResult>;
 
 export type ResourceTemplateDefinition = {
@@ -47,7 +43,7 @@ export type ResourceTemplateDefinition = {
   description: string;
   metadata?: ResourceMetadata;
   scopes?: MCPScope[];
-  resource: ResourceTemplate;
+  resource: ResourceTemplate | LegacyResourceTemplate;
   read: ReadResourceTemplateCallback;
 };
 
@@ -95,11 +91,11 @@ export function createRegisterResource(
       description: resource.description,
     };
 
-    server.resource(
+    server.registerResource(
       resource.name,
       resource.resource,
       metadata,
-      async (uri, ctx) => resource.read(getSDK(), uri, ctx),
+      async (uri, ctx) => resource.read(getSDK(), uri, mcpServerContext(ctx)),
     );
 
     logger.debug("Registered resource", { name: resource.name });
@@ -130,13 +126,32 @@ export function createRegisterResourceTemplate(
       description: resource.description,
     };
 
-    server.resource(
+    server.registerResource(
       resource.name,
-      resource.resource,
+      normalizeResourceTemplate(resource.resource),
       metadata,
-      async (uri, vars, ctx) => resource.read(getSDK(), uri, vars, ctx),
+      async (uri, vars, ctx) =>
+        resource.read(getSDK(), uri, vars, mcpServerContext(ctx)),
     );
 
     logger.debug("Registered resource template", { name: resource.name });
   };
+}
+
+function normalizeResourceTemplate(
+  resource: ResourceTemplate | LegacyResourceTemplate,
+): ResourceTemplate {
+  if (resource instanceof ResourceTemplate) return resource;
+  const complete: NonNullable<
+    ConstructorParameters<typeof ResourceTemplate>[1]["complete"]
+  > = {};
+  for (const variable of resource.uriTemplate.variableNames) {
+    const callback = resource.completeCallback(variable);
+    if (callback) complete[variable] = callback;
+  }
+  const list = resource.listCallback;
+  return new ResourceTemplate(resource.uriTemplate.toString(), {
+    list: list ? (ctx) => list(mcpServerContext(ctx)) : undefined,
+    complete,
+  });
 }

@@ -15,6 +15,7 @@ generation:
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: false
     nameOverrideFeb2026: false
+    openSingleValueEnumsOct2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -32,7 +33,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 mcp-typescript:
-  version: 0.11.3
+  version: 0.11.4
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -119,6 +120,7 @@ mcp-typescript:
   methodArguments: require-security-and-request
   moduleFormat: dual
   multipartArrayFormat: legacy
+  numericEnumMemberNames: legacy
   outputModelSuffix: output
   packageName: '@cloudinary/asset-management-mcp'
   responseFormat: flat

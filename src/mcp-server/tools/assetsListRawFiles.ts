@@ -67,7 +67,7 @@ Retrieves a list of raw assets. Results can be filtered by various criteria like
       args.direction,
       args.start_at,
       args.fields,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

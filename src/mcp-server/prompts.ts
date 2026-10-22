@@ -3,32 +3,28 @@
  * @generated-id: 26f3d73cbf31
  */
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import {
-  ShapeOutput,
-  ZodRawShapeCompat,
-} from "@modelcontextprotocol/sdk/server/zod-compat.js";
-import { RequestHandlerExtra } from "@modelcontextprotocol/sdk/shared/protocol.js";
-import {
-  GetPromptResult,
-  ServerNotification,
-  ServerRequest,
-} from "@modelcontextprotocol/sdk/types.js";
+import { GetPromptResult, McpServer } from "@modelcontextprotocol/server";
+import * as z from "zod";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPScope } from "./scopes.js";
+import {
+  mcpInputSchema,
+  MCPServerContext,
+  mcpServerContext,
+} from "./shared.js";
 
 export type PromptDefinition<
-  Args extends undefined | ZodRawShapeCompat = undefined,
-> = Args extends ZodRawShapeCompat ? {
+  Args extends undefined | z.ZodRawShape = undefined,
+> = Args extends z.ZodRawShape ? {
     name: string;
     description?: string;
     scopes?: MCPScope[];
     args: Args;
     prompt: (
       client: CloudinaryAssetMgmtCore,
-      args: ShapeOutput<Args>,
-      extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+      args: z.output<z.ZodObject<Args>>,
+      extra: MCPServerContext,
     ) => GetPromptResult | Promise<GetPromptResult>;
   }
   : {
@@ -38,7 +34,7 @@ export type PromptDefinition<
     args?: undefined;
     prompt: (
       client: CloudinaryAssetMgmtCore,
-      extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+      extra: MCPServerContext,
     ) => GetPromptResult | Promise<GetPromptResult>;
   };
 
@@ -62,10 +58,8 @@ export function createRegisterPrompt(
   server: McpServer,
   getSDK: () => CloudinaryAssetMgmtCore,
   allowedScopes: Set<MCPScope>,
-): <A extends ZodRawShapeCompat | undefined>(
-  prompt: PromptDefinition<A>,
-) => void {
-  return <A extends ZodRawShapeCompat | undefined>(
+): <A extends z.ZodRawShape | undefined>(prompt: PromptDefinition<A>) => void {
+  return <A extends z.ZodRawShape | undefined>(
     prompt: PromptDefinition<A>,
   ): void => {
     const scopes = prompt.scopes ?? [];
@@ -81,30 +75,23 @@ export function createRegisterPrompt(
     }
 
     if (prompt.args) {
-      if (prompt.description) {
-        server.prompt(
-          prompt.name,
-          prompt.description,
-          prompt.args,
-          async (args, ctx) => prompt.prompt(getSDK(), args, ctx),
-        );
-      } else {
-        server.prompt(
-          prompt.name,
-          prompt.args,
-          async (args, ctx) => prompt.prompt(getSDK(), args, ctx),
-        );
-      }
+      server.registerPrompt(
+        prompt.name,
+        {
+          ...(prompt.description === undefined
+            ? {}
+            : { description: prompt.description }),
+          argsSchema: { ...mcpInputSchema(prompt.args), shape: prompt.args },
+        },
+        async (args, ctx) =>
+          prompt.prompt(getSDK(), args, mcpServerContext(ctx)),
+      );
     } else {
-      if (prompt.description) {
-        server.prompt(
-          prompt.name,
-          prompt.description,
-          async (ctx) => prompt.prompt(getSDK(), ctx),
-        );
-      } else {
-        server.prompt(prompt.name, async (ctx) => prompt.prompt(getSDK(), ctx));
-      }
+      server.registerPrompt(prompt.name, {
+        ...(prompt.description === undefined
+          ? {}
+          : { description: prompt.description }),
+      }, async (ctx) => prompt.prompt(getSDK(), mcpServerContext(ctx)));
     }
 
     logger.debug("Registered prompt", { name: prompt.name });

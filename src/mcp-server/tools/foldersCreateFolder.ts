@@ -31,7 +31,7 @@ Creates a new folder at the specified path`,
     const [result] = await foldersCreateFolder(
       client,
       args.folder,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

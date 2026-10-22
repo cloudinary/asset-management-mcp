@@ -37,7 +37,7 @@ Renames or moves an entire folder (along with all assets it contains) to a new l
       client,
       args.folder,
       args.move_folder_request,
-      { fetchOptions: { signal: ctx.signal } },
+      { fetchOptions: { signal: ctx.mcpReq.signal } },
     ).$inspect();
 
     if (!result.ok) {

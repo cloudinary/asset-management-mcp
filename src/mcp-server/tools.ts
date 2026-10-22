@@ -3,17 +3,7 @@
  * @generated-id: 654d5d1f2062
  */
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import {
-  ShapeOutput,
-  ZodRawShapeCompat,
-} from "@modelcontextprotocol/sdk/server/zod-compat.js";
-import { RequestHandlerExtra } from "@modelcontextprotocol/sdk/shared/protocol.js";
-import {
-  CallToolResult,
-  ServerNotification,
-  ServerRequest,
-} from "@modelcontextprotocol/sdk/types.js";
+import { CallToolResult, McpServer } from "@modelcontextprotocol/server";
 import * as z from "zod";
 import { CloudinaryAssetMgmtCore } from "../core.js";
 import { ServerRegion$zodSchema } from "../lib/config.js";
@@ -22,7 +12,12 @@ import { shouldForwardToolMeta } from "./apps/tool-hooks.js";
 import { ConsoleLogger } from "./console-logger.js";
 import { MCPServerFlags } from "./flags.js";
 import { MCPScope, mcpScopes } from "./scopes.js";
-import { valueToBase64 } from "./shared.js";
+import {
+  mcpInputSchema,
+  MCPServerContext,
+  mcpServerContext,
+  valueToBase64,
+} from "./shared.js";
 
 export type MCPToolAnnotationFilter = {
   readOnlyHint?: boolean;
@@ -68,6 +63,11 @@ export function buildAnnotationFilter(
   return filter;
 }
 
+type ZodRawShapeCompat = z.ZodRawShape;
+type ShapeOutput<Shape extends ZodRawShapeCompat> = z.output<
+  z.ZodObject<Shape>
+>;
+
 export type ToolDefinition<
   Args extends undefined | ZodRawShapeCompat = undefined,
 > = Args extends ZodRawShapeCompat ? {
@@ -86,7 +86,7 @@ export type ToolDefinition<
     tool: (
       client: CloudinaryAssetMgmtCore,
       args: ShapeOutput<Args>,
-      extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+      extra: MCPServerContext,
     ) => CallToolResult | Promise<CallToolResult>;
   }
   : {
@@ -104,7 +104,7 @@ export type ToolDefinition<
     _meta?: Record<string, unknown>;
     tool: (
       client: CloudinaryAssetMgmtCore,
-      extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
+      extra: MCPServerContext,
     ) => CallToolResult | Promise<CallToolResult>;
   };
 
@@ -143,17 +143,14 @@ export function createRegisterTool(
   annotationFilter?: MCPToolAnnotationFilter,
   mcpApps?: McpApp[],
 ): [
-  <A extends ZodRawShapeCompat | undefined>(tool: ToolDefinition<A>) => void,
+  <A extends z.ZodRawShape | undefined>(tool: ToolDefinition<A>) => void,
   Array<{ name: string; description: string }>,
-  Map<string, ToolDefinition<ZodRawShapeCompat | undefined>>,
+  Map<string, ToolDefinition<z.ZodRawShape | undefined>>,
 ] {
   const enabledUris = enabledAppUriPrefixes(mcpApps ?? []);
   const tools: Array<{ name: string; description: string }> = [];
-  const toolMap = new Map<
-    string,
-    ToolDefinition<ZodRawShapeCompat | undefined>
-  >();
-  const registerTool = <A extends ZodRawShapeCompat | undefined>(
+  const toolMap = new Map<string, ToolDefinition<z.ZodRawShape | undefined>>();
+  const registerTool = <A extends z.ZodRawShape | undefined>(
     tool: ToolDefinition<A>,
   ): void => {
     if (allowedTools && !allowedTools.has(tool.name)) {
@@ -200,10 +197,7 @@ export function createRegisterTool(
       }
     }
 
-    toolMap.set(
-      tool.name,
-      tool as ToolDefinition<ZodRawShapeCompat | undefined>,
-    );
+    toolMap.set(tool.name, tool as ToolDefinition<z.ZodRawShape | undefined>);
 
     if (dynamic) {
       logger.debug("Collected tool for dynamic mode", { name: tool.name });
@@ -216,14 +210,14 @@ export function createRegisterTool(
         tool.name,
         {
           description: tool.description,
-          inputSchema: tool.args,
+          inputSchema: mcpInputSchema(tool.args),
           annotations: tool.annotations,
           ...(shouldForwardToolMeta(tool._meta, enabledUris)
             ? { _meta: tool._meta }
             : {}),
         },
         async (args, ctx) => {
-          return tool.tool(getSDK(), args, ctx);
+          return tool.tool(getSDK(), args, mcpServerContext(ctx));
         },
       );
     } else {
@@ -237,7 +231,7 @@ export function createRegisterTool(
             : {}),
         },
         async (ctx) => {
-          return tool.tool(getSDK(), ctx);
+          return tool.tool(getSDK(), mcpServerContext(ctx));
         },
       );
     }
@@ -252,7 +246,7 @@ export function createRegisterTool(
 function matchesSearchTerms(
   terms: string[],
   name: string,
-  def: ToolDefinition<ZodRawShapeCompat | undefined>,
+  def: ToolDefinition<z.ZodRawShape | undefined>,
 ): boolean {
   if (terms.length === 0) {
     return true;
@@ -275,14 +269,14 @@ export function registerDynamicTools(
   logger: ConsoleLogger,
   server: McpServer,
   getSDK: () => CloudinaryAssetMgmtCore,
-  toolMap: Map<string, ToolDefinition<ZodRawShapeCompat | undefined>>,
+  toolMap: Map<string, ToolDefinition<z.ZodRawShape | undefined>>,
   allowedScopes: Set<MCPScope>,
 ): void {
   // 1. list_tools
   server.registerTool("list_tools", {
     description:
       "List available tools. Optionally filter by search terms that match against tool name, description, and scopes.",
-    inputSchema: {
+    inputSchema: z.object({
       search_terms: z.array(z.string()).optional().describe(
         [
           "Filter the list of tools.",
@@ -291,7 +285,7 @@ export function registerDynamicTools(
           "If not provided, all tools are returned.",
         ].join("\n"),
       ),
-    },
+    }),
     annotations: {
       title: "List Tools",
       readOnlyHint: true,
@@ -326,11 +320,11 @@ export function registerDynamicTools(
   server.registerTool("describe_tool_input", {
     description:
       "Get the input schema for one or more tools. It is a good idea to call this tool first to understand how to successfully call execute_tool.",
-    inputSchema: {
+    inputSchema: z.object({
       tool_names: z.array(z.string()).describe(
         "The names of the tools to describe",
       ),
-    },
+    }),
     annotations: {
       title: "Describe Tool",
       readOnlyHint: true,
@@ -355,11 +349,8 @@ export function registerDynamicTools(
 
       let schemaText = `<input_schema tool="${toolName}">\n\n`;
       if (def.args) {
-        const jsonSchema = z.toJSONSchema(z.object(def.args), {
-          target: "draft-2020-12",
-          io: "input",
-          unrepresentable: "any",
-        });
+        const jsonSchema = mcpInputSchema(def.args)["~standard"].jsonSchema
+          .input({ target: "draft-2020-12" });
         schemaText += JSON.stringify(jsonSchema, null, 2);
       } else {
         schemaText += "This tool takes no input parameters.";
@@ -380,12 +371,12 @@ export function registerDynamicTools(
   server.registerTool("execute_tool", {
     description:
       "Execute a tool by name with its arguments. If executing a given tool for the first time, it is recommended to call describe_tool_input first to understand the expected `arguments` shape.",
-    inputSchema: {
+    inputSchema: z.object({
       name: z.string().describe("The name of the tool to execute"),
       arguments: z.looseObject({}).optional().describe(
         "Arguments for the target tool as a JSON object, matching the schema returned by describe_tool_input.",
       ),
-    },
+    }),
     annotations: {
       title: "Execute Tool",
       readOnlyHint: false,
@@ -404,7 +395,9 @@ export function registerDynamicTools(
 
     let validatedInput: Record<string, unknown> = {};
     if (def.args) {
-      const vres = z.object(def.args).safeParse(args.arguments ?? {});
+      const vres = await z.object(def.args).safeParseAsync(
+        args.arguments ?? {},
+      );
       if (vres.success) {
         validatedInput = vres.data;
       } else {
@@ -423,9 +416,9 @@ export function registerDynamicTools(
 
     try {
       if (def.args) {
-        return await def.tool(getSDK(), validatedInput, ctx);
+        return await def.tool(getSDK(), validatedInput, mcpServerContext(ctx));
       } else {
-        return await def.tool(getSDK(), ctx);
+        return await def.tool(getSDK(), mcpServerContext(ctx));
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
@@ -477,7 +470,11 @@ function resolveHeader<T>(
   if (val != null) {
     return schema.parse(val);
   }
-  return disableStaticAuth ? undefined : schema.parse(cliFlagValue);
+  if (disableStaticAuth || cliFlagValue === undefined) {
+    const parsed = schema.safeParse(undefined);
+    return parsed.success ? parsed.data : undefined;
+  }
+  return schema.parse(cliFlagValue);
 }
 
 export function buildSDK(
