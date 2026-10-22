@@ -9,7 +9,7 @@ import { Limits, Limits$zodSchema } from "./limits.js";
 import { Notice, Notice$zodSchema } from "./notice.js";
 
 /**
- * Rate limited.
+ * Error returned when the account is out of Image Generation credits, with the current quota.
  */
 export type RateLimitedResponse = {
   error: ErrorT;
@@ -32,4 +32,6 @@ export const RateLimitedResponse$zodSchema: z.ZodType<RateLimitedResponse> = z
     request_id: z.string().describe(
       "Unique identifier for this request, for correlation and support.",
     ),
-  }).describe("Rate limited.");
+  }).describe(
+    "Error returned when the account is out of Image Generation credits, with the current quota.",
+  );

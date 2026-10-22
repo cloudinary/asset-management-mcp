@@ -14,10 +14,12 @@ import {
 } from "./temporarystorage.js";
 
 /**
- * Where a generated asset is stored — mirrors the request `target`,
+ * Where the generated asset is actually stored, determined by
  *
  * @remarks
- * determined by `storage_type`. `secure_url` is always present.
+ * `storage_type`. Usually matches the request `target`; a `managed_asset`
+ * request falls back to `temporary` when the caller lacks upload
+ * permission. `secure_url` is always present.
  */
 export type Storage =
   | (ManagedAssetStorage & { storage_type: "managed_asset" })
@@ -35,5 +37,5 @@ export const Storage$zodSchema: z.ZodType<Storage> = z.union([
     }).transform((v) => ({ storage_type: v.storage_type })),
   ),
 ]).describe(
-  "Where a generated asset is stored — mirrors the request `target`,\ndetermined by `storage_type`. `secure_url` is always present.\n",
+  "Where the generated asset is actually stored, determined by\n`storage_type`. Usually matches the request `target`; a `managed_asset`\nrequest falls back to `temporary` when the caller lacks upload\npermission. `secure_url` is always present.\n",
 );

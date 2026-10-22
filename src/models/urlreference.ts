@@ -30,5 +30,5 @@ export const UrlReference$zodSchema: z.ZodType<UrlReference> = z.object({
   source_type: UrlReferenceSourceType$zodSchema.describe(
     "Discriminator identifying this as an external-URL reference.",
   ),
-  url: z.string().describe("HTTPS URL of the reference image."),
+  url: z.string().describe("Public HTTPS URL of the reference image."),
 }).describe("A reference to an external image by HTTPS URL.");

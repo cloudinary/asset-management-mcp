@@ -12,7 +12,8 @@ import { ClosedEnum } from "../types/enums.js";
  * @remarks
  * * `info`: for awareness; nothing to do.
  * * `warning`: worth relaying to the user before continuing.
- * * `blocking`: the request was not served; the text says what unblocks it.
+ * * `blocking`: the request was not served; the text says what
+ *   unblocks it.
  */
 export const Severity = {
   Info: "info",
@@ -25,7 +26,8 @@ export const Severity = {
  * @remarks
  * * `info`: for awareness; nothing to do.
  * * `warning`: worth relaying to the user before continuing.
- * * `blocking`: the request was not served; the text says what unblocks it.
+ * * `blocking`: the request was not served; the text says what
+ *   unblocks it.
  */
 export type Severity = ClosedEnum<typeof Severity>;
 
@@ -34,16 +36,21 @@ export const Severity$zodSchema = z.enum([
   "warning",
   "blocking",
 ]).describe(
-  "How much weight to give the message.\n* `info`: for awareness; nothing to do.\n* `warning`: worth relaying to the user before continuing.\n* `blocking`: the request was not served; the text says what unblocks it.\n",
+  "How much weight to give the message.\n* `info`: for awareness; nothing to do.\n* `warning`: worth relaying to the user before continuing.\n* `blocking`: the request was not served; the text says what\n  unblocks it.\n",
 );
 
+/**
+ * A single tip or piece of guidance, with how much weight to give it.
+ */
 export type Notice = { severity: Severity; text: string };
 
 export const Notice$zodSchema: z.ZodType<Notice> = z.object({
   severity: Severity$zodSchema.describe(
-    "How much weight to give the message.\n* `info`: for awareness; nothing to do.\n* `warning`: worth relaying to the user before continuing.\n* `blocking`: the request was not served; the text says what unblocks it.\n",
+    "How much weight to give the message.\n* `info`: for awareness; nothing to do.\n* `warning`: worth relaying to the user before continuing.\n* `blocking`: the request was not served; the text says what\n  unblocks it.\n",
   ),
   text: z.string().describe(
     "The tip or guidance, in plain text. Show it as-is or follow it; the wording may change between releases.",
   ),
-});
+}).describe(
+  "A single tip or piece of guidance, with how much weight to give it.",
+);

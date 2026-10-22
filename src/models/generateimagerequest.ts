@@ -38,7 +38,7 @@ export const GenerateImageRequest$zodSchema: z.ZodType<GenerateImageRequest> = z
       "Desired output size, given in **one** of two mutually exclusive forms:\n\n  * `DimensionsImageSize`: `width` and `height` in pixels, for precise\n    control.\n  * `DeclarativeImageSize`: `aspect_ratio` (and an optional `resolution`\n    tier), resolved server-side to the closest size the chosen model\n    supports. This is the portable form: most providers natively accept\n    an aspect ratio plus a resolution tier rather than raw pixels.\n\nOmit `image_size` entirely to use the model's default size.\n",
     ),
     model: ModelSelection$zodSchema.optional().describe(
-      "Selects the model, in one of three mutually exclusive forms (omit to use\nthe global default):\n  * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time\n    selector.\n  * `ModelById`: an explicit `id`, pinning one exact model.\n  * `ModelAuto`: `mode: auto`, letting the service choose the model for\n    the request (+ optional `preference`).\n",
+      "Selects the model, in one of three mutually exclusive forms (omit to use\nthe default: `nano-banana-2`, or `nano-banana-2-edit` for\nimage-to-image):\n  * `ModelByFamily`: `family` (+ optional `tier`); the stable-over-time\n    selector.\n  * `ModelById`: an explicit `id`, pinning one exact model.\n  * `ModelAuto`: `mode: auto`, letting the service choose the model for\n    the request (+ optional `preference`).\n",
     ),
     notification_url: z.string().optional().describe(
       "The webhook URL to notify when the generation is complete. Only relevant when `async` is set to true.",
@@ -50,7 +50,7 @@ export const GenerateImageRequest$zodSchema: z.ZodType<GenerateImageRequest> = z
       "Seed for reproducible generation. Supported by the `flux`, `nano-banana`\nand `ideogram` models and by `qwen-image-3`; silently ignored by the\nmodels that don't support it, which report `seed` as null in the\nresponse.\n",
     ),
     target: Target$zodSchema.optional().describe(
-      "Where to store the generated output, determined by `target_type`.\nOptional; defaults to a `managed_asset` target when omitted.\n",
+      "Where the generated image goes, determined by `target_type`. Use\n`temporary` when the user only wants the image: a short-lived URL,\nnothing saved to their account. Omit it, or use `managed_asset`, to\nstore the image permanently in their Media Library. If the caller lacks\nupload permission, the image is returned as `temporary` instead, with a\n`warning` notice.\n",
     ),
   }).describe(
     "Parameters for an image-generation request. Only `prompt` is required;\nall other fields fall back to documented defaults.\n",
