@@ -75,7 +75,7 @@ Returns the details of a single resource specified by its asset ID.`,
       args.versions,
       args.max_results,
       args.derived_next_cursor,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

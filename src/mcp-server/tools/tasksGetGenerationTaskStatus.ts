@@ -32,7 +32,7 @@ the generated images with their URLs, size and format.
     const [result] = await tasksGetGenerationTaskStatus(
       client,
       args.task_id,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

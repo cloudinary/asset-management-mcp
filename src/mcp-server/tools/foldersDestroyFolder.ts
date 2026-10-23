@@ -31,7 +31,7 @@ Deletes a folder and all assets within it.`,
     const [result] = await foldersDestroyFolder(
       client,
       args.folder,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

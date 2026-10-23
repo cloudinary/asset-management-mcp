@@ -37,7 +37,7 @@ Relates an asset to other assets by their asset IDs, an immutable identifier, re
       client,
       args.asset_id,
       args.relate_assets_by_asset_id_request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

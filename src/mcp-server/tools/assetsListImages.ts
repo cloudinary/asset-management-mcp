@@ -63,7 +63,7 @@ Retrieves a list of image assets. Results can be filtered by various criteria li
       args.direction,
       args.start_at,
       args.fields,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

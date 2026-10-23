@@ -12,28 +12,13 @@ import { toolNames } from "./tool-names.js";
 // Cloudflare-specific wrapper
 export function landingPage(req: Request): Response {
   const origin = new URL(req.url).origin;
-  return new Response(landingPageHTML(origin, "http", "cloudflare"), {
+  return new Response(landingPageHTML(origin), {
     headers: { "Content-Type": "text/html" },
   });
 }
 
 // express wrapper
 export function landingPageExpress(req: ExpressRequest, res: ExpressResponse) {
-  sendLandingPage(req, res, "sse");
-}
-
-export function landingPageExpressHTTP(
-  req: ExpressRequest,
-  res: ExpressResponse,
-) {
-  sendLandingPage(req, res, "http");
-}
-
-function sendLandingPage(
-  req: ExpressRequest,
-  res: ExpressResponse,
-  transport: "sse" | "http",
-) {
   const proto = req.get("x-forwarded-proto")?.split(",")[0]?.trim()
     || req.protocol;
   const host = req.get("host");
@@ -41,71 +26,33 @@ function sendLandingPage(
     res.status(400).send("Missing Host header");
     return;
   }
-  res.type("html").send(landingPageHTML(`${proto}://${host}`, transport));
+  res.type("html").send(landingPageHTML(`${proto}://${host}`));
 }
 
-export function landingPageHTML(
-  origin: string,
-  transport: "sse" | "http" = "sse",
-  runtime: "node" | "cloudflare" = "node",
-): string {
+export function landingPageHTML(origin: string): string {
   const o = origin;
-  const endpoint = transport === "sse" ? "sse" : "mcp";
-  const headers: Array<{ name: string; env: string }> = runtime === "cloudflare"
-    ? [{ "name": "x-cloudinary-auth", "env": "CLOUDINARY_AUTH" }, {
-      "name": "x-oauth2",
-      "env": "OAUTH2",
-    }]
-    : transport === "sse"
-    ? [{ "name": "api-key", "env": "API_KEY" }, {
-      "name": "api-secret",
-      "env": "API_SECRET",
-    }, { "name": "oauth2", "env": "OAUTH2" }]
-    : [
-      { "name": "api-key", "env": "API_KEY" },
-      { "name": "api-secret", "env": "API_SECRET" },
-      { "name": "oauth2", "env": "OAUTH2" },
-      { "name": "cloud-name", "env": "CLOUD_NAME" },
-      { "name": "region", "env": "REGION" },
-      { "name": "api-host", "env": "API_HOST" },
-    ];
   const mcpConfig = {
-    command: "npx",
-    args: [
+    "command": "npx",
+    "args": [
       "-y",
       "mcp-remote@0.1.25",
-      `${o}/${endpoint}`,
-      ...headers.flatMap(({ name, env }) => ["--header", `${name}:\${${env}}`]),
+      `${o}/sse`,
+      "--header",
+      "api-key:${API_KEY}",
+      "--header",
+      "api-secret:${API_SECRET}",
+      "--header",
+      "cloud-name:${CLOUD_NAME}",
     ],
-    env: Object.fromEntries(headers.map(({ env }) => [env, "YOUR_VALUE_HERE"])),
+    "env": {
+      "API_KEY": "YOUR_VALUE_HERE",
+      "API_SECRET": "YOUR_VALUE_HERE",
+      "CLOUD_NAME": "YOUR_VALUE_HERE",
+    },
   };
-  const cliHeaders = headers.map(({ name }) => `--header "${name}: ..."`).join(
-    " ",
-  );
-  const codexConfig = transport === "sse"
-    ? `[mcp_servers.CloudinaryAssetMgmt]
-command = ${JSON.stringify(mcpConfig.command)}
-args = ${JSON.stringify(mcpConfig.args)}
-env = { ${
-      Object.entries(mcpConfig.env).map(([name, value]) =>
-        `${JSON.stringify(name)} = ${JSON.stringify(value)}`
-      ).join(", ")
-    } }`
-    : `[mcp_servers.CloudinaryAssetMgmt]
-url = ${JSON.stringify(`${o}/${endpoint}`)}
-http_headers = { ${
-      headers.map(({ name, env }) =>
-        `${JSON.stringify(name)} = ${JSON.stringify(`YOUR_${env}`)}`
-      ).join(", ")
-    } }`;
-  const encodedConfig = encodeURIComponent(
-    btoa(
-      Array.from(
-        new TextEncoder().encode(JSON.stringify(mcpConfig)),
-        byte => String.fromCharCode(byte),
-      ).join(""),
-    ),
-  );
+  const codexConfig = `[mcp_servers.CloudinaryAssetMgmt]
+url = "${o}/sse"
+http_headers = { "api-key" = "YOUR_API_KEY", "api-secret" = "YOUR_API_SECRET", "cloud-name" = "YOUR_CLOUD_NAME" }`;
 
   return `
 <!DOCTYPE html>
@@ -743,7 +690,7 @@ http_headers = { ${
                   </svg>
                 </button>
                 <div class="popover-menu hidden" id="popover-menu">
-                  <a class="popover-button install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=CloudinaryAssetMgmt&config=${encodedConfig}">
+                  <a class="popover-button install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=CloudinaryAssetMgmt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAY2xvdWRpbmFyeS9hc3NldC1tYW5hZ2VtZW50LW1jcCIsInN0YXJ0IiwiLS1hcGkta2V5IiwiIiwiLS1hcGktc2VjcmV0IiwiIiwiLS1jbG91ZC1uYW1lIiwiIl19">
                     Cursor
                   </a>
                   <button class="popover-button" onclick="showModal('claude-code')">
@@ -752,7 +699,7 @@ http_headers = { ${
                   <button class="popover-button" onclick="showModal('claude-desktop')">
                     Claude Desktop
                   </button>
-                  <a class="popover-button install-link" href="vscode://ms-vscode.vscode-mcp/install?name=CloudinaryAssetMgmt&config=${encodedConfig}">
+                  <a class="popover-button install-link" href="vscode://ms-vscode.vscode-mcp/install?name=CloudinaryAssetMgmt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAY2xvdWRpbmFyeS9hc3NldC1tYW5hZ2VtZW50LW1jcCIsInN0YXJ0IiwiLS1hcGkta2V5IiwiIiwiLS1hcGktc2VjcmV0IiwiIiwiLS1jbG91ZC1uYW1lIiwiIl19">
                     VS Code
                   </a>
                   <button class="popover-button" onclick="showModal('gemini')">
@@ -775,7 +722,7 @@ http_headers = { ${
             </div>
           </header>
           <div class="install-targets">
-            <a tabindex="0" class="card install-target install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=CloudinaryAssetMgmt&config=${encodedConfig}">
+            <a tabindex="0" class="card install-target install-link" href="cursor://anysphere.cursor-deeplink/mcp/install?name=CloudinaryAssetMgmt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAY2xvdWRpbmFyeS9hc3NldC1tYW5hZ2VtZW50LW1jcCIsInN0YXJ0IiwiLS1hcGkta2V5IiwiIiwiLS1hcGktc2VjcmV0IiwiIiwiLS1jbG91ZC1uYW1lIiwiIl19">
               <div class="target">
                 <img src="https://cursor.com/assets/images/logo.svg" alt="Cursor">
                 <span>Cursor</span>
@@ -797,7 +744,7 @@ http_headers = { ${
                 <span>Claude Desktop</span>
               </div>
             </div>
-            <a tabindex="0" class="card install-target install-link" href="vscode://ms-vscode.vscode-mcp/install?name=CloudinaryAssetMgmt&config=${encodedConfig}">
+            <a tabindex="0" class="card install-target install-link" href="vscode://ms-vscode.vscode-mcp/install?name=CloudinaryAssetMgmt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAY2xvdWRpbmFyeS9hc3NldC1tYW5hZ2VtZW50LW1jcCIsInN0YXJ0IiwiLS1hcGkta2V5IiwiIiwiLS1hcGktc2VjcmV0IiwiIiwiLS1jbG91ZC1uYW1lIiwiIl19">
               <div class="target">
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
@@ -919,7 +866,7 @@ http_headers = { ${
                 <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
               </svg>
             </button>
-            <code class="code-snippet" id="server-url">${o}/${endpoint}</code>
+            <code class="code-snippet" id="server-url">${o}/mcp</code>
           </div>
         </section>
 
@@ -976,7 +923,7 @@ http_headers = { ${
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
             </svg>
           </button>
-          <code class="code-snippet language-json" id="claude-cli-cmd">claude mcp add --transport ${transport} CloudinaryAssetMgmt ${o}/${endpoint} ${cliHeaders}</code>
+          <code class="code-snippet language-json" id="claude-cli-cmd">claude mcp add CloudinaryAssetMgmt -- npx -y @cloudinary/asset-management-mcp start --api-key  --api-secret  --cloud-name </code>
         </div>
       </div>
     </div>
@@ -992,7 +939,7 @@ http_headers = { ${
         <h1>Instructions</h1>
         <p>One-click installation for Claude Desktop users</p>
         <div class="instruction-item">
-          <a href="https://github.com/cloudinary/asset-management-mcp/releases/download/v0.11.5/mcp-server.mcpb" download="mcp-server.mcpb" class="action-button header-action" style="display: inline-flex; margin-bottom: 16px;">
+          <a href="https://github.com/cloudinary/asset-management-mcp/releases/download/v0.11.6/mcp-server.mcpb" download="mcp-server.mcpb" class="action-button header-action" style="display: inline-flex; margin-bottom: 16px;">
             📥 Download MCP Bundle
           </a>
         </div>
@@ -1027,7 +974,7 @@ http_headers = { ${
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
             </svg>
           </button>
-          <code class="code-snippet language-json" id="gemini-config">gemini mcp add --transport ${transport} CloudinaryAssetMgmt ${o}/${endpoint} ${cliHeaders}</code>
+          <code class="code-snippet language-json" id="gemini-config">gemini mcp add CloudinaryAssetMgmt -- npx -y @cloudinary/asset-management-mcp start --api-key  --api-secret  --cloud-name </code>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ Unrelates the asset from other assets, specified by their asset IDs, an immutabl
       client,
       args.asset_id,
       args.unrelate_assets_by_asset_id_request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

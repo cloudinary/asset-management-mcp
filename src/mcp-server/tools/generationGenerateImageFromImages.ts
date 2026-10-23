@@ -50,7 +50,7 @@ uses Image Generation credits.
     const [result] = await generationGenerateImageFromImages(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {
