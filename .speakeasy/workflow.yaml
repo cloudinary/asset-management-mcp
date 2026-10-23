@@ -23,3 +23,5 @@ targets:
         publish:
             npm:
                 token: $npm_token
+            mcpRegistry:
+                auth: github-oidc
