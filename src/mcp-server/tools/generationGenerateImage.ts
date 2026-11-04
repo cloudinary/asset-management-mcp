@@ -48,7 +48,7 @@ To edit, restyle or combine existing images, use image-to-image
     const [result] = await generationGenerateImage(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

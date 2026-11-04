@@ -39,7 +39,7 @@ The number of tags multiplied by the number of public IDs must not exceed 10,000
       client,
       args.resource_type,
       args.tags_update_request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

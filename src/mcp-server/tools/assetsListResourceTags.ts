@@ -45,7 +45,7 @@ Retrieves a comprehensive list of all tags that exist in your product environmen
       args.prefix,
       args.next_cursor,
       args.max_results,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

@@ -31,7 +31,7 @@ A report on the status of product environment usage, including storage, credits,
     const [result] = await usageGetUsage(
       client,
       args.date,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

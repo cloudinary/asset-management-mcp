@@ -80,7 +80,7 @@ Uses a Lucene-like query language to filter assets by descriptive attributes (\`
     const [result] = await searchSearchAssets(
       client,
       args.request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

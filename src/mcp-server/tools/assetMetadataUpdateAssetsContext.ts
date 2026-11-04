@@ -39,7 +39,7 @@ Applies a contextual-metadata command to the given assets, addressing them by pu
       client,
       args.resource_type,
       args.context_update_request,
-      { fetchOptions: { signal: ctx.mcpReq.signal } },
+      { fetchOptions: { signal: ctx.signal } },
     ).$inspect();
 
     if (!result.ok) {

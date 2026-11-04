@@ -3,16 +3,18 @@
  * @generated-id: 3d9d20ff158f
  */
 
-import * as z from "zod";
+import { ZodRawShapeCompat } from "@modelcontextprotocol/sdk/server/zod-compat.js";
 import { PromptDefinition } from "./prompts.js";
 import { ResourceDefinition, ResourceTemplateDefinition } from "./resources.js";
 import { ToolDefinition } from "./tools.js";
 
 export type Register = {
-  tool: <A extends z.ZodRawShape | undefined>(def: ToolDefinition<A>) => void;
+  tool: <A extends ZodRawShapeCompat | undefined>(
+    def: ToolDefinition<A>,
+  ) => void;
   resource: (def: ResourceDefinition) => void;
   resourceTemplate: (def: ResourceTemplateDefinition) => void;
-  prompt: <A extends z.ZodRawShape | undefined>(
+  prompt: <A extends ZodRawShapeCompat | undefined>(
     prompt: PromptDefinition<A>,
   ) => void;
 };
