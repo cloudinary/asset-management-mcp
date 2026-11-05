@@ -1,18 +1,18 @@
-speakeasyVersion: 1.803.1
+speakeasyVersion: 1.806.0
 sources:
     CloudinaryAssetMgmt-MCP-OAS:
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
-        sourceRevisionDigest: sha256:c9e264b57c3cb582373b46eae6c8e2f632ac119c1367f9154242e97d71b02e75
-        sourceBlobDigest: sha256:07dabfd22e7f1b2063905dcbb677c973d60ded48c79d09d5a69800c9fb38f4e9
+        sourceRevisionDigest: sha256:029b6974caf4f5a92f1ba58d9f32cbf08b29424075f5e7b0319cc484f6a3edbc
+        sourceBlobDigest: sha256:b1d2c25ac926f251ece3cf300765bab2c4fefe33b8dfb1a1ad5b3e06bb95a172
         tags:
             - latest
-            - 0.7.8
+            - 0.7.9
 targets:
     cloudinary-asset-mgmt-mcp:
         source: CloudinaryAssetMgmt-MCP-OAS
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
-        sourceRevisionDigest: sha256:c9e264b57c3cb582373b46eae6c8e2f632ac119c1367f9154242e97d71b02e75
-        sourceBlobDigest: sha256:07dabfd22e7f1b2063905dcbb677c973d60ded48c79d09d5a69800c9fb38f4e9
+        sourceRevisionDigest: sha256:029b6974caf4f5a92f1ba58d9f32cbf08b29424075f5e7b0319cc484f6a3edbc
+        sourceBlobDigest: sha256:b1d2c25ac926f251ece3cf300765bab2c4fefe33b8dfb1a1ad5b3e06bb95a172
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -39,3 +39,5 @@ workflow:
             publish:
                 npm:
                     token: $npm_token
+                mcpRegistry:
+                    auth: github-oidc
