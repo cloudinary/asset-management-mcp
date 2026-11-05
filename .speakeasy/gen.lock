@@ -1,26 +1,26 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: 68f3f4f973d4bb6d651e1376d6c4943b
-  docVersion: 0.7.8
-  speakeasyVersion: 1.803.1
-  generationVersion: 2.950.2
-  releaseVersion: 0.11.5
-  configChecksum: 896087f86bf1ddefd3011553d68ea965
+  docChecksum: d0843909428e0d814d970d2d7dd85cf3
+  docVersion: 0.7.9
+  speakeasyVersion: 1.806.0
+  generationVersion: 2.956.1
+  releaseVersion: 0.11.6
+  configChecksum: a123fbb00770feecefd26da9aab9589e
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 0eeed43c-f034-457c-868e-ee3c427de3be
-  pristine_commit_hash: b884e08913f9b5eac5b617d5bebf967f987f96a1
-  pristine_tree_hash: d1ec6e0cc1d13d0f803c1e3db6e28d0b9f9f79ef
+  generation_id: 323fd0b9-cce4-48b5-9000-42f3db5e2691
+  pristine_commit_hash: 1990392ca147df674370873e824de311d5085e44
+  pristine_tree_hash: 4e8e810b9c45837c0a0702760c3b5fd81c9bbda8
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.2
-    core: 2.0.0
+    core: 2.0.3
     customSecuritySchemes: 0.1.1
     deepObjectParams: 0.1.0
     defaultEnabledRetries: 0.1.0
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:5ec6278bb9f4c52a26219e646e5bd89bf3c55989
-    pristine_git_object: 723b536142e7ae3b6a72b3725d084a8f08259c4f
+    last_write_checksum: sha1:e2344675170f1f17d3b146f75f213faff362d0ce
+    pristine_git_object: f0b3210551122bf1c3932ec62d086eaa815c9100
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:a4b411d7f7f86ffe28d8e7825544849af7a1a7bd
-    pristine_git_object: 77d9c1ba855f4b0c42ab9dbadbf4abbe9895a026
+    last_write_checksum: sha1:24eaadf074bed05a24ae691c675c234107ea7863
+    pristine_git_object: bb65c26f552e23cf8a006e99b359bad25644ea66
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -211,6 +211,58 @@ trackedFiles:
     id: f734afd6b5df
     last_write_checksum: sha1:b792f7b88fada90b93adcd46e414064d9e8ddf0e
     pristine_git_object: 7878c5ab4f0d20bc41970ef4a3b49918496aefe1
+  src/funcs/collectionsAddCollectionAssets.ts:
+    id: 6a4c50298045
+    last_write_checksum: sha1:01afbcf3632fdb9aad38ce7560fb25a36f59e075
+    pristine_git_object: 5cc70ab8d0e994edebe1c9a0a2d489d876013a56
+  src/funcs/collectionsCreateCollection.ts:
+    id: e1cf3372dc1e
+    last_write_checksum: sha1:d478b11cbfd4b57551cff25a141b53eb4487baf9
+    pristine_git_object: 14ab70c83ebe789ab6013937584e086ee3a9f6af
+  src/funcs/collectionsCreateCollectionPublicPage.ts:
+    id: cd9f55c46a91
+    last_write_checksum: sha1:69001ea3951cddd0ac47cf31001f234fcb1c6e27
+    pristine_git_object: 0895a0c275a907e5f8a233162e1f73e6c1059527
+  src/funcs/collectionsDeleteCollection.ts:
+    id: 412544d757f7
+    last_write_checksum: sha1:c645814e9e47a28f43af6107a15ef7e447a55889
+    pristine_git_object: e1e745a20794a0b556ca09eebb3e12f5a72dd031
+  src/funcs/collectionsDeleteCollectionPublicPage.ts:
+    id: 26283e5d2409
+    last_write_checksum: sha1:db1f7ebfc9c33126401b629b2aff7bbaa01848df
+    pristine_git_object: 81f642dc6907dc484933b49b8523369e6921438e
+  src/funcs/collectionsGetCollection.ts:
+    id: 17d45c027c84
+    last_write_checksum: sha1:2f706d46731960d4a0ecaf8d2a99e624464fd126
+    pristine_git_object: 96af948e03b72b9aa42e8fc71062c3dec66abe64
+  src/funcs/collectionsGetCollectionPublicPage.ts:
+    id: 55023abe09fb
+    last_write_checksum: sha1:3945905e59ded22eef58e613423e1214e402a97b
+    pristine_git_object: 95679e83cd59ef86c91584f711981ff7767b4aeb
+  src/funcs/collectionsListCollectionAssets.ts:
+    id: 5d49a7e9a375
+    last_write_checksum: sha1:12caef8f91d5bcfc540094b94d32a2cd6bb5aef5
+    pristine_git_object: 2d817e5d448256d5a917671da2198952a50e5729
+  src/funcs/collectionsListCollectionPublicPages.ts:
+    id: 98d6cca3b284
+    last_write_checksum: sha1:4818abc93f35fc3cefb4f192801cb42cd4613c78
+    pristine_git_object: ab188c388b90830023cc3faa2ba7cbbd7e40e787
+  src/funcs/collectionsListCollections.ts:
+    id: 89587fa99365
+    last_write_checksum: sha1:579d79f260a177f2c36bcf61c2755356a7129c43
+    pristine_git_object: 40d8136616657334613984bd86cd6e72910581f6
+  src/funcs/collectionsRemoveCollectionAssets.ts:
+    id: ba7db467609d
+    last_write_checksum: sha1:d3f0b2bb9bdd2ba05c5ee8cb2804a65a178ba407
+    pristine_git_object: b2689a2545d8c369b2c2ff26030ff5608281de4b
+  src/funcs/collectionsUpdateCollection.ts:
+    id: a85d7eb111b9
+    last_write_checksum: sha1:1652da42515e8c0df84441100bfcfbc1b58f1d25
+    pristine_git_object: 8bff6b968185fed6beb14c60bfd63f8cdc210e24
+  src/funcs/collectionsUpdateCollectionPublicPage.ts:
+    id: fa0c178b7e75
+    last_write_checksum: sha1:335454a6564cda37cc6b494b5fef8a7b3fa70a99
+    pristine_git_object: 4fdf160f93305b8e991a2520c92d68cb090cdb9f
   src/funcs/explodeExplodeResource.ts:
     id: c1cc94cc183a
     last_write_checksum: sha1:77baa2fdf53362a5fcf521f55281eb57c8a12826
@@ -373,16 +425,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:d67d0196925086566b76babd893c59fbc579a293
-    pristine_git_object: 4f21727858827296b750b5363ab97b43a8e36ae4
+    last_write_checksum: sha1:adc10bce3807de81c70e312db51a601370a542c2
+    pristine_git_object: c50c69570053a73fb38a9b8c720162435776962f
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:c899b2818c4075ca8d6bb54710ea08fbeb1479f1
-    pristine_git_object: 5db533f7ede5a094fcb90746b04e2e64bb57e615
+    last_write_checksum: sha1:9c0e8083517ce8710c1096176a5ece70e658756c
+    pristine_git_object: 248f96b789a5eb927cc933e815265610e9b9927d
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -469,8 +521,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:22afd14d81bc025da9b25f82c615864f8250bd8d
-    pristine_git_object: c2f22cc64dd276fe1b6d599985ad1bacd939f525
+    last_write_checksum: sha1:d47a43bcf0bc5940ef13ea3514ddc7a6a1c63684
+    pristine_git_object: 6f8415128f05842844ad44dc54bdee838ebdc842
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b0d1819592561fdc2c4287da2144e12005b1a67e
@@ -485,8 +537,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:16c5e40da176277016671e6f55827324a6d6466b
-    pristine_git_object: 626875ab4fde0aa19ae2b9c54bae627498497e1b
+    last_write_checksum: sha1:ca1b90613fedf07ab8047387a2bc5dfeaafa4257
+    pristine_git_object: cad0ad116d1b1c217c4e975c640e40c407ab2e5c
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:84222f4deea46fec7c7897f0ef6a66712fc7dff7
@@ -559,6 +611,58 @@ trackedFiles:
     id: 2721ef2e5585
     last_write_checksum: sha1:752723269c42fa6b32ed40d59cea6da7b458f3a5
     pristine_git_object: 430256184619d735c2195f9b758821193ccc7db1
+  src/mcp-server/tools/collectionsAddCollectionAssets.ts:
+    id: 56cae0a16ec0
+    last_write_checksum: sha1:7dc84d3200054d3a0ad36652f11e3a12b76cae0e
+    pristine_git_object: fb39921b0b2a36a9350352eedb09bc24b8772b62
+  src/mcp-server/tools/collectionsCreateCollection.ts:
+    id: 0daa81e251bc
+    last_write_checksum: sha1:2d1aae9981a492e54addd91dc1e52d5e8f82c635
+    pristine_git_object: 6da61475f77ad69eee62875d5f3055138d104e25
+  src/mcp-server/tools/collectionsCreateCollectionPublicPage.ts:
+    id: 8ab81b4a15b8
+    last_write_checksum: sha1:4ceb0ca008ffc3ade3d399ff6911d7ba722e3765
+    pristine_git_object: 4b92738cdfaa229e6c59f618099587d783491824
+  src/mcp-server/tools/collectionsDeleteCollection.ts:
+    id: df08a44f8a75
+    last_write_checksum: sha1:3df7f485f0948e80fec559b606f8eb9d99f3326d
+    pristine_git_object: a7af99ee9b83bace7f85c18453c4603b3d239bc7
+  src/mcp-server/tools/collectionsDeleteCollectionPublicPage.ts:
+    id: 5136f2c5670f
+    last_write_checksum: sha1:9e0b17faa7d34c9edad49cf34caef65717ae0ac8
+    pristine_git_object: efbc48d6cdd453439fcfc9eca14d9c3ca8c0616b
+  src/mcp-server/tools/collectionsGetCollection.ts:
+    id: 79fd33bb2fc8
+    last_write_checksum: sha1:7bd68e246d0e6f9be663b3ab754818278c040bd3
+    pristine_git_object: c4a126133097ea3cc930097b6c748e504216763d
+  src/mcp-server/tools/collectionsGetCollectionPublicPage.ts:
+    id: fa9fc1c36557
+    last_write_checksum: sha1:4b90b9bdcfd11a6e571bdb1e0a8ae0fb83c28561
+    pristine_git_object: 184db12162c713e3bc5d66b2ff7ecd6179a2d827
+  src/mcp-server/tools/collectionsListCollectionAssets.ts:
+    id: 6b7126a25b82
+    last_write_checksum: sha1:4c944746336b297995215e14085f339c69684daa
+    pristine_git_object: f40fa94b7139a26cd39fafb61f87026d58fc3a5e
+  src/mcp-server/tools/collectionsListCollectionPublicPages.ts:
+    id: 48471a6594c8
+    last_write_checksum: sha1:6fba27a7e7e3c65714a503eaa35489173b0a3385
+    pristine_git_object: 1a7c1bed8012de0c3fe927cdf7da320df6a91ee3
+  src/mcp-server/tools/collectionsListCollections.ts:
+    id: 34c8e7336910
+    last_write_checksum: sha1:99152af497b1fb8fb4f6184750e3ff42fa99202d
+    pristine_git_object: edf4b4bae5f515a1833cdf7a09a798d32bfab8be
+  src/mcp-server/tools/collectionsRemoveCollectionAssets.ts:
+    id: 635ed8404ac1
+    last_write_checksum: sha1:dbd2938d4b6ffaa68384488d8bae1458617b72ee
+    pristine_git_object: 851697f46f7de3d53625aa495cd7e4ebf0163581
+  src/mcp-server/tools/collectionsUpdateCollection.ts:
+    id: 015826658f10
+    last_write_checksum: sha1:f1da047cd20a3d08ca65951cad59badeaf1193de
+    pristine_git_object: 959175345be5fb046f8822ce8f7e602e7f42cf42
+  src/mcp-server/tools/collectionsUpdateCollectionPublicPage.ts:
+    id: e832f39f8425
+    last_write_checksum: sha1:8b0a6579ca781a361147033841a33924002e06a7
+    pristine_git_object: 1dd82cb947cd1a2a7f866f5c18d62d84026ff214
   src/mcp-server/tools/foldersCreateFolder.ts:
     id: c8f166fa9b87
     last_write_checksum: sha1:94348e748282c084412e11d1a24295cb4004daaf
@@ -607,6 +711,10 @@ trackedFiles:
     id: b3d5a7a42328
     last_write_checksum: sha1:e78c034d31d1f7b1b6776ddb1d0f433488381f15
     pristine_git_object: e7bcd2fe68a781bbd25053f4007b838b42ba2d8d
+  src/models/addcollectionassetsop.ts:
+    id: 5a7111fb50dc
+    last_write_checksum: sha1:e14b591b76590569f90d30c4843e41728d8880f8
+    pristine_git_object: 7bef8a706d217a3334a62245f5da248cc8a968aa
   src/models/addonquota.ts:
     id: 1e523cb9c814
     last_write_checksum: sha1:9c2dd80e578e136906d2225252692a32e496c671
@@ -655,6 +763,26 @@ trackedFiles:
     id: 1746f046a48e
     last_write_checksum: sha1:19f7be91e0da7e80b25db8756151dffbcd0488c2
     pristine_git_object: 2d7c8202456899d40eba5afd6b287f5a62570642
+  src/models/collectionsbadrequestresponse.ts:
+    id: 4f94291b253d
+    last_write_checksum: sha1:078834d5cdd3d9a633585170230b493bb1d79464
+    pristine_git_object: 539058084af714fb8f404473cc70f3b6797a393c
+  src/models/collectionsforbiddenresponse.ts:
+    id: c1e4e45318c9
+    last_write_checksum: sha1:b389efe1fd54bcd6746f15a27cc6bbee4b4870ed
+    pristine_git_object: 61fc2ec73c3140c4703c33bd4e01d89fb45e30b6
+  src/models/collectionsinternalservererrorresponse.ts:
+    id: 43daad31e189
+    last_write_checksum: sha1:4177c7b3e68eca0f8f4206839e42bf9a7d3299ec
+    pristine_git_object: f21041e37b68ccea736178ed6d697f3b5cfb93ac
+  src/models/collectionsnotfoundresponse.ts:
+    id: 14ded4de1090
+    last_write_checksum: sha1:5833f9bd8992f0283d18ce5223e819c15fd6f9e0
+    pristine_git_object: 5cb1d44f014cb63556535fd164b8c9a25fb230f3
+  src/models/collectionsunauthorizedresponse.ts:
+    id: 71576474f29d
+    last_write_checksum: sha1:e2681a5747cbb8d19cf4efece4642d4dbd8386b8
+    pristine_git_object: 45959724e6ec225f0d58bc594d649cb37294594e
   src/models/concatop.ts:
     id: a4293ca98e9a
     last_write_checksum: sha1:7b9bcdbf18e302f59714e72f89f4fc01e66047b1
@@ -675,6 +803,74 @@ trackedFiles:
     id: befd29b403a8
     last_write_checksum: sha1:e67914667b21365bd056916c3943bf24da5e7766
     pristine_git_object: 917f8aa79933cc4299c71b5abb29d31a14df5dbe
+  src/models/contractaddcollectionassetsresponse.ts:
+    id: 926b76dd262a
+    last_write_checksum: sha1:ce32c152d65ecfbb5cbe90f5ce0f4aff3a2e36f7
+    pristine_git_object: 985d758ac133a366f98d02c35c2529bbb0d2a109
+  src/models/contractcreatecollectionrequestpayload.ts:
+    id: 1c6315b857a8
+    last_write_checksum: sha1:b530f1deb16b0ba0bf54dcf55b3797278aa0212f
+    pristine_git_object: 5bcfd3727f41593ab76e0aa558e439b56d23f47e
+  src/models/contractcreatecollectionresponse.ts:
+    id: 5415f18ee998
+    last_write_checksum: sha1:163a3b0ef98299c46fa4afafaf4b07659a2cef30
+    pristine_git_object: 2bcbb9ff15be029518c5bd892cfb71c7a7c2194f
+  src/models/contractcreatepublicpagerequestpayload.ts:
+    id: b649e7a229e7
+    last_write_checksum: sha1:6dc49c51b2a71a022e9b4f917edab109ffd0df9b
+    pristine_git_object: e5df07ac59bc47698389bf2f3d85ad0d923a7499
+  src/models/contractcreatepublicpageresponse.ts:
+    id: 3be5dc4d5d44
+    last_write_checksum: sha1:57ce732e8f961257d0285223e814b46de2eccdb4
+    pristine_git_object: ea416b2db386da00493612573d9ed42a55660a60
+  src/models/contractdeletecollectionresponse.ts:
+    id: d883da1db99f
+    last_write_checksum: sha1:b52ae89fc98673def0e899dffe0978db7b9321e3
+    pristine_git_object: cd9ace4905bf3a563bc841851bd3eac682543612
+  src/models/contractdeletepublicpageresponse.ts:
+    id: 856185dc5a56
+    last_write_checksum: sha1:054fade182f700c9ffc1de20b10271bb943ed035
+    pristine_git_object: d642cacf4c79a433db2092f086aa5cf3756f2eab
+  src/models/contractgetcollectionpublicpageresponse.ts:
+    id: 263e231c91d4
+    last_write_checksum: sha1:d8fac2a55533e51afaa35c113392a135b36811e7
+    pristine_git_object: 0918d624ce08cf80a7f53744a9cb810a851c3b8a
+  src/models/contractgetcollectionresponse.ts:
+    id: 806d181ed347
+    last_write_checksum: sha1:53b542c4cacb161894d1daf81ca3e0e6388a9daa
+    pristine_git_object: eaafdbfc92dd236cee2ead1bd5655135d94f99bd
+  src/models/contractlistcollectionassetsresponse.ts:
+    id: dfae1a079cf6
+    last_write_checksum: sha1:c0476e4e079b387a208bd841690cc97f082a335a
+    pristine_git_object: 49b67a44207d4bed494e2554ea81bc9186e75c2a
+  src/models/contractlistcollectionpublicpagesresponse.ts:
+    id: 94e7de20794d
+    last_write_checksum: sha1:fb7b9d610918ffc62e06ceaacfa504141f55f8b9
+    pristine_git_object: c9e4fc43dec5d86feb4bbb86d7057e50c4f51290
+  src/models/contractlistcollectionsresponse.ts:
+    id: bc9b86c6f607
+    last_write_checksum: sha1:97213017e8556da0b805fd2f4a12bfa330f5e170
+    pristine_git_object: 44c8512517fc742d4571992f3cdc8ca484e24698
+  src/models/contractremovecollectionassetsresponse.ts:
+    id: 132b4b5cf5b9
+    last_write_checksum: sha1:9441c8fe8008f66d7596fa93771fcf4ca062197d
+    pristine_git_object: 8d07ef424d45ace15fb61907fac6b07914ea0079
+  src/models/contractupdatecollectionrequestpayload.ts:
+    id: 57ef0d1dec86
+    last_write_checksum: sha1:bd3a1bba91553e0ee022cf81f18432f07558645e
+    pristine_git_object: 1c1de003ddeeb363adbb71f9f7490eb965598f34
+  src/models/contractupdatecollectionresponse.ts:
+    id: 1a736cf12710
+    last_write_checksum: sha1:b70ca13b516db0cfb722563332f915e31158a553
+    pristine_git_object: 842a6bf2fcdf3f26a398f9decaa4e01be6e64677
+  src/models/contractupdatepublicpagerequestpayload.ts:
+    id: b6f4890870c6
+    last_write_checksum: sha1:1c792d72d928c44e87b0f3b0e6bafef54154412f
+    pristine_git_object: 35fb02b376e6609c0cc77e88e922024010856c4a
+  src/models/contractupdatepublicpageresponse.ts:
+    id: 9c6343109ba3
+    last_write_checksum: sha1:e5e9da201eebdb86e1a1546ce2e28d7b84a9fdd0
+    pristine_git_object: 0f11fa39243ca8055fad8bd5d3e5b45da90ceca4
   src/models/coordinatesresponse.ts:
     id: 4f951f1842fb
     last_write_checksum: sha1:b7ef3a42f7c8cf40f4bc6d0849af60c70a7b4d27
@@ -687,6 +883,14 @@ trackedFiles:
     id: b52cfcc7e7b1
     last_write_checksum: sha1:24900a30405eaf653c76d89787a2d0f137789463
     pristine_git_object: 22b0d10c25550f6e0c109ebc8e2ef7517c97d702
+  src/models/createcollectionop.ts:
+    id: 2b9efa6b3167
+    last_write_checksum: sha1:c942b43ffa99137c48e9851fd79a897af592c3b8
+    pristine_git_object: 69d8b4fd76c2001527b01ad5172bd99da619a658
+  src/models/createcollectionpublicpageop.ts:
+    id: 8c2398d78329
+    last_write_checksum: sha1:c3598eaee76617a9fe03b2d6c3d18b9fdc406297
+    pristine_git_object: 6f9b75d4cce18b41769a6e31beea97fe189f50fb
   src/models/createfolderop.ts:
     id: cda9ad104697
     last_write_checksum: sha1:d816ee264c70696b7682429a6e677e1f6cca947b
@@ -727,6 +931,14 @@ trackedFiles:
     id: a75fdd4f9dcf
     last_write_checksum: sha1:7a862405d1ee34e61fa68754ccd53d4a2839142a
     pristine_git_object: 8cc0650c1ef336ec27a588cfd47edd1f167249f6
+  src/models/deletecollectionop.ts:
+    id: c773dfbb534e
+    last_write_checksum: sha1:0a452a505882a6ee01d07ce93c2f445e665c90bd
+    pristine_git_object: 4ab40c3ec468b7336d7f483b1c0cb7199b265ddb
+  src/models/deletecollectionpublicpageop.ts:
+    id: 0b4fa5fd98de
+    last_write_checksum: sha1:59c7276ac061d5ac108409945f43821f2950b82a
+    pristine_git_object: 5b50a54b2e1a999328537f53507fe9e2052d6f9b
   src/models/deletefolderresponse.ts:
     id: 8304965989f5
     last_write_checksum: sha1:f567d5d754d01f308db37680b11a1befe933a12f
@@ -803,6 +1015,30 @@ trackedFiles:
     id: 363c7ad4fafa
     last_write_checksum: sha1:1b260bd6b07b01aa3e36dd53367fab600d4d45c6
     pristine_git_object: cb5953fbc01c1780c0a4159a59e4ac9c41c41ecf
+  src/models/entitycollection.ts:
+    id: ccc6f9c3f900
+    last_write_checksum: sha1:8167c2367a548fe40786293ba35eb39c7aed19ff
+    pristine_git_object: 17565635f8211a692417d1504ad4c60dcfb2e8d2
+  src/models/entitycollectionasset.ts:
+    id: 9cb83c91874e
+    last_write_checksum: sha1:34c3fb736357218ea7eb1be4dfb67be19319a60c
+    pristine_git_object: 705d49417f30a164fa6ff221bce7bbbb80de6ecc
+  src/models/entitycollectionconfiguration.ts:
+    id: f188eaeb0265
+    last_write_checksum: sha1:877a11fbb9aaa5934f26e9dc9ad9d417641ffcf5
+    pristine_git_object: 9c88fe04edded61c071a0508ffd665404b836022
+  src/models/entitydownloadtransformation.ts:
+    id: 50f8feed048d
+    last_write_checksum: sha1:7d69d54109e28f387a79dba454b133324b8fee38
+    pristine_git_object: a97a790c1b701fcbb5d3de9361da49f3d43e199a
+  src/models/entitydownloadtransformationinput.ts:
+    id: e2ab36d78710
+    last_write_checksum: sha1:14ca762e4cfbad9f46d0c8e66bda82ccd015a0e0
+    pristine_git_object: a22cc8e00430732987548e039245952a0699d3c1
+  src/models/entitypublicpage.ts:
+    id: 05956f36dec0
+    last_write_checksum: sha1:150c79d48b22e954e91a47be8ccf958b30275620
+    pristine_git_object: 2fd48067e8c6ed6414e646dc517cf0398444f734
   src/models/error.ts:
     id: d53a586acbe6
     last_write_checksum: sha1:485e7c1392944fb8b64bd03db8900e2406df1a0d
@@ -963,6 +1199,14 @@ trackedFiles:
     id: de0aa67fae25
     last_write_checksum: sha1:6857061eb429322f508d4e7fc561eed7e7862a0c
     pristine_git_object: 3eed9847fc9da11ae80b0d79789dd5cfd68ab57e
+  src/models/getcollectionop.ts:
+    id: f9ace6a4a130
+    last_write_checksum: sha1:a93d3799f1655f16d268dfa08c81599560126fb3
+    pristine_git_object: 6c1755b96d5ebd61c9e8e8e918a62ea3af439ddf
+  src/models/getcollectionpublicpageop.ts:
+    id: aefa87455567
+    last_write_checksum: sha1:9b391f810162dd58f64f0708bc79bcd72b402135
+    pristine_git_object: e392f290bef007781ac962612e3f23bd2082fc63
   src/models/getfolderbyidop.ts:
     id: faeba8b81c93
     last_write_checksum: sha1:10bf9b383faa2644b9290499c799ca2bd8472ce4
@@ -1067,6 +1311,18 @@ trackedFiles:
     id: eb60dcc8c8ce
     last_write_checksum: sha1:317937a8616b25dc31377294e39a9ebe23d6748e
     pristine_git_object: 7ec9a0461eb60237e7f88b99c7d406124ed9f0c5
+  src/models/listcollectionassetsop.ts:
+    id: cfbd5c0d2f04
+    last_write_checksum: sha1:1f677054ba671aa01219de19800e688e7e0d2602
+    pristine_git_object: 39f9bfc1e65fdc9dc34cf62c1c6ef6884e5aa369
+  src/models/listcollectionpublicpagesop.ts:
+    id: 951b996e77a6
+    last_write_checksum: sha1:736a45a1c2b975cdc8982f8262668d2a1a00762f
+    pristine_git_object: a1978df7850a62d443eac2b2fbbdd1984988e3ef
+  src/models/listcollectionsop.ts:
+    id: 9683e4993e32
+    last_write_checksum: sha1:561d43ffb61833c3bd5ec49ecd8c46262809cfc1
+    pristine_git_object: daf24e5944f5b3f0bed4235aba01585542af7731
   src/models/listimagesop.ts:
     id: 2d4428cd7790
     last_write_checksum: sha1:83310fe4fd1a3b42cfeeb987149b69a5c554ebfc
@@ -1247,6 +1503,10 @@ trackedFiles:
     id: 7ecf5c8c27c9
     last_write_checksum: sha1:73f0f2547e408eb0ff734414eb9c054cdab2ed5e
     pristine_git_object: 5adfb288f3dd122d58803ae70f4264d20527a080
+  src/models/removecollectionassetsop.ts:
+    id: 328ce02f5f04
+    last_write_checksum: sha1:27e9f0be017a4dfcb737bb15e5977e2d57f40ae9
+    pristine_git_object: a86c36f50429bc279b14597247050b0cc423ea16
   src/models/renameassetop.ts:
     id: 189398e65a00
     last_write_checksum: sha1:11081a535f5af65a21034bb73d605a5f1da9e7c3
@@ -1321,8 +1581,8 @@ trackedFiles:
     pristine_git_object: 9907ec57f35764604e9e305bf238a29fcb382a17
   src/models/searchparameters.ts:
     id: 31420f097d62
-    last_write_checksum: sha1:269546d70cf41a4a591a488154b696a5480a63e8
-    pristine_git_object: c24feff5222b13a1a289268be17efd38c125434e
+    last_write_checksum: sha1:86f180c738deaec72266531af8c0f395dc0865e7
+    pristine_git_object: 1b7b572ab691fdd57ec11e3939266a24620b9337
   src/models/searchresponse.ts:
     id: bbcd43bc9f51
     last_write_checksum: sha1:eefa49d2e53f40310ab7cdb971f103664a572752
@@ -1427,6 +1687,14 @@ trackedFiles:
     id: acabe845bac8
     last_write_checksum: sha1:4a0d2b6acdd4d4dfa2f8dafeacbe69a00e3897d0
     pristine_git_object: fc8ae1e2969866cdff787d4b2d5757e291a6b2c3
+  src/models/updatecollectionop.ts:
+    id: 431ba848646b
+    last_write_checksum: sha1:b36cd4eed7c28f57ca8fa2979a947b6fd07189cf
+    pristine_git_object: d5ca66d14f9c14c8240f4de2bbacb690d5fb7159
+  src/models/updatecollectionpublicpageop.ts:
+    id: 42b9132df780
+    last_write_checksum: sha1:e11d4978aca75dfa7e94e911636c359c22782565
+    pristine_git_object: 43ade50abbdb29f74cc41b251c25cb0828adabf3
   src/models/updatefolderop.ts:
     id: c10dd50c3c15
     last_write_checksum: sha1:56f08df67e48f164e557ffeec94d119da7382a62
@@ -1505,8 +1773,8 @@ trackedFiles:
     pristine_git_object: 95c223c617dd027381bae34c6fa52b984461bf7a
   src/tool-names.ts:
     id: a9977280f9eb
-    last_write_checksum: sha1:fa394a394b732901f42bc2ad9f856a2edfc335da
-    pristine_git_object: 4d1920a54359fb7f6e0d5496408836a2adacea9b
+    last_write_checksum: sha1:1316ea26f14b075328ac8b4673360a05e10dce08
+    pristine_git_object: efded109b4699413ef0bd2c4dfefecd9929a35b3
   src/types/async.ts:
     id: fac8da972f86
     last_write_checksum: sha1:042571ad6be7fd5ce5a93b292b9c1aefc21ebff7
@@ -2992,8 +3260,464 @@ examples:
           application/json: {}
         "400":
           application/json: {"error": {"message": "<value>"}}
+  listCollections:
+    speakeasy-default-list-collections:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": [], "next_cursor": "eyJsYXN0X21vZGlmaWVkX2F0IjoxNzQwNTg0MzAwfQ", "total_count": 42}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+        query:
+          query: "summer"
+          sort_by: "name asc"
+          max_results: 20
+      responses:
+        "200":
+          application/json: {"data": [], "next_cursor": "eyJsYXN0X21vZGlmaWVkX2F0IjoxNzQwNTg0MzAwfQ", "total_count": 42}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  createCollection:
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer campaign images", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}}
+      responses:
+        "201":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-create-collection:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Assets", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}}
+      responses:
+        "201":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  getCollection:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-get-collection:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  updateCollection:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Assets 2026", "description": "Approved photography for the 2026 summer campaign launch.", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}}
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-update-collection:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Assets 2026", "description": "Approved photography for the 2026 summer campaign launch.", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}}
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  deleteCollection:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"message": "Collection deleted successfully."}
+    speakeasy-default-delete-collection:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"message": "Collection deleted successfully."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  listCollectionAssets:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+        query:
+          sort_by: "bytes desc"
+          max_results: 20
+      responses:
+        "200":
+          application/json: {"data": [{"asset_id": "3515c6000a548515f1134043f9785c2f", "public_id": "summer/beach-hero", "display_name": "beach-hero", "resource_type": "image", "type": "upload", "format": "jpg", "bytes": 482113, "width": 1920, "height": 1080, "secure_url": "https://res.cloudinary.com/demo/image/upload/v1720000000/summer/beach-hero.jpg", "created_at": "2026-03-14T10:15:00Z"}], "next_cursor": "8edbc61040178db60b0973ca9494bf3a", "total_count": 12}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-list-collection-assets:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": [{"asset_id": "3515c6000a548515f1134043f9785c2f", "public_id": "summer/beach-hero", "display_name": "beach-hero", "resource_type": "image", "type": "upload", "format": "jpg", "bytes": 482113, "width": 1920, "height": 1080, "secure_url": "https://res.cloudinary.com/demo/image/upload/v1720000000/summer/beach-hero.jpg", "created_at": "2026-03-14T10:15:00Z"}], "next_cursor": "8edbc61040178db60b0973ca9494bf3a", "total_count": 12}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  addCollectionAssets:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: ["ast_1a2b3c4d5e6f"]
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "manual"}}
+    speakeasy-default-add-collection-assets:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: ["ast_1a2b3c4d5e6f"]
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  removeCollectionAssets:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: ["ast_1a2b3c4d5e6f"]
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "manual"}}
+    speakeasy-default-remove-collection-assets:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: ["ast_1a2b3c4d5e6f"]
+      responses:
+        "200":
+          application/json: {"data": {"id": "col_8f3a2b1c9d4e", "name": "Summer Campaign Assets", "creator_type": "user", "creator_id": "usr_4a1b2c3d5e6f", "created_at": "2026-03-14T10:15:00Z", "updated_at": "2026-03-15T09:30:00Z", "description": "Approved photography for the summer campaign launch.", "type": "dynamic", "configuration": {"expression": "tags = \"summer-campaign\" AND resource_type:image"}, "asset_count": 12, "cover_asset_url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  createCollectionPublicPage:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400"}, {"name": "trimmed_preview", "types": ["video"]}], "create_download_transformations": true}
+      responses:
+        "201":
+          application/json: {"data": {"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer-page.html"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-create-collection-public-page:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400"}, {"name": "trimmed_preview", "types": ["video"]}], "create_download_transformations": true}
+      responses:
+        "201":
+          application/json: {"data": {"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer-page.html"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  listCollectionPublicPages:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": [{"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "none", "allowed_emails": [], "allowed_domains": [], "allow_any": false, "custom_layout_url": null}, {"id": "pub_5e7f9a1b3c2d", "url": "https://collection.cloudinary.com/your-cloud-name/pub_5e7f9a1b3c2d", "name": "Summer Campaign Press Kit", "available_from": "2026-04-01T00:00:00Z", "expires_at": "2026-06-30T00:00:00Z", "show_download_original_option": false, "download_transformations": [], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": null}]}
+    speakeasy-default-list-collection-public-pages:
+      parameters:
+        path:
+          collection_id: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": []}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  getCollectionPublicPage:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          public_page_id: "pub_2c4d6e8f0a1b"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": {"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer-page.html"}}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-get-collection-public-page:
+      parameters:
+        path:
+          collection_id: "<id>"
+          public_page_id: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"data": {"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer-page.html"}}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  updateCollectionPublicPage:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          public_page_id: "pub_2c4d6e8f0a1b"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400"}, {"name": "trimmed_preview", "types": ["video"]}], "create_download_transformations": true, "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer.html"}
+      responses:
+        "200":
+          application/json: {"data": {"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer-page.html"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+    speakeasy-default-update-collection-public-page:
+      parameters:
+        path:
+          collection_id: "<id>"
+          public_page_id: "<id>"
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400"}, {"name": "trimmed_preview", "types": ["video"]}], "create_download_transformations": true, "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer.html"}
+      responses:
+        "200":
+          application/json: {"data": {"id": "pub_2c4d6e8f0a1b", "url": "https://collection.cloudinary.com/your-cloud-name/pub_2c4d6e8f0a1b", "name": "Summer Campaign Preview", "available_from": "2026-03-20T00:00:00Z", "expires_at": "2026-04-20T00:00:00Z", "show_download_original_option": true, "download_transformations": [{"name": "thumbnail_400", "transformation": "c_thumb,w_400,g_face", "types": ["image"]}], "protection_mode": "email_otp", "allowed_emails": ["alice@example.com", "bob@example.com"], "allowed_domains": ["example.com"], "allow_any": false, "custom_layout_url": "https://res.cloudinary.com/demo/raw/upload/layouts/summer-page.html"}}
+        "400":
+          application/json: {"message": "Bad Request. Please check your request for errors."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
+  deleteCollectionPublicPage:
+    default:
+      parameters:
+        path:
+          collection_id: "col_8f3a2b1c9d4e"
+          public_page_id: "pub_2c4d6e8f0a1b"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"message": "Public page deleted successfully."}
+    speakeasy-default-delete-collection-public-page:
+      parameters:
+        path:
+          collection_id: "<id>"
+          public_page_id: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"message": "Public page deleted successfully."}
+        "401":
+          application/json: {"message": "Invalid credentials"}
+        "403":
+          application/json: {"message": "Forbidden."}
+        "404":
+          application/json: {"message": "Not found."}
+        "500":
+          application/json: {"message": "Internal server error. Please try again later."}
 examplesVersion: 1.0.2
-releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.Generation.generate_image()`: \n  *  `request.model.union(ModelById).id` **Changed**\n  *  `response.error.details` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.Generation.generate_image_from_images()`: \n  *  `request.model.union(ModelById).id` **Changed**\n  *  `response.error.details` **Changed** (Breaking ⚠️)\n* `CloudinaryAssetMgmt.Tasks.get_generation_task_status()`:  `response.error.details` **Changed** (Breaking ⚠️)\n"
+releaseNotes: |
+  ## Mcp-typescript SDK Changes:
+  * `CloudinaryAssetMgmt.Collections.listCollections()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.createCollection()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.getCollection()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.updateCollection()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.deleteCollection()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.listCollectionAssets()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.addCollectionAssets()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.removeCollectionAssets()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.createCollectionPublicPage()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.listCollectionPublicPages()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.getCollectionPublicPage()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.updateCollectionPublicPage()`: **Added**
+  * `CloudinaryAssetMgmt.Collections.deleteCollectionPublicPage()`: **Added**
 generatedFiles:
   - .dxtignore
   - .gitattributes
