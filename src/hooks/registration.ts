@@ -1,6 +1,7 @@
 import { CloudConfig } from "./cloudConfig.js";
 import { CloudinaryAuthHook } from "./cloudinaryAuthHook.js";
 import { CustomHeadersHook } from "./customHeadersHook.js";
+import { CustomerIdHook } from "./customerIdHook.js";
 import { ResponseHeadersHook } from "./responseHeadersHook.js";
 import { Hooks } from "./types.js";
 import { UserAgentHook } from "./userAgentHook.js";
@@ -15,6 +16,7 @@ export function initHooks(hooks: Hooks) {
   const config = new CloudConfig();
 
   hooks.registerBeforeRequestHook(new CloudinaryAuthHook(config));
+  hooks.registerBeforeRequestHook(new CustomerIdHook());
   hooks.registerBeforeRequestHook(new CustomHeadersHook());
   hooks.registerSDKInitHook(new UserAgentHook());
   hooks.registerAfterSuccessHook(new ResponseHeadersHook(config.collectHeaders));
