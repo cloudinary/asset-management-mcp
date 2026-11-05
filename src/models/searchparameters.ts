@@ -7,15 +7,15 @@ import * as z from "zod";
 import { ClosedEnum } from "../types/enums.js";
 import { DirectionEnum, DirectionEnum$zodSchema } from "./directionenum.js";
 
-export const Type = {
+export const SearchParametersType = {
   Bytes: "bytes",
   ImagePixels: "image_pixels",
   VideoPixels: "video_pixels",
   Duration: "duration",
 } as const;
-export type Type = ClosedEnum<typeof Type>;
+export type SearchParametersType = ClosedEnum<typeof SearchParametersType>;
 
-export const Type$zodSchema = z.enum([
+export const SearchParametersType$zodSchema = z.enum([
   "bytes",
   "image_pixels",
   "video_pixels",
@@ -75,13 +75,16 @@ export const SearchParametersRange$zodSchema: z.ZodType<SearchParametersRange> =
     ),
   });
 
-export type Aggregate = { type: Type; ranges: Array<SearchParametersRange> };
+export type Aggregate = {
+  type: SearchParametersType;
+  ranges: Array<SearchParametersRange>;
+};
 
 export const Aggregate$zodSchema: z.ZodType<Aggregate> = z.object({
   ranges: z.array(z.lazy(() => SearchParametersRange$zodSchema)).describe(
     "One or more ranges for the numeric field. Each range must include a `key` label and at least one of `from` / `to`.\n",
   ),
-  type: Type$zodSchema,
+  type: SearchParametersType$zodSchema,
 });
 
 /**

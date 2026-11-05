@@ -109,6 +109,58 @@ export const toolNames: Array<{ name: string; description: string }>= [
     "description": "Check the status and result of a generation task\n\nCheck on an image generation running in the background: whether it is\npending, processing, completed or failed, and, once it has completed,\nthe generated images with their URLs, size and format.\n"
   },
   {
+    "name": "list-collections",
+    "description": "List collections\n\nReturns the collections the caller may read, most-recently-updated first by default (`updated_at desc`). Results are paginated: pass the returned `next_cursor` back to fetch the next page.\n"
+  },
+  {
+    "name": "create-collection",
+    "description": "Create a collection\n\nCreates a collection under the given product environment and makes the caller the owner."
+  },
+  {
+    "name": "get-collection",
+    "description": "Get a collection\n\nReturns a single collection by its external ID."
+  },
+  {
+    "name": "update-collection",
+    "description": "Update a collection\n\nUpdates a collection's name, description, and (for dynamic collections) configuration. Only the fields you include in the request are changed. The caller must be allowed to update the collection. A collection's type (manual/dynamic) is fixed at creation and can't be changed.\n"
+  },
+  {
+    "name": "delete-collection",
+    "description": "Delete a collection\n\nDeletes a collection. The caller must be allowed to update the collection; the underlying assets are not modified or deleted.\n"
+  },
+  {
+    "name": "list-collection-assets",
+    "description": "List a collection's assets\n\nReturns the assets in a collection, newest first by default. For a `manual` collection, these are the assets that have been added to it; for a `dynamic` collection, they're the assets currently matching its filter expression. Only assets the caller has permission to view are included. Results are paginated: pass the returned `next_cursor` back to fetch the next page.\n"
+  },
+  {
+    "name": "add-collection-assets",
+    "description": "Add assets to a collection\n\nAdds assets to an existing collection. The caller must be allowed to update the collection and view the assets.\n"
+  },
+  {
+    "name": "remove-collection-assets",
+    "description": "Remove assets from a collection\n\nRemoves the specified assets from an existing collection. The caller must be allowed to update the collection. Assets that are not in the collection are ignored, and the underlying assets are not modified or deleted.\n"
+  },
+  {
+    "name": "publish-collection",
+    "description": "Publish a collection\n\nCreates a shareable public page for the collection and returns its URL."
+  },
+  {
+    "name": "list-collection-public-pages",
+    "description": "List a collection's public pages\n\nReturns the public pages (shareable links) that have been created for the collection."
+  },
+  {
+    "name": "get-collection-public-page",
+    "description": "Get a public page\n\nReturns a single public page of a collection by its external ID."
+  },
+  {
+    "name": "update-collection-public-page",
+    "description": "Update a public page\n\nUpdates the settings of a collection's public page and returns the updated page. Protecting a page (`protection_mode: email_otp`) requires the secured-sharing feature on your plan; otherwise the request fails with 403. Invalid protection settings fail with 400 and error code `invalid_protection_settings`, listing every problem found.\n"
+  },
+  {
+    "name": "unpublish-collection-public-page",
+    "description": "Unpublish a collection's public page\n\nDeletes a collection's public page so it's no longer shareable. The collection and its assets aren't changed or deleted.\n"
+  },
+  {
     "name": "get-tx-reference",
     "description": "Get Cloudinary transformation rules documentation from official docs\n\n🚨 WHEN TO USE:\n- MANDATORY before creating, modifying, or discussing Cloudinary transformations\n- REQUIRED when user asks for image/video effects, resizing, cropping, filters, etc.\n- NOT needed for simple asset management (upload, list, delete, etc.)\n- ⚠️ CALL ONLY ONCE per session - documentation doesn't change, reuse the knowledge\n\n🚨 STRICT REQUIREMENTS (when transformations are involved):\n- MUST call this tool BEFORE any transformation-related task (but only once)\n- MUST read and understand the returned documentation\n- DO NOT attempt transformations without consulting this reference\n- DO NOT make up transformation parameters\n- DO NOT guess syntax - only use documented parameters\n- DO NOT call this tool multiple times - the docs are static, remember them\n\nThis tool returns the complete, authoritative Cloudinary transformation reference that contains all valid parameters, syntax rules, and best practices."
   },

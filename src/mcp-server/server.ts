@@ -36,6 +36,19 @@ import { tool$assetsListResourceTags } from "./tools/assetsListResourceTags.js";
 import { tool$assetsListVideos } from "./tools/assetsListVideos.js";
 import { tool$assetsRenameAsset } from "./tools/assetsRenameAsset.js";
 import { tool$assetsUpdateResourceByAssetId } from "./tools/assetsUpdateResourceByAssetId.js";
+import { tool$collectionsAddCollectionAssets } from "./tools/collectionsAddCollectionAssets.js";
+import { tool$collectionsCreateCollection } from "./tools/collectionsCreateCollection.js";
+import { tool$collectionsCreateCollectionPublicPage } from "./tools/collectionsCreateCollectionPublicPage.js";
+import { tool$collectionsDeleteCollection } from "./tools/collectionsDeleteCollection.js";
+import { tool$collectionsDeleteCollectionPublicPage } from "./tools/collectionsDeleteCollectionPublicPage.js";
+import { tool$collectionsGetCollection } from "./tools/collectionsGetCollection.js";
+import { tool$collectionsGetCollectionPublicPage } from "./tools/collectionsGetCollectionPublicPage.js";
+import { tool$collectionsListCollectionAssets } from "./tools/collectionsListCollectionAssets.js";
+import { tool$collectionsListCollectionPublicPages } from "./tools/collectionsListCollectionPublicPages.js";
+import { tool$collectionsListCollections } from "./tools/collectionsListCollections.js";
+import { tool$collectionsRemoveCollectionAssets } from "./tools/collectionsRemoveCollectionAssets.js";
+import { tool$collectionsUpdateCollection } from "./tools/collectionsUpdateCollection.js";
+import { tool$collectionsUpdateCollectionPublicPage } from "./tools/collectionsUpdateCollectionPublicPage.js";
 import { tool$foldersCreateFolder } from "./tools/foldersCreateFolder.js";
 import { tool$foldersDestroyFolder } from "./tools/foldersDestroyFolder.js";
 import { tool$foldersSearchFolders } from "./tools/foldersSearchFolders.js";
@@ -64,7 +77,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.11.5",
+    version: "0.11.6",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -139,6 +152,19 @@ export function createMCPServer(deps: {
   tool(tool$generationGenerateImage);
   tool(tool$generationGenerateImageFromImages);
   tool(tool$tasksGetGenerationTaskStatus);
+  tool(tool$collectionsListCollections);
+  tool(tool$collectionsCreateCollection);
+  tool(tool$collectionsGetCollection);
+  tool(tool$collectionsUpdateCollection);
+  tool(tool$collectionsDeleteCollection);
+  tool(tool$collectionsListCollectionAssets);
+  tool(tool$collectionsAddCollectionAssets);
+  tool(tool$collectionsRemoveCollectionAssets);
+  tool(tool$collectionsCreateCollectionPublicPage);
+  tool(tool$collectionsListCollectionPublicPages);
+  tool(tool$collectionsGetCollectionPublicPage);
+  tool(tool$collectionsUpdateCollectionPublicPage);
+  tool(tool$collectionsDeleteCollectionPublicPage);
 
   if (deps.dynamic) {
     registerDynamicTools(deps.logger, server, getClient, toolMap, scopes);
