@@ -38,7 +38,7 @@ RUN --mount=type=cache,target=/root/.npm \
 # Copy built server from builder stage
 COPY --from=builder /app/bin ./bin
 
-LABEL io.modelcontextprotocol.server.name="io.github.cloudinary/asset-management-mcp"
+LABEL io.modelcontextprotocol.server.name="com.cloudinary/asset-management-mcp"
 
 # Entrypoint to run the MCP server
 ENTRYPOINT ["node", "bin/mcp-server.js"]

@@ -24,4 +24,5 @@ targets:
             npm:
                 token: $npm_token
             mcpRegistry:
-                auth: github-oidc
+                auth: http
+                token: $mcp_registry_token
