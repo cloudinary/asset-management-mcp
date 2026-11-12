@@ -1,4 +1,4 @@
-speakeasyVersion: 1.806.0
+speakeasyVersion: 1.808.1
 sources:
     CloudinaryAssetMgmt-MCP-OAS:
         sourceNamespace: cloudinary-asset-mgmt-mcp-oas
@@ -40,4 +40,5 @@ workflow:
                 npm:
                     token: $npm_token
                 mcpRegistry:
-                    auth: github-oidc
+                    auth: http
+                    token: $mcp_registry_token
