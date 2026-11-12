@@ -16,9 +16,10 @@ jobs:
   publish:
     uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
     with:
-      target: cloudinary-asset-mgmt
+      target: cloudinary-asset-mgmt-mcp
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.SDK_NPM_AUTH_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+      mcp_registry_token: ${{ secrets.MCP_REGISTRY_PRIVATE_KEY }}
 
