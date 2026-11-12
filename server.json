@@ -3,6 +3,16 @@
   "name": "com.cloudinary/asset-management-mcp",
   "title": "Cloudinary Asset Management",
   "description": "Upload, generate, organize, search, and transform images, videos, and files with AI-powered tools.",
+  "websiteUrl": "https://cloudinary.com/documentation/cloudinary_llm_mcp",
+  "icons": [
+    {
+      "src": "https://cloudinary-res.cloudinary.com/image/upload/v1597183771/website/cloudinary_web_favicon.png",
+      "mimeType": "image/png",
+      "sizes": [
+        "192x192"
+      ]
+    }
+  ],
   "repository": {
     "url": "https://github.com/cloudinary/asset-management-mcp",
     "source": "github"
@@ -27,7 +37,7 @@
           "name": "CLOUDINARY_API_KEY",
           "description": "Your Cloudinary API key. Found in Dashboard > Settings > Access Keys.",
           "isRequired": true,
-          "isSecret": true
+          "isSecret": false
         },
         {
           "name": "CLOUDINARY_API_SECRET",
@@ -54,7 +64,7 @@
           "name": "CLOUDINARY_API_KEY",
           "description": "Your Cloudinary API key. Found in Dashboard > Settings > Access Keys.",
           "isRequired": true,
-          "isSecret": true
+          "isSecret": false
         },
         {
           "name": "CLOUDINARY_API_SECRET",
@@ -73,19 +83,19 @@
         {
           "name": "cloudinary-cloud-name",
           "description": "Your Cloudinary cloud name. Find it in your Cloudinary Dashboard.",
-          "isRequired": true,
+          "isRequired": false,
           "isSecret": false
         },
         {
           "name": "cloudinary-api-key",
           "description": "Your Cloudinary API key. Found in Dashboard > Settings > Access Keys.",
-          "isRequired": true,
-          "isSecret": true
+          "isRequired": false,
+          "isSecret": false
         },
         {
           "name": "cloudinary-api-secret",
           "description": "Your Cloudinary API secret. Found in Dashboard > Settings > Access Keys.",
-          "isRequired": true,
+          "isRequired": false,
           "isSecret": true
         }
       ]
