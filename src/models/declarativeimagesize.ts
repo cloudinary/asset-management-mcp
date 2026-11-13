@@ -12,7 +12,7 @@ import { ClosedEnum } from "../types/enums.js";
  * @remarks
  * every model supports natively.
  */
-export const AspectRatio = {
+export const DeclarativeImageSizeAspectRatio = {
   Eleven: "1:1",
   OneHundredAndSixtyNine: "16:9",
   NineHundredAndSixteen: "9:16",
@@ -25,9 +25,11 @@ export const AspectRatio = {
  * @remarks
  * every model supports natively.
  */
-export type AspectRatio = ClosedEnum<typeof AspectRatio>;
+export type DeclarativeImageSizeAspectRatio = ClosedEnum<
+  typeof DeclarativeImageSizeAspectRatio
+>;
 
-export const AspectRatio$zodSchema = z.enum([
+export const DeclarativeImageSizeAspectRatio$zodSchema = z.enum([
   "1:1",
   "16:9",
   "9:16",
@@ -47,7 +49,7 @@ export const AspectRatio$zodSchema = z.enum([
  * * `2K`: ~2048 px
  * * `4K`: ~4096 px
  */
-export const Resolution = {
+export const DeclarativeImageSizeResolution = {
   ZeroDot5K: "0.5K",
   OneK: "1K",
   TwoK: "2K",
@@ -63,9 +65,11 @@ export const Resolution = {
  * * `2K`: ~2048 px
  * * `4K`: ~4096 px
  */
-export type Resolution = ClosedEnum<typeof Resolution>;
+export type DeclarativeImageSizeResolution = ClosedEnum<
+  typeof DeclarativeImageSizeResolution
+>;
 
-export const Resolution$zodSchema = z.enum([
+export const DeclarativeImageSizeResolution$zodSchema = z.enum([
   "0.5K",
   "1K",
   "2K",
@@ -81,16 +85,16 @@ export const Resolution$zodSchema = z.enum([
  * tier, resolved server-side to the nearest size the model supports.
  */
 export type DeclarativeImageSize = {
-  aspect_ratio: AspectRatio;
-  resolution?: Resolution | undefined;
+  aspect_ratio: DeclarativeImageSizeAspectRatio;
+  resolution?: DeclarativeImageSizeResolution | undefined;
 };
 
 export const DeclarativeImageSize$zodSchema: z.ZodType<DeclarativeImageSize> = z
   .object({
-    aspect_ratio: AspectRatio$zodSchema.describe(
+    aspect_ratio: DeclarativeImageSizeAspectRatio$zodSchema.describe(
       "Output aspect ratio, width-to-height. Limited to the core ratios\nevery model supports natively.\n",
     ),
-    resolution: Resolution$zodSchema.optional().describe(
+    resolution: DeclarativeImageSizeResolution$zodSchema.optional().describe(
       "Output resolution tier, measured on the longest edge. Defaults to\n`1K` when omitted.\n* `0.5K`: ~512 px\n* `1K`: ~1024 px\n* `2K`: ~2048 px\n* `4K`: ~4096 px\n",
     ),
   }).describe(

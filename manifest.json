@@ -182,6 +182,14 @@
       "description": "Check the status and result of a generation task\n\nCheck on an image generation running in the background: whether it is\npending, processing, completed or failed, and, once it has completed,\nthe generated images with their URLs, size and format.\n"
     },
     {
+      "name": "generate-video-from-image",
+      "description": "Create a video generation job\n\nSubmits an image and prompt for video generation and returns a job you can poll for the result."
+    },
+    {
+      "name": "get-video-generation-job",
+      "description": "Poll a video generation job\n\nReturns the current status of a generation job. When the status is `completed`, the response includes the generated video's asset details and delivery URL."
+    },
+    {
       "name": "list-collections",
       "description": "List collections\n\nReturns the collections the caller may read, most-recently-updated first by default (`updated_at desc`). Results are paginated: pass the returned `next_cursor` back to fetch the next page.\n"
     },
