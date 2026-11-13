@@ -13,13 +13,144 @@ permissions:
       - .speakeasy/gen.lock
   workflow_dispatch: {}
 jobs:
-  publish:
-    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
-    with:
-      target: cloudinary-asset-mgmt-mcp
-    secrets:
-      github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      npm_token: ${{ secrets.SDK_NPM_AUTH_TOKEN }}
-      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
-      mcp_registry_token: ${{ secrets.MCP_REGISTRY_PRIVATE_KEY }}
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.release.outputs.publish_mcp_typescript }}
+      regenerated: ${{ steps.release.outputs.mcp_typescript_regenerated }}
+      release_tag: ${{ steps.release.outputs.mcp_release_typescript }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
 
+      - name: Install Speakeasy CLI
+        run: curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+
+      - name: Create GitHub release
+        id: release
+        run: speakeasy ci release
+        env:
+          SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
+          SPEAKEASY_ENVIRONMENT: github
+          SPEAKEASY_RUN_LOCATION: action
+          INPUT_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_TARGET: cloudinary-asset-mgmt-mcp
+          INPUT_ENABLE_SDK_CHANGELOG: "true"
+
+  publish-npm:
+    name: Publish to npm
+    needs: release
+    if: ${{ needs.release.outputs.regenerated == 'true' && needs.release.outputs.publish == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: |
+          npm install --ignore-scripts
+          npm rebuild bun
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.SDK_NPM_AUTH_TOKEN }}
+        run: |
+          VERSION=$(npm pkg get version | tr -d '"')
+          ARGS=(--access public)
+          if [[ "$VERSION" == *"-"* ]]; then
+            PRERELEASE=${VERSION#*-}
+            ARGS+=(--tag "${PRERELEASE%%.*}")
+          fi
+          echo "Publishing $VERSION: npm publish ${ARGS[*]}"
+          npm publish "${ARGS[@]}"
+
+      - name: Build and upload MCP server binaries
+        if: ${{ needs.release.outputs.release_tag != '' }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ needs.release.outputs.release_tag }}
+        run: |
+          ASSETS=()
+          for TARGET in bun-darwin-arm64 bun-windows-x64-modern bun-linux-x64-modern; do
+            BINARY_PATH="./bin/mcp-server-${TARGET}"
+            if [[ "$TARGET" == bun-windows-* ]]; then
+              BINARY_PATH="${BINARY_PATH}.exe"
+            fi
+            npx bun build ./src/mcp-server/mcp-server.ts --compile --target="$TARGET" --outfile="$BINARY_PATH"
+            ASSETS+=("$BINARY_PATH")
+          done
+
+          npx bun mcpb:build
+          ASSETS+=("./mcp-server.mcpb")
+
+          gh release upload "$RELEASE_TAG" "${ASSETS[@]}" --clobber
+
+      - name: Install Speakeasy CLI
+        if: always()
+        run: curl -fsSL https://raw.githubusercontent.com/speakeasy-api/speakeasy/main/install.sh | sh
+
+      - name: Record publish result
+        if: always()
+        continue-on-error: true
+        run: speakeasy ci publish-event
+        env:
+          SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
+          SPEAKEASY_ENVIRONMENT: github
+          INPUT_GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_TARGET_DIRECTORY: "."
+          INPUT_REGISTRY_NAME: npm
+          GH_ACTION_RESULT: ${{ job.status }}
+
+  publish-docker:
+    name: Publish Docker image
+    needs: publish-npm
+    uses: ./.github/workflows/image_publish.yaml
+    secrets: inherit
+
+  publish-mcp-registry:
+    name: Publish to MCP Registry
+    needs:
+      - publish-npm
+      - publish-docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install mcp-publisher
+        run: |
+          OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+          ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+          curl -sL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_${OS}_${ARCH}.tar.gz" | tar xz mcp-publisher
+          sudo mv mcp-publisher /usr/local/bin/
+
+      # The registry verifies that the npm version exists, and npm can take a few minutes to serve a new version.
+      - name: Wait for npm to serve the new version
+        run: |
+          PACKAGE=$(jq -r '.packages[] | select(.registryType == "npm") | "\(.identifier)@\(.version)"' server.json)
+          for ATTEMPT in $(seq 1 20); do
+            if npm view "$PACKAGE" version >/dev/null 2>&1; then
+              echo "$PACKAGE is available"
+              exit 0
+            fi
+            echo "$PACKAGE not available yet (attempt $ATTEMPT of 20), retrying in 30s"
+            sleep 30
+          done
+          echo "::error::$PACKAGE did not become available on npm"
+          exit 1
+
+      - name: Authenticate with MCP Registry
+        env:
+          MCP_REGISTRY_PRIVATE_KEY: ${{ secrets.MCP_REGISTRY_PRIVATE_KEY }}
+        run: mcp-publisher login http --domain cloudinary.com --private-key "$MCP_REGISTRY_PRIVATE_KEY"
+
+      - name: Publish to MCP Registry
+        run: mcp-publisher publish
