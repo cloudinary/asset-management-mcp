@@ -268,7 +268,17 @@ The MCP server uses your Cloudinary API key and secret for authentication:
 
 ## Available Tools
 
-The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI application to discover and invoke the available tools for uploading, managing, searching, and transforming your media assets.
+The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI application to discover and invoke the available tools for uploading, managing, searching, transforming, and generating your media assets.
+
+- **Assets**: upload, inspect, update, rename, and delete images, videos, and raw files
+- **Tags and metadata**: tag assets, set contextual and structured metadata, and relate assets to each other
+- **Search**: find assets by tags, folder, format, metadata, and dates, or by visual similarity
+- **Folders**: create, move, and delete folders in the media library
+- **Transformations**: create and remove derived versions: resize, crop, change format, apply effects
+- **Image generation**: create an image from a text prompt, or edit and combine existing images with a prompt
+- **Video generation (Beta)**: animate an image from your account into a short video with a prompt
+- **Collections**: group assets into collections without moving them, and share a collection on a public page
+- **Archives and usage**: package assets as ZIP or TGZ files, and check account usage
 
 ### Usage Examples
 
@@ -280,7 +290,23 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 3. Get details: "Show me details for asset with ID [asset-id]"
 ```
 
-#### Example 2: Search and Organize Assets
+#### Example 2: Generate and Edit Images
+
+```yaml
+1. Generate an image: "Generate a product shot of a white sneaker on a pastel background and save it to my 'campaigns' folder"
+2. Edit it: "Using [asset-id] as the reference, replace the background with a city street at night"
+3. Check a long-running job: "What's the status of generation task [task-id]?"
+```
+
+#### Example 3: Generate a Video from an Image
+
+```yaml
+1. Pick the source image: "Find the image with public ID 'sneaker-hero'"
+2. Start the job: "Turn asset [asset-id] into an 8-second 16:9 video of the camera slowly orbiting the sneaker"
+3. Get the result: "Check video generation job [job-id] and give me the video URL when it's done"
+```
+
+#### Example 4: Search and Organize Assets
 
 ```yaml
 1. Search for images: "Find all images with tag 'product' uploaded in the last 7 days"
@@ -288,20 +314,28 @@ The MCP server exposes Cloudinary's Asset Management API as tools. Use your AI a
 3. List assets: "Show me all video assets in the 'marketing' folder"
 ```
 
-#### Example 3: Generate Archive
+#### Example 5: Build and Share a Collection
 
 ```yaml
-1. Get transformation docs: "Show me the Cloudinary transformation reference"
-2. Apply transformations: "Transform 'banner' asset with 'c_scale,w_1200/f_auto,q_auto'"
-3. Create archive: "Generate a ZIP archive of all images with tag 'export-ready'"
+1. Create it: "Create a collection called 'Spring launch'"
+2. Add assets: "Add all images tagged 'spring-2026' to the 'Spring launch' collection"
+3. Share it: "Publish the 'Spring launch' collection and give me the public page link"
 ```
 
-#### Example 4: Asset Management Workflow
+#### Example 6: Asset Management Workflow
 
 ```yaml
 1. Upload multiple files: "Upload all images from folder /assets/new-products/"
 2. Add tags: "Update asset [asset-id] and add tags 'featured,homepage'"
 3. Get usage stats: "Show my Cloudinary account usage statistics"
+```
+
+#### Example 7: Generate Archive
+
+```yaml
+1. Get transformation docs: "Show me the Cloudinary transformation reference"
+2. Apply transformations: "Transform 'banner' asset with 'c_scale,w_1200/f_auto,q_auto'"
+3. Create archive: "Generate a ZIP archive of all images with tag 'export-ready'"
 ```
 
 ## Custom Tools
