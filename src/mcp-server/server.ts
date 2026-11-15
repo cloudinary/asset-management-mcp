@@ -60,6 +60,8 @@ import { tool$searchVisualSearchAssets } from "./tools/searchVisualSearchAssets.
 import { tool$tasksGetGenerationTaskStatus } from "./tools/tasksGetGenerationTaskStatus.js";
 import { tool$uploadUpload } from "./tools/uploadUpload.js";
 import { tool$usageGetUsage } from "./tools/usageGetUsage.js";
+import { tool$videoGenerateCreateVideoGenerateJob } from "./tools/videoGenerateCreateVideoGenerateJob.js";
+import { tool$videoGenerateGetVideoGenerateJobStatus } from "./tools/videoGenerateGetVideoGenerateJobStatus.js";
 
 export function createMCPServer(deps: {
   logger: ConsoleLogger;
@@ -77,7 +79,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "CloudinaryAssetMgmt",
-    version: "0.11.7",
+    version: "0.11.8",
   });
 
   const getClient = deps.getSDK || (() =>
@@ -152,6 +154,8 @@ export function createMCPServer(deps: {
   tool(tool$generationGenerateImage);
   tool(tool$generationGenerateImageFromImages);
   tool(tool$tasksGetGenerationTaskStatus);
+  tool(tool$videoGenerateCreateVideoGenerateJob);
+  tool(tool$videoGenerateGetVideoGenerateJobStatus);
   tool(tool$collectionsListCollections);
   tool(tool$collectionsCreateCollection);
   tool(tool$collectionsGetCollection);
