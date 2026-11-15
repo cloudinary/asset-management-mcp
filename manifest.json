@@ -18,7 +18,7 @@
     "transformation"
   ],
   "license": "MIT",
-  "long_description": "A comprehensive MCP server for managing your Cloudinary assets. Upload, generate, organize, search, and transform images, videos, and files with AI-powered tools.",
+  "long_description": "A comprehensive MCP server for managing your Cloudinary assets. Upload, generate, organize, search, and transform images, videos, and files, and group them into shareable collections, with AI-powered tools.",
   "manifest_version": "0.3",
   "name": "@cloudinary/asset-management-mcp",
   "privacy_policies": [
@@ -71,7 +71,7 @@
       "type": "string"
     }
   },
-  "version": "0.11.7",
+  "version": "0.11.8",
   "tools": [
     {
       "name": "upload-asset",
@@ -180,6 +180,14 @@
     {
       "name": "get-generation-task",
       "description": "Check the status and result of a generation task\n\nCheck on an image generation running in the background: whether it is\npending, processing, completed or failed, and, once it has completed,\nthe generated images with their URLs, size and format.\n"
+    },
+    {
+      "name": "generate-video-from-image",
+      "description": "Create a video generation job\n\nSubmits an image and prompt for video generation and returns a job you can poll for the result."
+    },
+    {
+      "name": "get-video-generation-job",
+      "description": "Poll a video generation job\n\nReturns the current status of a generation job. When the status is `completed`, the response includes the generated video's asset details and delivery URL."
     },
     {
       "name": "list-collections",

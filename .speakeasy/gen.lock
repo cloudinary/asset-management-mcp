@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: d0843909428e0d814d970d2d7dd85cf3
-  docVersion: 0.7.9
-  speakeasyVersion: 1.808.1
-  generationVersion: 2.960.8
-  releaseVersion: 0.11.7
-  configChecksum: af2ef725a83d61a870a61745c1eb3f96
+  docChecksum: 741ac794ff9130977123b4f71aa23ae7
+  docVersion: 0.7.10
+  speakeasyVersion: 1.809.0
+  generationVersion: 2.961.1
+  releaseVersion: 0.11.8
+  configChecksum: 308d15f8c866ac91e41141307e922f31
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 34721f60-f1a8-4dac-b5d0-b6ae7be3a684
-  pristine_commit_hash: 398bf4337942247bc2a6fdb72a4386193fb55308
-  pristine_tree_hash: f916de66ae855435164f40b3ebaa63281cd2874f
+  generation_id: 1736c4cf-9037-4697-bba7-247510ae7967
+  pristine_commit_hash: aab51512c68fdcb07da846c80dc37ab59404b32e
+  pristine_tree_hash: 653dd880aa540b71a5c4996030875d7278dbefe8
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:fb3f1c006bfaf6d970da326faaefa439c1123b6c
-    pristine_git_object: eceae18708f867ae69194e88bd9a365f1b3304b4
+    last_write_checksum: sha1:c7cc477453d61dc33d2162b43194833658027ad8
+    pristine_git_object: 120597ec583f74837b92159293e2e766d2d953c4
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:a438ce10e8b738d3ce12b4fdaae2d0f8a0188f22
-    pristine_git_object: c6714207d2074515cca2631e460bf92456b98ae2
+    last_write_checksum: sha1:a330e521cae85fcf355607e8c288577efebac75c
+    pristine_git_object: c8541d261c4afc81115196edb8cce7e3080c9047
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -327,6 +327,26 @@ trackedFiles:
     id: 0453acfec59b
     last_write_checksum: sha1:a6247084ced48652bf7cc0d27474122cc78e8f78
     pristine_git_object: 5081b661a413acc39c1eba3fc52d545bb37d3078
+  src/funcs/imageToVideoPromptsCreateImageToVideoPrompt.ts:
+    id: ee8b51bda6bb
+    last_write_checksum: sha1:f79a7ce5b755aa491e8ecf770d5e60a2e485e842
+    pristine_git_object: 0c41e13baea40655d4fe98c43fccf941a1b15f7b
+  src/funcs/imageToVideoPromptsDeleteImageToVideoPrompt.ts:
+    id: 33fd1b4510c5
+    last_write_checksum: sha1:eac099067e876c1355cfe8a4ca304e82c0b01e55
+    pristine_git_object: 7e1d9f205178edf7530ae5843663509e44348847
+  src/funcs/imageToVideoPromptsGetImageToVideoPrompt.ts:
+    id: 1d82be306393
+    last_write_checksum: sha1:8d88e0e4dd8207e5129489ffecdafa56e72aaacb
+    pristine_git_object: 42235e0aa983a005af35d6bffce469cacb07f20f
+  src/funcs/imageToVideoPromptsGetImageToVideoPrompts.ts:
+    id: 2c78b13964b2
+    last_write_checksum: sha1:f37bb432596b9db568af13619cbd9871e6bf4bf3
+    pristine_git_object: fc9d0f545f8487f7add205a30344da3f585f4489
+  src/funcs/imageToVideoPromptsUpdateImageToVideoPrompt.ts:
+    id: a670857a21cc
+    last_write_checksum: sha1:6e5e9e3651a3a4c6fee1c340b7db4dc2391818c7
+    pristine_git_object: fe66ddab891eef2c63add1eba8056d97cb25f4e8
   src/funcs/initialBackupCreateInitialBackup.ts:
     id: a6f3615da147
     last_write_checksum: sha1:8c21e854400334f6fc6e246f9943d862a80e1617
@@ -411,6 +431,14 @@ trackedFiles:
     id: 646049fa8bae
     last_write_checksum: sha1:4d0fb019d917ab93a9fb38589aa699b5f3000fd5
     pristine_git_object: 5af96d3c6650c558477342a23b031882c6a1eb26
+  src/funcs/videoGenerateCreateVideoGenerateJob.ts:
+    id: 5f595eb9a7ed
+    last_write_checksum: sha1:236b80e0a6c5290aac8390a854e67c0b376b790c
+    pristine_git_object: d6ead9da6c0898628d0cddab55254606026ff0e5
+  src/funcs/videoGenerateGetVideoGenerateJobStatus.ts:
+    id: 4461ba6120cd
+    last_write_checksum: sha1:1d5cc50579cb5b08a0adad7b169ad50d65c24dce
+    pristine_git_object: 95cfe368bda30dcc3e5a58089ad7f0830f7d142c
   src/hooks/hooks.ts:
     id: a2463fc6f69b
     last_write_checksum: sha1:36c7bf5c31e0986fba9e0f9db28a769be7904ffd
@@ -425,16 +453,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:5a63636590903c978e2dcac0fcadb19c832a5d7c
-    pristine_git_object: ee7313fa20e32406b659983e8a790306cfc4db67
+    last_write_checksum: sha1:0b865fd3db758752464b0e97c6e2f078de312a94
+    pristine_git_object: dd783096f762e2c57247ddc5ab9c37c5bd193224
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:7c90a3f11d71fbb00b24343cfe5e19450fbd0b9b
-    pristine_git_object: 6d21412d733e84254780792fcc7fb97792700ed1
+    last_write_checksum: sha1:3e2584b5b084dafc085d34b5d5b8e205d4afd473
+    pristine_git_object: ecb678fd91e219f899386edabd9c4bb61a5e53a7
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -521,8 +549,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:115219b9daed52f9e76933dd5c1eda1a70f3feec
-    pristine_git_object: f2945e8827123357a35174f26aa38b0d15203a80
+    last_write_checksum: sha1:483135e1c1f927c34ab51f2e4f86b05990f1ff5b
+    pristine_git_object: bc711d65b359dbbb28178c85e04bbde7451bb418
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b0d1819592561fdc2c4287da2144e12005b1a67e
@@ -537,8 +565,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:988c76a698ae7a78d5af3413526ce84a0dde4d45
-    pristine_git_object: 54af9eaa0b32734591c9e9e3f8a95cbc57584d6e
+    last_write_checksum: sha1:9efe269c5d7b47c02edc44f7e0545f55ae74c544
+    pristine_git_object: 7c55e96e4a2534376946f8619988afdb76dfd423
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:84222f4deea46fec7c7897f0ef6a66712fc7dff7
@@ -707,6 +735,14 @@ trackedFiles:
     id: 7e648dd5786c
     last_write_checksum: sha1:3657cc9141c4a4e8ecab37cc53c7819edd3bd12c
     pristine_git_object: 26ce89364b9deb78580e534bc5b6be4afa914ebd
+  src/mcp-server/tools/videoGenerateCreateVideoGenerateJob.ts:
+    id: de7962736b9c
+    last_write_checksum: sha1:1ac1566e86cb4461130b14df63037eb59600403f
+    pristine_git_object: 6bbb7217df5e5178c761f2d25da0c7582052d6b4
+  src/mcp-server/tools/videoGenerateGetVideoGenerateJobStatus.ts:
+    id: dc5289a765bb
+    last_write_checksum: sha1:b1f65fa3ed8a34cc787709a6cabc315e9b303935
+    pristine_git_object: 132e2267755697cae42f74a22a1fa45b09087eec
   src/models/accesscontrolitem.ts:
     id: b3d5a7a42328
     last_write_checksum: sha1:e78c034d31d1f7b1b6776ddb1d0f433488381f15
@@ -899,14 +935,22 @@ trackedFiles:
     id: 362ede66bfb5
     last_write_checksum: sha1:f2c47a5372fa6e864db08160d106c95631ba7c1b
     pristine_git_object: 9c8155db726c6d560de8fa94d7d1c166b30e3f0c
+  src/models/createimagetovideopromptop.ts:
+    id: c230806a338a
+    last_write_checksum: sha1:6ea64fa45a0282df988390810643f3d9c27f350e
+    pristine_git_object: 37c121934356284f49d24fdb08864f0c4d963abb
   src/models/createinitialbackupop.ts:
     id: 8b020d68cf73
     last_write_checksum: sha1:7c10f44cfef92e77c2188e59eae5362177e19148
     pristine_git_object: 17ad2f8613f354b419e7c4e68feed55acf9dabbd
+  src/models/createvideogeneratejobop.ts:
+    id: 4028ac08f908
+    last_write_checksum: sha1:0ba7d6eba74bb3db9d01a44faf6c360733acc11b
+    pristine_git_object: 0ec4f60abc8b708f02447b9be7f3ffed4bcacdda
   src/models/declarativeimagesize.ts:
     id: 0ccb8dd8898a
-    last_write_checksum: sha1:ad198c915ffcbef1ba2b045a32acc277acce2d28
-    pristine_git_object: b1b8d2b53d8a37b947953a0dec4bd2d18feb32bd
+    last_write_checksum: sha1:32a49eb7827fb1becf4812ed104cb1d1b490d1cd
+    pristine_git_object: bf18814a8182c0440cd74ba0d5790248462b15ab
   src/models/deleteassetrelationsbyassetidop.ts:
     id: 212522b940e7
     last_write_checksum: sha1:9494587f81bcec33fde872c8a49e244121a654cc
@@ -943,6 +987,10 @@ trackedFiles:
     id: 8304965989f5
     last_write_checksum: sha1:f567d5d754d01f308db37680b11a1befe933a12f
     pristine_git_object: 4573ce515e0c01f76943a54ab3c92facb05236bd
+  src/models/deleteimagetovideopromptop.ts:
+    id: 5edd2f268648
+    last_write_checksum: sha1:c7b33450e72fc25510b77997533ef1e2a84c7477
+    pristine_git_object: bfb6787f0c3bb3d078c569cc638d264d1f83f112
   src/models/deleteresourcebypublicidsrequestunion.ts:
     id: f609f3bcbc44
     last_write_checksum: sha1:a4b0348761839a605fba3fe43fb75cd3f4b9ca47
@@ -1063,6 +1111,10 @@ trackedFiles:
     id: fb6b2b49c445
     last_write_checksum: sha1:007cf5906a9195d49150c032fc710a38bf76c074
     pristine_git_object: 6e164d3e7edbc93fa65afff3b80ecb5044c9d273
+  src/models/errorwrappedresponse.ts:
+    id: 5f0539f91b08
+    last_write_checksum: sha1:9dbf6aa96df3e11052bdd41f382866cb309d7343
+    pristine_git_object: 36ea1acc304c193fabbe564ce8715c20a795eda2
   src/models/evalrequest.ts:
     id: c601a72cb920
     last_write_checksum: sha1:82909e0adeaaf5209bf68fca6f08a8652a47ad84
@@ -1227,6 +1279,14 @@ trackedFiles:
     id: 9a160012644e
     last_write_checksum: sha1:f7c8efe5337b09ace4cc94337db5e4810e49dffc
     pristine_git_object: 13bdde908bcf5b41a385abe0d35382d4de352fba
+  src/models/getimagetovideopromptop.ts:
+    id: ea0f5fea50d5
+    last_write_checksum: sha1:7e743a7e24f1952d1f8ae1f46e7efc49805254d2
+    pristine_git_object: b501384215e3527f5519bc9e8d53b3386c51f7cd
+  src/models/getimagetovideopromptsop.ts:
+    id: 43a50f0c3a31
+    last_write_checksum: sha1:bae8ef8a2c96ced5506887d6a5337faa228bd69d
+    pristine_git_object: 4a1c24d95b46db5f777a82097c8ebe33091f7184
   src/models/getinitialbackupop.ts:
     id: 5e86cbc8de0c
     last_write_checksum: sha1:a140c6700fb0adde795485439a4682b7f0870e0e
@@ -1247,6 +1307,10 @@ trackedFiles:
     id: 247c505056a9
     last_write_checksum: sha1:9e77c8f06c4e674f935b5af8f58d5bee027503fd
     pristine_git_object: 867c788d96e1640e27f4c8872edc96dc179b38f8
+  src/models/getvideogeneratejobstatusop.ts:
+    id: 43fa13a0fffa
+    last_write_checksum: sha1:0426b54bf0ca5aa1e94e4b64a477f37ac78f97f6
+    pristine_git_object: 47cee08b2779c302baeda626d5965537569ec9bd
   src/models/getvideoviewsop.ts:
     id: f526444117c0
     last_write_checksum: sha1:6c77a630a97c844f1e7cbd99075ac88314abf196
@@ -1263,6 +1327,38 @@ trackedFiles:
     id: 42757ef53307
     last_write_checksum: sha1:123e5037c05497316e3148d950119fff0268053c
     pristine_git_object: d1dec9829700cc6ff6c14db2b15f8d643886c889
+  src/models/imagetovideogeneratepayload.ts:
+    id: 44788d9153ea
+    last_write_checksum: sha1:3e9ddefcbbf8ebe4088dedd40852d7182ce768f5
+    pristine_git_object: 4bd7219056c3243811e4fa39eee49cd79dcea6dd
+  src/models/imagetovideogenerateresponse.ts:
+    id: e90f2c32233d
+    last_write_checksum: sha1:48b3ee921f958e0b375607cad7bd2780fa8823b3
+    pristine_git_object: dda1786d30cd9714a689c8080576a90d52120623
+  src/models/imagetovideogeneratewrappedresponse.ts:
+    id: f4b2f5c4c533
+    last_write_checksum: sha1:c151fca12b5a8e4e500c1f470abcb471cedbfea7
+    pristine_git_object: 666945575013353c141bdab52912ab40a46e02e6
+  src/models/imagetovideopromptcreatepayload.ts:
+    id: 0e77627e68a1
+    last_write_checksum: sha1:93b7d1097c9e169917828b6b3c0e43b1bf967441
+    pristine_git_object: f2a4092c7c440df872fe37d0912a559d39e2a591
+  src/models/imagetovideopromptresponse.ts:
+    id: 636b84690fb5
+    last_write_checksum: sha1:71654cf41e22a5458e8677e72e08db4cc5f21d92
+    pristine_git_object: fdff9e89c2bb95afe93383ddf44ba038e077d612
+  src/models/imagetovideopromptswrappedresponse.ts:
+    id: 93e4e3618987
+    last_write_checksum: sha1:7140fdd5daca8b5fb9f3f7aa3079ec5e7a553b70
+    pristine_git_object: dd4506a2768111d29704c55f7a0b0aa43a52c4bc
+  src/models/imagetovideopromptupdatepayload.ts:
+    id: 1e14192e9356
+    last_write_checksum: sha1:23c0458d208838f4840c1090b589eb6b47b032ec
+    pristine_git_object: a4b64097c5f53e2df4be17770e219abb51dcc747
+  src/models/imagetovideopromptwrappedresponse.ts:
+    id: 6d70e8769e07
+    last_write_checksum: sha1:d51bc21742cf0fb0b25f761fead04d8c33574b01
+    pristine_git_object: bbc357e2bc580f852d630d020f919ebb139cafb0
   src/models/info.ts:
     id: 70f4d95abf4e
     last_write_checksum: sha1:6f5d0583a948634a3e51f184e9e3be16b466fd26
@@ -1395,6 +1491,14 @@ trackedFiles:
     id: a3bf36714875
     last_write_checksum: sha1:ed76ce90f080f0b65cf52cb73fb3f3bea0fa6099
     pristine_git_object: 5d7202b5f000f269ee441f3e16f07c619d375532
+  src/models/messagewrappedresponse.ts:
+    id: feca8c7db26e
+    last_write_checksum: sha1:2972d3108aec792bd55576ac5d042c811c46d22d
+    pristine_git_object: 0c614f6f41eb655354bd56dc88688d88e700179a
+  src/models/messagewrappedresponsedata.ts:
+    id: 6f43fc9aa18d
+    last_write_checksum: sha1:ba041891e87cceb9b51b345f273a59543018343a
+    pristine_git_object: c0c50235998689d7561daa7ff15fe0470e510724
   src/models/metadataupdaterequest.ts:
     id: da3c4e065d66
     last_write_checksum: sha1:bfeb64bc9c598a20e8e099c88fea6994e6f1d281
@@ -1699,6 +1803,10 @@ trackedFiles:
     id: c10dd50c3c15
     last_write_checksum: sha1:56f08df67e48f164e557ffeec94d119da7382a62
     pristine_git_object: a72cd6c186fafdcf08b7cf7495eb6169d50d4262
+  src/models/updateimagetovideopromptop.ts:
+    id: e12f45e585fa
+    last_write_checksum: sha1:e36bc080df70b0e3e5ba81a1ec881892f4a09ac1
+    pristine_git_object: 85d7502dba28a5b7005efe976348bdf6da03b133
   src/models/updatepersonop.ts:
     id: 5ddf6ef3582c
     last_write_checksum: sha1:c0ae95c7747ab20247a49f5d25eaf279914c6daa
@@ -1773,8 +1881,8 @@ trackedFiles:
     pristine_git_object: 95c223c617dd027381bae34c6fa52b984461bf7a
   src/tool-names.ts:
     id: a9977280f9eb
-    last_write_checksum: sha1:1316ea26f14b075328ac8b4673360a05e10dce08
-    pristine_git_object: efded109b4699413ef0bd2c4dfefecd9929a35b3
+    last_write_checksum: sha1:f9bc6c702c49b69b68ec964b85b653ae07a0cbc0
+    pristine_git_object: ee594650494e1eeab04e91771cebd59dec9461c3
   src/types/async.ts:
     id: fac8da972f86
     last_write_checksum: sha1:042571ad6be7fd5ce5a93b292b9c1aefc21ebff7
@@ -3702,7 +3810,162 @@ examples:
           application/json: {"message": "Not found."}
         "500":
           application/json: {"message": "Internal server error. Please try again later."}
+  createVideoGenerateJob:
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "A serene beach at sunset with gentle waves rolling in", "image_asset_id": "0a1b2c3d4e5f60718293a4b5c6d7e8f9", "aspect_ratio": "16:9", "resolution": "1080p", "duration": 8, "generate_audio": true, "enhance_prompt": true, "folder": "campaigns/spring", "negative_prompt": ["watermark", "flickering"]}
+      responses:
+        "201":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"job_id": "550e8400e29b41d4a716446655440000", "status": "pending"}}
+    speakeasy-default-create-video-generate-job:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"prompt": "<value>", "image_asset_id": "<id>", "aspect_ratio": "auto", "resolution": "720p", "duration": 8, "generate_audio": false, "enhance_prompt": true, "folder": "image-to-video"}
+      responses:
+        "201":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"job_id": "550e8400e29b41d4a716446655440000", "status": "pending"}}
+        "400":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+        "500":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+  getVideoGenerateJobStatus:
+    speakeasy-default-get-video-generate-job-status:
+      parameters:
+        path:
+          jobId: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"job_id": "550e8400e29b41d4a716446655440000", "status": "pending"}}
+        "401":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+    default:
+      parameters:
+        path:
+          jobId: "<id>"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"job_id": "550e8400e29b41d4a716446655440000", "status": "completed", "asset_id": "9f8e7d6c5b4a30291807a6b5c4d3e2f1", "public_id": "image-to-video/i2v_550e8400e29b41d4a716446655440000", "resource_type": "video", "delivery_type": "upload", "url": "https://res.cloudinary.com/demo/video/upload/v1/image-to-video/i2v_550e8400e29b41d4a716446655440000.mp4"}}
+  getImageToVideoPrompts:
+    speakeasy-default-get-image-to-video-prompts:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"request_id": "<id>", "data": [{}]}
+        "400":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+        "500":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": [{"id": "c4a8e2f1d3b74a6e9f0b5d2c8e1a7f39", "display_name": "Beach sunset", "prompt": "A serene beach at sunset with gentle waves rolling in", "created_at": 1781000000000, "updated_at": 1781000000000}]}
+  createImageToVideoPrompt:
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"display_name": "Beach sunset", "prompt": "A serene beach at sunset with gentle waves rolling in"}
+      responses:
+        "201":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"id": "c4a8e2f1d3b74a6e9f0b5d2c8e1a7f39", "display_name": "Beach sunset", "prompt": "A serene beach at sunset with gentle waves rolling in", "created_at": 1781000000000, "updated_at": 1781000000000}}
+    speakeasy-default-create-image-to-video-prompt:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+      requestBody:
+        application/json: {"display_name": "Josianne93", "prompt": "<value>"}
+      responses:
+        "201":
+          application/json: {"request_id": "<id>", "data": {}}
+        "400":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+        "500":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+  getImageToVideoPrompt:
+    speakeasy-default-get-image-to-video-prompt:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          promptId: "<id>"
+      responses:
+        "200":
+          application/json: {"request_id": "<id>", "data": {}}
+        "400":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+        "500":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          promptId: "<id>"
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"id": "c4a8e2f1d3b74a6e9f0b5d2c8e1a7f39", "display_name": "Beach sunset", "prompt": "A serene beach at sunset with gentle waves rolling in", "created_at": 1781000000000, "updated_at": 1781000000000}}
+  updateImageToVideoPrompt:
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          promptId: "<id>"
+      requestBody:
+        application/json: {"display_name": "Beach sunset (golden hour)", "prompt": "A serene beach during golden hour with gentle waves"}
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"id": "c4a8e2f1d3b74a6e9f0b5d2c8e1a7f39", "display_name": "Beach sunset (golden hour)", "prompt": "A serene beach during golden hour with gentle waves", "created_at": 1781000000000, "updated_at": 1781009999000}}
+    speakeasy-default-update-image-to-video-prompt:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          promptId: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"request_id": "<id>", "data": {}}
+        "400":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+        "500":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+  deleteImageToVideoPrompt:
+    speakeasy-default-delete-image-to-video-prompt:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          promptId: "<id>"
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {}}
+        "400":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+        "500":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "error": {}}
+    default:
+      parameters:
+        path:
+          cloud_name: "my_cloud"
+          promptId: "<id>"
+      responses:
+        "200":
+          application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"message": "Prompt deleted"}}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Mcp-typescript SDK Changes:
+  * `CloudinaryAssetMgmt.Video Generate.createVideoGenerateJob()`: **Added**
+  * `CloudinaryAssetMgmt.Video Generate.getVideoGenerateJobStatus()`: **Added**
 generatedFiles:
   - .dxtignore
   - .gitattributes
