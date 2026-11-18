@@ -3,17 +3,17 @@ id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
   docChecksum: 741ac794ff9130977123b4f71aa23ae7
   docVersion: 0.7.10
-  speakeasyVersion: 1.809.0
+  speakeasyVersion: 1.810.0
   generationVersion: 2.961.1
-  releaseVersion: 0.11.8
-  configChecksum: 308d15f8c866ac91e41141307e922f31
+  releaseVersion: 0.11.9
+  configChecksum: 338d791f137297ade8a4821ec065f997
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 1736c4cf-9037-4697-bba7-247510ae7967
-  pristine_commit_hash: aab51512c68fdcb07da846c80dc37ab59404b32e
-  pristine_tree_hash: 653dd880aa540b71a5c4996030875d7278dbefe8
+  generation_id: c7249fdd-2c4b-4d50-a4d0-c063085aaf55
+  pristine_commit_hash: ce2fc6ac9eadbefefc4e45b0d810edc101ee2d5b
+  pristine_tree_hash: caee1001f40e30f13b5286d529bf362df0938f4e
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
@@ -57,12 +57,12 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:c7cc477453d61dc33d2162b43194833658027ad8
-    pristine_git_object: 120597ec583f74837b92159293e2e766d2d953c4
+    last_write_checksum: sha1:a396205389ddbc95c38d7061712b92f821580b01
+    pristine_git_object: bf15972f3c46e12b38b348c498ac6e4d2ad9c456
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:a330e521cae85fcf355607e8c288577efebac75c
-    pristine_git_object: c8541d261c4afc81115196edb8cce7e3080c9047
+    last_write_checksum: sha1:39bb6edd06c32ef280dbe4ee5ddcb478f1282a02
+    pristine_git_object: 5e924dc7b9c10d3d8ee8fa32d833bff46edcbdde
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
@@ -453,16 +453,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:0b865fd3db758752464b0e97c6e2f078de312a94
-    pristine_git_object: dd783096f762e2c57247ddc5ab9c37c5bd193224
+    last_write_checksum: sha1:0802ecde8719007abce758d48aba13f8867bae72
+    pristine_git_object: f04f5b706879f9d996b6f08b8a0f12bcc06f6269
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:3e2584b5b084dafc085d34b5d5b8e205d4afd473
-    pristine_git_object: ecb678fd91e219f899386edabd9c4bb61a5e53a7
+    last_write_checksum: sha1:36043139f3f33cb23d256682ad6f4f669eb3cab1
+    pristine_git_object: 0afddcb97ba5ffae6f59f120233e978da0e897cf
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -549,8 +549,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:483135e1c1f927c34ab51f2e4f86b05990f1ff5b
-    pristine_git_object: bc711d65b359dbbb28178c85e04bbde7451bb418
+    last_write_checksum: sha1:b7a705c00fe28165b8490aee906da2861c9d5fe1
+    pristine_git_object: ab4f186f11a72eda80d90b2147199f87e935385e
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b0d1819592561fdc2c4287da2144e12005b1a67e
@@ -565,8 +565,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:9efe269c5d7b47c02edc44f7e0545f55ae74c544
-    pristine_git_object: 7c55e96e4a2534376946f8619988afdb76dfd423
+    last_write_checksum: sha1:b4410a007197d88debfd3d40f2dc24d849bd08a3
+    pristine_git_object: 14a9b4eb4317492854f49e475b46e6a15e364b8c
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:84222f4deea46fec7c7897f0ef6a66712fc7dff7
@@ -3962,10 +3962,6 @@ examples:
         "200":
           application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"message": "Prompt deleted"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Mcp-typescript SDK Changes:
-  * `CloudinaryAssetMgmt.Video Generate.createVideoGenerateJob()`: **Added**
-  * `CloudinaryAssetMgmt.Video Generate.getVideoGenerateJobStatus()`: **Added**
 generatedFiles:
   - .dxtignore
   - .gitattributes
