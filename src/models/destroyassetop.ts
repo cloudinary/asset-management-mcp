@@ -32,16 +32,20 @@ export type DestroyAssetRequestBody = {
   type?: DeliveryTypeAll | undefined;
   invalidate?: boolean | undefined;
   notification_url?: string | undefined;
+  batch_id?: string | undefined;
 };
 
 export const DestroyAssetRequestBody$zodSchema: z.ZodType<
   DestroyAssetRequestBody
 > = z.object({
+  batch_id: z.string().optional().describe(
+    "The identifier that correlates related notifications so they can be retrieved together from a `poll://*` notification destination. Send your own value to be sure that you can retrieve the notifications. When omitted, retrieve them by the `batch_id` that an asynchronous response returns, or, for a synchronous request, by the `X-Request-Id` response header.",
+  ),
   invalidate: z.boolean().default(false).describe(
     "Whether to invalidate CDN cached copies of the asset.",
   ),
   notification_url: z.string().optional().describe(
-    "URL to receive a notification when the operation is complete.",
+    "URL to receive a notification when the operation is complete. Use a webhook URL, or a `poll://<channel>` or `poll://*` address to hold the notification for retrieval with the Notifications API. Retrieve a `poll://*` notification by `batch_id` (see the `batch_id` parameter).",
   ),
   public_id: z.string().describe("The public ID of the asset to destroy."),
   type: DeliveryTypeAll$zodSchema.optional().describe(

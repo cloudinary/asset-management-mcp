@@ -9,16 +9,20 @@ export type DestroyByAssetIdRequest = {
   asset_id: string;
   invalidate?: boolean | undefined;
   notification_url?: string | undefined;
+  batch_id?: string | undefined;
 };
 
 export const DestroyByAssetIdRequest$zodSchema: z.ZodType<
   DestroyByAssetIdRequest
 > = z.object({
   asset_id: z.string().describe("A 32-character hexadecimal asset ID."),
+  batch_id: z.string().optional().describe(
+    "The identifier that correlates related notifications so they can be retrieved together from a `poll://*` notification destination. Send your own value to be sure that you can retrieve the notifications. When omitted, retrieve them by the `batch_id` that an asynchronous response returns, or, for a synchronous request, by the `X-Request-Id` response header.",
+  ),
   invalidate: z.boolean().optional().describe(
     "Whether to invalidate CDN cache. Default is false.",
   ),
   notification_url: z.string().optional().describe(
-    "URL to receive completion notification.",
+    "URL to receive completion notification. Use a webhook URL, or a `poll://<channel>` or `poll://*` address to hold the notification for retrieval with the Notifications API. Retrieve a `poll://*` notification by `batch_id` (see the `batch_id` parameter).",
   ),
 });

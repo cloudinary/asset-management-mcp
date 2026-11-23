@@ -1,26 +1,26 @@
 lockVersion: 2.0.0
 id: 437fb5bb-e4d2-4704-81fb-2d3392148ebc
 management:
-  docChecksum: 741ac794ff9130977123b4f71aa23ae7
-  docVersion: 0.7.10
-  speakeasyVersion: 1.809.0
-  generationVersion: 2.961.1
-  releaseVersion: 0.11.8
-  configChecksum: 308d15f8c866ac91e41141307e922f31
+  docChecksum: b33f4f3c73fc6b811ba8138968f4694b
+  docVersion: 0.7.11
+  speakeasyVersion: 1.811.0
+  generationVersion: 2.968.1
+  releaseVersion: 0.11.9
+  configChecksum: 338d791f137297ade8a4821ec065f997
   repoURL: https://github.com/cloudinary/asset-management-mcp.git
   installationURL: https://github.com/cloudinary/asset-management-mcp
   published: true
 persistentEdits:
-  generation_id: 1736c4cf-9037-4697-bba7-247510ae7967
-  pristine_commit_hash: aab51512c68fdcb07da846c80dc37ab59404b32e
-  pristine_tree_hash: 653dd880aa540b71a5c4996030875d7278dbefe8
+  generation_id: 646d9c2a-e293-405b-96fb-ba19c33bd103
+  pristine_commit_hash: ee0e1e65c41a85757b324b747db7a2b8fbacef4c
+  pristine_tree_hash: f7d951749fcabc93f30b4904d7843f6bf5846c1b
 features:
   mcp-typescript:
     acceptHeaders: 0.1.0
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.2
-    core: 2.0.5
+    core: 2.0.8
     customSecuritySchemes: 0.1.1
     deepObjectParams: 0.1.0
     defaultEnabledRetries: 0.1.0
@@ -57,388 +57,392 @@ trackedFiles:
     pristine_git_object: 4f9e60a9462fc4def738d60c3aaadf8232ef185f
   manifest.json:
     id: ca642a226869
-    last_write_checksum: sha1:c7cc477453d61dc33d2162b43194833658027ad8
-    pristine_git_object: 120597ec583f74837b92159293e2e766d2d953c4
+    last_write_checksum: sha1:a396205389ddbc95c38d7061712b92f821580b01
+    pristine_git_object: bf15972f3c46e12b38b348c498ac6e4d2ad9c456
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:a330e521cae85fcf355607e8c288577efebac75c
-    pristine_git_object: c8541d261c4afc81115196edb8cce7e3080c9047
+    last_write_checksum: sha1:72ba5bfdb8ce9c644d5f839c1a78c9d3e82172ec
+    pristine_git_object: 22352890f9efd1c85ecf112f7221a59fbca1cc3b
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a0af99e35ac87b878538b564c9a0a104c76c50a7
     pristine_git_object: 16a6b6a6d3944df9bd3f4a5b66b7d95b9adccaab
   src/funcs/assetMetadataUpdateAssetsContext.ts:
     id: c336b3c08834
-    last_write_checksum: sha1:1c0870785b220ed0c2ca50e6c9bfaafa94362767
-    pristine_git_object: d57c6eb932a3d80fe5fa65e17dcd9ba861d6d21d
+    last_write_checksum: sha1:902c71c3fc4008f9eb6b2aeaca637177d212a819
+    pristine_git_object: 7806e7a7ec6fd33e07b8085d29a522dea4e2d917
   src/funcs/assetMetadataUpdateAssetsMetadata.ts:
     id: 31f792e4c579
-    last_write_checksum: sha1:6553c3f55f28009c0491f5c3df1dbd8c93a4a8db
-    pristine_git_object: 5136517a740ce6d4eadc84eb5dba960f29c792d2
+    last_write_checksum: sha1:7c9b4cf157c32e23235a54966580825f3ad9cc5f
+    pristine_git_object: 56646a0d731028a051e9528b266a11cad6ec1f24
   src/funcs/assetMetadataUpdateAssetsTags.ts:
     id: 3363002cc04c
-    last_write_checksum: sha1:498a6c7e8f47aec8032fd9d3976c292a80f9d500
-    pristine_git_object: e96d8de622f9961ec55759e90d0d4cb923ea9c39
+    last_write_checksum: sha1:c2bbac0d70d6277c4675f867b3273901105c5212
+    pristine_git_object: 5396faf69c5a0220a8c3320b7d6400e92eaa72f1
   src/funcs/assetRelationsCreateAssetRelationsByAssetId.ts:
     id: 791223e368be
-    last_write_checksum: sha1:7f3d4f69a1a495e49b2dece9f8e8f3f7b701ec2d
-    pristine_git_object: f63b0f302463d2e154b5a0c9dff0425a0a174c8e
+    last_write_checksum: sha1:763d7b41c17ff11827860e0431a394d428fd6185
+    pristine_git_object: d1c8e7a4c255193314df557f0b546548d3c5a47f
   src/funcs/assetRelationsCreateAssetRelationsByPublicId.ts:
     id: c071d65b06c3
-    last_write_checksum: sha1:97100612140c16c16be1810d17cef0338f74c5ba
-    pristine_git_object: 1e84523efc240e19deb42ebfcc21f9006209b040
+    last_write_checksum: sha1:aa9a90968b0fb76c3067ef637430b6931281db1d
+    pristine_git_object: ad412fc8c31a9d25ad1e74d2377883e819ac392f
   src/funcs/assetRelationsDeleteAssetRelationsByAssetId.ts:
     id: 9df83f1debe7
-    last_write_checksum: sha1:f92884efe8f23d9a81d23f14daf7bf10d30cfd6f
-    pristine_git_object: 08ad9d9e81b2f7a0e28d9ea3a9556793427531c0
+    last_write_checksum: sha1:15cf6e0ffe20042360a45d2d72671583bf1fd2b2
+    pristine_git_object: 98e81af2068ffdc2cfad72bc219bcd967418aec4
   src/funcs/assetRelationsDeleteAssetRelationsByPublicId.ts:
     id: 852cbe64ca4f
-    last_write_checksum: sha1:8c5fd0861a7bf11682dcd5f2ad515fe9910116f4
-    pristine_git_object: acc738863fb0e437b236db0168961130089c32d5
+    last_write_checksum: sha1:782d425fca5abfd1091f8dec550408e5f2305006
+    pristine_git_object: d85532d1c16576d90b9f77eca76b2acc6658da19
   src/funcs/assetsDeleteBackupVersions.ts:
     id: a3f2ea8a14e8
-    last_write_checksum: sha1:fe88085be8ecb56d717a12f68df97f581d0a9778
-    pristine_git_object: 798b2a194726d28c8c82239c3d3404d96936a3ba
+    last_write_checksum: sha1:9eec16f0f8b3a68e2d6ca1c89239212a91388d4c
+    pristine_git_object: 13c9c41cd5319de00fc66bbab0d94d531c265e8b
   src/funcs/assetsDeleteResourcesByPublicId.ts:
     id: 3377464f9d8c
-    last_write_checksum: sha1:cb240df7befdf691c23ba81693ebae3f4e971d73
-    pristine_git_object: 2a3b5a3d47c823164b7f8bc23ad551bab5a68ee8
+    last_write_checksum: sha1:8d1314c292f0b43cf780b1c274d004f0f0904aec
+    pristine_git_object: 68f567e37cc727479ca01d29dc4e58bf6427e009
   src/funcs/assetsDerivedDestroy.ts:
     id: 2cc0252024b0
-    last_write_checksum: sha1:bf70dc88a9796c1b1049578dfb9a203398012226
-    pristine_git_object: 961947a6b357961a47ccb1fb517e8642909960c9
+    last_write_checksum: sha1:253eac6d1003aadccfc174581e1d51e18f644184
+    pristine_git_object: 022fc5243b5542da038e8f9e863ac2b765def20f
   src/funcs/assetsDestroyByAssetId.ts:
     id: 765df0456458
-    last_write_checksum: sha1:023a57eae504870a4601529743719bc54e8b55d6
-    pristine_git_object: 3826ef608d58c5e4199cf80b126a242221f42818
+    last_write_checksum: sha1:9260bec7d74d8b208d6ae52586f454fae3af2472
+    pristine_git_object: 6269088560c445763bcadd55e483e54b13c8983e
   src/funcs/assetsDownloadAsset.ts:
     id: 0ef6dc1f305c
-    last_write_checksum: sha1:dae7551fc059f8a986ab546b3035fbbd9e668523
-    pristine_git_object: ac67423ac96bd6e15352da231acbb29ff0b6c378
+    last_write_checksum: sha1:c8d94f745eb1962b3c54324bc1b7db30ae18376a
+    pristine_git_object: 4d7a7e5f8e0a22c823fad5980e7064f69151af76
   src/funcs/assetsDownloadAssetByAssetId.ts:
     id: 3875c29ceafb
-    last_write_checksum: sha1:f8b40f6d8d150ae59beea84fec2eb75a05e59a3e
-    pristine_git_object: 2b537d0321f3cb8d5524398c3443e74a303c6fad
+    last_write_checksum: sha1:f00ac97f5bbc459ce057ef7e87f54e79b92df02d
+    pristine_git_object: 26c7533b76e17b1734b23a30bda9def29962d947
   src/funcs/assetsDownloadBackupAsset.ts:
     id: baf7dcd95041
-    last_write_checksum: sha1:9afeaca7a113cc32485b2d2737c6da6300a84c67
-    pristine_git_object: 3cca6d13f861fcab890f165b7a197774ef42caba
+    last_write_checksum: sha1:15beed4059a820a4de74995807bb339030ff077d
+    pristine_git_object: 0fb7352bbc123a6096bacdc85d570f80e4fe7148
   src/funcs/assetsExplicitAsset.ts:
     id: 1a083b1cd4f5
-    last_write_checksum: sha1:ba0164b60ae322fd8b2e0e469e5c8627084b4e11
-    pristine_git_object: 3ea2117daf6fc87e499f620b63806dbb6389c944
+    last_write_checksum: sha1:09434996c04e324d45acdf6ddfae6ff7f1f2b6d8
+    pristine_git_object: a1752194c257208c52faceb82e2d7468f5feac4d
   src/funcs/assetsGenerateArchive.ts:
     id: b11f140d92f3
-    last_write_checksum: sha1:d0a52734fb4eccb819280b1781d9773f3287d0d0
-    pristine_git_object: d4152a202b18d92e976fbb6b235696843a96af99
+    last_write_checksum: sha1:f6abdbb9389bee98c43daa033e0bd38494706d87
+    pristine_git_object: c35ed61a32a32b3e64dcebb0725918758037730f
   src/funcs/assetsGetResourceByAssetId.ts:
     id: 2172fc1899ca
-    last_write_checksum: sha1:2a5fd2440ecf1f684a72643eaeb19b8b28d78ba3
-    pristine_git_object: b8220c016b713d61502d450daca1ddaffed524a1
+    last_write_checksum: sha1:d0ea3f67f0987b460dfe5b2c5c01dc0d50c49e47
+    pristine_git_object: 1226d119744310352789474f2ea20fc9a4119ce9
   src/funcs/assetsGetResourceByBody.ts:
     id: 548a221e796c
-    last_write_checksum: sha1:ba1fb117f5a8e167b242bc84712ce7a60154998a
-    pristine_git_object: e687e7f31ac0c8829348c21f65c8e614a3b6f034
+    last_write_checksum: sha1:84dd151e383f54838295399c0f06ee3bd5bcc735
+    pristine_git_object: 5e5a7c8bdee30dab355247d3f51ce0f0f858868f
   src/funcs/assetsGetResourceByPublicId.ts:
     id: 6636ca49aa1a
-    last_write_checksum: sha1:950dc6c265c404692396dbf52cbedb7fd1bab2a0
-    pristine_git_object: b854a46f307db2fadc3890f272ec522bc6b4e64d
+    last_write_checksum: sha1:6b2726b95bc4fc13676f57e34bef8e1416671409
+    pristine_git_object: 9bd84d8ab56fff4f4f8c9e7c0274a81ac0d4243d
   src/funcs/assetsInvalidateDerivedByUrls.ts:
     id: 149a9d8469b2
-    last_write_checksum: sha1:7c0a05377fa3066c583fbb7ff71e77693a4be2ce
-    pristine_git_object: 08effd57b6ed0c61db86822266f64702d43e5861
+    last_write_checksum: sha1:a870f4e1e04088e67b6a049551d7280a7c561790
+    pristine_git_object: 6df748589c9897713a9eac689596cf71c8226c98
   src/funcs/assetsListImages.ts:
     id: 1c3d642c61a7
-    last_write_checksum: sha1:7404d330ea6fc1c485d1ccae3c7603419270652b
-    pristine_git_object: 9aa8a6f8d538be0a25b38f5edf8d3aeb1ac5a325
+    last_write_checksum: sha1:91eb4acb35aacfbcd4e9ad04ab1ccdb55e8e3e6a
+    pristine_git_object: f323dc994f939f4e5c3cce68a67433be353e691d
   src/funcs/assetsListRawFiles.ts:
     id: 9392014489bb
-    last_write_checksum: sha1:4d6a1a817faaef59aab3594d909fb3f6534b04e3
-    pristine_git_object: d79b0c160729dcba488b7000318abf8f2ad39a1c
+    last_write_checksum: sha1:c6cb842579e030fe84367974e4faf3042bb5332a
+    pristine_git_object: c219faa6ae9f9b25aa4edaf9013a87d326394e07
   src/funcs/assetsListResourceTags.ts:
     id: 5cf3a72da201
-    last_write_checksum: sha1:7ad6bd19d371012a17cf5316a4e4e84851bedb6e
-    pristine_git_object: 677273d879347b151602d52ec934b2bd7ec6a056
+    last_write_checksum: sha1:ac77632f8bdff6d2b890676343af8061cbc290ec
+    pristine_git_object: 887cdd789bd9fabee74dff22640a5ecdc51da258
   src/funcs/assetsListResourceTypes.ts:
     id: 63a94a277961
-    last_write_checksum: sha1:19ff90f9ae9074f06c5b84cc9e338bda1ac554e5
-    pristine_git_object: 0708cc7fb6c7a6b4ce635d5ccbb9e031dfaa0faf
+    last_write_checksum: sha1:dff7dd87bfd46f74a5164c9cbc2e9fdd1a8f3d5b
+    pristine_git_object: 21cf846db32be2e8e1ef662be0ddb333adcbec21
   src/funcs/assetsListResourcesByAssetFolder.ts:
     id: 7c7107a8920d
-    last_write_checksum: sha1:9c30a341a45aac7ac8f3d9a545f7c75c63fc452a
-    pristine_git_object: 6752f473bf573e714081e6a61c2065e0366185fe
+    last_write_checksum: sha1:2f460e612b67c4f898cd1834ad3b86bf1553dd24
+    pristine_git_object: 10a1a86200894a4a0c13622b760bf4541f1e4d3c
   src/funcs/assetsListResourcesByAssetIDs.ts:
     id: 61266392c622
-    last_write_checksum: sha1:406312a915223c3e412779ddd18a060cf61ab102
-    pristine_git_object: 3367fbfa3dbd509651c928cec3797fb70dc6ffb5
+    last_write_checksum: sha1:2b5057df95a002860303c01db63577ab8668f363
+    pristine_git_object: 65794d473634475812c271bd0d13d831c17b653a
   src/funcs/assetsListResourcesByContainerId.ts:
     id: 72ec3bb97e8c
-    last_write_checksum: sha1:063fa160abf040405d0499b76c39eb1cf8244fb9
-    pristine_git_object: 02936037bffecc9e8c8a878f6abd469a2fdce738
+    last_write_checksum: sha1:18a4e5f11cd0523c3fb85eb64e5aa19edbecf566
+    pristine_git_object: 8503c7bb98c50f2e5fe0d14895505622c28b53c7
   src/funcs/assetsListResourcesByContext.ts:
     id: 8059d2804a54
-    last_write_checksum: sha1:36b052f86c8cc9d9e07b4ccd8b6b3b9631e229ce
-    pristine_git_object: 10114bf52a25e756949a2300178e60b41f2925f9
+    last_write_checksum: sha1:688e3d85475770515082fb3f0c427e1151b5dd5e
+    pristine_git_object: f0160a3f6ea538de4ed1d2732dfdf0925d23038f
   src/funcs/assetsListResourcesByModerationKindAndStatus.ts:
     id: b7941ef6d65a
-    last_write_checksum: sha1:dd4ea8adc611b04cd2ed15466414f611725fe0d8
-    pristine_git_object: 4470ba6d795e000f98e8df917cd757c3ba04cc00
+    last_write_checksum: sha1:1b956c8d832ce530d6c85776c0b52993694fd2a0
+    pristine_git_object: 95aec26bda7e66c62c0af88dafa59e401c6d1618
   src/funcs/assetsListVideos.ts:
     id: 1f79c90b1d5e
-    last_write_checksum: sha1:d9543df6b16a1a3de749c5eaf4cb754e01609229
-    pristine_git_object: 708bc9452509deb6e1a4788f775b19ea68987131
+    last_write_checksum: sha1:12276b258352cf0060227c9c61b9a826a2a617f0
+    pristine_git_object: a2181ab48b08dd3a4452ab87e0c911b34b8b2f15
   src/funcs/assetsRenameAsset.ts:
     id: c9bbcbb8f83b
-    last_write_checksum: sha1:547026f45a98c71147142c1d105f679199a7831b
-    pristine_git_object: 1d5996b09d14238e3f729b84460824a8de376407
+    last_write_checksum: sha1:ec9c69313c316371996cf835e5803d70f1549c40
+    pristine_git_object: e58640ca3783d608b6dffa0366a70ee953e5e770
   src/funcs/assetsRestoreResourcesByAssetIDs.ts:
     id: a50b6cfff9f5
-    last_write_checksum: sha1:8c7b19a532b39d4928eaae09cd1484d788da7d86
-    pristine_git_object: 545406c0d2332ed4255b19c4025b8af3409b875f
+    last_write_checksum: sha1:b27df83325ea92452e9f1745f7b80893756b6e14
+    pristine_git_object: 58cfc7b042dbdacc6286d2fb4ef4dd2874230dc1
   src/funcs/assetsUpdateResourceByAssetId.ts:
     id: 5497384f7055
-    last_write_checksum: sha1:2ddd3c149643611301b84d03289170b624a85998
-    pristine_git_object: b8fa481e4b1447671f708526372e3a95ff125a22
+    last_write_checksum: sha1:8a0dcc15c545734a93d4f4283ba1e9b07af47151
+    pristine_git_object: 11516f0b5076d7bccb1265601d4a176daa370796
   src/funcs/assetsUpdateResourceByBody.ts:
     id: 53e52e168fe2
-    last_write_checksum: sha1:e3519bc69fd889e22caabc31e677087378ca0cd0
-    pristine_git_object: 5b131386f6a6058b989cf3d0106ca3867575b168
+    last_write_checksum: sha1:3ace0ca52aa0584251a2c13621debd50d9514d5a
+    pristine_git_object: 87a22bd504225c741929b09432eec87306623c61
   src/funcs/assetsUpdateResourceByPublicId.ts:
     id: 6ccc5265964f
-    last_write_checksum: sha1:ab2ff28ec23f6c1b30acd7536eba27594e985565
-    pristine_git_object: 5b57397f4768d920a89dca066567fc02fbb685da
+    last_write_checksum: sha1:220cbb4427c6fb3db44f2e9653e61be546b21e00
+    pristine_git_object: 0cc07967ff6bf4844c1e92cb0299653a5cb157a7
   src/funcs/backupsDeleteBackupVersions.ts:
     id: f734afd6b5df
-    last_write_checksum: sha1:b792f7b88fada90b93adcd46e414064d9e8ddf0e
-    pristine_git_object: 7878c5ab4f0d20bc41970ef4a3b49918496aefe1
+    last_write_checksum: sha1:d8021501f321ae9810950f076ce2424b512652c9
+    pristine_git_object: 9925e937a2f4cdf8596883d3c566fae98ec7a661
   src/funcs/collectionsAddCollectionAssets.ts:
     id: 6a4c50298045
-    last_write_checksum: sha1:01afbcf3632fdb9aad38ce7560fb25a36f59e075
-    pristine_git_object: 5cc70ab8d0e994edebe1c9a0a2d489d876013a56
+    last_write_checksum: sha1:e009356a3f7c877437b2f5caba422ce129677e30
+    pristine_git_object: 1ab13475c6132ba9d24c9701023eca73c8501ee4
   src/funcs/collectionsCreateCollection.ts:
     id: e1cf3372dc1e
-    last_write_checksum: sha1:d478b11cbfd4b57551cff25a141b53eb4487baf9
-    pristine_git_object: 14ab70c83ebe789ab6013937584e086ee3a9f6af
+    last_write_checksum: sha1:757775ac8b3ba4eecd8169b8ad1b172385db5674
+    pristine_git_object: 0c2a445b2d9c518e1080a979240d102b15af409a
   src/funcs/collectionsCreateCollectionPublicPage.ts:
     id: cd9f55c46a91
-    last_write_checksum: sha1:69001ea3951cddd0ac47cf31001f234fcb1c6e27
-    pristine_git_object: 0895a0c275a907e5f8a233162e1f73e6c1059527
+    last_write_checksum: sha1:ea37e1a62854513f808df95048ef08574d9fc646
+    pristine_git_object: bf2433fc317cbaac07941bc9a2ca1437bd34bc3f
   src/funcs/collectionsDeleteCollection.ts:
     id: 412544d757f7
-    last_write_checksum: sha1:c645814e9e47a28f43af6107a15ef7e447a55889
-    pristine_git_object: e1e745a20794a0b556ca09eebb3e12f5a72dd031
+    last_write_checksum: sha1:5f433e07b35a8931addeae5459d7f96e5c83024e
+    pristine_git_object: 6d12d8189646185c0dae0e7a774a042a0449568a
   src/funcs/collectionsDeleteCollectionPublicPage.ts:
     id: 26283e5d2409
-    last_write_checksum: sha1:db1f7ebfc9c33126401b629b2aff7bbaa01848df
-    pristine_git_object: 81f642dc6907dc484933b49b8523369e6921438e
+    last_write_checksum: sha1:4bc8108d9235c9682ab7d205df04ce13fa7388e5
+    pristine_git_object: 46ba71f206ffc25c5f43ae0d42384e83aee7405f
   src/funcs/collectionsGetCollection.ts:
     id: 17d45c027c84
-    last_write_checksum: sha1:2f706d46731960d4a0ecaf8d2a99e624464fd126
-    pristine_git_object: 96af948e03b72b9aa42e8fc71062c3dec66abe64
+    last_write_checksum: sha1:b0105e21b8f0e8123e7bdb2c28e110c97030e969
+    pristine_git_object: f69a0dca6493f4d80720ed99d10a67dbf6a62748
   src/funcs/collectionsGetCollectionPublicPage.ts:
     id: 55023abe09fb
-    last_write_checksum: sha1:3945905e59ded22eef58e613423e1214e402a97b
-    pristine_git_object: 95679e83cd59ef86c91584f711981ff7767b4aeb
+    last_write_checksum: sha1:aaa0f404526b3274bf6ad8472415daae4c527764
+    pristine_git_object: bd4e388576c40394294b23b7ac7f99cf82e02d56
   src/funcs/collectionsListCollectionAssets.ts:
     id: 5d49a7e9a375
-    last_write_checksum: sha1:12caef8f91d5bcfc540094b94d32a2cd6bb5aef5
-    pristine_git_object: 2d817e5d448256d5a917671da2198952a50e5729
+    last_write_checksum: sha1:a8d607ddefb780212b9479f0ff846d25885baf27
+    pristine_git_object: b82eb5c6ad66675a87ca783f10de3980eae8c1ee
   src/funcs/collectionsListCollectionPublicPages.ts:
     id: 98d6cca3b284
-    last_write_checksum: sha1:4818abc93f35fc3cefb4f192801cb42cd4613c78
-    pristine_git_object: ab188c388b90830023cc3faa2ba7cbbd7e40e787
+    last_write_checksum: sha1:a456ea5509239e467e7f9c633fe4c924bc708e36
+    pristine_git_object: c5d83c174921c511d404e1b6ff2df4b3334a113d
   src/funcs/collectionsListCollections.ts:
     id: 89587fa99365
-    last_write_checksum: sha1:579d79f260a177f2c36bcf61c2755356a7129c43
-    pristine_git_object: 40d8136616657334613984bd86cd6e72910581f6
+    last_write_checksum: sha1:f394f7eccf7c5b6a829b5850ff91277adef2db97
+    pristine_git_object: 3fae5f3a68b3f6f2cf759dbe53c2e8f0c145c693
   src/funcs/collectionsRemoveCollectionAssets.ts:
     id: ba7db467609d
-    last_write_checksum: sha1:d3f0b2bb9bdd2ba05c5ee8cb2804a65a178ba407
-    pristine_git_object: b2689a2545d8c369b2c2ff26030ff5608281de4b
+    last_write_checksum: sha1:7869d0e72d58e74c1c2871283545cf00639c5593
+    pristine_git_object: ffc520fd33e4dfcdad0e35c378ead7ff41e819cd
   src/funcs/collectionsUpdateCollection.ts:
     id: a85d7eb111b9
-    last_write_checksum: sha1:1652da42515e8c0df84441100bfcfbc1b58f1d25
-    pristine_git_object: 8bff6b968185fed6beb14c60bfd63f8cdc210e24
+    last_write_checksum: sha1:83572b9b5ba83c05338d602e3395a07da8ec00e5
+    pristine_git_object: 3a0f80f1b783f259212d5db654b5ca2cd7ce777e
   src/funcs/collectionsUpdateCollectionPublicPage.ts:
     id: fa0c178b7e75
-    last_write_checksum: sha1:335454a6564cda37cc6b494b5fef8a7b3fa70a99
-    pristine_git_object: 4fdf160f93305b8e991a2520c92d68cb090cdb9f
+    last_write_checksum: sha1:96d6310a2901075e344aa1bd94d3753cff35d537
+    pristine_git_object: bb1b44cf14617ad777027935b63c689c73700e77
   src/funcs/explodeExplodeResource.ts:
     id: c1cc94cc183a
-    last_write_checksum: sha1:77baa2fdf53362a5fcf521f55281eb57c8a12826
-    pristine_git_object: 81896dd0b4b39a69e4530b9d5674d9d6bbdba074
+    last_write_checksum: sha1:90f16969801a7a6cb020a0c8a6a227c2fb62ce6b
+    pristine_git_object: e24198cbfbf232d6913be8402df5ee9181fd787e
   src/funcs/foldersAssignFolderRoles.ts:
     id: 9f36648384bd
-    last_write_checksum: sha1:34ddf8992df2015513e93bf04b953e948550e521
-    pristine_git_object: a496befd637cad7a92ab3c9901352b0b49b64c8b
+    last_write_checksum: sha1:3b71faacec779cd73638cb4de71b7f9e65700dad
+    pristine_git_object: c67c1734ee825de5baf293489f921af218ee423a
   src/funcs/foldersCreateFolder.ts:
     id: 36329e6e9333
-    last_write_checksum: sha1:f3afe89f016f4b2689c2582625d6161dafe686fa
-    pristine_git_object: 5ab6b455572ff9437574bab2af9f939a94d679f5
+    last_write_checksum: sha1:1a78cf6a93a2c62ea62209b2f972013199f671ca
+    pristine_git_object: c52114b4478b41f726ffbde702ac2aca131a19f8
   src/funcs/foldersDestroyFolder.ts:
     id: 31ed470be4ab
-    last_write_checksum: sha1:4835ac7963c6b5e99c32cd2dc1b233bd7223a9d4
-    pristine_git_object: fb668ba0e7eea12d94f7339d091a1fa526a4aab4
+    last_write_checksum: sha1:29c31097c0f20d52fa121e1b3d485187e0d2f0d7
+    pristine_git_object: 7d2245f57160910e3b8cd723b6f040f62155b094
   src/funcs/foldersGetFolderById.ts:
     id: bdd4477e5850
-    last_write_checksum: sha1:83951788bf9ab8ccc4ed4d63685b2c4bb3bb60f2
-    pristine_git_object: e943fbf3ded9e7f7420e047262207eab9e2b436b
+    last_write_checksum: sha1:d3b440cb995c0991d04c54770733ebccb3f8813b
+    pristine_git_object: 59b5d7125b5f97076f379969b7498cc763881e80
   src/funcs/foldersGetFolderByPath.ts:
     id: c58d7a5d3518
-    last_write_checksum: sha1:bc73dc6d46400f1cc3ecf53635f0f4388126906e
-    pristine_git_object: 17342e0815155a1ac44fa759f90cc1efd994e6fe
+    last_write_checksum: sha1:f505ba10403f15d1dec8460725c8cfe56f712ee5
+    pristine_git_object: c09d4105f4f923d2a86b864617f4ec02bcdd2d06
   src/funcs/foldersGetFolderDescendants.ts:
     id: 489d7d90e569
-    last_write_checksum: sha1:03ddb15cc3144f22e17469a96ae127bdd69795f9
-    pristine_git_object: 4d05b837c9304e0af15b4a1ad7317319063a60ec
+    last_write_checksum: sha1:c09c4872ec7368b0470d047c691731a22a78f974
+    pristine_git_object: 14d344688ea99950c9ae62d0fe10bfab8d467684
   src/funcs/foldersGetFolderRoles.ts:
     id: f4f613b248a2
-    last_write_checksum: sha1:80a05b93570b1af8080e537b28a65b5e922a3907
-    pristine_git_object: fecf23b1d08bec4c657badd338ca2f837f9c8456
+    last_write_checksum: sha1:905ff1d6f4b0ddc7bce0c69c89a775019413d78a
+    pristine_git_object: 70674d2b0258b556a9e770c581acc3d9cac3ab44
   src/funcs/foldersListRootFolders.ts:
     id: 7e66e4a8d6f8
-    last_write_checksum: sha1:8eef049dbc62a1ede199906b4724447b23d01f1b
-    pristine_git_object: 09a76bf8e2b5f4c6856bd210ca6f64c9b911a22e
+    last_write_checksum: sha1:f5c463fe974618825b2831c0e2747a33a96cac74
+    pristine_git_object: c1b82a7121bc8d455ba0c0592d035f8b0c15b537
   src/funcs/foldersRenameFolderOperation.ts:
     id: ffd27eb68a70
-    last_write_checksum: sha1:8662ca57095b45d2c5f0669a68412d07cfe84c1f
-    pristine_git_object: 94ae33778d1c358ce5ea58e48983323eee4d1685
+    last_write_checksum: sha1:6174c2f46cd0f525a6cd30d1517b60224dc602fe
+    pristine_git_object: 6e18ed8e6bab0169f4316df15bfef8f1d3d60d47
   src/funcs/foldersSearchFolders.ts:
     id: 49c2bd78a8e2
-    last_write_checksum: sha1:5debd4bc82eba3ad1635175d47350a37940f7b8e
-    pristine_git_object: e71cf576b0427446ec61de892bbf5466774acb8f
+    last_write_checksum: sha1:44041a44d052eb6fa46dc04577f400a7aaba95bf
+    pristine_git_object: b0b46d024da650a7a40b56890df788971cdcb5c8
   src/funcs/foldersSearchFoldersPost.ts:
     id: 4d41568a54ef
-    last_write_checksum: sha1:f9609f4b103af6dea541f41f9ddacae6d7737a43
-    pristine_git_object: dde35e46dc3b5fda5d52c78718db885e0b0987a4
+    last_write_checksum: sha1:3a17aadfcaa95acc764f38c2ce707f1b7689f7d8
+    pristine_git_object: 9f21523153506225c028cacada2cab6748c993a7
   src/funcs/foldersShowFolder.ts:
     id: 165c97407db6
-    last_write_checksum: sha1:1011d89c8a5928f85381ad2e014bd77586493fd9
-    pristine_git_object: d53dc14674381d15d0b9c9be15c3e7f270db646b
+    last_write_checksum: sha1:3f2cdd1e7dff9f93749ed6d58c215aa239debe9b
+    pristine_git_object: 9abf82d95460b8080665b74283ffda330160caf3
   src/funcs/foldersUpdateFolder.ts:
     id: 5ed2a131d9e7
-    last_write_checksum: sha1:fd45d7e5069258ad6b74f7004aa907188346ee58
-    pristine_git_object: 8d21d28eee633c3ac2e83d02447b7c950f7ee389
+    last_write_checksum: sha1:43e7e5ed5042711528a87249f7474fb686b9a9c7
+    pristine_git_object: 1a63d7c6e7e3306cb599712d130a91b62a2307aa
   src/funcs/generationGenerateImage.ts:
     id: cc8760c8f69b
-    last_write_checksum: sha1:f7e546d42b9344659b579de288d9cbd573381f65
-    pristine_git_object: 364c131e69913f9a58aec254df3aa2b4b97bc073
+    last_write_checksum: sha1:96a184a1467ab90f536af46b6ab66fcf4db0d6d3
+    pristine_git_object: 1b51b999770e8a8eef1d64b5280ef8f9a2651138
   src/funcs/generationGenerateImageFromImages.ts:
     id: 0453acfec59b
-    last_write_checksum: sha1:a6247084ced48652bf7cc0d27474122cc78e8f78
-    pristine_git_object: 5081b661a413acc39c1eba3fc52d545bb37d3078
+    last_write_checksum: sha1:1bee6212aba8beab68faa4812fd81a446ae414cd
+    pristine_git_object: 856b720132328d166769f9f1486298fc0bf0b3f4
   src/funcs/imageToVideoPromptsCreateImageToVideoPrompt.ts:
     id: ee8b51bda6bb
-    last_write_checksum: sha1:f79a7ce5b755aa491e8ecf770d5e60a2e485e842
-    pristine_git_object: 0c41e13baea40655d4fe98c43fccf941a1b15f7b
+    last_write_checksum: sha1:e0ffbfd1ec9cf90c7c34fe986047b027f263e9d6
+    pristine_git_object: 6ed26876fe102e95ca21c511838a8bba8ac4f672
   src/funcs/imageToVideoPromptsDeleteImageToVideoPrompt.ts:
     id: 33fd1b4510c5
-    last_write_checksum: sha1:eac099067e876c1355cfe8a4ca304e82c0b01e55
-    pristine_git_object: 7e1d9f205178edf7530ae5843663509e44348847
+    last_write_checksum: sha1:15053b270bbe014be32b14b6c36a6f1796a38c20
+    pristine_git_object: 7ea78d0e12f46787c0bb37adcb1b7f93e3b08745
   src/funcs/imageToVideoPromptsGetImageToVideoPrompt.ts:
     id: 1d82be306393
-    last_write_checksum: sha1:8d88e0e4dd8207e5129489ffecdafa56e72aaacb
-    pristine_git_object: 42235e0aa983a005af35d6bffce469cacb07f20f
+    last_write_checksum: sha1:229d1d661ea1050b94c211a91f10c54e5987847e
+    pristine_git_object: abed9648304143562a3a06911f293b2505372cb5
   src/funcs/imageToVideoPromptsGetImageToVideoPrompts.ts:
     id: 2c78b13964b2
-    last_write_checksum: sha1:f37bb432596b9db568af13619cbd9871e6bf4bf3
-    pristine_git_object: fc9d0f545f8487f7add205a30344da3f585f4489
+    last_write_checksum: sha1:5cdd1309be8215c6967a8f7082e37a2a0031ac65
+    pristine_git_object: 70e81e8bcb9e943ba22341e5d0c79e0762588a1c
   src/funcs/imageToVideoPromptsUpdateImageToVideoPrompt.ts:
     id: a670857a21cc
-    last_write_checksum: sha1:6e5e9e3651a3a4c6fee1c340b7db4dc2391818c7
-    pristine_git_object: fe66ddab891eef2c63add1eba8056d97cb25f4e8
+    last_write_checksum: sha1:3c1e94b5a2176d74b9ee8f9d1fdadc75a268b2d9
+    pristine_git_object: a1e91ad2ba0ac61bbe82f0669da668b6e48cce56
   src/funcs/initialBackupCreateInitialBackup.ts:
     id: a6f3615da147
-    last_write_checksum: sha1:8c21e854400334f6fc6e246f9943d862a80e1617
-    pristine_git_object: dd737defa2c5b8e28bd166551143eda8796e3855
+    last_write_checksum: sha1:52c8dcb32f16ba820eda0d832d52c48f8c598424
+    pristine_git_object: 574107a90dd790a7528468054df872004bbe853c
   src/funcs/initialBackupGetInitialBackup.ts:
     id: 94557c996fb4
-    last_write_checksum: sha1:bc332809dd82520d751b0243ac85cae523ff1d59
-    pristine_git_object: c1419313229f5526d5ba48cf9d075f0871224ba7
+    last_write_checksum: sha1:e81c84a5d341215b68564bc7810f90ead4736725
+    pristine_git_object: 550a802ddce6ec681018464cd79ddd131073de46
   src/funcs/initialBackupListInitialBackups.ts:
     id: 16c9e6899921
-    last_write_checksum: sha1:a031c50f1912ae6c63f64ab79f317c887e98e0d2
-    pristine_git_object: 3322e393e6dd8a75925055b5f0dad05b38f2f2f4
+    last_write_checksum: sha1:b8733599c44c1f95ab2c088c572c091b5e3264b2
+    pristine_git_object: 24ebd0af884070494b816b69e7b0a2bfac645827
   src/funcs/moderationsListResourcesByModerationKindAndStatus.ts:
     id: fc11d4aeec08
-    last_write_checksum: sha1:4169f3a32949cd5d43ad095f0d0f46379ed63650
-    pristine_git_object: 63629b89f7c86abd1fabc106c1c1c859acd210e8
+    last_write_checksum: sha1:b7339db607552faa6fee2131ed5fd0ef5451fdd7
+    pristine_git_object: c92162c9994ea06a42dbe08be5e5f69665a15e52
   src/funcs/peopleGetPerson.ts:
     id: 777bbc414998
-    last_write_checksum: sha1:3b9ff9a74dd4156980b91a13d4a116280964d3cd
-    pristine_git_object: 517ab364000e42d1d00da4674be8f5374c00807b
+    last_write_checksum: sha1:3b92e982b3daa9a457ee587ce6eca4b7fba33e75
+    pristine_git_object: 74b4ddaa6195f97f80aaac98e7999bf9576fdab5
   src/funcs/peopleInspectPeoplePermissions.ts:
     id: d9c64f5f5ab6
-    last_write_checksum: sha1:5007e63985064c81cd52c3e18ffeeb78b4a1b30f
-    pristine_git_object: cf26cb0c95e2b417dee85f1b6e77d7ba5d1d0c3c
+    last_write_checksum: sha1:6384ae047530bd7ea4ac54c82956f3c9ae0d4d3c
+    pristine_git_object: 6db9dff1e66bffcb82103a74d3a94c6a130dff55
   src/funcs/peopleListPeople.ts:
     id: fee825c99595
-    last_write_checksum: sha1:9286fed35e0637aadda2737b382e1f2441922535
-    pristine_git_object: 3451b6a139538f257a4c3546a63c69f5d0f5e828
+    last_write_checksum: sha1:9feb3b6cc6f6ea6bc7d2819ed1b573bb9b9c2ec1
+    pristine_git_object: ba62ecea8fe912e7673bf755dfd6d6b659402cdb
+  src/funcs/peopleListPeopleByAsset.ts:
+    id: c152abf69437
+    last_write_checksum: sha1:b67a5516e824fb55f49fff166c1f5dbe41cb1389
+    pristine_git_object: 0337b0fcabbe157b9215363c2913225fa2e9b503
   src/funcs/peopleUpdatePerson.ts:
     id: 89ec35a63e7d
-    last_write_checksum: sha1:b912af7c1afadf5fc55384ce9971e12793f4d55e
-    pristine_git_object: b0f81ba2dfa5599d7ac22e7def380de037c99ee1
+    last_write_checksum: sha1:962323fca52a401c0fdb727423c13330934b3701
+    pristine_git_object: d22b67e059eb40b3fcc08a34794df64f004bcff4
   src/funcs/searchSearchAssets.ts:
     id: 7e457683073d
-    last_write_checksum: sha1:ea5429ad52cdaaa63ec5e3c94b7f342944ef361f
-    pristine_git_object: eeeca9b33d7b107f05466d726f27ef6f3a0ec402
+    last_write_checksum: sha1:ccc01fe00ba382447d835ff699c4a0e416584053
+    pristine_git_object: 12ae7a01d30e4f98181f738d8590b7cbb50b175a
   src/funcs/searchVisualSearchAssets.ts:
     id: a8db6463f05c
-    last_write_checksum: sha1:ff1cb93b63719893fa5a0681c350983c4c99b988
-    pristine_git_object: b92dffbb42edbfeb050faf7d4fe8fa8c06e976c4
+    last_write_checksum: sha1:9d3895cace2d2b1aff18b3943b2bbeb15d600354
+    pristine_git_object: 1acd6b68cdea7604f9de6958fc6a4756578db100
   src/funcs/tagsListResourceTags.ts:
     id: ca80b95607e2
-    last_write_checksum: sha1:f7fd94fdd7f914e2a526c02c8a3c2756ab7fc3e2
-    pristine_git_object: 2b2dec95d8b8d4c30b872420980b57de2be54da6
+    last_write_checksum: sha1:e8e01649e9145e8865f7ad6bfad801f8067b9446
+    pristine_git_object: 42f6fa2f737e1a542240d45f35abb3c46376d430
   src/funcs/tasksGetGenerationTaskStatus.ts:
     id: 7551699362f9
-    last_write_checksum: sha1:fcf245b7b0a9141dcf2ff6f7136ef138f80930a6
-    pristine_git_object: b7f121044d4b3a8b4b53529be8ebedc09e441673
+    last_write_checksum: sha1:68a5c08527e71ed22f11aaa202d257636cf58921
+    pristine_git_object: 059488555ceb12ccec5394cfb88556782d3f1943
   src/funcs/uploadConcat.ts:
     id: 77442768d5c6
-    last_write_checksum: sha1:76d9041e7e05d3608dd00c57f8cf4961fe65e6e3
-    pristine_git_object: e0178a68663fee4c662822d2b293e99aa5c6ce91
+    last_write_checksum: sha1:90f0cad70f4b20567c1723aaafdf08e1dc5fed86
+    pristine_git_object: 5987c11533fe4c4f323516f4ecaa9aab8c42838f
   src/funcs/uploadDestroyAsset.ts:
     id: 84ce6bcc285b
-    last_write_checksum: sha1:e0462f9377696dda08556907ed73a087a3d400f9
-    pristine_git_object: 475305bf9d2ae1412c7ed0306d627b29ade23259
+    last_write_checksum: sha1:cf7855f0bd84f17bc7be0ef15484725594c279c5
+    pristine_git_object: 917ca3921fefe7a1b34ae1bf9307a7555b8f3bec
   src/funcs/uploadEvalUploadParams.ts:
     id: ec50bea37a36
-    last_write_checksum: sha1:c593690f27307b1a73be7eab02b7c2dbea4aa9df
-    pristine_git_object: b921856e3a2621390679bd339dd5012da2c954ee
+    last_write_checksum: sha1:9d0a1222c2284074d25ef4c6e66133951bc0f47c
+    pristine_git_object: 7adcd087b163865746d58c9f9dc8d32323ef6499
   src/funcs/uploadText.ts:
     id: d712aff8698e
-    last_write_checksum: sha1:43178d258c1cce4daec56aa28c4605d6df73c418
-    pristine_git_object: c06506acb8686ceb92dc679879c935c477342dc2
+    last_write_checksum: sha1:d509ca37c4fd7c02296b5a4cd38785dfdf29c573
+    pristine_git_object: 2ea1937db4a2fb2597b745b53a518976c20a4ff1
   src/funcs/uploadUpload.ts:
     id: 4ff8dcd540f6
-    last_write_checksum: sha1:9147e53c33a5c50f6e8548a0aa4772c7d9439594
-    pristine_git_object: eca5655d049003c6eac40c0b1c2eceb66c5dadc3
+    last_write_checksum: sha1:e1ad6b5205dfe3cc20d9b2ccdaf4ac043c31dde9
+    pristine_git_object: d4b6f766ea0e675413b30ac7beecced4119729df
   src/funcs/uploadUploadChunk.ts:
     id: 20463a25bf82
-    last_write_checksum: sha1:19adea0c18545d9aaf17460e3960087c6e994d63
-    pristine_git_object: 8c56d7ecb71d76d19aba542db7bf19f6d08fae4a
+    last_write_checksum: sha1:037e21d5f70d49f8a6c658af4a1ecd576f400772
+    pristine_git_object: 76248765a8a7b543edd9e6dd95dffbf97d48b4ae
   src/funcs/uploadUploadNoResourceType.ts:
     id: b68b4dbee6f8
-    last_write_checksum: sha1:35d985dc784fa4570fbe7cfd5a43648985540d8e
-    pristine_git_object: c9684155c6f0f2732935ff46055ae791ec4c7ab6
+    last_write_checksum: sha1:d83b629139b48b2f0f4048011e5c0103932926c0
+    pristine_git_object: d0cb97dd3a64f9a0c003fdd6226908701dc931a6
   src/funcs/usageGetUsage.ts:
     id: 1d18d38782a2
-    last_write_checksum: sha1:82f2fe8a7885173b7e88ff2e08113580549ba0a2
-    pristine_git_object: 8b8c70607e8d3a82572ffe343cb729434c085832
+    last_write_checksum: sha1:15ace91cfedb12a1e6899ade6ad59b8e49266266
+    pristine_git_object: b7914c9ff292ed3d759526a6d96481b843de394a
   src/funcs/videoAnalyticsGetVideoViews.ts:
     id: 646049fa8bae
-    last_write_checksum: sha1:4d0fb019d917ab93a9fb38589aa699b5f3000fd5
-    pristine_git_object: 5af96d3c6650c558477342a23b031882c6a1eb26
+    last_write_checksum: sha1:3b298ea01e3bedf4ce693fa325668bf35f7ea7f1
+    pristine_git_object: 080573f1c34b1ec7704689906f2f2ef96993d592
   src/funcs/videoGenerateCreateVideoGenerateJob.ts:
     id: 5f595eb9a7ed
-    last_write_checksum: sha1:236b80e0a6c5290aac8390a854e67c0b376b790c
-    pristine_git_object: d6ead9da6c0898628d0cddab55254606026ff0e5
+    last_write_checksum: sha1:134452ed55bf89b20a3611ad84c704de3854ea89
+    pristine_git_object: f5932b48be62cc9f1237054a7d936c6b6b0c9b75
   src/funcs/videoGenerateGetVideoGenerateJobStatus.ts:
     id: 4461ba6120cd
-    last_write_checksum: sha1:1d5cc50579cb5b08a0adad7b169ad50d65c24dce
-    pristine_git_object: 95cfe368bda30dcc3e5a58089ad7f0830f7d142c
+    last_write_checksum: sha1:20216866c1cf59cf69f82a87684633b39aa24928
+    pristine_git_object: 9fcddd5c5feffcbef2d69b54df5fbe3483d7dbd5
   src/hooks/hooks.ts:
     id: a2463fc6f69b
     last_write_checksum: sha1:36c7bf5c31e0986fba9e0f9db28a769be7904ffd
@@ -453,16 +457,16 @@ trackedFiles:
     pristine_git_object: ccd5e5d812cb4d21a1013c89f04daad9d2f72190
   src/landing-page.ts:
     id: ef64a6ee46d7
-    last_write_checksum: sha1:0b865fd3db758752464b0e97c6e2f078de312a94
-    pristine_git_object: dd783096f762e2c57247ddc5ab9c37c5bd193224
+    last_write_checksum: sha1:0802ecde8719007abce758d48aba13f8867bae72
+    pristine_git_object: f04f5b706879f9d996b6f08b8a0f12bcc06f6269
   src/lib/base64.ts:
     id: "598522066688"
     last_write_checksum: sha1:716fa8938b85035068c8bc0586e92aa17f8e21a2
     pristine_git_object: b45f432798e2151eee7f6eb4df628b7310942c01
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:3e2584b5b084dafc085d34b5d5b8e205d4afd473
-    pristine_git_object: ecb678fd91e219f899386edabd9c4bb61a5e53a7
+    last_write_checksum: sha1:0a142ec124b7e28c32cbc2a1e2c9b5385c1fb60b
+    pristine_git_object: 6060ff09580e12a0e0f7db7de1c299e5015e38c4
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:73dbff8f71fbbc62b58fb98d03fc0dee847fe96b
@@ -501,16 +505,16 @@ trackedFiles:
     pristine_git_object: c05ed79db28f51121a621e195842e64aaf85f755
   src/lib/sdks.ts:
     id: 8a6d91f1218d
-    last_write_checksum: sha1:e12ee73688f594199550b9f6421aeab6d79a1e7d
-    pristine_git_object: 2649242b53c884f994e8003d3ed8afff64a564ac
+    last_write_checksum: sha1:5acc21953d645365dd220f9ab378added07171d6
+    pristine_git_object: dcf2ec5323f227311cc4c95de86fa75892e13017
   src/lib/security.ts:
     id: 0502afa7922e
     last_write_checksum: sha1:fb352a508aa8bba8c0cb9cbd8de45c81e04d3327
     pristine_git_object: 4a3fe3a84efc15258bcb74dd04ea36b91fec1437
   src/lib/url.ts:
     id: b0057e24ed76
-    last_write_checksum: sha1:f4b6ce0ff024f800fa438fb082f8f7faae50172c
-    pristine_git_object: 46b8b36297b90de55ad6a273f6cc26e4cb227261
+    last_write_checksum: sha1:ab357a4966482b5278a9b9ce7614b4292b362788
+    pristine_git_object: 351d8eafb1bf3f3be8055f5443fdc51f13531543
   src/mcp-server/build.mts:
     id: f7a2ed2de4d7
     last_write_checksum: sha1:fc08ccde7b8703a94411bb37b97ba5dd51a686db
@@ -549,8 +553,8 @@ trackedFiles:
     pristine_git_object: 6cb5d7873664b8cd569d107ee3f15d1ffbf52bee
   src/mcp-server/mcp-server.ts:
     id: aabbc4ab07c1
-    last_write_checksum: sha1:483135e1c1f927c34ab51f2e4f86b05990f1ff5b
-    pristine_git_object: bc711d65b359dbbb28178c85e04bbde7451bb418
+    last_write_checksum: sha1:b7a705c00fe28165b8490aee906da2861c9d5fe1
+    pristine_git_object: ab4f186f11a72eda80d90b2147199f87e935385e
   src/mcp-server/prompts.ts:
     id: 26f3d73cbf31
     last_write_checksum: sha1:b0d1819592561fdc2c4287da2144e12005b1a67e
@@ -565,8 +569,8 @@ trackedFiles:
     pristine_git_object: 712d4089898dc7444db0359410225f085a95850a
   src/mcp-server/server.ts:
     id: 2784dd48e82a
-    last_write_checksum: sha1:9efe269c5d7b47c02edc44f7e0545f55ae74c544
-    pristine_git_object: 7c55e96e4a2534376946f8619988afdb76dfd423
+    last_write_checksum: sha1:b4410a007197d88debfd3d40f2dc24d849bd08a3
+    pristine_git_object: 14a9b4eb4317492854f49e475b46e6a15e364b8c
   src/mcp-server/shared.ts:
     id: 074e80d4be1e
     last_write_checksum: sha1:84222f4deea46fec7c7897f0ef6a66712fc7dff7
@@ -825,8 +829,8 @@ trackedFiles:
     pristine_git_object: 832bd66ab305747f3f23157e4ce154e9259e3812
   src/models/concatrequest.ts:
     id: 20a6f4ea335e
-    last_write_checksum: sha1:615d21ba63f09a251c14e14ad6fd7ab70ab83f9e
-    pristine_git_object: d279d0f3b304affcb6a8273d19b15d5fe3aa9847
+    last_write_checksum: sha1:7f5faf0f57bad3c4b058abe80cb980d2f4844a91
+    pristine_git_object: 7bc65e0c243c735b30fe0c9c059f810bbbd475fd
   src/models/concatresponse.ts:
     id: d293a67293b1
     last_write_checksum: sha1:549ceb31596161dc2e405b47fb4427d981f3bf86
@@ -907,6 +911,10 @@ trackedFiles:
     id: 9c6343109ba3
     last_write_checksum: sha1:e5e9da201eebdb86e1a1546ce2e28d7b84a9fdd0
     pristine_git_object: 0f11fa39243ca8055fad8bd5d3e5b45da90ceca4
+  src/models/contributor.ts:
+    id: 7acfa2bb2ffa
+    last_write_checksum: sha1:10e2e5467c8fecb7aa9dae90b3deb6c2da50ff5b
+    pristine_git_object: c8655c084de5291cd713c7336e0cd1b900404aa4
   src/models/coordinatesresponse.ts:
     id: 4f951f1842fb
     last_write_checksum: sha1:b7ef3a42f7c8cf40f4bc6d0849af60c70a7b4d27
@@ -961,16 +969,20 @@ trackedFiles:
     pristine_git_object: 1a0dc6d4cb213a72ac79cb9e347263fa652f9e1d
   src/models/deletebackupversionsop.ts:
     id: 99224d013801
-    last_write_checksum: sha1:8b9cfa58bf5f2f76ed9bc29fb6a7369541c8a3fc
-    pristine_git_object: 93677399288289cfc8a6221108473eb2a4777083
+    last_write_checksum: sha1:af763515ba9c6f111ac977033f5d89314cde1ed4
+    pristine_git_object: dbf335d583fea7f1197cd06474fbe2936b7f1456
   src/models/deletebackupversionspartialresponse.ts:
     id: 646ef53bcaa5
     last_write_checksum: sha1:12d15cca83dc7d7934f8d3009a3d8d2d6492cbf7
     pristine_git_object: a87ef64831e1fc220694afc6f535891b91cff977
+  src/models/deletebackupversionspendingresponse.ts:
+    id: 0f9c6fa6e476
+    last_write_checksum: sha1:853d6681a04e02ab6d0c3737a1a6eb3bc768bdad
+    pristine_git_object: 8d8215b9eee677376deae9bd2c5abfa3f0028956
   src/models/deletebackupversionsrequest.ts:
     id: 2d9e084a4e6a
-    last_write_checksum: sha1:132d77befb2d271025ad7eff67e6712170e8d91b
-    pristine_git_object: 4f86654b7da38ffa7007fb8d9fe33aeee4330e35
+    last_write_checksum: sha1:88e05752244026196630c1543e65d2db8a220c90
+    pristine_git_object: ef33a123d91830efaaa20dee65fc7c261dc11237
   src/models/deletebackupversionsresponse.ts:
     id: a75fdd4f9dcf
     last_write_checksum: sha1:7a862405d1ee34e61fa68754ccd53d4a2839142a
@@ -1021,16 +1033,16 @@ trackedFiles:
     pristine_git_object: b1b69189642a115d1d15c3277a083b834008aba0
   src/models/destroyassetop.ts:
     id: e8b735f037d4
-    last_write_checksum: sha1:a1e42470e2b92b49a5ef93a7bc50e574a46ca89b
-    pristine_git_object: ee5b5c19e41d67b06ff2b7c5ea55add4e9c038b1
+    last_write_checksum: sha1:26e0636c0bac9bae8492c88e0d8212a698e86a6e
+    pristine_git_object: 7955e7983c287211a02a999a68e92ac1146df214
   src/models/destroybyassetidop.ts:
     id: 34d4c54fd9b8
     last_write_checksum: sha1:3c625d5fd44226a393f67420826bff20d3b637c7
     pristine_git_object: 5f3577b0e4d2291b8d50700495244d286155a8e5
   src/models/destroybyassetidrequest.ts:
     id: 9ad36b756f88
-    last_write_checksum: sha1:357cc6455b74eada6ba3a6cf65a6bcda4bbde80c
-    pristine_git_object: 5e43cc5dcf9116feeb778e0ce17c90e57bd683f2
+    last_write_checksum: sha1:12be840000fd58947ec5418b7786316bab20a4ab
+    pristine_git_object: 003b6c9530c889d5997523c11e09fd917e6aac1a
   src/models/destroybyassetidresponse.ts:
     id: 8fc9b24c0973
     last_write_checksum: sha1:643b22da7373988012aafdf6d2a8d81a2bd73c53
@@ -1133,12 +1145,12 @@ trackedFiles:
     pristine_git_object: 241d4583bf0ef4a995aaef46bbed6777a1ecacdb
   src/models/explicitrequest.ts:
     id: efcaf938985b
-    last_write_checksum: sha1:627025c5ee758a3d7025974cf864e41415ab47d2
-    pristine_git_object: 263a329ae7942fb9a0ec2aba63775a9e321196f3
+    last_write_checksum: sha1:9a7ffce96f8ce28697dcd0a5f67c6a91f01eb797
+    pristine_git_object: ab1a1b36d5d3d40b8d3e6d05f004e34f28ed6024
   src/models/exploderesourceop.ts:
     id: 5b8dcd950c40
-    last_write_checksum: sha1:c6ba26126fc051149b7023c9a9ceb59d58bc2b83
-    pristine_git_object: 312464874fbbe967af632e994724da4d02bac111
+    last_write_checksum: sha1:6b2beda67430ff6de88871aba6d12a68800dec8d
+    pristine_git_object: e81928b1f4de1845dd38b6cbe5fef3fc55c1d7a9
   src/models/exploderesponse.ts:
     id: bb083d67962d
     last_write_checksum: sha1:ba2de5cf1acfb8bdcc3fbf86f376e4f284aa881a
@@ -1217,8 +1229,8 @@ trackedFiles:
     pristine_git_object: a71ebb29021d5a0de559790cfdfc7e16c005ef37
   src/models/generatearchiveop.ts:
     id: 0c28b0f5b136
-    last_write_checksum: sha1:d60424dd514fd21709ccfbd0f7f8caa46af0ef6c
-    pristine_git_object: c2936161c568fdf57341c53e69c89716b6483c84
+    last_write_checksum: sha1:969432a8a97c7c542495345e890c6016091ea3c2
+    pristine_git_object: 063aadbfb29d3c897b194daed3d407723703649b
   src/models/generatearchiveresponse.ts:
     id: 2a645ece8733
     last_write_checksum: sha1:5e55af67f31e737b52fa3fb1b686e2d18838b2d2
@@ -1361,8 +1373,8 @@ trackedFiles:
     pristine_git_object: bbc357e2bc580f852d630d020f919ebb139cafb0
   src/models/info.ts:
     id: 70f4d95abf4e
-    last_write_checksum: sha1:6f5d0583a948634a3e51f184e9e3be16b466fd26
-    pristine_git_object: 7c76474183fa39b5f03b80a8771dd89fc92c76b5
+    last_write_checksum: sha1:13df71d6ef3a237cdedbf3518a9eb18042a8dc2b
+    pristine_git_object: 3c6f6a264c4661781e69926b99284f12fb5a4f7b
   src/models/initialbackupcreaterequest.ts:
     id: db9fdf9579e1
     last_write_checksum: sha1:962d5013af30ac84c21c01a3ad05f2a1e19b197d
@@ -1427,6 +1439,10 @@ trackedFiles:
     id: 7c99a1eff522
     last_write_checksum: sha1:df51f6c8550ec6007dbcc88410d16ef600079260
     pristine_git_object: 40ea02811ed870cd83710576faa4ee0fb7357987
+  src/models/listpeoplebyassetop.ts:
+    id: 88515675eb17
+    last_write_checksum: sha1:e0535e7edb2e5d26024f3cb2e154c6198e156960
+    pristine_git_object: b8f4b867a4bd2b4b99cd751c2bb5d6f2faed8232
   src/models/listpeopleop.ts:
     id: 81f94f065dc1
     last_write_checksum: sha1:0794ce2de9e5e68a264cfb58d564769158b8fdbb
@@ -1547,6 +1563,10 @@ trackedFiles:
     id: f330319b981c
     last_write_checksum: sha1:60ab47430632216b8eb52ad581d91437a8866593
     pristine_git_object: c267d280d9cfd712e7d7b222215bf3f313032f67
+  src/models/peoplebyassetresponse.ts:
+    id: b9403eb026cc
+    last_write_checksum: sha1:5f1370cc294e185518002ded47ae22a33ac06efa
+    pristine_git_object: 9f52aa2f36d4c5e8443891fe11c207e9f53d979c
   src/models/peopleinspectiongroup.ts:
     id: b8b780220471
     last_write_checksum: sha1:765da336ff324a8d313e153a3939bba194b9faab
@@ -1573,8 +1593,12 @@ trackedFiles:
     pristine_git_object: 1da96c22007401b0b20b3bc1ef79fb9002a17bda
   src/models/persondetails.ts:
     id: ef3731a522b1
-    last_write_checksum: sha1:b1cdb4c1be7bb2fe9ef624a84c42baa95a6b8592
-    pristine_git_object: b30aee3e92b0cf355936337c447541254caa3f94
+    last_write_checksum: sha1:42244fee92e687b1b78d8321b7ec5cf22c35dde6
+    pristine_git_object: 27d9086b0fd0860fa70d14dc467e6781e097f0b3
+  src/models/persononasset.ts:
+    id: c48d8ca49ede
+    last_write_checksum: sha1:f0ce9dab536c5950a755ea0b66c027515c2b3c6b
+    pristine_git_object: a292d1f3c514ea841670f1f73f65b2344ba569fb
   src/models/personresponse.ts:
     id: 1fe679d28276
     last_write_checksum: sha1:f0f65e48363ca05dfa4957274496f25dd9ccbd9e
@@ -1587,6 +1611,10 @@ trackedFiles:
     id: 9c55942ff716
     last_write_checksum: sha1:0ac194e54bf2d2ab425efbfaf1f490aac4b6845b
     pristine_git_object: 119e262ed697c23db860e39187d0499042ddd093
+  src/models/provenanceresponse.ts:
+    id: 4e1e3a01c780
+    last_write_checksum: sha1:ec02d348e6478d9591804535097ea605b5bf2aa0
+    pristine_git_object: 6bf321faf0ebd266db5ea32ccf34974479f1ff11
   src/models/publicidsresponse.ts:
     id: 2759e068da34
     last_write_checksum: sha1:3745cb7d22c8364ed541aa2e104a82e1ceebb19d
@@ -1613,8 +1641,8 @@ trackedFiles:
     pristine_git_object: a86c36f50429bc279b14597247050b0cc423ea16
   src/models/renameassetop.ts:
     id: 189398e65a00
-    last_write_checksum: sha1:11081a535f5af65a21034bb73d605a5f1da9e7c3
-    pristine_git_object: 5d0fffe9ed1d8fab12d3d016b3541588017acbc2
+    last_write_checksum: sha1:e2b34d74bffdea7eb1b02befd2198ae298fbe49a
+    pristine_git_object: 9a548b6e3c8afe675f4563c076d241ae43f51ab9
   src/models/renamefolderoperationop.ts:
     id: 7a8a56d17bf3
     last_write_checksum: sha1:b0c485ae03c278df8d47cf46cc83d512f7322f74
@@ -1629,8 +1657,8 @@ trackedFiles:
     pristine_git_object: 620746b6f78f446615ce8817e90b107d58f78a6c
   src/models/resourceinternalresponse.ts:
     id: df55d886fbf6
-    last_write_checksum: sha1:f0f6031847229a5173dbef5bb7d21f29c6a7962b
-    pristine_git_object: 1b3340f12953462562ec90c723a7bc95b2f1774e
+    last_write_checksum: sha1:d84afa652dcc7121a203544836941030c2752d7f
+    pristine_git_object: 63e005f4efab6a764568e94d073dd473eae1b1f9
   src/models/resourcesbycontaineridresponse.ts:
     id: aba3f59bb468
     last_write_checksum: sha1:8eebd5aba8500a323cdc0fb6b6017777a15b6c55
@@ -1657,8 +1685,8 @@ trackedFiles:
     pristine_git_object: 30b0b30f3bc905c503a2d348deeb7e32bad5c3e6
   src/models/restorerequest.ts:
     id: c449811e00ea
-    last_write_checksum: sha1:8edaf6ac3948a7ca3881cc87b8488f17be57a422
-    pristine_git_object: 07cebf63a9bb8db5b419c140bad6d778ac1d6127
+    last_write_checksum: sha1:6a70afb3e0e4240e47fe1eddf48a58bcb8883359
+    pristine_git_object: 3ed1b6b75ce3a17a6cfafe019fe65ec3abfe81c8
   src/models/restoreresourcesbyassetidsop.ts:
     id: ce48bda9c502
     last_write_checksum: sha1:04d1abc4fd33f92cf58b00093d4f03093ebfc3b5
@@ -1685,12 +1713,12 @@ trackedFiles:
     pristine_git_object: 9907ec57f35764604e9e305bf238a29fcb382a17
   src/models/searchparameters.ts:
     id: 31420f097d62
-    last_write_checksum: sha1:86f180c738deaec72266531af8c0f395dc0865e7
-    pristine_git_object: 1b7b572ab691fdd57ec11e3939266a24620b9337
+    last_write_checksum: sha1:3da937e6e9795334113a480667748b100608f8a7
+    pristine_git_object: 5ac0579d8511a17ef6d600b94cf15c1200e3b8bb
   src/models/searchresponse.ts:
     id: bbcd43bc9f51
-    last_write_checksum: sha1:eefa49d2e53f40310ab7cdb971f103664a572752
-    pristine_git_object: 41a4160e5291dab86919c0540ae1be20d6a7172f
+    last_write_checksum: sha1:bd7873debf8e0d92b3d8cd08163c5161b81607e2
+    pristine_git_object: 793d9a55e1f2f9e3adec1bc70cb6165eaa19c6ef
   src/models/security.ts:
     id: d90c6c784ca5
     last_write_checksum: sha1:9a55e68f41b4bdb240ae41a50ce1c720d2d46648
@@ -1769,8 +1797,8 @@ trackedFiles:
     pristine_git_object: cf05bb6b7e7ff49bc99344ae20155227ddbb6869
   src/models/thumbnail.ts:
     id: 5606c8e3b931
-    last_write_checksum: sha1:588508ac1765d381b05e9c7b821db8096cb3ca51
-    pristine_git_object: f619770bcffa9ba1bba06eae6a692be75f3f60d8
+    last_write_checksum: sha1:66c81e1c66445852e521aa6818a0cf2b4a797cb8
+    pristine_git_object: 5ab1828a58525f7f0d07afd124a6d3dbc97a88a3
   src/models/unrelateassetsbyassetidrequest.ts:
     id: 66d514252f27
     last_write_checksum: sha1:27f0e37c1b2b2eb75a343d3da62a857679ee66d7
@@ -1845,8 +1873,8 @@ trackedFiles:
     pristine_git_object: 883e1d1cd19448eb3e042fdf0f0dd195e49d2dab
   src/models/uploadrequest.ts:
     id: 2c1149457ac9
-    last_write_checksum: sha1:9e61f878cc26411be333363bbde4cdfb35f94b49
-    pristine_git_object: 2376970eef414c39a14d853f623e766c44289fe3
+    last_write_checksum: sha1:fc915f388c1b48b17a7b1d7d6038fb1ec8f4588d
+    pristine_git_object: 432a63c0e9148e3285fb28cc9f0749face82d8c3
   src/models/uploadresourcetype.ts:
     id: 869417d840c4
     last_write_checksum: sha1:1af92d3867d6d11dd3db410926c15e216f907160
@@ -1923,7 +1951,7 @@ examples:
           resource_type: "auto"
           cloud_name: "<value>"
       requestBody:
-        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "pixelz", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "google_video_moderation", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "file": "<value>"}
+        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "pixelz", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "google_video_moderation", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "batch_id": "orders/2026-07/import-42", "file": "<value>"}
       responses:
         "200":
           application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "api_key": "614335564976464"}
@@ -1937,7 +1965,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "pixelz", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "aws_rek_video", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "file": "<value>"}
+        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "pixelz", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "aws_rek_video", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "batch_id": "orders/2026-07/import-42", "file": "<value>"}
       responses:
         "200":
           application/json: {"status": "pending", "resource_type": "image", "type": "upload", "public_id": "sample_image", "batch_id": "9c2f5a46b3a6c4d9e8f7g0h1i2j3k4l5"}
@@ -1957,7 +1985,7 @@ examples:
           X-Upload-Part-Number: 2
           X-Upload-Total-Parts: 3
       requestBody:
-        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "pixelz", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "duplicate", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "file": "<value>"}
+        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "pixelz", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "duplicate", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "batch_id": "orders/2026-07/import-42", "file": "<value>"}
       responses:
         "200":
           application/json: {"done": false, "bytes": 1000000, "kind": "upload", "resource_type": "image", "public_id": "sample_image"}
@@ -1975,7 +2003,7 @@ examples:
           public_id: "<id>"
           invalidate: false
       requestBody:
-        application/json: {"public_id": "<id>", "invalidate": false}
+        application/json: {"public_id": "<id>", "invalidate": false, "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {}
@@ -2001,7 +2029,7 @@ examples:
           resource_type: "video"
           cloud_name: "<value>"
       requestBody:
-        application/json: {"from_public_id": "<id>", "to_public_id": "<id>", "overwrite": false, "invalidate": false, "context": false, "metadata": false}
+        application/json: {"from_public_id": "<id>", "to_public_id": "<id>", "overwrite": false, "invalidate": false, "context": false, "metadata": false, "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "asset_folder": "", "display_name": "gotjephlnz2jgiu20zni", "api_key": "614335564976464"}
@@ -2030,7 +2058,7 @@ examples:
           resource_type: "image"
           cloud_name: "<value>"
       requestBody:
-        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "cloudinary_ai", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "aws_rek_video", "ocr": "adv_ocr", "public_id": "<id>", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130"}
+        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "cloudinary_ai", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "aws_rek_video", "ocr": "adv_ocr", "public_id": "<id>", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"url": "http://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719307544/gotjephlnz2jgiu20zni.jpg", "public_id": "gotjephlnz2jgiu20zni", "version": 1719307544, "version_id": "7d2cc533bee9ff39f7da7414b61fce7e", "signature": "d0b1009e3271a942836c25756ce3e04d205bf754", "width": 1920, "height": 1441, "asset_id": "3515c6000a548515f1134043f9785c2f", "format": "jpg", "resource_type": "image", "created_at": "2024-06-25T09:25:44Z", "tags": [], "pages": 1, "bytes": 896838, "type": "upload", "etag": "2a2df1d2d2c3b675521e866599273083", "placeholder": false, "original_filename": "sample", "image_metadata": {}, "illustration_score": 0, "semi_transparent": false, "grayscale": false, "eager": [{"transformation": "c_pad,h_300,w_400", "width": 400, "height": 300, "bytes": 26775, "format": "jpg", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_pad,h_300,w_400/v1719307544/gotjephlnz2jgiu20zni.jpg"}], "asset_folder": "", "display_name": "gotjephlnz2jgiu20zni", "api_key": "614335564976464"}
@@ -2043,7 +2071,7 @@ examples:
           resource_type: "image"
           cloud_name: "<value>"
       requestBody:
-        application/json: {"mode": "create", "target_format": "zip", "flatten_folders": false, "flatten_transformations": false, "skip_transformation_name": false, "allow_missing": false, "use_original_filename": false, "async": false, "target_tags": ["animal", "dog"], "keep_derived": false}
+        application/json: {"mode": "create", "target_format": "zip", "flatten_folders": false, "flatten_transformations": false, "skip_transformation_name": false, "allow_missing": false, "use_original_filename": false, "async": false, "batch_id": "orders/2026-07/import-42", "target_tags": ["animal", "dog"], "keep_derived": false}
       responses:
         "200":
           application/octet-stream: "0xaCB39Cf39F"
@@ -2136,7 +2164,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_id": "<id>"}
+        application/json: {"asset_id": "<id>", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"result": "ok"}
@@ -2247,7 +2275,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"2262b0b5eb88f1fd7724e29b0e57d730": {}, "d23c0526e6feca2c343e40c2fce5231a": {}}
@@ -2256,7 +2284,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"2262b0b5eb88f1fd7724e29b0e57d730": {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}, "d23c0526e6feca2c343e40c2fce5231a": {"error": "no_backup"}, "invalid_asset_id": {"error": "failed"}}
@@ -2265,7 +2293,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"d23c0526e6feca2c343e40c2fce5231a": {"error": "no_backup"}, "f45e7890abc123def456": {"error": "unauthorized"}}
@@ -2274,7 +2302,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "400":
           application/json: {"error": {"message": "Invalid asset_id: abc123"}}
@@ -2283,7 +2311,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "400":
           application/json: {"error": {"message": "asset_ids parameter is required"}}
@@ -2292,7 +2320,7 @@ examples:
         path:
           cloud_name: "<value>"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "400":
           application/json: {"error": {"message": "versions count must match ids count"}}
@@ -2301,7 +2329,7 @@ examples:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook"}
+        application/json: {"asset_ids": ["2262b0b5eb88f1fd7724e29b0e57d730", "d23c0526e6feca2c343e40c2fce5231a"], "versions": ["c3fe4be5921eb89acd9af738c892f654", "d214063097a43d1d1293db61a397f60f"], "notification_url": "https://example.com/webhook", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {"key": {}}
@@ -2353,7 +2381,7 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac", "last_updated": {"access_control_updated_at": "2022-10-13T03:49:21Z", "context_updated_at": "2022-11-10T06:05:21Z", "metadata_updated_at": "2022-10-14T06:40:13Z", "public_id_updated_at": "2022-12-11T05:41:21Z", "tags_updated_at": "2022-12-14T06:09:21Z", "updated_at": "2022-12-14T06:09:21Z"}, "next_cursor": "041a39fc10971b9eabd4993470f6bfaf", "derived": [{"transformation": "c_fill,w_100,h_100", "format": "jpg", "bytes": 7112, "id": "8267a869b62a93a59248f35d7f124c1f", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg"}, {"transformation": "w_230,h_168,c_fit", "format": "jpg", "bytes": 19173, "id": "383e22a57167445552a3cdc16f0a0c85", "url": "http://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg"}], "faces": [[98, 74, 61, 83], [140, 130, 52, 71]], "illustration_score": 0, "semi_transparent": false, "grayscale": false, "colors": [["#162E02", 6.7], ["#385B0C", 6.3], ["#F3285C", 5], ["#B3CB6E", 5], ["#688F1C", 4.4], ["#324D07", 4.4], ["#8EAA34", 4.3], ["#4F6D0D", 4.2], ["#789446", 4.1], ["#DF1327", 3.9], ["#A10B12", 3.7], ["#273804", 3.4], ["#0D1802", 3.4], ["#D5E191", 3.2], ["#646E20", 3.1], ["#94AF4D", 2.9], ["#FB54A9", 2.8], ["#48570B", 2.7], ["#ACC655", 2.7], ["#FCA2D9", 2.7], ["#63110A", 2.6], ["#E9B327", 2.2], ["#6D644D", 2.1], ["#6D8D12", 2], ["#8F9F27", 1.9], ["#C3573E", 1.8], ["#CFD76E", 1.6], ["#A0B058", 1.6], ["#FCD0E9", 1.6], ["#728F2D", 1.4], ["#F958A1", 1.4], ["#D1B694", 1]], "predominant": {"google": [["yellow", 52.9], ["pink", 13.5], ["red", 12], ["black", 10.1], ["green", 6.3]]}, "versions": [{"version_id": "d214063097a43d1d1293db61a397f60f", "version": "1312461204", "format": "jpg", "size": 109669, "time": "2021-08-04T12:33:24+00:00", "restorable": false}]}
+          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac", "last_updated": {"access_control_updated_at": "2022-10-13T03:49:21Z", "context_updated_at": "2022-11-10T06:05:21Z", "metadata_updated_at": "2022-10-14T06:40:13Z", "public_id_updated_at": "2022-12-11T05:41:21Z", "tags_updated_at": "2022-12-14T06:09:21Z", "updated_at": "2022-12-14T06:09:21Z"}, "created_by": {"custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "next_cursor": "041a39fc10971b9eabd4993470f6bfaf", "derived": [{"transformation": "c_fill,w_100,h_100", "format": "jpg", "bytes": 7112, "id": "8267a869b62a93a59248f35d7f124c1f", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg"}, {"transformation": "w_230,h_168,c_fit", "format": "jpg", "bytes": 19173, "id": "383e22a57167445552a3cdc16f0a0c85", "url": "http://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg"}], "faces": [[98, 74, 61, 83], [140, 130, 52, 71]], "illustration_score": 0, "semi_transparent": false, "grayscale": false, "colors": [["#162E02", 6.7], ["#385B0C", 6.3], ["#F3285C", 5], ["#B3CB6E", 5], ["#688F1C", 4.4], ["#324D07", 4.4], ["#8EAA34", 4.3], ["#4F6D0D", 4.2], ["#789446", 4.1], ["#DF1327", 3.9], ["#A10B12", 3.7], ["#273804", 3.4], ["#0D1802", 3.4], ["#D5E191", 3.2], ["#646E20", 3.1], ["#94AF4D", 2.9], ["#FB54A9", 2.8], ["#48570B", 2.7], ["#ACC655", 2.7], ["#FCA2D9", 2.7], ["#63110A", 2.6], ["#E9B327", 2.2], ["#6D644D", 2.1], ["#6D8D12", 2], ["#8F9F27", 1.9], ["#C3573E", 1.8], ["#CFD76E", 1.6], ["#A0B058", 1.6], ["#FCD0E9", 1.6], ["#728F2D", 1.4], ["#F958A1", 1.4], ["#D1B694", 1]], "predominant": {"google": [["yellow", 52.9], ["pink", 13.5], ["red", 12], ["black", 10.1], ["green", 6.3]]}, "versions": [{"version_id": "d214063097a43d1d1293db61a397f60f", "version": "1312461204", "format": "jpg", "size": 109669, "time": "2021-08-04T12:33:24+00:00", "restorable": false}]}
     speakeasy-default-get-resource-by-public-id:
       parameters:
         path:
@@ -2374,7 +2402,7 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "created_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   updateResourceByPublicId:
@@ -2401,7 +2429,7 @@ examples:
         application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "created_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   getResourceByAssetId:
@@ -2423,7 +2451,7 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "created_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
     getResourceResponseExample:
@@ -2444,7 +2472,7 @@ examples:
           max_results: 10
       responses:
         "200":
-          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac", "last_updated": {"access_control_updated_at": "2022-10-13T03:49:21Z", "context_updated_at": "2022-11-10T06:05:21Z", "metadata_updated_at": "2022-10-14T06:40:13Z", "public_id_updated_at": "2022-12-11T05:41:21Z", "tags_updated_at": "2022-12-14T06:09:21Z", "updated_at": "2022-12-14T06:09:21Z"}, "next_cursor": "041a39fc10971b9eabd4993470f6bfaf", "derived": [{"transformation": "c_fill,w_100,h_100", "format": "jpg", "bytes": 7112, "id": "8267a869b62a93a59248f35d7f124c1f", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg"}, {"transformation": "w_230,h_168,c_fit", "format": "jpg", "bytes": 19173, "id": "383e22a57167445552a3cdc16f0a0c85", "url": "http://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg"}], "faces": [[98, 74, 61, 83], [140, 130, 52, 71]], "illustration_score": 0, "semi_transparent": false, "grayscale": false, "colors": [["#162E02", 6.7], ["#385B0C", 6.3], ["#F3285C", 5], ["#B3CB6E", 5], ["#688F1C", 4.4], ["#324D07", 4.4], ["#8EAA34", 4.3], ["#4F6D0D", 4.2], ["#789446", 4.1], ["#DF1327", 3.9], ["#A10B12", 3.7], ["#273804", 3.4], ["#0D1802", 3.4], ["#D5E191", 3.2], ["#646E20", 3.1], ["#94AF4D", 2.9], ["#FB54A9", 2.8], ["#48570B", 2.7], ["#ACC655", 2.7], ["#FCA2D9", 2.7], ["#63110A", 2.6], ["#E9B327", 2.2], ["#6D644D", 2.1], ["#6D8D12", 2], ["#8F9F27", 1.9], ["#C3573E", 1.8], ["#CFD76E", 1.6], ["#A0B058", 1.6], ["#FCD0E9", 1.6], ["#728F2D", 1.4], ["#F958A1", 1.4], ["#D1B694", 1]], "predominant": {"google": [["yellow", 52.9], ["pink", 13.5], ["red", 12], ["black", 10.1], ["green", 6.3]]}, "versions": [{"version_id": "d214063097a43d1d1293db61a397f60f", "version": "1312461204", "format": "jpg", "size": 109669, "time": "2021-08-04T12:33:24+00:00", "restorable": false}]}
+          application/json: {"asset_id": "03a5b92135161439031d3834c04bc31b", "public_id": "sample", "asset_folder": "", "display_name": "sample", "format": "jpg", "version": 1719304854, "resource_type": "image", "type": "upload", "created_at": "2021-06-25T08:40:54Z", "bytes": 120253, "width": 864, "height": 576, "tags": ["flower", "plant", "nature"], "context": {"custom": {"alt": "sample flower", "caption": "beautiful flower"}}, "metadata": {"approval_status_0": "status_new", "categories_0": ["cat_mens_clothes", "cat_shirts", "qzaihnfnasrzba0qrdpr"], "owner_0": "Adam Adams", "product_id_0": 12345, "publish_date_0": "2022-02-17"}, "url": "http://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/v1719304854/sample.jpg", "etag": "619dfd2901577eb4259f91a2c0e43dac", "last_updated": {"access_control_updated_at": "2022-10-13T03:49:21Z", "context_updated_at": "2022-11-10T06:05:21Z", "metadata_updated_at": "2022-10-14T06:40:13Z", "public_id_updated_at": "2022-12-11T05:41:21Z", "tags_updated_at": "2022-12-14T06:09:21Z", "updated_at": "2022-12-14T06:09:21Z"}, "created_by": {"custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "next_cursor": "041a39fc10971b9eabd4993470f6bfaf", "derived": [{"transformation": "c_fill,w_100,h_100", "format": "jpg", "bytes": 7112, "id": "8267a869b62a93a59248f35d7f124c1f", "url": "http://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/c_fill,w_100,h_100/v1312461204/sample.jpg"}, {"transformation": "w_230,h_168,c_fit", "format": "jpg", "bytes": 19173, "id": "383e22a57167445552a3cdc16f0a0c85", "url": "http://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg", "secure_url": "https://res.cloudinary.com/cld-docs/image/upload/w_230,h_168,c_fit/v1312461204/sample.jpg"}], "faces": [[98, 74, 61, 83], [140, 130, 52, 71]], "illustration_score": 0, "semi_transparent": false, "grayscale": false, "colors": [["#162E02", 6.7], ["#385B0C", 6.3], ["#F3285C", 5], ["#B3CB6E", 5], ["#688F1C", 4.4], ["#324D07", 4.4], ["#8EAA34", 4.3], ["#4F6D0D", 4.2], ["#789446", 4.1], ["#DF1327", 3.9], ["#A10B12", 3.7], ["#273804", 3.4], ["#0D1802", 3.4], ["#D5E191", 3.2], ["#646E20", 3.1], ["#94AF4D", 2.9], ["#FB54A9", 2.8], ["#48570B", 2.7], ["#ACC655", 2.7], ["#FCA2D9", 2.7], ["#63110A", 2.6], ["#E9B327", 2.2], ["#6D644D", 2.1], ["#6D8D12", 2], ["#8F9F27", 1.9], ["#C3573E", 1.8], ["#CFD76E", 1.6], ["#A0B058", 1.6], ["#FCD0E9", 1.6], ["#728F2D", 1.4], ["#F958A1", 1.4], ["#D1B694", 1]], "predominant": {"google": [["yellow", 52.9], ["pink", 13.5], ["red", 12], ["black", 10.1], ["green", 6.3]]}, "versions": [{"version_id": "d214063097a43d1d1293db61a397f60f", "version": "1312461204", "format": "jpg", "size": 109669, "time": "2021-08-04T12:33:24+00:00", "restorable": false}]}
   updateResourceByAssetId:
     speakeasy-default-update-resource-by-asset-id:
       parameters:
@@ -2455,7 +2483,7 @@ examples:
         application/json: {"display_name": "My Product Image", "unique_display_name": false, "asset_folder": "products/summer", "tags": "animal,dog", "context": "alt=My product image|caption=Summer collection", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130|213,345,82,61", "regions": "{\"name1\":[[1,2],[3,4]],\"name2\":[[5,6],[7,8],[9,10]]}", "quality_override": "80:420", "detection": "captioning", "ocr": "adv_ocr", "raw_convert": "google_speech", "categorization": "google_tagging", "background_removal": "cloudinary_ai", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}]}
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "created_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
     updateResourceResponseExample:
@@ -2485,6 +2513,9 @@ examples:
         path:
           cloud_name: "<value>"
           asset_id: "f4e6579cf84dd9cf5683b21f5b30c7d9"
+        query:
+          all: false
+          async: false
       requestBody:
         application/json: {"version_ids": ["5552aa57e67445552a3cdc1110a0115", "383e22a57167445552a3cdc16f0a0c85"]}
       responses:
@@ -2513,7 +2544,7 @@ examples:
           resource_type: "image"
           cloud_name: "<value>"
       requestBody:
-        application/json: {"public_id": "<id>", "transformation": "<value>"}
+        application/json: {"public_id": "<id>", "transformation": "<value>", "batch_id": "orders/2026-07/import-42"}
       responses:
         "200":
           application/json: {}
@@ -2823,7 +2854,7 @@ examples:
         path:
           cloud_name: "my_cloud"
       requestBody:
-        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "cloudinary_ai", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "aws_rek|duplicate:0|perception_point|manual", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "urls": []}
+        application/json: {"auto_tagging": 0.5, "auto_transcription": true, "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "background_removal": "cloudinary_ai", "categorization": "google_tagging", "colors": false, "detection": "coco_v2", "format": "jpg", "metadata": "in_stock_id=50|color_id=[\"green\",\"red\"]", "clear_invalid": false, "moderation": "aws_rek|duplicate:0|perception_point|manual", "ocr": "adv_ocr", "raw_convert": "google_speech:vtt:en-US", "regions": "{\"face\": [[100, 200], [300, 400]], \"body\": [[50, 60], [70, 80], [90, 100]]}", "tags": "animal,dog", "context": "alt=My image|caption=Nice photo", "allowed_formats": "mp4,ogv,jpg,png,pdf", "headers": "X-Robots-Tag: noindex", "face_coordinates": "10,20,150,130|213,345,82,61", "custom_coordinates": "10,20,150,130", "batch_id": "orders/2026-07/import-42", "urls": []}
       responses:
         "200":
           application/json: {"status": "processing", "unique_upload_id": "2fd4e1c67a2d28fce", "public_id": "my_combined_video", "resource_type": "video"}
@@ -2877,7 +2908,7 @@ examples:
         application/json: {"public_id": "sample", "resource_type": "image", "kind": "upload"}
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "created_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "derivatives": [{"id": "5a73fd588cb301206c0a5c5c6ad796b3", "transformation": "w_300,h_100/", "transformation_signature": "658a49d8-2944-37db-9825-1ddface10c7b", "secure_url": "https://res.cloudinary.com/demo/image/upload/w_300,h_100/sample"}]}
         "400":
           application/json: {"error": {"message": "<value>"}}
   updateResourceByBody:
@@ -2889,7 +2920,7 @@ examples:
         application/json: {"public_id": "sample", "resource_type": "image", "kind": "upload"}
       responses:
         "200":
-          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "derivatives": null}
+          application/json: {"moderation_kind": "manual", "moderation_status": "pending", "access_control": [{"access_type": "token", "key": "prod2024"}, {"access_type": "anonymous", "start": "2024-03-15T09:00:00Z", "end": "2024-06-30T23:59:59Z"}], "created_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "uploaded_by": {"access_key": "149945967172831", "custom_id": "matthew@example.com", "external_id": "0b8cd452de3ce172a6aec7af0a90db"}, "derivatives": null}
         "400":
           application/json: {"error": {"message": "<value>"}}
   listResourcesByContainerId:
@@ -3961,11 +3992,19 @@ examples:
       responses:
         "200":
           application/json: {"request_id": "6ec0bd7f11c043da975e2a8ad9ebae0b", "data": {"message": "Prompt deleted"}}
+  listPeopleByAsset:
+    speakeasy-default-list-people-by-asset:
+      parameters:
+        path:
+          asset_id: "2262b0b5eb88f1fd7724e29b0e57d730"
+          cloud_name: "my_cloud"
+      responses:
+        "200":
+          application/json: {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "people": [{"id": "a1b2c3d4e5f6", "name": "Jane Doe", "status": "active", "thumbnail": {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "bounding_box": [10, 20, 100, 150], "url": "https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg", "resource_type": "image", "type": "upload", "public_id": "sample", "version": 1234567890}, "created_at": "2025-01-15T10:30:00Z", "updated_at": "2025-01-20T14:45:00Z", "face": {"asset_id": "2262b0b5eb88f1fd7724e29b0e57d730", "bounding_box": [10, 20, 100, 150], "url": "https://res.cloudinary.com/demo/image/upload/v1234567890/sample.jpg", "resource_type": "image", "type": "upload", "public_id": "sample", "version": 1234567890}}]}
+        "401":
+          application/json: {"error": {"message": "<value>"}}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Mcp-typescript SDK Changes:
-  * `CloudinaryAssetMgmt.Video Generate.createVideoGenerateJob()`: **Added**
-  * `CloudinaryAssetMgmt.Video Generate.getVideoGenerateJobStatus()`: **Added**
+releaseNotes: "## Mcp-typescript SDK Changes:\n* `CloudinaryAssetMgmt.upload.upload()`:  `request.upload_request` **Changed**\n* `CloudinaryAssetMgmt.assets.renameAsset()`: \n  *  `request.RequestBody.batch_id` **Added**\n* `CloudinaryAssetMgmt.assets.generateArchive()`: \n  *  `request.RequestBody.batch_id` **Added**\n* `CloudinaryAssetMgmt.assets.destroyByAssetId()`: \n  *  `request.batch_id` **Added**\n* `CloudinaryAssetMgmt.assets.listImages()`: \n  *  `request.public_ids` **Changed**\n  *  `response.resources[]` **Changed**\n* `CloudinaryAssetMgmt.assets.listVideos()`: \n  *  `request.public_ids` **Changed**\n  *  `response.resources[]` **Changed**\n* `CloudinaryAssetMgmt.assets.listRawFiles()`: \n  *  `request.public_ids` **Changed**\n  *  `response.resources[]` **Changed**\n* `CloudinaryAssetMgmt.assets.getResourceByAssetId()`:  `response` **Changed**\n* `CloudinaryAssetMgmt.assets.updateResourceByAssetId()`:  `response` **Changed**\n* `CloudinaryAssetMgmt.search.searchAssets()`: \n  *  `request.with_field[].enum(provenance)` **Added**\n  *  `response.resources[]` **Changed**\n* `CloudinaryAssetMgmt.search.visualSearchAssets()`:  `response.resources[]` **Changed**\n"
 generatedFiles:
   - .dxtignore
   - .gitattributes

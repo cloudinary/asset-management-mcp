@@ -49,17 +49,21 @@ export type ExplodeResourceRequestBody = {
   format?: string | undefined;
   transformation: string;
   notification_url?: string | undefined;
+  batch_id?: string | undefined;
   type?: ManagedDeliveryType | undefined;
 };
 
 export const ExplodeResourceRequestBody$zodSchema: z.ZodType<
   ExplodeResourceRequestBody
 > = z.object({
+  batch_id: z.string().optional().describe(
+    "The identifier that correlates related notifications so they can be retrieved together from a `poll://*` notification destination. Send your own value to be sure that you can retrieve the notifications. When omitted, retrieve them by the `batch_id` that an asynchronous response returns, or, for a synchronous request, by the `X-Request-Id` response header.",
+  ),
   format: z.string().optional().describe(
     "The format for the generated derived images. Default: png",
   ),
   notification_url: z.string().optional().describe(
-    "The webhook URL to notify when the operation is complete.",
+    "The URL to notify when the operation is complete. Use a webhook URL, or a `poll://<channel>` or `poll://*` address to hold the notification for retrieval with the Notifications API. Retrieve a `poll://*` notification by `batch_id` (see the `batch_id` parameter).",
   ),
   public_id: z.string().describe(
     "The public ID of the PDF or animated image to generate from.",
