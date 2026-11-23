@@ -7,9 +7,8 @@ import { CloudinaryAssetMgmtCore } from "../core.js";
 import { encodeFormQuery, encodeSimple, queryJoin } from "../lib/encodings.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { encodePath, RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
-import { pathToFunc } from "../lib/url.js";
 import { DeliveryTypeAll } from "../models/deliverytypeall.js";
 import { DirectionEnum } from "../models/directionenum.js";
 import { APIError } from "../models/errors/apierror.js";
@@ -130,19 +129,24 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-  const path$ = pathToFunc("/v1_1/{cloud_name}/resources/raw")(
+  const pathResult$ = encodePath(
+    "/v1_1/{cloud_name}/resources/raw",
     pathParams$,
   );
+  if (!pathResult$.ok) {
+    return [pathResult$, { status: "invalid" }];
+  }
+  const path$ = pathResult$.value;
   const query$ = queryJoin(
     encodeFormQuery({
       "fields": payload$?.fields,
-      "public_ids": payload$?.public_ids,
     }, { explode: false }),
     encodeFormQuery({
       "direction": payload$?.direction,
       "max_results": payload$?.max_results,
       "next_cursor": payload$?.next_cursor,
       "prefix": payload$?.prefix,
+      "public_ids": payload$?.public_ids,
       "start_at": payload$?.start_at,
       "tags": payload$?.tags,
       "type": payload$?.type,

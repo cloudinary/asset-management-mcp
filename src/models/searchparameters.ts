@@ -43,6 +43,7 @@ export const WithField = {
   Metadata: "metadata",
   QualityAnalysis: "quality_analysis",
   AccessibilityAnalysis: "accessibility_analysis",
+  Provenance: "provenance",
 } as const;
 export type WithField = ClosedEnum<typeof WithField>;
 
@@ -54,6 +55,7 @@ export const WithField$zodSchema = z.enum([
   "metadata",
   "quality_analysis",
   "accessibility_analysis",
+  "provenance",
 ]);
 
 export type SearchParametersRange = {

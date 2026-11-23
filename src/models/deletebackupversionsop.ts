@@ -10,6 +10,10 @@ import {
   DeleteBackupVersionsPartialResponse$zodSchema,
 } from "./deletebackupversionspartialresponse.js";
 import {
+  DeleteBackupVersionsPendingResponse,
+  DeleteBackupVersionsPendingResponse$zodSchema,
+} from "./deletebackupversionspendingresponse.js";
+import {
   DeleteBackupVersionsRequest,
   DeleteBackupVersionsRequest$zodSchema,
 } from "./deletebackupversionsrequest.js";
@@ -29,28 +33,58 @@ export const DeleteBackupVersionsGlobals$zodSchema: z.ZodType<
 
 export type DeleteBackupVersionsRequestRequest = {
   asset_id: string;
-  delete_backup_versions_request: DeleteBackupVersionsRequest;
+  all?: boolean | undefined;
+  async?: boolean | undefined;
+  delete_backup_versions_request?: DeleteBackupVersionsRequest | undefined;
 };
 
 export const DeleteBackupVersionsRequestRequest$zodSchema: z.ZodType<
   DeleteBackupVersionsRequestRequest
 > = z.object({
+  all: z.boolean().default(false).describe(
+    "Set to `true` to delete every backed up version of the asset. Cannot be combined with `version_ids`.",
+  ),
   asset_id: z.string().describe(
     "The asset ID of the resource. Must be a 32-character hexadecimal string.",
   ),
+  async: z.boolean().default(false).describe(
+    "With `all=true`, set to `true` to delete the versions in the background; the response is `{\"status\":\"pending\"}` and completion is confirmed by listing the asset's versions later. Only valid together with `all=true`.",
+  ),
   delete_backup_versions_request: DeleteBackupVersionsRequest$zodSchema
-    .describe("The asset IDs and version IDs to delete."),
+    .optional().describe(
+      "The version IDs to delete. Required unless `all=true` is passed.",
+    ),
 });
 
-export type DeleteBackupVersionsResponseResponse =
+/**
+ * Backup versions successfully deleted, or, with `async=true`, the deletion was accepted and runs in the background.
+ */
+export type DeleteBackupVersionsResponseBody =
   | DeleteBackupVersionsResponse
+  | DeleteBackupVersionsPendingResponse;
+
+export const DeleteBackupVersionsResponseBody$zodSchema: z.ZodType<
+  DeleteBackupVersionsResponseBody
+> = z.union([
+  DeleteBackupVersionsResponse$zodSchema,
+  DeleteBackupVersionsPendingResponse$zodSchema,
+]).describe(
+  "Backup versions successfully deleted, or, with `async=true`, the deletion was accepted and runs in the background.",
+);
+
+export type DeleteBackupVersionsResponseResponse =
   | DeleteBackupVersionsPartialResponse
-  | ApiError;
+  | ApiError
+  | DeleteBackupVersionsResponse
+  | DeleteBackupVersionsPendingResponse;
 
 export const DeleteBackupVersionsResponseResponse$zodSchema: z.ZodType<
   DeleteBackupVersionsResponseResponse
 > = z.union([
-  DeleteBackupVersionsResponse$zodSchema,
   DeleteBackupVersionsPartialResponse$zodSchema,
   ApiError$zodSchema,
+  z.union([
+    DeleteBackupVersionsResponse$zodSchema,
+    DeleteBackupVersionsPendingResponse$zodSchema,
+  ]),
 ]);

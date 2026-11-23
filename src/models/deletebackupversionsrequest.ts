@@ -5,12 +5,14 @@
 
 import * as z from "zod";
 
-export type DeleteBackupVersionsRequest = { version_ids: Array<string> };
+export type DeleteBackupVersionsRequest = {
+  version_ids?: Array<string> | undefined;
+};
 
 export const DeleteBackupVersionsRequest$zodSchema: z.ZodType<
   DeleteBackupVersionsRequest
 > = z.object({
-  version_ids: z.array(z.string()).describe(
-    "The list of version IDs to delete from backup.",
+  version_ids: z.array(z.string()).optional().describe(
+    "The list of version IDs to delete from backup. Omit it and pass the `all=true` query parameter to delete every backed up version of the asset.",
   ),
 });

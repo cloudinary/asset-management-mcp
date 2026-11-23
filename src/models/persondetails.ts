@@ -29,7 +29,7 @@ export const PersonDetails$zodSchema: z.ZodType<PersonDetails> = z.object({
   ),
   status: PersonStatus$zodSchema.optional().describe("The status of a person."),
   thumbnail: Thumbnail$zodSchema.optional().describe(
-    "The thumbnail image for a person.",
+    "An image of a person's face, taken from an asset.",
   ),
   updated_at: z.iso.datetime({ offset: true }).optional().describe(
     "The date and time when the person was last updated.",

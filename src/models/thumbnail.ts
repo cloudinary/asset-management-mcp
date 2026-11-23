@@ -6,7 +6,7 @@
 import * as z from "zod";
 
 /**
- * The thumbnail image for a person.
+ * An image of a person's face, taken from an asset.
  */
 export type Thumbnail = {
   asset_id?: string | undefined;
@@ -20,7 +20,7 @@ export type Thumbnail = {
 
 export const Thumbnail$zodSchema: z.ZodType<Thumbnail> = z.object({
   asset_id: z.string().optional().describe(
-    "The external ID of the asset used for the thumbnail.",
+    "The external ID of the asset the image is taken from.",
   ),
   bounding_box: z.array(z.int()).optional().describe(
     "The bounding box coordinates [x, y, width, height] of the face in the asset.",
@@ -30,6 +30,8 @@ export const Thumbnail$zodSchema: z.ZodType<Thumbnail> = z.object({
     "The resource type of the asset.",
   ),
   type: z.string().optional().describe("The kind/type of the asset."),
-  url: z.string().optional().describe("The secure URL of the thumbnail asset."),
+  url: z.string().optional().describe(
+    "The secure URL of the asset the image is taken from.",
+  ),
   version: z.int().optional().describe("The version number of the asset."),
-}).describe("The thumbnail image for a person.");
+}).describe("An image of a person's face, taken from an asset.");

@@ -9,10 +9,15 @@ import {
   AccessControlItem,
   AccessControlItem$zodSchema,
 } from "./accesscontrolitem.js";
+import { Contributor, Contributor$zodSchema } from "./contributor.js";
 import {
   DeliveryTypeAll,
   DeliveryTypeAll$zodSchema,
 } from "./deliverytypeall.js";
+import {
+  ProvenanceResponse,
+  ProvenanceResponse$zodSchema,
+} from "./provenanceresponse.js";
 
 /**
  * The type of resource.
@@ -76,28 +81,6 @@ export const SearchResponseAccessMode$zodSchema = z.enum([
 ]).describe("The access mode of the asset. Null when not explicitly set.");
 
 /**
- * Information about who created the asset.
- */
-export type CreatedBy = { access_key?: string | undefined };
-
-export const CreatedBy$zodSchema: z.ZodType<CreatedBy> = z.object({
-  access_key: z.string().optional().describe(
-    "The access key of the user who created the asset.",
-  ),
-}).describe("Information about who created the asset.");
-
-/**
- * Information about who uploaded the asset.
- */
-export type UploadedBy = { access_key?: string | undefined };
-
-export const UploadedBy$zodSchema: z.ZodType<UploadedBy> = z.object({
-  access_key: z.string().optional().describe(
-    "The access key of the user who uploaded the asset.",
-  ),
-}).describe("Information about who uploaded the asset.");
-
-/**
  * Technical metadata extracted from the image.
  */
 export type SearchResponseImageMetadata = {};
@@ -109,10 +92,13 @@ export const SearchResponseImageMetadata$zodSchema: z.ZodType<
 /**
  * Results of image analysis.
  */
-export type ImageAnalysis = {};
+export type ImageAnalysis = { hdr?: boolean | undefined };
 
-export const ImageAnalysis$zodSchema: z.ZodType<ImageAnalysis> = z.object({})
-  .describe("Results of image analysis.");
+export const ImageAnalysis$zodSchema: z.ZodType<ImageAnalysis> = z.object({
+  hdr: z.boolean().optional().describe(
+    "Whether the stored asset is in high dynamic range. False when no HDR was detected.",
+  ),
+}).describe("Results of image analysis.");
 
 /**
  * Structured metadata associated with the asset.
@@ -167,8 +153,9 @@ export type Resource = {
   access_mode?: SearchResponseAccessMode | null | undefined;
   access_control?: Array<AccessControlItem> | null | undefined;
   etag?: string | undefined;
-  created_by?: CreatedBy | null | undefined;
-  uploaded_by?: UploadedBy | null | undefined;
+  created_by?: Contributor | null | undefined;
+  uploaded_by?: Contributor | null | undefined;
+  provenance?: ProvenanceResponse | null | undefined;
   context?: { [k: string]: string } | null | undefined;
   tags?: Array<string> | null | undefined;
   image_metadata?: SearchResponseImageMetadata | null | undefined;
@@ -204,8 +191,8 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   created_at: z.iso.datetime({ offset: true }).optional().describe(
     "The timestamp when the asset was created.",
   ),
-  created_by: z.lazy(() => CreatedBy$zodSchema).nullable().optional().describe(
-    "Information about who created the asset.",
+  created_by: Contributor$zodSchema.nullable().optional().describe(
+    "Who created the asset, as one identity (see contributor). Null when no contributor was recorded.",
   ),
   display_name: z.string().optional().describe(
     "The display name of the asset.",
@@ -230,6 +217,9 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   pixels: z.int().nullable().optional().describe(
     "The total number of pixels in the asset. Null for non-visual assets (e.g. raw, audio).",
   ),
+  provenance: ProvenanceResponse$zodSchema.nullable().optional().describe(
+    "Provenance indications for the asset. Note: the provenance object is returned in searches including a with_field parameter specifying provenance.",
+  ),
   public_id: z.string().optional().describe(
     "The public identifier that is used to build the URL.",
   ),
@@ -253,8 +243,9 @@ export const Resource$zodSchema: z.ZodType<Resource> = z.object({
   uploaded_at: z.iso.datetime({ offset: true }).optional().describe(
     "The timestamp when the asset was uploaded.",
   ),
-  uploaded_by: z.lazy(() => UploadedBy$zodSchema).nullable().optional()
-    .describe("Information about who uploaded the asset."),
+  uploaded_by: Contributor$zodSchema.nullable().optional().describe(
+    "Who uploaded the asset, as one identity (see contributor). Null when no contributor was recorded.",
+  ),
   url: z.string().optional().describe("The HTTP URL for accessing the asset."),
   version: z.int().optional().describe("The version number of the asset."),
   width: z.int().nullable().optional().describe(

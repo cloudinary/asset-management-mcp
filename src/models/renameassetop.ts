@@ -34,11 +34,15 @@ export type RenameAssetRequestBody = {
   context?: boolean | undefined;
   metadata?: boolean | undefined;
   notification_url?: string | undefined;
+  batch_id?: string | undefined;
 };
 
 export const RenameAssetRequestBody$zodSchema: z.ZodType<
   RenameAssetRequestBody
 > = z.object({
+  batch_id: z.string().optional().describe(
+    "The identifier that correlates related notifications so they can be retrieved together from a `poll://*` notification destination. Send your own value to be sure that you can retrieve the notifications. When omitted, retrieve them by the `batch_id` that an asynchronous response returns, or, for a synchronous request, by the `X-Request-Id` response header.",
+  ),
   context: z.boolean().default(false).describe(
     "Whether to include contextual metadata in the response. Default is false.",
   ),
@@ -50,7 +54,7 @@ export const RenameAssetRequestBody$zodSchema: z.ZodType<
     "Whether to include structured metadata in the response. Default is false.",
   ),
   notification_url: z.string().optional().describe(
-    "URL to notify when the operation is complete.",
+    "URL to notify when the operation is complete. Use a webhook URL, or a `poll://<channel>` or `poll://*` address to hold the notification for retrieval with the Notifications API. Retrieve a `poll://*` notification by `batch_id` (see the `batch_id` parameter).",
   ),
   overwrite: z.boolean().default(false).describe(
     "Whether to overwrite the target asset if it already exists. Default is false.",
