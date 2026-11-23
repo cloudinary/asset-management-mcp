@@ -14,6 +14,7 @@ import {
   ContextFullResponse$zodSchema,
   ContextFullResponse$zodSchemaOutbound,
 } from "./contextfullresponse.js";
+import { Contributor, Contributor$zodSchema } from "./contributor.js";
 import {
   CoordinatesResponse,
   CoordinatesResponse$zodSchema,
@@ -186,6 +187,8 @@ export type ResourceInternalResponse = {
     | null
     | undefined;
   last_updated?: ResourceInternalResponseLastUpdated | null | undefined;
+  created_by?: Contributor | undefined;
+  uploaded_by?: Contributor | undefined;
   next_cursor?: string | undefined;
   derived?: Array<ResourceInternalResponseDerived> | undefined;
   faces?: Array<Array<number>> | null | undefined;
@@ -225,6 +228,9 @@ export const ResourceInternalResponse$zodSchema: z.ZodType<
       "Face and custom coordinate data. Included if 'coordinates=true' parameter is used.",
     ),
     created_at: z.iso.datetime({ offset: true }).optional(),
+    created_by: Contributor$zodSchema.optional().describe(
+      "Who created the asset: the console user when known, otherwise the API key that signed the upload. Omitted when no contributor was recorded; never null.",
+    ),
     derivatives: z.array(
       z.lazy(() => ResourceInternalResponseDerivative$zodSchema),
     ).nullable().optional().describe(
@@ -290,6 +296,9 @@ export const ResourceInternalResponse$zodSchema: z.ZodType<
       "All supported delivery types.",
     ),
     uploaded_at: z.iso.datetime({ offset: true }).optional(),
+    uploaded_by: Contributor$zodSchema.optional().describe(
+      "Who performed the most recent upload of the asset: the console user when known, otherwise the API key that signed the upload. Equal to created_by unless the asset was overwritten. Omitted when no contributor was recorded; never null.",
+    ),
     url: z.string().optional(),
     version: z.int().optional(),
     versions: z.array(z.lazy(() => ResourceInternalResponseVersion$zodSchema))
@@ -318,6 +327,7 @@ export const ResourceInternalResponse$zodSchemaOutbound: z.ZodType<any> = z
     coordinates: z.nullable(CoordinatesResponse$zodSchema).optional(),
     created_at: z.union([z.date(), z.string().transform(v => new Date(v))])
       .transform(v => v.toISOString()).optional(),
+    created_by: Contributor$zodSchema.optional(),
     derivatives: z.nullable(
       z.array(z.lazy(() => ResourceInternalResponseDerivative$zodSchema)),
     ).optional(),
@@ -360,6 +370,7 @@ export const ResourceInternalResponse$zodSchemaOutbound: z.ZodType<any> = z
     type: DeliveryTypeAll$zodSchema.optional(),
     uploaded_at: z.union([z.date(), z.string().transform(v => new Date(v))])
       .transform(v => v.toISOString()).optional(),
+    uploaded_by: Contributor$zodSchema.optional(),
     url: z.string().optional(),
     version: z.int().optional(),
     versions: z.array(z.lazy(() => ResourceInternalResponseVersion$zodSchema))

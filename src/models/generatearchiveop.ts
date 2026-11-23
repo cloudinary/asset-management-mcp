@@ -110,6 +110,7 @@ export type GenerateArchiveRequestBody = {
   use_original_filename?: boolean | undefined;
   async?: boolean | undefined;
   notification_url?: string | undefined;
+  batch_id?: string | undefined;
   target_tags?: Array<string> | undefined;
   keep_derived?: boolean | undefined;
   fully_qualified_public_ids?: Array<string> | undefined;
@@ -133,6 +134,9 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
   async: z.boolean().default(false).describe(
     "(\"create\" mode only), specifies whether to generate the archive asynchronously.",
   ),
+  batch_id: z.string().optional().describe(
+    "The identifier that correlates related notifications so they can be retrieved together from a `poll://*` notification destination. Send your own value to be sure that you can retrieve the notifications. When omitted, retrieve them by the `batch_id` that an asynchronous response returns, or, for a synchronous request, by the `X-Request-Id` response header.",
+  ),
   expires_at: z.int().optional().describe(
     "(\"download\" mode only) Unix timestamp indicating when the generated archive URL should expire.",
   ),
@@ -152,7 +156,7 @@ export const GenerateArchiveRequestBody$zodSchema: z.ZodType<
     "The method for generating and delivering the archive. Options:\ndownload - Generates and delivers the archive file without storing it\ncreate - Creates and stores the archive as a raw asset, returning URLs in the response\ncreate_and_download - Creates, stores, and delivers the archive file\n",
   ),
   notification_url: z.string().optional().describe(
-    "(\"create\" mode only), specifies the URL to notify when the archive generation is complete.",
+    "(\"create\" mode only), specifies the URL to notify when the archive generation is complete. Use a webhook URL, or a `poll://<channel>` or `poll://*` address to hold the notification for retrieval with the Notifications API. Retrieve a `poll://*` notification by `batch_id` (see the `batch_id` parameter).",
   ),
   prefixes: z.array(z.string()).optional().describe(
     "Select all assets where the public ID starts with this prefix.",

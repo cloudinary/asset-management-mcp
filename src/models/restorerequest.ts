@@ -9,14 +9,18 @@ export type RestoreRequest = {
   asset_ids: Array<string>;
   versions?: Array<string> | undefined;
   notification_url?: string | undefined;
+  batch_id?: string | undefined;
 };
 
 export const RestoreRequest$zodSchema: z.ZodType<RestoreRequest> = z.object({
   asset_ids: z.array(z.string()).describe(
     "The unique and immutable asset IDs of backed up assets to restore.",
   ),
+  batch_id: z.string().optional().describe(
+    "The identifier that correlates related notifications so they can be retrieved together from a `poll://*` notification destination. Send your own value to be sure that you can retrieve the notifications. When omitted, retrieve them by the `batch_id` that an asynchronous response returns, or, for a synchronous request, by the `X-Request-Id` response header.",
+  ),
   notification_url: z.string().optional().describe(
-    "The URL that will receive notification when restore is complete.",
+    "The URL that will receive notification when restore is complete. Use a webhook URL, or a `poll://<channel>` or `poll://*` address to hold the notification for retrieval with the Notifications API. Retrieve a `poll://*` notification by `batch_id` (see the `batch_id` parameter).",
   ),
   versions: z.array(z.string()).optional().describe(
     "If you specify versions, the number of versions in the array must exactly match the number of asset_ids.",

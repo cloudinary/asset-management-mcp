@@ -12,6 +12,7 @@ import {
   ContextFullResponse,
   ContextFullResponse$zodSchema,
 } from "./contextfullresponse.js";
+import { Contributor, Contributor$zodSchema } from "./contributor.js";
 import {
   CoordinatesResponse,
   CoordinatesResponse$zodSchema,
@@ -163,6 +164,8 @@ export type Info = {
   substatus?: string | null | undefined;
   related_assets?: Array<InfoRelatedAsset> | null | undefined;
   last_updated?: InfoLastUpdated | null | undefined;
+  created_by?: Contributor | undefined;
+  uploaded_by?: Contributor | undefined;
   next_cursor?: string | undefined;
   derived?: Array<InfoDerived> | undefined;
   faces?: Array<Array<number>> | null | undefined;
@@ -198,6 +201,9 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
     "Face and custom coordinate data. Included if 'coordinates=true' parameter is used.",
   ),
   created_at: z.iso.datetime({ offset: true }).optional(),
+  created_by: Contributor$zodSchema.optional().describe(
+    "Who created the asset: the console user when known, otherwise the API key that signed the upload. Omitted when no contributor was recorded; never null.",
+  ),
   derivatives: z.array(z.lazy(() => InfoDerivative$zodSchema)).nullable()
     .optional().describe(
       "Included if 'derived=true' parameter is used. Null when no derivatives exist.",
@@ -257,6 +263,9 @@ export const Info$zodSchema: z.ZodType<Info> = z.object({
     "All supported delivery types.",
   ),
   uploaded_at: z.iso.datetime({ offset: true }).optional(),
+  uploaded_by: Contributor$zodSchema.optional().describe(
+    "Who performed the most recent upload of the asset: the console user when known, otherwise the API key that signed the upload. Equal to created_by unless the asset was overwritten. Omitted when no contributor was recorded; never null.",
+  ),
   url: z.string().optional(),
   version: z.int().optional(),
   versions: z.array(z.lazy(() => InfoVersion$zodSchema)).optional(),
