@@ -1,0 +1,140 @@
+name: Changelog
+permissions:
+  contents: write
+  pull-requests: write
+"on":
+  pull_request:
+    paths:
+      - .speakeasy/gen.lock
+      - scripts/tools-changelog.mjs
+      - .github/workflows/changelog.yaml
+  workflow_run:
+    workflows: ["Generate", "Publish"]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number to update
+        required: true
+        type: string
+jobs:
+  pr-notes:
+    if: >-
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.name == 'Generate' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Find pull request
+        id: pr
+        env:
+          EVENT: ${{ github.event_name }}
+          PR_EVENT_NUMBER: ${{ github.event.pull_request.number }}
+          PR_INPUT: ${{ inputs.pr }}
+        run: |
+          case "$EVENT" in
+            pull_request) number="$PR_EVENT_NUMBER" ;;
+            workflow_dispatch) number="$PR_INPUT" ;;
+            *) number=$(gh pr list --repo "$REPO" --state open --json number,headRefName,isCrossRepository \
+                 --jq '[.[] | select(.isCrossRepository == false and (.headRefName | startswith("speakeasy-sdk-regen-")))][0].number // empty') ;;
+          esac
+          if [ -n "$number" ] && [ "$(gh pr view "$number" --repo "$REPO" --json isCrossRepository --jq .isCrossRepository)" != "false" ]; then
+            echo "Pull request #$number is from a fork, skipping."
+            number=""
+          fi
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+
+      - name: Check out pull request
+        if: steps.pr.outputs.number != ''
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ steps.pr.outputs.number }}/head
+          fetch-depth: 0
+
+      - name: Set up Node
+        if: steps.pr.outputs.number != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check for a version bump
+        id: version
+        if: steps.pr.outputs.number != ''
+        env:
+          NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          name=$(node -p "require('./package.json').name")
+          version=$(node -p "require('./package.json').version")
+          if [ -n "$(npm view "$name@$version" version 2>/dev/null)" ]; then
+            echo "$name@$version is already published, not a version PR."
+            echo "bump=false" >> "$GITHUB_OUTPUT"
+            gh pr view "$NUMBER" --repo "$REPO" --json body --jq .body > "$RUNNER_TEMP/body.md"
+            if grep -q "tools-changelog:start" "$RUNNER_TEMP/body.md"; then
+              node scripts/tools-changelog.mjs --strip < "$RUNNER_TEMP/body.md" > "$RUNNER_TEMP/stripped.md"
+              gh pr edit "$NUMBER" --repo "$REPO" --body-file "$RUNNER_TEMP/stripped.md"
+            fi
+          else
+            echo "bump=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        if: steps.version.outputs.bump == 'true'
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm rebuild bun
+          npm run build
+
+      - name: Update pull request body
+        if: steps.version.outputs.bump == 'true'
+        env:
+          NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          node scripts/tools-changelog.mjs > "$RUNNER_TEMP/notes.md"
+          cat "$RUNNER_TEMP/notes.md"
+          author=$(gh pr view "$NUMBER" --repo "$REPO" --json author --jq .author.login)
+          if [ "$author" = "app/github-actions" ]; then
+            cp "$RUNNER_TEMP/notes.md" "$RUNNER_TEMP/body.md"
+          else
+            gh pr view "$NUMBER" --repo "$REPO" --json body --jq .body \
+              | node scripts/tools-changelog.mjs --merge "$RUNNER_TEMP/notes.md" > "$RUNNER_TEMP/body.md"
+          fi
+          gh pr edit "$NUMBER" --repo "$REPO" --body-file "$RUNNER_TEMP/body.md"
+
+  release-notes:
+    if: github.event.workflow_run.name == 'Publish' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Update release notes
+        run: |
+          version=$(node -p "require('./package.json').version")
+          tag_sha=$(git ls-remote --tags origin "refs/tags/v$version" "refs/tags/v$version^{}" | sort -k2 | tail -1 | cut -f1)
+          if [ "$tag_sha" != "$SHA" ]; then
+            echo "Release v$version was not created from $SHA, skipping."
+            exit 0
+          fi
+          number=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '.[0].number // empty')
+          : > "$RUNNER_TEMP/body.md"
+          if [ -n "$number" ]; then
+            gh pr view "$number" --repo "$REPO" --json body --jq .body \
+              | node scripts/tools-changelog.mjs --extract > "$RUNNER_TEMP/notes.md"
+            if [ -n "$(tr -d '[:space:]' < "$RUNNER_TEMP/notes.md")" ]; then
+              cat "$RUNNER_TEMP/notes.md" >> "$RUNNER_TEMP/body.md"
+              echo >> "$RUNNER_TEMP/body.md"
+            fi
+          fi
+          node scripts/tools-changelog.mjs --links >> "$RUNNER_TEMP/body.md"
+          cat "$RUNNER_TEMP/body.md"
+          gh release edit "v$version" --repo "$REPO" --notes-file "$RUNNER_TEMP/body.md"

@@ -24,6 +24,3 @@ targets:
         publish:
             npm:
                 token: $npm_token
-            mcpRegistry:
-                auth: http
-                token: $mcp_registry_token
