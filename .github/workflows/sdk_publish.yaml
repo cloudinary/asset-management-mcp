@@ -28,53 +28,6 @@ jobs:
     secrets: inherit
 
   registry:
-    name: Publish to MCP Registry
     needs: docker
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Check whether this version is in the registry
-        id: check
-        run: |
-          name=$(jq -r .name server.json)
-          version=$(jq -r .version server.json)
-          url="https://registry.modelcontextprotocol.io/v0/servers/$(jq -rn --arg n "$name" '$n|@uri')/versions/$version"
-          if [ "$(curl -s -o /dev/null -w '%{http_code}' "$url")" = "200" ]; then
-            echo "$name $version is already in the registry, skipping."
-            echo "published=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "published=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Wait for npm to serve the new version
-        if: steps.check.outputs.published == 'false'
-        run: |
-          package=$(jq -r '.packages[] | select(.registryType == "npm") | "\(.identifier)@\(.version)"' server.json)
-          for attempt in $(seq 1 20); do
-            if npm view "$package" version >/dev/null 2>&1; then
-              echo "$package is available"
-              exit 0
-            fi
-            echo "$package not available yet (attempt $attempt of 20), retrying in 30s"
-            sleep 30
-          done
-          echo "::error::$package did not become available on npm"
-          exit 1
-
-      - name: Install mcp-publisher
-        if: steps.check.outputs.published == 'false'
-        run: |
-          curl -fsSL https://github.com/modelcontextprotocol/registry/releases/download/v1.8.16/mcp-publisher_linux_amd64.tar.gz | tar xz mcp-publisher
-          sudo mv mcp-publisher /usr/local/bin/
-
-      - name: Publish to MCP Registry
-        if: steps.check.outputs.published == 'false'
-        env:
-          MCP_REGISTRY_PRIVATE_KEY: ${{ secrets.MCP_REGISTRY_PRIVATE_KEY }}
-        run: |
-          namespace=$(jq -r '.name | split("/")[0]' server.json)
-          domain=$(echo "$namespace" | awk -F. '{for(i=NF;i>0;i--) printf "%s%s",$i,(i>1?".":"")}')
-          mcp-publisher login http --domain "$domain" --private-key "$MCP_REGISTRY_PRIVATE_KEY"
-          mcp-publisher publish
+    uses: ./.github/workflows/registry_publish.yaml
+    secrets: inherit
